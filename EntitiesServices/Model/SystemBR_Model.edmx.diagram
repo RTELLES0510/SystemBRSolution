@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9902356af2a144dfa3e7d82710105c35" Name="Diagram1">
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.AGENDA" Width="1.5" PointX="5.25" PointY="104.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ASSINANTE" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ASSINANTE_PLANO" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ATENDIMENTO_ACOMPANHAMENTO" Width="1.5" PointX="18.75" PointY="122.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ATENDIMENTO_ANEXO" Width="1.5" PointX="21" PointY="122.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.BANCO" Width="1.5" PointX="0.75" PointY="92.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CARGO" Width="1.5" PointX="9" PointY="86.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_ATENDIMENTO" Width="1.5" PointX="14.25" PointY="129.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_CLIENTE" Width="1.5" PointX="6" PointY="120.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_EQUIPAMENTO" Width="1.5" PointX="3" PointY="109.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_FORNECEDOR" Width="1.5" PointX="6" PointY="87.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_MATERIA" Width="1.5" PointX="12" PointY="79.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_PATRIMONIO" Width="1.5" PointX="12" PointY="76.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_PRODUTO" Width="1.5" PointX="3" PointY="89.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_SERVICO" Width="1.5" PointX="12" PointY="82.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CENTRO_CUSTO" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CLIENTE" Width="1.5" PointX="8.25" PointY="102.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.COLABORADOR" Width="1.5" PointX="11.25" PointY="99.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.COLABORADOR_ANEXO" Width="1.5" PointX="13.5" PointY="89" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.COLABORADOR_FREQUENCIA" Width="1.5" PointX="13.5" PointY="85.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.COMISSAO_VENDA" Width="1.5" PointX="27.75" PointY="102.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONFIGURACAO" Width="1.5" PointX="5.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTA_BANCARIA" Width="1.5" PointX="3" PointY="92.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTA_PAGAR" Width="1.5" PointX="5.25" PointY="96.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTA_PAGAR_ANEXO" Width="1.5" PointX="7.5" PointY="90.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTA_RECEBER" Width="1.5" PointX="16.5" PointY="95.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTA_RECEBER_ANEXO" Width="1.5" PointX="18.75" PointY="92.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTRATO" Width="1.5" PointX="16.5" PointY="108.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.DEPENDENTE" Width="1.5" PointX="13.5" PointY="119.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.EQUIPAMENTO" Width="1.5" PointX="5.25" PointY="108.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ESCALA_TRABALHO" Width="1.5" PointX="9" PointY="83" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ESCOLARIDADE" Width="1.5" PointX="9" PointY="120.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ESTADO_CIVIL" Width="1.5" PointX="9" PointY="123.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.EXAME_PERIODICO" Width="1.5" PointX="13.5" PointY="122.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.FILIAL" Width="1.5" PointX="3" PointY="120.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.FORNECEDOR" Width="1.5" PointX="8.25" PointY="94.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.FUNCIONALIDADE" Width="1.5" PointX="3.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.INVENTARIO" Width="1.5" PointX="8.25" PointY="110.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.INVENTARIO_ITEM" Width="1.5" PointX="22.5" PointY="113.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ITEM_AGENDA" Width="1.5" PointX="7.5" PointY="116" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ITEM_PEDIDO_COMPRA" Width="1.5" PointX="27.75" PointY="112.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ITEM_PEDIDO_COMPRA_COTACAO" Width="1.5" PointX="10.5" PointY="89.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ITEM_PEDIDO_SERVICO" Width="1.5" PointX="24.75" PointY="95.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ITEM_PEDIDO_VENDA" Width="1.5" PointX="24.75" PointY="113.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ITEM_PROPOSTA_SERVICO" Width="1.5" PointX="27" PointY="95.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.ITEM_PROPOSTA_VENDA" Width="1.5" PointX="30" PointY="114.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.LICENSA_ATESTADO" Width="1.5" PointX="13.5" PointY="125.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.LOG" Width="1.5" PointX="7.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.MATERIA_PRIMA" Width="1.5" PointX="14.25" PointY="102.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.MATRIZ" Width="1.5" PointX="0.75" PointY="81.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.MOVIMENTO_ESTOQUE_MATERIA_PRIMA" Width="1.5" PointX="22.5" PointY="108.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.MOVIMENTO_ESTOQUE_PRODUTO" Width="1.5" PointX="11.25" PointY="94.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.NIVEL_CONTA" Width="1.5" PointX="0.75" PointY="98.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.OPORTUNIDADE_NEGOCIO" Width="1.5" PointX="19.5" PointY="102.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.OPORTUNIDADE_NEGOCIO_ANEXO" Width="1.5" PointX="21.75" PointY="94.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PATRIMONIO" Width="1.5" PointX="14.25" PointY="97.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PEDIDO_COMPRA" Width="1.5" PointX="22.5" PointY="101.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PEDIDO_COMPRA_ANEXO" Width="1.5" PointX="24.75" PointY="107.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PEDIDO_SERVICO" Width="1.5" PointX="19.5" PointY="95.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PEDIDO_SERVICO_ANEXO" Width="1.5" PointX="21.75" PointY="97.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PEDIDO_VENDA" Width="1.5" PointX="19.5" PointY="109.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PEDIDO_VENDA_ANEXO" Width="1.5" PointX="21.75" PointY="118.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PERFIL" Width="1.5" PointX="8.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PLANO_ASSINATURA" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PLANO_CONTA" Width="1.5" PointX="3" PointY="98" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PLANO_PERMISSAO" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PRACA_ATENDIMENTO" Width="1.5" PointX="8.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PRECO_PRODUTO" Width="1.5" PointX="11.25" PointY="112.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PRECO_SERVICO" Width="1.5" PointX="14.25" PointY="109.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PRODUTO" Width="1.5" PointX="5.25" PointY="113.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PROPOSTA_SERVICO" Width="1.5" PointX="24.75" PointY="100.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PROPOSTA_SERVICO_ANEXO" Width="1.5" PointX="27" PointY="98.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PROPOSTA_VENDA" Width="1.5" PointX="27.75" PointY="105.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PROPOSTA_VENDA_ANEXO" Width="1.5" PointX="30" PointY="110.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.SERVICO" Width="1.5" PointX="14.25" PointY="92.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TAREFA" Width="1.5" PointX="14.25" PointY="114.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TEMPLATE" Width="1.5" PointX="9.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TICKET_ATENDIMENTO" Width="1.5" PointX="16.5" PointY="113.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_CONTA" Width="1.5" PointX="0.75" PointY="95.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_DOCUMENTO" Width="1.5" PointX="10.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_FAVORECIDO" Width="1.5" PointX="3" PointY="102.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_SALARIAL" Width="1.5" PointX="9" PointY="125.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TRANSPORTADORA" Width="1.5" PointX="17.25" PointY="103.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TURNO_TRABALHO" Width="1.5" PointX="10.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.UNIDADE" Width="1.5" PointX="3" PointY="115.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.USUARIO" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.VALOR_COMISSAO" Width="1.5" PointX="5.25" PointY="91.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.VINCULO_EMPREGATICIO" Width="1.5" PointX="9" PointY="128.25" IsExpanded="true" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_AGENDA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_AGENDA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_AGENDA_AGENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ASSINANTE_PLANO_ASSINANTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_USUARIO_ASSINANTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ASSINANTE_PLANO_PLANO_ASSINATURA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ATENDIMENTO_ACOMPANHAMENTO_TICKET_ATENDIMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ATENDIMENTO_ANEXO_ATENDIMENTO_ACOMPANHAMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_BANCO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_CARGO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_CATEGORIA_ATENDIMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_CATEGORIA_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_CATEGORIA_EQUIPAMENTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_CATEGORIA_FORNECEDOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_INVENTARIO_CATEGORIA_MATERIA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_CATEGORIA_MATERIA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PATRIMONIO_CATEGORIA_PATRIMONIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_INVENTARIO_CATEGORIA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_CATEGORIA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_CATEGORIA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SERVICO_CATEGORIA_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CENTRO_CUSTO_CENTRO_CUSTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_OPORTUNIDADE_NEGOCIO_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_VENDA_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_ANEXO_COLABORADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_ESCALA_TRABALHO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_ESCOLARIDADE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_ESTADO_CIVIL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_FREQUENCIA_COLABORADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_TIPO_SALARIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_VINCULO_EMPREGATICIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_DEPENDENTE_COLABORADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EXAME_PERIODICO_COLABORADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_LICENSA_ATESTADO_COLABORADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COMISSAO_VENDA_PEDIDO_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COMISSAO_VENDA_VALOR_COMISSAO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_TIPO_CONTA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_CONTA_BANCARIA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_CONTA_BANCARIA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_ANEXO_CONTA_PAGAR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_FORNECEDOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_PEDIDO_COMPRA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_PLANO_CONTA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_PAGAR_TIPO_FAVORECIDO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_ANEXO_CONTA_RECEBER" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_PEDIDO_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_PLANO_CONTA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_RECEBER_TIPO_FAVORECIDO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FILIAL_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_INVENTARIO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_OPORTUNIDADE_NEGOCIO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PATRIMONIO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_COMPRA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_VENDA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRECO_PRODUTO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRECO_SERVICO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SERVICO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TAREFA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_FILIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_COMPRA_COTACAO_FORNECEDOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_COMPRA_FORNECEDOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PLANO_PERMISSAO_FUNCIONALIDADE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_INVENTARIO_ITEM_INVENTARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_INVENTARIO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_INVENTARIO_ITEM_MATERIA_PRIMA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_INVENTARIO_ITEM_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_COMPRA_COTACAO_ITEM_PEDIDO_COMPRA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_COMPRA_MATERIA_PRIMA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_COMPRA_PEDIDO_COMPRA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_COMPRA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_COMPRA_UNIDADE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_SERVICO_PEDIDO_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_SERVICO_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_VENDA_PEDIDO_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PEDIDO_VENDA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PROPOSTA_SERVICO_PROPOSTA_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PROPOSTA_SERVICO_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PROPOSTA_VENDA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_ITEM_PROPOSTA_VENDA_PROPOSTA_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_UNIDADE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_MATERIA_PRIMA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_OPORTUNIDADE_NEGOCIO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PATRIMONIO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_COMPRA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_VENDA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRECO_PRODUTO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRECO_SERVICO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SERVICO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TAREFA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_MATRIZ" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PLANO_CONTA_NIVEL_CONTA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_OPORTUNIDADE_NEGOCIO_ANEXO_OPORTUNIDADE_NEGOCIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_OPORTUNIDADE_NEGOCIO_PROPOSTA_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_OPORTUNIDADE_NEGOCIO_PROPOSTA_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_COMPRA_ANEXO_PEDIDO_COMPRA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_ANEXO_PEDIDO_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_PEDIDO_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_VENDA_ANEXO_PEDIDO_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_PEDIDO_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PLANO_PERMISSAO_PLANO_ASSINATURA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PLANO_CONTA_PLANO_CONTA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRECO_PRODUTO_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRECO_SERVICO_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_UNIDADE" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_ANEXO_PROPOSTA_SERVICO" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ANEXO_PROPOSTA_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_USUARIO_COLABORADOR" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_USUARIO_PERFIL" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_LOG_USUARIO" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

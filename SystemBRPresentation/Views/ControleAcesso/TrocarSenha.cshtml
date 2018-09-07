@@ -1,0 +1,94 @@
+@using Presentation.Extensions
+@model SystemBRPresentation.ViewModels.UsuarioViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="col-lg-5 col-md-5 col-xs-5 ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Alteração de Senha</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">Configuração 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Configuração 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                @using (Html.BeginForm("TrocarSenha", "ControleAcesso", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                {
+                    <div class="ibox-content">
+                        @Html.AntiForgeryToken()
+                        @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                        }
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.USUA_NM_NOVA_SENHA, new { htmlAttributes = new { @class = "form-control pwd1", placeholder = "Nova Senha", @type = "password", @id="Password1" } })
+                            @Html.ValidationMessageFor(model => model.USUA_NM_NOVA_SENHA, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <div class="pwstrength_viewport_progress"></div>
+                        </div>
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.USUA_NM_SENHA_CONFIRMA, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirmação da Senha", @type = "password" } })
+                            @Html.ValidationMessageFor(model => model.USUA_NM_SENHA_CONFIRMA, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary block full-width m-b">Alterar Senha</button>
+                        </div>
+                    </div>
+                }
+            </div>
+         </div>
+    </div>
+</div>
+
+@section Scripts 
+{
+    @Scripts.Render("~/plugins/passwordMeter")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var options1 = {};
+            options1.ui = {
+                container: "#pwd-container1",
+                showVerdictsInsideProgressBar: true,
+                viewports: {
+                    progress: ".pwstrength_viewport_progress"
+                }
+            };
+            options1.common = {
+                debug: false,
+            };
+            $('.pwd1').pwstrength(options1);
+
+        });
+    </script>
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        };
+    </script>
+}
