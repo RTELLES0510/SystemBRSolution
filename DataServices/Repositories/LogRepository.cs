@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using EntitiesServices.Model;
 using ModelServices.Interfaces.Repositories;
+using EntitiesServices.Work_Classes;
+using System.Data.Entity;
 
 namespace DataServices.Repositories
 {
@@ -20,12 +22,16 @@ namespace DataServices.Repositories
 
         public List<LOG> GetAllItens()
         {
+            Int32? idAss = SessionMocks.IdAssinante;
             IQueryable<LOG> query = Db.LOG.Where(p => p.LOG_IN_ATIVO == 1);
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.OrderByDescending(a => a.LOG_DT_DATA);
             return query.ToList();
         }
 
         public List<LOG> ExecuteFilter(Int32? usuId, DateTime data, String operacao)
         {
+            Int32? idAss = SessionMocks.IdAssinante;
             List<LOG> lista = new List<LOG>();
             IQueryable<LOG> query = Db.LOG;
             if (!String.IsNullOrEmpty(operacao))
@@ -42,6 +48,7 @@ namespace DataServices.Repositories
             }
             if (query != null)
             {
+                query = query.Where(p => p.ASSI_CD_ID == idAss);
                 query = query.OrderByDescending(a => a.LOG_DT_DATA);
                 lista = query.ToList<LOG>();
             }

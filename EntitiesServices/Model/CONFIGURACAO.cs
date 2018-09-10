@@ -14,13 +14,23 @@ namespace EntitiesServices.Model
     
     public partial class CONFIGURACAO
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CONFIGURACAO()
+        {
+            this.ASSINANTE = new HashSet<ASSINANTE>();
+        }
+    
         public int CONF_CD_ID { get; set; }
         public int CONF_NR_FALHAS_DIA { get; set; }
         public string CONF_NM_HOST_SMTP { get; set; }
         public string CONF_NM_PORTA_SMTP { get; set; }
         public string CONF_NM_EMAIL_EMISSOR { get; set; }
         public string CONF_NM_SENHA_EMISSOR { get; set; }
-        public Nullable<int> CONF_NR_HORA_INICIO_AGENDA { get; set; }
-        public Nullable<int> CONF_NR_HORA_FIM_AGENDA { get; set; }
+        public Nullable<System.TimeSpan> CONF_TM_INICIO_AGENDA { get; set; }
+        public Nullable<System.TimeSpan> CONF_TM_FINAL_AGENDA { get; set; }
+        public Nullable<int> ASSI_CD_ID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ASSINANTE> ASSINANTE { get; set; }
     }
 }

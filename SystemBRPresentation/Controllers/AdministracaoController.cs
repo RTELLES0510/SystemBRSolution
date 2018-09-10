@@ -17,15 +17,20 @@ namespace SystemBRPresentation.Controllers
     public class AdministracaoController : Controller
     {
         private readonly IUsuarioAppService baseApp;
+        private readonly ILogAppService logApp;
         private String msg;
         private Exception exception;
         USUARIO objeto = new USUARIO();
         USUARIO objetoAntes = new USUARIO();
         List<USUARIO> listaMaster = new List<USUARIO>();
+        LOG objLog = new LOG();
+        LOG objLogAntes = new LOG();
+        List<LOG> listaMasterLog = new List<LOG>();
 
-        public AdministracaoController(IUsuarioAppService baseApps)
+        public AdministracaoController(IUsuarioAppService baseApps, ILogAppService logApps)
         {
             baseApp = baseApps;
+            logApp = logApps;
         }
 
         [HttpGet]
@@ -85,7 +90,6 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult MostrarTudo()
         {
-            USUARIO usuario = SessionMocks.UserCredentials;
             listaMaster = baseApp.GetAllUsuariosAdm();
             SessionMocks.listaUsuario = listaMaster;
             return RedirectToAction("MontarTelaUsuario");
@@ -111,7 +115,7 @@ namespace SystemBRPresentation.Controllers
                 // Sucesso
                 listaMaster = listaObj;
                 SessionMocks.listaUsuario = listaObj;
-                return RedirectToAction("MontarTelausuario");
+                return RedirectToAction("MontarTelaUsuario");
             }
             catch (Exception ex)
             {
@@ -214,5 +218,132 @@ namespace SystemBRPresentation.Controllers
                 return View(objeto);
             }
         }
+
+        [HttpGet]
+        public ActionResult MontarTelaLog()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            //SessionMocks.IdAssinante = 2;
+            ViewBag.Usuarios = new SelectList(baseApp.GetAllUsuarios(), "USUA_CD_ID", "USUA_NM_EMAIL");
+            if (SessionMocks.listaLog == null)
+            {
+                listaMasterLog = logApp.GetAllItens();
+                SessionMocks.listaLog = listaMasterLog;
+            }
+            ViewBag.Listas = SessionMocks.listaLog;
+            ViewBag.Title = "Auditoria";
+
+            // Abre view
+            objLog = new LOG();
+            objLog.LOG_DT_DATA = DateTime.Today;
+            return View(objLog);
+        }
+
+        public ActionResult RetirarFiltroLog()
+        {
+            SessionMocks.listaLog = null;
+            return RedirectToAction("MontarTelaLog");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarLog(LOG item)
+        {
+            try
+            {
+                // Executa a operação
+                List<LOG> listaObj = new List<LOG>();
+                Int32 volta = logApp.ExecuteFilter(item.USUA_CD_ID, item.LOG_DT_DATA, item.LOG_NM_OPERACAO, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                    listaMasterLog = new List<LOG>();
+                    return RedirectToAction("MontarTelaLog");
+                }
+
+                // Sucesso
+                listaMasterLog = listaObj;
+                SessionMocks.listaLog = listaMasterLog;
+                return RedirectToAction("MontarTelaLog");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaLog");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult VerLog(Int32 id)
+        {
+            // Prepara view
+            LOG item = logApp.GetById(id);
+            objLogAntes = item;
+            LogViewModel vm = Mapper.Map<LOG, LogViewModel>(item);
+            return View(vm);
+        }
+
+        public ActionResult VoltarBaseLog()
+        {
+            listaMasterLog = new List<LOG>();
+            SessionMocks.listaLog = null;
+            return RedirectToAction("MontarTelaLog");
+        }
+
+        [HttpGet]
+        public ActionResult MontarTelaLogGerencia()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            //SessionMocks.IdAssinante = 2;
+            //ViewBag.Usuarios = new SelectList(baseApp.GetAllUsuarios(), "USUA_CD_ID", "USUA_NM_EMAIL");
+            //if (SessionMocks.listaLog == null)
+            //{
+            //    listaMasterLog = logApp.GetAllItens();
+            //    SessionMocks.listaLog = listaMasterLog;
+            //}
+            //ViewBag.Listas = SessionMocks.listaLog;
+            //ViewBag.Title = "Auditoria";
+
+            //// Abre view
+            //objLog = new LOG();
+            //objLog.LOG_DT_DATA = DateTime.Today;
+            return View();
+        }
+
     }
 }

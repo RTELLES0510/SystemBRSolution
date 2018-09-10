@@ -18,6 +18,7 @@ namespace EntitiesServices.Model
         public ASSINANTE()
         {
             this.ASSINANTE_PLANO = new HashSet<ASSINANTE_PLANO>();
+            this.LOG = new HashSet<LOG>();
             this.USUARIO = new HashSet<USUARIO>();
         }
     
@@ -31,8 +32,11 @@ namespace EntitiesServices.Model
         public string ASSI_NR_CNPJ { get; set; }
         public int ASSI_IN_ATIVO { get; set; }
     
+        public virtual CONFIGURACAO CONFIGURACAO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ASSINANTE_PLANO> ASSINANTE_PLANO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LOG> LOG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USUARIO> USUARIO { get; set; }
     }

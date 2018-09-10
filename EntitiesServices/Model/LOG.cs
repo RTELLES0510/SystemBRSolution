@@ -21,7 +21,9 @@ namespace EntitiesServices.Model
         public string LOG_TX_REGISTRO { get; set; }
         public string LOG_TX_REGISTRO_ANTES { get; set; }
         public int LOG_IN_ATIVO { get; set; }
+        public Nullable<int> ASSI_CD_ID { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual USUARIO USUARIO { get; set; }
     }
 }

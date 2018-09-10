@@ -13,6 +13,8 @@ namespace MvcMapping.Mappers
         public DomainToViewModelMappingProfile()
         {
             CreateMap<USUARIO, UsuarioViewModel>();
+            CreateMap<LOG, LogViewModel>();
+            CreateMap<CONFIGURACAO, ConfiguracaoViewModel>();
         }
     }
 }

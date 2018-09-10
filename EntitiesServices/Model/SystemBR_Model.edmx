@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AGENDA">
           <Key>
             <PropertyRef Name="AGEN_CD_ID" />
@@ -281,8 +281,9 @@
           <Property Name="CONF_NM_PORTA_SMTP" Type="varchar" MaxLength="50" />
           <Property Name="CONF_NM_EMAIL_EMISSOR" Type="varchar" MaxLength="100" />
           <Property Name="CONF_NM_SENHA_EMISSOR" Type="varchar" MaxLength="50" />
-          <Property Name="CONF_NR_HORA_INICIO_AGENDA" Type="int" />
-          <Property Name="CONF_NR_HORA_FIM_AGENDA" Type="int" />
+          <Property Name="CONF_TM_INICIO_AGENDA" Type="time" Precision="7" />
+          <Property Name="CONF_TM_FINAL_AGENDA" Type="time" Precision="7" />
+          <Property Name="ASSI_CD_ID" Type="int" />
         </EntityType>
         <EntityType Name="CONTA_BANCARIA">
           <Key>
@@ -649,6 +650,7 @@
           <Property Name="LOG_TX_REGISTRO" Type="text" />
           <Property Name="LOG_TX_REGISTRO_ANTES" Type="text" />
           <Property Name="LOG_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" />
         </EntityType>
         <EntityType Name="MATERIA_PRIMA">
           <Key>
@@ -1265,6 +1267,18 @@
             </Principal>
             <Dependent Role="AGENDA">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASSINANTE_CONFIGURACAO">
+          <End Role="CONFIGURACAO" Type="Self.CONFIGURACAO" Multiplicity="0..1" />
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACAO">
+              <PropertyRef Name="CONF_CD_ID" />
+            </Principal>
+            <Dependent Role="ASSINANTE">
+              <PropertyRef Name="CONF_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2141,6 +2155,18 @@
             </Principal>
             <Dependent Role="LICENSA_ATESTADO">
               <PropertyRef Name="COLA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOG_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="0..1" />
+          <End Role="LOG" Type="Self.LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="LOG">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3117,6 +3143,10 @@
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="AGENDA" EntitySet="AGENDA" />
           </AssociationSet>
+          <AssociationSet Name="FK_ASSINANTE_CONFIGURACAO" Association="Self.FK_ASSINANTE_CONFIGURACAO">
+            <End Role="CONFIGURACAO" EntitySet="CONFIGURACAO" />
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+          </AssociationSet>
           <AssociationSet Name="FK_ASSINANTE_PLANO_ASSINANTE" Association="Self.FK_ASSINANTE_PLANO_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="ASSINANTE_PLANO" EntitySet="ASSINANTE_PLANO" />
@@ -3408,6 +3438,10 @@
           <AssociationSet Name="FK_LICENSA_ATESTADO_COLABORADOR" Association="Self.FK_LICENSA_ATESTADO_COLABORADOR">
             <End Role="COLABORADOR" EntitySet="COLABORADOR" />
             <End Role="LICENSA_ATESTADO" EntitySet="LICENSA_ATESTADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOG_ASSINANTE" Association="Self.FK_LOG_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="LOG" EntitySet="LOG" />
           </AssociationSet>
           <AssociationSet Name="FK_LOG_USUARIO" Association="Self.FK_LOG_USUARIO">
             <End Role="USUARIO" EntitySet="USUARIO" />
@@ -3702,7 +3736,8 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SystemBRDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3734,7 +3769,9 @@
           <Property Name="ASSI_NM_RAZAO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ASSI_NR_CNPJ" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ASSI_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONFIGURACAO" Relationship="Self.FK_ASSINANTE_CONFIGURACAO" FromRole="ASSINANTE" ToRole="CONFIGURACAO" />
           <NavigationProperty Name="ASSINANTE_PLANO" Relationship="Self.FK_ASSINANTE_PLANO_ASSINANTE" FromRole="ASSINANTE" ToRole="ASSINANTE_PLANO" />
+          <NavigationProperty Name="LOG" Relationship="Self.FK_LOG_ASSINANTE" FromRole="ASSINANTE" ToRole="LOG" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="ASSINANTE" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
@@ -3988,7 +4025,7 @@
           <NavigationProperty Name="DEPENDENTE" Relationship="Self.FK_DEPENDENTE_COLABORADOR" FromRole="COLABORADOR" ToRole="DEPENDENTE" />
           <NavigationProperty Name="EXAME_PERIODICO" Relationship="Self.FK_EXAME_PERIODICO_COLABORADOR" FromRole="COLABORADOR" ToRole="EXAME_PERIODICO" />
           <NavigationProperty Name="LICENSA_ATESTADO" Relationship="Self.FK_LICENSA_ATESTADO_COLABORADOR" FromRole="COLABORADOR" ToRole="LICENSA_ATESTADO" />
-          <NavigationProperty Name="USUARIO" Relationship="SystemBRDatabaseModel.FK_USUARIO_COLABORADOR" FromRole="COLABORADOR" ToRole="USUARIO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_COLABORADOR" FromRole="COLABORADOR" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="COLABORADOR_ANEXO">
           <Key>
@@ -4036,8 +4073,10 @@
           <Property Name="CONF_NM_PORTA_SMTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CONF_NM_EMAIL_EMISSOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CONF_NM_SENHA_EMISSOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CONF_NR_HORA_INICIO_AGENDA" Type="Int32" />
-          <Property Name="CONF_NR_HORA_FIM_AGENDA" Type="Int32" />
+          <Property Name="CONF_TM_INICIO_AGENDA" Type="Time" Precision="7" />
+          <Property Name="CONF_TM_FINAL_AGENDA" Type="Time" Precision="7" />
+          <Property Name="ASSI_CD_ID" Type="Int32" />
+          <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_ASSINANTE_CONFIGURACAO" FromRole="CONFIGURACAO" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="CONTA_BANCARIA">
           <Key>
@@ -4497,7 +4536,9 @@
           <Property Name="LOG_TX_REGISTRO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LOG_TX_REGISTRO_ANTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LOG_IN_ATIVO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="USUARIO" Relationship="SystemBRDatabaseModel.FK_LOG_USUARIO" FromRole="LOG" ToRole="USUARIO" />
+          <Property Name="ASSI_CD_ID" Type="Int32" />
+          <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_LOG_ASSINANTE" FromRole="LOG" ToRole="ASSINANTE" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_LOG_USUARIO" FromRole="LOG" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="MATERIA_PRIMA">
           <Key>
@@ -4824,7 +4865,7 @@
           <Property Name="PERF_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PERF_SG_SIGLA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PERF_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="USUARIO" Relationship="SystemBRDatabaseModel.FK_USUARIO_PERFIL" FromRole="PERFIL" ToRole="USUARIO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_PERFIL" FromRole="PERFIL" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="PLANO_ASSINATURA">
           <Key>
@@ -5192,6 +5233,7 @@
           <Property Name="USUA_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PERF_CD_ID" Type="Int32" Nullable="false" />
           <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="COLA_CD_ID" Type="Int32" />
           <Property Name="USUA_IN_BLOQUEADO" Type="Int32" Nullable="false" />
           <Property Name="USUA_DT_BLOQUEIO" Type="DateTime" Precision="3" />
           <Property Name="USUA_NM_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -5208,12 +5250,11 @@
           <Property Name="USUA_NM_NOVA_SENHA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="USUA_DT_CADASTRO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="USUA_IN_ATIVO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="USUARIO" ToRole="ASSINANTE" />
           <Property Name="USUA_AQ_FOTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="COLA_CD_ID" Type="Int32" />
-          <NavigationProperty Name="COLABORADOR" Relationship="SystemBRDatabaseModel.FK_USUARIO_COLABORADOR" FromRole="USUARIO" ToRole="COLABORADOR" />
-          <NavigationProperty Name="PERFIL" Relationship="SystemBRDatabaseModel.FK_USUARIO_PERFIL" FromRole="USUARIO" ToRole="PERFIL" />
-          <NavigationProperty Name="LOG" Relationship="SystemBRDatabaseModel.FK_LOG_USUARIO" FromRole="USUARIO" ToRole="LOG" />
+          <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="USUARIO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="COLABORADOR" Relationship="Self.FK_USUARIO_COLABORADOR" FromRole="USUARIO" ToRole="COLABORADOR" />
+          <NavigationProperty Name="LOG" Relationship="Self.FK_LOG_USUARIO" FromRole="USUARIO" ToRole="LOG" />
+          <NavigationProperty Name="PERFIL" Relationship="Self.FK_USUARIO_PERFIL" FromRole="USUARIO" ToRole="PERFIL" />
         </EntityType>
         <EntityType Name="VALOR_COMISSAO">
           <Key>
@@ -5277,6 +5318,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ASSINANTE_CONFIGURACAO">
+          <End Role="CONFIGURACAO" Type="Self.CONFIGURACAO" Multiplicity="0..1" />
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACAO">
+              <PropertyRef Name="CONF_CD_ID" />
+            </Principal>
+            <Dependent Role="ASSINANTE">
+              <PropertyRef Name="CONF_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ASSINANTE_PLANO_ASSINANTE">
           <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
           <End Role="ASSINANTE_PLANO" Type="Self.ASSINANTE_PLANO" Multiplicity="*" />
@@ -5285,6 +5338,18 @@
               <PropertyRef Name="ASSI_CD_ID" />
             </Principal>
             <Dependent Role="ASSINANTE_PLANO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOG_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="0..1" />
+          <End Role="LOG" Type="Self.LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="LOG">
               <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -5765,6 +5830,18 @@
               <PropertyRef Name="COLA_CD_ID" />
             </Principal>
             <Dependent Role="LICENSA_ATESTADO">
+              <PropertyRef Name="COLA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_COLABORADOR">
+          <End Role="COLABORADOR" Type="Self.COLABORADOR" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COLABORADOR">
+              <PropertyRef Name="COLA_CD_ID" />
+            </Principal>
+            <Dependent Role="USUARIO">
               <PropertyRef Name="COLA_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -6537,6 +6614,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LOG_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="LOG" Type="Self.LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Principal>
+            <Dependent Role="LOG">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MATERIA_PRIMA_MATRIZ">
           <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="0..1" />
           <End Role="MATERIA_PRIMA" Type="Self.MATERIA_PRIMA" Multiplicity="*" />
@@ -6897,6 +6986,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_USUARIO_PERFIL">
+          <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERFIL">
+              <PropertyRef Name="PERF_CD_ID" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="PERF_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PLANO_PERMISSAO_PLANO_ASSINATURA">
           <End Role="PLANO_ASSINATURA" Type="Self.PLANO_ASSINATURA" Multiplicity="1" />
           <End Role="PLANO_PERMISSAO" Type="Self.PLANO_PERMISSAO" Multiplicity="*" />
@@ -7082,9 +7183,17 @@
             <End Role="AGENDA" EntitySet="AGENDA" />
             <End Role="ITEM_AGENDA" EntitySet="ITEM_AGENDA" />
           </AssociationSet>
+          <AssociationSet Name="FK_ASSINANTE_CONFIGURACAO" Association="Self.FK_ASSINANTE_CONFIGURACAO">
+            <End Role="CONFIGURACAO" EntitySet="CONFIGURACAO" />
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+          </AssociationSet>
           <AssociationSet Name="FK_ASSINANTE_PLANO_ASSINANTE" Association="Self.FK_ASSINANTE_PLANO_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="ASSINANTE_PLANO" EntitySet="ASSINANTE_PLANO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOG_ASSINANTE" Association="Self.FK_LOG_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="LOG" EntitySet="LOG" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIO_ASSINANTE" Association="Self.FK_USUARIO_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
@@ -7245,6 +7354,10 @@
           <AssociationSet Name="FK_LICENSA_ATESTADO_COLABORADOR" Association="Self.FK_LICENSA_ATESTADO_COLABORADOR">
             <End Role="COLABORADOR" EntitySet="COLABORADOR" />
             <End Role="LICENSA_ATESTADO" EntitySet="LICENSA_ATESTADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_COLABORADOR" Association="Self.FK_USUARIO_COLABORADOR">
+            <End Role="COLABORADOR" EntitySet="COLABORADOR" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
           <AssociationSet Name="FK_COMISSAO_VENDA_PEDIDO_VENDA" Association="Self.FK_COMISSAO_VENDA_PEDIDO_VENDA">
             <End Role="PEDIDO_VENDA" EntitySet="PEDIDO_VENDA" />
@@ -7502,6 +7615,10 @@
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
             <End Role="ITEM_PROPOSTA_VENDA" EntitySet="ITEM_PROPOSTA_VENDA" />
           </AssociationSet>
+          <AssociationSet Name="FK_LOG_USUARIO" Association="Self.FK_LOG_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="LOG" EntitySet="LOG" />
+          </AssociationSet>
           <AssociationSet Name="FK_MATERIA_PRIMA_MATRIZ" Association="Self.FK_MATERIA_PRIMA_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="MATERIA_PRIMA" EntitySet="MATERIA_PRIMA" />
@@ -7622,6 +7739,10 @@
             <End Role="PEDIDO_VENDA" EntitySet="PEDIDO_VENDA" />
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
           </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_PERFIL" Association="Self.FK_USUARIO_PERFIL">
+            <End Role="PERFIL" EntitySet="PERFIL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
           <AssociationSet Name="FK_PLANO_PERMISSAO_PLANO_ASSINATURA" Association="Self.FK_PLANO_PERMISSAO_PLANO_ASSINATURA">
             <End Role="PLANO_ASSINATURA" EntitySet="PLANO_ASSINATURA" />
             <End Role="PLANO_PERMISSAO" EntitySet="PLANO_PERMISSAO" />
@@ -7650,55 +7771,7 @@
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
             <End Role="PROPOSTA_VENDA_ANEXO" EntitySet="PROPOSTA_VENDA_ANEXO" />
           </AssociationSet>
-          <AssociationSet Name="FK_USUARIO_COLABORADOR" Association="SystemBRDatabaseModel.FK_USUARIO_COLABORADOR">
-            <End Role="COLABORADOR" EntitySet="COLABORADOR" />
-            <End Role="USUARIO" EntitySet="USUARIO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USUARIO_PERFIL" Association="SystemBRDatabaseModel.FK_USUARIO_PERFIL">
-            <End Role="PERFIL" EntitySet="PERFIL" />
-            <End Role="USUARIO" EntitySet="USUARIO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LOG_USUARIO" Association="SystemBRDatabaseModel.FK_LOG_USUARIO">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="LOG" EntitySet="LOG" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_USUARIO_COLABORADOR">
-          <End Type="SystemBRDatabaseModel.COLABORADOR" Role="COLABORADOR" Multiplicity="0..1" />
-          <End Type="SystemBRDatabaseModel.USUARIO" Role="USUARIO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="COLABORADOR">
-              <PropertyRef Name="COLA_CD_ID" />
-            </Principal>
-            <Dependent Role="USUARIO">
-              <PropertyRef Name="COLA_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USUARIO_PERFIL">
-          <End Type="SystemBRDatabaseModel.PERFIL" Role="PERFIL" Multiplicity="1" />
-          <End Type="SystemBRDatabaseModel.USUARIO" Role="USUARIO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PERFIL">
-              <PropertyRef Name="PERF_CD_ID" />
-            </Principal>
-            <Dependent Role="USUARIO">
-              <PropertyRef Name="PERF_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LOG_USUARIO">
-          <End Type="SystemBRDatabaseModel.USUARIO" Role="USUARIO" Multiplicity="1" />
-          <End Type="SystemBRDatabaseModel.LOG" Role="LOG" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="USUA_CD_ID" />
-            </Principal>
-            <Dependent Role="LOG">
-              <PropertyRef Name="USUA_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8001,8 +8074,9 @@
                 <ScalarProperty Name="CONF_NM_PORTA_SMTP" ColumnName="CONF_NM_PORTA_SMTP" />
                 <ScalarProperty Name="CONF_NM_EMAIL_EMISSOR" ColumnName="CONF_NM_EMAIL_EMISSOR" />
                 <ScalarProperty Name="CONF_NM_SENHA_EMISSOR" ColumnName="CONF_NM_SENHA_EMISSOR" />
-                <ScalarProperty Name="CONF_NR_HORA_INICIO_AGENDA" ColumnName="CONF_NR_HORA_INICIO_AGENDA" />
-                <ScalarProperty Name="CONF_NR_HORA_FIM_AGENDA" ColumnName="CONF_NR_HORA_FIM_AGENDA" />
+                <ScalarProperty Name="CONF_TM_INICIO_AGENDA" ColumnName="CONF_TM_INICIO_AGENDA" />
+                <ScalarProperty Name="CONF_TM_FINAL_AGENDA" ColumnName="CONF_TM_FINAL_AGENDA" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8395,6 +8469,7 @@
                 <ScalarProperty Name="LOG_TX_REGISTRO" ColumnName="LOG_TX_REGISTRO" />
                 <ScalarProperty Name="LOG_TX_REGISTRO_ANTES" ColumnName="LOG_TX_REGISTRO_ANTES" />
                 <ScalarProperty Name="LOG_IN_ATIVO" ColumnName="LOG_IN_ATIVO" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8985,11 +9060,10 @@
           <EntitySetMapping Name="USUARIO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.USUARIO">
               <MappingFragment StoreEntitySet="USUARIO">
-                <ScalarProperty Name="COLA_CD_ID" ColumnName="COLA_CD_ID" />
-                <ScalarProperty Name="USUA_AQ_FOTO" ColumnName="USUA_AQ_FOTO" />
                 <ScalarProperty Name="USUA_CD_ID" ColumnName="USUA_CD_ID" />
                 <ScalarProperty Name="PERF_CD_ID" ColumnName="PERF_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="COLA_CD_ID" ColumnName="COLA_CD_ID" />
                 <ScalarProperty Name="USUA_IN_BLOQUEADO" ColumnName="USUA_IN_BLOQUEADO" />
                 <ScalarProperty Name="USUA_DT_BLOQUEIO" ColumnName="USUA_DT_BLOQUEIO" />
                 <ScalarProperty Name="USUA_NM_EMAIL" ColumnName="USUA_NM_EMAIL" />
@@ -9006,6 +9080,7 @@
                 <ScalarProperty Name="USUA_NM_NOVA_SENHA" ColumnName="USUA_NM_NOVA_SENHA" />
                 <ScalarProperty Name="USUA_DT_CADASTRO" ColumnName="USUA_DT_CADASTRO" />
                 <ScalarProperty Name="USUA_IN_ATIVO" ColumnName="USUA_IN_ATIVO" />
+                <ScalarProperty Name="USUA_AQ_FOTO" ColumnName="USUA_AQ_FOTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

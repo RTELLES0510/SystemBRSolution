@@ -23,6 +23,7 @@ namespace EntitiesServices.Model
         public int USUA_CD_ID { get; set; }
         public int PERF_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
+        public Nullable<int> COLA_CD_ID { get; set; }
         public int USUA_IN_BLOQUEADO { get; set; }
         public Nullable<System.DateTime> USUA_DT_BLOQUEIO { get; set; }
         public string USUA_NM_EMAIL { get; set; }
@@ -40,12 +41,11 @@ namespace EntitiesServices.Model
         public System.DateTime USUA_DT_CADASTRO { get; set; }
         public int USUA_IN_ATIVO { get; set; }
         public string USUA_AQ_FOTO { get; set; }
-        public Nullable<int> COLA_CD_ID { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual COLABORADOR COLABORADOR { get; set; }
-        public virtual PERFIL PERFIL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOG> LOG { get; set; }
+        public virtual PERFIL PERFIL { get; set; }
     }
 }

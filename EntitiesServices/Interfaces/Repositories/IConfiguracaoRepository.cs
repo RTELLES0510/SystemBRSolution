@@ -9,6 +9,6 @@ namespace ModelServices.Interfaces.Repositories
 {
     public interface IConfiguracaoRepository : IRepositoryBase<CONFIGURACAO>
     {
-
+        CONFIGURACAO GetItemById(Int32 id);
     }
 }

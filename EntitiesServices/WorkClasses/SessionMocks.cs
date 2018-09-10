@@ -22,5 +22,6 @@ namespace EntitiesServices.Work_Classes
         public static Int32 idVolta { get; set; }
         public static String arquivo { get; set; }
         public static COLABORADOR Colaborador { get; set; }
+        public static CONFIGURACAO Configuracao { get; set; }
     }
 }
