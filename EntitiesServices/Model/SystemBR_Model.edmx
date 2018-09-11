@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AGENDA">
           <Key>
             <PropertyRef Name="AGEN_CD_ID" />
@@ -298,6 +298,7 @@
           <Property Name="COBA_NM_AGENCIA" Type="varchar" MaxLength="50" />
           <Property Name="COBA_NM_GERENTE" Type="varchar" MaxLength="50" />
           <Property Name="COBA_NR_TELEFONE" Type="varchar" MaxLength="50" />
+          <Property Name="COBA_VL_SALDO_INICIAL" Type="decimal" Precision="18" Scale="2" />
           <Property Name="COBA_DT_ABERTURA" Type="date" />
           <Property Name="COBA_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
@@ -3736,8 +3737,7 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SystemBRDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -4097,6 +4097,7 @@
           <NavigationProperty Name="TIPO_CONTA" Relationship="Self.FK_CONTA_BANCARIA_TIPO_CONTA" FromRole="CONTA_BANCARIA" ToRole="TIPO_CONTA" />
           <NavigationProperty Name="CONTA_PAGAR" Relationship="Self.FK_CONTA_PAGAR_CONTA_BANCARIA" FromRole="CONTA_BANCARIA" ToRole="CONTA_PAGAR" />
           <NavigationProperty Name="CONTA_RECEBER" Relationship="Self.FK_CONTA_RECEBER_CONTA_BANCARIA" FromRole="CONTA_BANCARIA" ToRole="CONTA_RECEBER" />
+          <Property Name="COBA_VL_SALDO_INICIAL" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="CONTA_PAGAR">
           <Key>
@@ -8083,6 +8084,7 @@
           <EntitySetMapping Name="CONTA_BANCARIA">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTA_BANCARIA">
               <MappingFragment StoreEntitySet="CONTA_BANCARIA">
+                <ScalarProperty Name="COBA_VL_SALDO_INICIAL" ColumnName="COBA_VL_SALDO_INICIAL" />
                 <ScalarProperty Name="COBA_CD_ID" ColumnName="COBA_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="BANC_CD_ID" ColumnName="BANC_CD_ID" />

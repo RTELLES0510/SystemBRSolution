@@ -23,5 +23,9 @@ namespace EntitiesServices.Work_Classes
         public static String arquivo { get; set; }
         public static COLABORADOR Colaborador { get; set; }
         public static CONFIGURACAO Configuracao { get; set; }
+        public static List<BANCO> listaBanco { get; set; }
+        public static List<TIPO_CONTA> listaTipoConta { get; set; }
+        public static List<CONTA_BANCARIA> listaContaBancaria { get; set; }
+        public static BANCO banco { get; set; }
     }
 }

@@ -133,32 +133,32 @@
             </div>           
             <div class="ibox-content">
                 <div class="row">
-                <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        Data de Bloqueio 
-                        @Html.TextBoxFor(m => m.USUA_DT_BLOQUEIO, new { @class = "form-control", autofocus = true, @readonly="readonly"  })
+                    <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                        <div class="col-lg-2 col-md-2 col-xs-12">
+                            Data de Bloqueio 
+                            @Html.TextBoxFor(m => m.USUA_DT_BLOQUEIO, new { @class = "form-control", autofocus = true, @readonly="readonly"  })
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-xs-12">
+                            Acessos
+                            @Html.TextBoxFor(m => m.USUA_NR_ACESSOS, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-12">
+                            Data Acesso
+                            @Html.TextBoxFor(m => m.USUA_DT_ACESSO, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-xs-12">
+                            Falhas
+                            @Html.TextBoxFor(m => m.USUA_NR_FALHAS, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-12">
+                            Data Falha
+                            @Html.TextBoxFor(m => m.USUA_DT_ULTIMA_FALHA, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-12">
+                            Data Troca Senha
+                            @Html.TextBoxFor(m => m.USUA_DT_TROCA_SENHA, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
+                        </div>
                     </div>
-                    <div class="col-lg-1 col-md-1 col-xs-12">
-                        Acessos
-                        @Html.TextBoxFor(m => m.USUA_NR_ACESSOS, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        Data Acesso
-                        @Html.TextBoxFor(m => m.USUA_DT_ACESSO, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
-                    </div>
-                    <div class="col-lg-1 col-md-1 col-xs-12">
-                        Falhas
-                        @Html.TextBoxFor(m => m.USUA_NR_FALHAS, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        Data Falha
-                        @Html.TextBoxFor(m => m.USUA_DT_ULTIMA_FALHA, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-xs-12">
-                        Data Troca Senha
-                        @Html.TextBoxFor(m => m.USUA_DT_TROCA_SENHA, new { @class = "form-control",  autofocus = true, @readonly="readonly"  })
-                    </div>
-                </div>
                 </div>
             </div>
         </div>

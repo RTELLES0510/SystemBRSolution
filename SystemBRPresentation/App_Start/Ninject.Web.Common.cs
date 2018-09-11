@@ -73,12 +73,16 @@ namespace Presentation.Start
             kernel.Bind<ILogAppService>().To<LogAppService>();
             kernel.Bind<IPerfilAppService>().To<PerfilAppService>();
             kernel.Bind<IConfiguracaoAppService>().To<ConfiguracaoAppService>();
+            kernel.Bind<IBancoAppService>().To<BancoAppService>();
+            kernel.Bind<IContaBancariaAppService>().To<ContaBancariaAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
             kernel.Bind<ILogService>().To<LogService>();
             kernel.Bind<IPerfilService>().To<PerfilService>();
             kernel.Bind<IConfiguracaoService>().To<ConfiguracaoService>();
+            kernel.Bind<IBancoService>().To<BancoService>();
+            kernel.Bind<IContaBancariaService>().To<ContaBancariaService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -86,6 +90,9 @@ namespace Presentation.Start
             kernel.Bind<ILogRepository>().To<LogRepository>();
             kernel.Bind<IPerfilRepository>().To<PerfilRepository>();
             kernel.Bind<ITemplateRepository>().To<TemplateRepository>();
+            kernel.Bind<IBancoRepository>().To<BancoRepository>();
+            kernel.Bind<IContaBancariaRepository>().To<ContaBancariaRepository>();
+            kernel.Bind<ITipoContaRepository>().To<TipoContaRepository>();
         }
     }
 }

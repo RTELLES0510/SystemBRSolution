@@ -149,5 +149,50 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0010", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Codigo do banco ja existente.
+        /// </summary>
+        internal static string M0011 {
+            get {
+                return ResourceManager.GetString("M0011", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Este banco ja contem contas vinculadas. Impossivel ser excluido..
+        /// </summary>
+        internal static string M0012 {
+            get {
+                return ResourceManager.GetString("M0012", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Conta bancaria ja cadastrada.
+        /// </summary>
+        internal static string M0013 {
+            get {
+                return ResourceManager.GetString("M0013", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esta conta. Existem lancamentos de CONTAS A PAGAR vinculados a ela.
+        /// </summary>
+        internal static string M0014 {
+            get {
+                return ResourceManager.GetString("M0014", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esta conta. Existem lancamentos de CONTAS A RECEBER vinculados a ela.
+        /// </summary>
+        internal static string M0015 {
+            get {
+                return ResourceManager.GetString("M0015", resourceCulture);
+            }
+        }
     }
 }

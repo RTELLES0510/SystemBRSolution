@@ -59,11 +59,11 @@
                     <li class="@Html.IsSelected(action: "MontarTelaConfiguracao")"><a href="@Url.Action("MontarTelaConfiguracao", "Configuracao")">Configurações</a></li>
                 </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "CadastroBasico")">
-                <a href="@Url.Action("Index", "CadastroBasico")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Cadastros Básicos</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "CadastroBasico", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "MontarTelaBanco")"><a href="@Url.Action("MontarTelaBanco", "CadastroBasico")">Bancos</a></li>
-                    <li class="@Html.IsSelected(action: "MontarTelaMatriz")"><a href="@Url.Action("MontarTelaMatriz", "CadastroBasico")">Matriz e Filiais</a></li>
+            <li class="@Html.IsSelected(controller: "Banco")">
+                <a href="@Url.Action("Index", "Banco")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Cadastros Básicos</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Banco", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "MontarTelaBanco")"><a href="@Url.Action("MontarTelaBanco", "Banco")">Bancos & Contas</a></li>
+                    <li class="@Html.IsSelected(action: "MontarTelaMatriz")"><a href="@Url.Action("MontarTelaMatriz", "Banco")">Matriz & Filiais</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Institucional")">

@@ -147,4 +147,19 @@
   <data name="M0010" xml:space="preserve">
     <value>Nenhum registro recuperado na consicao de filtro vigente</value>
   </data>
+  <data name="M0011" xml:space="preserve">
+    <value>Codigo do banco ja existente</value>
+  </data>
+  <data name="M0012" xml:space="preserve">
+    <value>Este banco ja contem contas vinculadas. Impossivel ser excluido.</value>
+  </data>
+  <data name="M0013" xml:space="preserve">
+    <value>Conta bancaria ja cadastrada</value>
+  </data>
+  <data name="M0014" xml:space="preserve">
+    <value>Impossivel excluir esta conta. Existem lancamentos de CONTAS A PAGAR vinculados a ela</value>
+  </data>
+  <data name="M0015" xml:space="preserve">
+    <value>Impossivel excluir esta conta. Existem lancamentos de CONTAS A RECEBER vinculados a ela</value>
+  </data>
 </root>

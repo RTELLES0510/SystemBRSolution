@@ -13,5 +13,6 @@ namespace ModelServices.Interfaces.Repositories
         BANCO GetItemById(Int32 id);
         List<BANCO> GetAllItens();
         List<BANCO> GetAllItensAdm();
+        List<BANCO> ExecuteFilter(String codigo, String nome);
     }
 }

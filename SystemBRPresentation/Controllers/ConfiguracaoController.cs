@@ -48,29 +48,29 @@ namespace SystemBRPresentation.Controllers
         {
             // Verifica se tem usuario logado
             USUARIO usuario = new USUARIO();
-            //if (SessionMocks.UserCredentials != null)
-            //{
-            //    usuario = SessionMocks.UserCredentials;
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
 
-            //    // Verfifica permissão
-            //    if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
-            //    {
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Login", "ControleAcesso");
-            //}
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
 
             // Carrega listas
             //SessionMocks.IdAssinante = 2;
-            objeto = baseApp.GetItemById(1); 
-            //if (SessionMocks.Configuracao == null)
-            //{
-            //    objeto = usuario.ASSINANTE.CONFIGURACAO;
-            //    SessionMocks.Configuracao = objeto;
-            //}
+            //objeto = baseApp.GetItemById(1);
+            if (SessionMocks.Configuracao == null)
+            {
+                objeto = usuario.ASSINANTE.CONFIGURACAO;
+                SessionMocks.Configuracao = objeto;
+            }
             ViewBag.Title = "Configurações";
 
             // Abre view

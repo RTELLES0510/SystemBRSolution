@@ -88,14 +88,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IAppServiceBase.cs" />
+    <Compile Include="Interfaces\IContaBancariaAppService.cs" />
     <Compile Include="Interfaces\IConfiguracaoAppService.cs" />
     <Compile Include="Interfaces\ILogAppService.cs" />
+    <Compile Include="Interfaces\IBancoAppService.cs" />
     <Compile Include="Interfaces\IPerfilAppService.cs" />
     <Compile Include="Interfaces\IUsuarioAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppServiceBase.cs" />
+    <Compile Include="Services\ContaBancariaAppService.cs" />
     <Compile Include="Services\ConfiguracaoAppService.cs" />
     <Compile Include="Services\LogAppService.cs" />
+    <Compile Include="Services\BancoAppService.cs" />
     <Compile Include="Services\PerfilAppService.cs" />
     <Compile Include="Services\UsuarioAppService.cs" />
   </ItemGroup>

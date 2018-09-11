@@ -1,0 +1,201 @@
+@using Presentation.Extensions
+@model SystemBRPresentation.ViewModels.BancoViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="page-title"> 
+        <h3 class="title">Bancos & Contas Bancárias</h3> 
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Banco - Consulta & Edição</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">Configuração 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Configuração 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                @using (Html.BeginForm("Editar", "Banco", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                {
+                    <div class="ibox-content">
+                        @Html.AntiForgeryToken()
+                        @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                <div class="col-lg-1 col-md-1 col-xs-12">
+                                    @Html.HiddenFor(m => m.BANC_CD_ID)
+                                    @Html.HiddenFor(m => m.BANCO_IN_ATIVO)
+                                    Código*
+                                    @Html.TextBoxFor(m => m.BANC_SG_CODIGO, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.BANC_SG_CODIGO, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                    Nome*
+                                    @Html.TextBoxFor(m => m.BANC_NM_NOME, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.BANC_NM_NOME, "",new { @style="color:red" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+         </div>
+    </div>
+    <div class="form-group">
+        @Html.ButtonActionSubmit(text: "Confirma Edição do Banco")
+        @Html.ButtonLinkIndex(text: "Nova Conta", action: "IncluirConta", controller: "Banco")
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Contas Bancárias</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                            @if (Model.CONTA_BANCARIA.Count > 0)                                        {
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Agência</th>   
+                                            <th>Nome Agência</th>
+                                            <th>Conta</th>   
+                                            <th>Tipo de Conta</th>
+                                            <th>Data Abertura</th>   
+                                            <th>Nome Gerente</th>
+                                            <th>Contato</th>
+                                            <th class="td-one-action">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var cond in Model.CONTA_BANCARIA)
+                                        {
+                                            <tr>
+                                                <td>@cond.COBA_NR_AGENCIA</td>
+                                                <td>@cond.COBA_NM_AGENCIA</td>
+                                                <td>@cond.COBA_NR_CONTA</td>
+                                                <td>@cond.TIPO_CONTA.TICO_NM_NOME</td>
+                                                <td>@cond.COBA_DT_ABERTURA.Value.ToShortDateString()</td>
+                                                <td>@cond.COBA_NM_GERENTE</td>
+                                                <td>@cond.COBA_NR_TELEFONE</td>
+                                                <td class="td-one-action">
+                                                    @Html.TableLinkDetails(cond.COBA_CD_ID, "EditarConta","fa-edit", "Editar/Consultar Conta")
+                                                    @if (cond.COBA_IN_ATIVO == 1)
+	                                                {
+                                                        @Html.TableLinkDetails(cond.COBA_CD_ID, "ExcluirConta","fa-trash-o", "Desativar Conta")
+                                                    }
+                                                    else
+                                                    {   
+                                                        @Html.TableLinkDetails(cond.COBA_CD_ID, "ReativarConta","fa-refresh", "Reativar Conta")
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />  
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+}
+@section Scripts {
+   
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/bundles/inputmask")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+           
+
+        });
+
+    </script>
+
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                  alert("@ViewBag.Message");
+            };
+        </script>
+    }
+}

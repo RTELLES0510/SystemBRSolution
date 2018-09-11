@@ -330,20 +330,19 @@ namespace SystemBRPresentation.Controllers
 
             // Carrega listas
             //SessionMocks.IdAssinante = 2;
-            //ViewBag.Usuarios = new SelectList(baseApp.GetAllUsuarios(), "USUA_CD_ID", "USUA_NM_EMAIL");
-            //if (SessionMocks.listaLog == null)
-            //{
-            //    listaMasterLog = logApp.GetAllItens();
-            //    SessionMocks.listaLog = listaMasterLog;
-            //}
-            //ViewBag.Listas = SessionMocks.listaLog;
-            //ViewBag.Title = "Auditoria";
+            ViewBag.Usuarios = new SelectList(baseApp.GetAllUsuarios(), "USUA_CD_ID", "USUA_NM_EMAIL");
+            if (SessionMocks.listaLog == null)
+            {
+                listaMasterLog = logApp.GetAllItens();
+                SessionMocks.listaLog = listaMasterLog;
+            }
+            ViewBag.Listas = SessionMocks.listaLog;
+            ViewBag.Title = "Auditoria";
 
-            //// Abre view
-            //objLog = new LOG();
-            //objLog.LOG_DT_DATA = DateTime.Today;
+            // Abre view
+            objLog = new LOG();
+            objLog.LOG_DT_DATA = DateTime.Today;
             return View();
         }
-
     }
 }

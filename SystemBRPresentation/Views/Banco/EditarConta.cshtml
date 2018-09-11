@@ -1,0 +1,190 @@
+@using Presentation.Extensions
+@model SystemBRPresentation.ViewModels.ContaBancariaViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="page-title"> 
+        <h3 class="title">Bancos & Contas Bancárias</h3> 
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h5>Lançamentos</h5>
+                    <h1 class="no-margins">35</h1>
+                    <div class="stat-percent font-bold text-navy">43% <i class="fa fa-bolt"></i></div>
+                    <small>Lançamentos no Mês</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h5>Lançamentos - Contas a Pagar</h5>
+                    <h1 class="no-margins">19</h1>
+                    <div class="stat-percent font-bold text-navy">23% <i class="fa fa-bolt"></i></div>
+                    <small>No Mês</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h5>Lançamentos - Contas a Receber</h5>
+                    <h1 class="no-margins">31</h1>
+                    <div class="stat-percent font-bold text-navy">62% <i class="fa fa-bolt"></i></div>
+                    <small>No Mês</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Conta Bancária - Consulta / Edição</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">Configuração 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Configuração 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                @using (Html.BeginForm("EditarConta", "Banco", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                {
+                    <div class="ibox-content">
+                        @Html.AntiForgeryToken()
+                        @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    Tipo de Conta*
+                                    @Html.HiddenFor(m => m.COBA_CD_ID)
+                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                    @Html.HiddenFor(m => m.BANC_CD_ID)
+                                    @Html.HiddenFor(m => m.COBA_IN_ATIVO)
+                                    @Html.HiddenFor(m => m.CONTA_PAGAR)
+                                    @Html.HiddenFor(m => m.CONTA_RECEBER)
+                                    @Html.HiddenFor(m => m.BANCO)
+                                    @Html.DropDownListFor(m => m.TICO_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
+                                    @Html.ValidationMessageFor(m => m.TICO_CD_ID, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                    Num.Agência*
+                                    @Html.TextBoxFor(m => m.COBA_NR_AGENCIA, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.COBA_NR_AGENCIA, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                    Nome da Agência
+                                    @Html.TextBoxFor(m => m.COBA_NM_AGENCIA, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.COBA_NM_AGENCIA, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                    Número da Conta*
+                                    @Html.TextBoxFor(m => m.COBA_NR_CONTA, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.COBA_NR_CONTA, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                    Data de Abertura*
+                                    @Html.TextBoxFor(m => m.COBA_DT_ABERTURA, "{0:dd/MM/yyyy}", new { @class = "form-control date-picker", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.COBA_DT_ABERTURA, "",new { @style="color:red" })
+                                </div>
+                            </div>
+                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                    Saldo Inicial*
+                                    @Html.TextBoxFor(m => m.COBA_VL_SALDO_INICIAL, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.COBA_VL_SALDO_INICIAL, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    Nome do Gerente
+                                    @Html.TextBoxFor(m => m.COBA_NM_GERENTE, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.COBA_NM_GERENTE, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    Contatos    
+                                    @Html.TextBoxFor(m => m.COBA_NR_TELEFONE, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.COBA_NR_TELEFONE, "",new { @style="color:red" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+         </div>
+    </div>
+    <div class="form-group">
+        @Html.ButtonActionSubmit(text: "Confirma Edição")
+        @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseConta", controller: "Banco")
+    </div>
+</div>
+
+@section Styles {
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />  
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+}
+@section Scripts {
+   
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/bundles/inputmask")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script type="text/javascript" language="javascript">
+        $(function () {
+            $('.date-picker').datepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Proximo',
+                    prevText: 'Anterior',
+                    showOn: "focus"
+                }
+            )
+            .css("display", "normal")
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar" },
+                label: "Selecione uma data",
+                text: false 
+            });
+        });
+    </script>
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                  alert("@ViewBag.Message");
+            };
+        </script>
+    }
+}
