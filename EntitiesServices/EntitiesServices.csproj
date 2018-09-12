@@ -104,6 +104,8 @@
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
     <Compile Include="Interfaces\Repositories\IBancoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUsuarioRepository.cs" />
+    <Compile Include="Interfaces\Services\IFilialService.cs" />
+    <Compile Include="Interfaces\Services\IMatrizService.cs" />
     <Compile Include="Interfaces\Services\IContaBancariaService.cs" />
     <Compile Include="Interfaces\Services\IConfiguracaoService.cs" />
     <Compile Include="Interfaces\Services\ILogService.cs" />
@@ -391,6 +393,8 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FilialService.cs" />
+    <Compile Include="Services\MatrizService.cs" />
     <Compile Include="Services\ContaBancariaService.cs" />
     <Compile Include="Services\ConfiguracaoService.cs" />
     <Compile Include="Services\LogService.cs" />

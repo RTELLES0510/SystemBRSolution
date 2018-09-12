@@ -1,0 +1,280 @@
+@using Presentation.Extensions
+@using CrossCutting;
+@model EntitiesServices.Model.MATRIZ
+@{
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="page-title"> 
+        <h3 class="title">Matriz & Filiais</h3> 
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h5>Filiais</h5>
+                    <h1 class="no-margins">@Model.FILIAL.Count</h1>
+                    <div class="stat-percent font-bold text-navy">50% <i class="fa fa-bolt"></i></div>
+                    <small>Filiais cadastradas</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Matriz - Consulta & Edição</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">Configuração 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Configuração 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                @using (Html.BeginForm("EditarMatriz", "Banco", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                {
+                    <div class="ibox-content">
+                        @Html.AntiForgeryToken()
+                        @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                    @Html.HiddenFor(m => m.MATR_IN_ATIVO)
+                                    @Html.HiddenFor(m => m.MATR_DT_CADASTRO)
+                                    @Html.HiddenFor(m => m.ASSINANTE)
+                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                    Nome*
+                                    @Html.TextBoxFor(m => m.MATR_NM_NOME, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NM_NOME, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    Razão Social
+                                    @Html.TextBoxFor(m => m.MATR_NM_RAZAO, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NM_RAZAO, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                    CNPJ*
+                                    @Html.TextBoxFor(m => m.MATR_NR_CNPJ, new { @class = "form-control", autofocus = true, @id="cnpj" })
+                                    @Html.ValidationMessageFor(m => m.MATR_NR_CNPJ, "",new { @style="color:red" })
+                                </div>
+                            </div>
+                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    E-Mail*
+                                    @Html.TextBoxFor(m => m.MATR_NM_EMAIL, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NM_EMAIL, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    Contato
+                                    @Html.TextBoxFor(m => m.MATR_NM_CONTATOS, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NM_CONTATOS, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    Telefone
+                                    @Html.TextBoxFor(m => m.MATR_NR_TELEFONES, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NR_TELEFONES, "",new { @style="color:red" })
+                                </div>
+                            </div>
+                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                    CEP
+                                    @Html.TextBoxFor(m => m.MATR_NR_CEP, new { @class = "form-control", autofocus = true, @id="cep" })
+                                    @Html.ValidationMessageFor(m => m.MATR_NR_CEP, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-12" style="align-content:center; vertical-align:bottom;">
+                                    &nbsp;
+                                    @Html.ButtonLinkIndex(text: "Buscar CEP", action: "BuscarCEP", controller: "Banco")
+                                </div>
+                            </div>
+                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">              
+                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                    Endereço
+                                    @Html.TextBoxFor(m => m.MATR_NM_ENDERECO, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NM_ENDERECO, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                    Bairro
+                                    @Html.TextBoxFor(m => m.MATR_NM_BAIRRO, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NM_BAIRRO, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                    Cidade
+                                    @Html.TextBoxFor(m => m.MATR_NM_CIDADE, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_NM_CIDADE, "",new { @style="color:red" })
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-xs-12">
+                                    UF
+                                    @Html.TextBoxFor(m => m.MATR_SG_UF, new { @class = "form-control", autofocus = true })
+                                    @Html.ValidationMessageFor(m => m.MATR_SG_UF, "",new { @style="color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.ButtonActionSubmit(text: "Confirma Edição da Matriz")
+                            @Html.ButtonLinkIndex(text: "Nova Filial", action: "IncluirFilial", controller: "Banco")
+                        </div>
+                    </div>
+                }
+            </div>
+         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Filiais</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#">Config option 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                            @if (Model.FILIAL.Count > 0)                                        {
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>   
+                                            <th>CNPJ</th>
+                                            <th>E-Mail</th>   
+                                            <th>Contato</th>
+                                            <th>Telefone</th>   
+                                            <th>Cidade</th>
+                                            <th>UF</th>
+                                            <th class="td-one-action">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var cond in Model.FILIAL)
+                                        {
+                                            <tr>
+                                                <td>@cond.FILI_NM_NOME</td>
+                                                <td>@CrossCutting.Formatters.CNPJFormatter(cond.FILI_NR_CNPJ)</td>
+                                                <td>@cond.FILI_NM_EMAIL</td>
+                                                <td>@cond.FILI_NM_CONTATOS</td>
+                                                <td>@cond.FILI_NM_TELEFONES</td>
+                                                <td>@cond.FILI_NM_CIDADE</td>
+                                                <td>@cond.FILI_SG_UF</td>
+                                                <td class="td-one-action">
+                                                    @Html.TableLinkDetails(cond.FILI_CD_ID, "EditarFilial","fa-edit", "Editar/Consultar Filial")
+                                                    @if (cond.FILI_IN_ATIVO == 1)
+	                                                {
+                                                        @Html.TableLinkDetails(cond.FILI_CD_ID, "ExcluirFilial","fa-trash-o", "Desativar Filial")
+                                                    }
+                                                    else
+                                                    {   
+                                                        @Html.TableLinkDetails(cond.FILI_CD_ID, "ReativarFilial","fa-refresh", "Reativar Filial")
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />  
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/bundles/inputmask")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+           
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#cnpj").mask("99.999.999/9999-99");
+            $("#cep").mask("99999-999");
+        });
+    </script>
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}
+

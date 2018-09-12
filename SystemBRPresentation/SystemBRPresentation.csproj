@@ -1998,6 +1998,11 @@
     <Content Include="Views\Banco\ExcluirConta.cshtml" />
     <Content Include="Views\Banco\ReativarConta.cshtml" />
     <Content Include="Views\Configuracao\Index.cshtml" />
+    <Content Include="Views\Banco\MontarTelaMatriz.cshtml" />
+    <Content Include="Views\Banco\IncluirFilial.cshtml" />
+    <Content Include="Views\Banco\EditarFilial.cshtml" />
+    <Content Include="Views\Banco\ExcluirFilial.cshtml" />
+    <Content Include="Views\Banco\ReativarFilial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

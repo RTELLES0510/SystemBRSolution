@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace DataServices.Repositories
 {
-    public class FilalRepository : RepositoryBase<FILIAL>, IFilialRepository
+    public class FilialRepository : RepositoryBase<FILIAL>, IFilialRepository
     {
         public FILIAL CheckExist(FILIAL conta)
         {

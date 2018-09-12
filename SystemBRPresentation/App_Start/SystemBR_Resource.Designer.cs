@@ -194,5 +194,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0015", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Filial ja cadastrada.
+        /// </summary>
+        internal static string M0016 {
+            get {
+                return ResourceManager.GetString("M0016", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir essa filial. Existem registros vinculados a ela.
+        /// </summary>
+        internal static string M0017 {
+            get {
+                return ResourceManager.GetString("M0017", resourceCulture);
+            }
+        }
     }
 }

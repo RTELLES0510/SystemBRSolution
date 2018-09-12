@@ -19,6 +19,8 @@ namespace SystemBRPresentation.Controllers
         private readonly IBancoAppService baseApp;
         private readonly ILogAppService logApp;
         private readonly IContaBancariaAppService contaApp;
+        private readonly IMatrizAppService matrizApp;
+        private readonly IFilialAppService filialApp;
         private String msg;
         private Exception exception;
         BANCO objeto = new BANCO();
@@ -30,12 +32,19 @@ namespace SystemBRPresentation.Controllers
         CONTA_BANCARIA objConta = new CONTA_BANCARIA();
         CONTA_BANCARIA objContaAntes = new CONTA_BANCARIA();
         List<CONTA_BANCARIA> listaMasterConta = new List<CONTA_BANCARIA>();
+        MATRIZ objMatriz = new MATRIZ();
+        MATRIZ objMatrizAntes = new MATRIZ();
+        FILIAL objFilial = new FILIAL();
+        FILIAL objFilialAntes = new FILIAL();
+        List<FILIAL> listaMasterFilial = new List<FILIAL>();
 
-        public BancoController(IBancoAppService baseApps, ILogAppService logApps, IContaBancariaAppService contaApps)
+        public BancoController(IBancoAppService baseApps, ILogAppService logApps, IContaBancariaAppService contaApps, IMatrizAppService matrizApps, IFilialAppService filialApps)
         {
             baseApp = baseApps;
             logApp = logApps;
             contaApp = contaApps;
+            matrizApp = matrizApps;
+            filialApp = filialApps;
         }
 
         [HttpGet]
@@ -492,6 +501,214 @@ namespace SystemBRPresentation.Controllers
             listaMasterConta = new List<CONTA_BANCARIA>();
             SessionMocks.listaContaBancaria = null;
             return RedirectToAction("Editar", new { id = SessionMocks.banco.BANC_CD_ID });
+        }
+
+        [HttpGet]
+        public ActionResult MontarTelaMatriz()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            //SessionMocks.IdAssinante = 2;
+            if (SessionMocks.Matriz == null)
+            {
+                objMatriz = matrizApp.GetAllItens().FirstOrDefault();
+                SessionMocks.Matriz = objMatrizAntes;
+            }
+            ViewBag.Title = "Matriz";
+
+            // Abre view
+            return View(objMatriz);
+        }
+
+       [HttpGet]
+        public ActionResult IncluirFilial()
+        {
+            // Prepara listas
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            FILIAL item = new FILIAL();
+            FilialViewModel vm = Mapper.Map<FILIAL, FilialViewModel>(item);
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            //vm.ASSI_CD_ID = 2;
+            vm.FILI_IN_ATIVO = 1;
+            vm.FILI_DT_CADASTRO = DateTime.Today;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirFilial(FilialViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    FILIAL item = Mapper.Map<FilialViewModel, FILIAL>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = filialApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0016", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Sucesso
+                    objMatriz = new MATRIZ();
+                    SessionMocks.Matriz = null;
+                    return RedirectToAction("MontarTelaMatriz");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarFilial(Int32 id)
+        {
+            // Prepara listas
+            
+            // Prepara view
+            FILIAL item = filialApp.GetItemById(id);
+            objFilialAntes = item;
+            FilialViewModel vm = Mapper.Map<FILIAL, FilialViewModel>(item);
+            return View(vm); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarFilial(FilialViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    FILIAL item = Mapper.Map<FilialViewModel, FILIAL>(vm);
+                    Int32 volta = filialApp.ValidateEdit(item, objFilialAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    objMatriz = new MATRIZ();
+                    SessionMocks.Matriz = null;
+                    return RedirectToAction("MontarTelaMatriz");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirFilial(Int32 id)
+        {
+            // Prepara view
+            FILIAL item = filialApp.GetItemById(id);
+            FilialViewModel vm = Mapper.Map<FILIAL, FilialViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirFilial(FilialViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                FILIAL item = Mapper.Map<FilialViewModel, FILIAL>(vm);
+                Int32 volta = filialApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0017", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                objMatriz = new MATRIZ();
+                SessionMocks.Matriz = null;
+                return RedirectToAction("MontarTelaMatriz");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarFilial(Int32 id)
+        {
+            // Prepara view
+            FILIAL item = filialApp.GetItemById(id);
+            FilialViewModel vm = Mapper.Map<FILIAL, FilialViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarFilial(FilialViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                FILIAL item = Mapper.Map<FilialViewModel, FILIAL>(vm);
+                Int32 volta = filialApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                objMatriz = new MATRIZ();
+                SessionMocks.Matriz = null;
+                return RedirectToAction("MontarTelaMatriz");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        public ActionResult VoltarBaseFilial()
+        {
+            objMatriz = new MATRIZ();
+            SessionMocks.Matriz = null;
+            return RedirectToAction("MontarTelaMatriz");
         }
     }
 }

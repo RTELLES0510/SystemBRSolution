@@ -17,6 +17,7 @@ namespace DataServices.Repositories
             query = query.Include(p => p.CONTA_PAGAR);
             query = query.Include(p => p.CONTA_RECEBER);
             query = query.Include(p => p.ASSINANTE);
+            query = query.Include(p => p.FILIAL);
             return query.FirstOrDefault();
         }
 
@@ -25,9 +26,8 @@ namespace DataServices.Repositories
             Int32? idAss = SessionMocks.IdAssinante;
             IQueryable<MATRIZ> query = Db.MATRIZ.Where(p => p.MATR_IN_ATIVO == 1);
             query = query.Where(p => p.ASSI_CD_ID == idAss);
-            query = query.Include(p => p.CONTA_PAGAR);
-            query = query.Include(p => p.CONTA_RECEBER);
             query = query.Include(p => p.ASSINANTE);
+            query = query.Include(p => p.FILIAL);
             return query.ToList();
         }
 
@@ -36,9 +36,8 @@ namespace DataServices.Repositories
             Int32? idAss = SessionMocks.IdAssinante;
             IQueryable<MATRIZ> query = Db.MATRIZ;
             query = query.Where(p => p.ASSI_CD_ID == idAss);
-            query = query.Include(p => p.CONTA_PAGAR);
-            query = query.Include(p => p.CONTA_RECEBER);
             query = query.Include(p => p.ASSINANTE);
+            query = query.Include(p => p.FILIAL);
             return query.ToList();
         }
     }

@@ -28,5 +28,7 @@ namespace EntitiesServices.Work_Classes
         public static List<CONTA_BANCARIA> listaContaBancaria { get; set; }
         public static BANCO banco { get; set; }
         public static Int32? IdMatriz { get; set; }
+        public static MATRIZ Matriz { get; set; }
+        public static List<FILIAL> listaFilial { get; set; }
     }
 }

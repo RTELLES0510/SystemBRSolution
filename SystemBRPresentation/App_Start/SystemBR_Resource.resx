@@ -162,4 +162,10 @@
   <data name="M0015" xml:space="preserve">
     <value>Impossivel excluir esta conta. Existem lancamentos de CONTAS A RECEBER vinculados a ela</value>
   </data>
+  <data name="M0016" xml:space="preserve">
+    <value>Filial ja cadastrada</value>
+  </data>
+  <data name="M0017" xml:space="preserve">
+    <value>Impossivel excluir essa filial. Existem registros vinculados a ela</value>
+  </data>
 </root>
