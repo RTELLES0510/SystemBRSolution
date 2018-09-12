@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using EntitiesServices.Work_Classes;
 
 namespace SystemBRPresentation.Controllers
 {
@@ -10,6 +11,15 @@ namespace SystemBRPresentation.Controllers
     {
         public ActionResult Index()
         {
+            SessionMocks.IdAssinante = 2;
+            if (SessionMocks.UserCredentials != null)
+            {
+                ViewBag.Usuario = "Olá, " + SessionMocks.NomeLogado;
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
             return View();
         }
 

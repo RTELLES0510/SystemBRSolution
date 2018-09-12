@@ -43,8 +43,8 @@ namespace ModelServices.EntitiesServices
         public Boolean VerificarCredenciais (String senha, USUARIO usuario)
         {
             // Criptografa senha informada
-            String senhaCrip = Cryptography.Encode(senha);
-            //string senhaCrip = senha;
+            //String senhaCrip = Cryptography.Encode(senha);
+            string senhaCrip = senha;
 
             // verifica senha
             if (usuario.USUA_NM_SENHA.Trim() != senhaCrip.Trim())

@@ -21,7 +21,7 @@ namespace EntitiesServices.Attributes
         }
     }
 
-    public class Util
+    public static class Util
     {
         public static string RemoveNaoNumericos(string text)
         {

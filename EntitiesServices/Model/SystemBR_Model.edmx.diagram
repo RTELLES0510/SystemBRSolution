@@ -243,6 +243,7 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_UNIDADE" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_ANEXO_PROPOSTA_SERVICO" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ANEXO_PROPOSTA_VENDA" ManuallyRouted="false" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

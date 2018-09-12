@@ -209,7 +209,9 @@
     <Compile Include="ViewModels\BancoViewModel.cs" />
     <Compile Include="ViewModels\ConfiguracaoViewModel.cs" />
     <Compile Include="ViewModels\ContaBancariaViewModel.cs" />
+    <Compile Include="ViewModels\FilialViewModel.cs" />
     <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\MatrizViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1995,6 +1997,7 @@
     <Content Include="Views\Banco\EditarConta.cshtml" />
     <Content Include="Views\Banco\ExcluirConta.cshtml" />
     <Content Include="Views\Banco\ReativarConta.cshtml" />
+    <Content Include="Views\Configuracao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -363,7 +363,8 @@ namespace ApplicationServices.Services
                 }
 
                 //Acerta campos 
-                usuario.USUA_NM_SENHA = Cryptography.Encode(usuario.USUA_NM_NOVA_SENHA);
+                //usuario.USUA_NM_SENHA = Cryptography.Encode(usuario.USUA_NM_NOVA_SENHA);
+                usuario.USUA_NM_SENHA = usuario.USUA_NM_NOVA_SENHA;
                 usuario.USUA_DT_TROCA_SENHA = DateTime.Now.Date;
                 usuario.USUA_IN_BLOQUEADO = 0;
                 usuario.USUA_IN_PROVISORIA = 0;
@@ -436,7 +437,7 @@ namespace ApplicationServices.Services
             LOG log = new LOG();
             log.LOG_DT_DATA = DateTime.Now;
             log.LOG_NM_OPERACAO = "NewPWD";
-            log.LOG_TX_REGISTRO = Serialization.SerializeJSON<USUARIO>(usuario);
+            log.LOG_TX_REGISTRO = senha;
             log.LOG_IN_ATIVO = 1;
 
             // Atualiza usuario

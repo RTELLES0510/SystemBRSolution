@@ -90,10 +90,10 @@ namespace ApplicationServices.Services
             try
             {
                 // Verifica existencia prévia
-                if (_baseService.CheckExist(item) != null)
-                {
-                    return 1;
-                }
+                //if (_baseService.CheckExist(item) != null)
+                //{
+                //    return 1;
+                //}
 
                 // Monta Log
                 LOG log = new LOG

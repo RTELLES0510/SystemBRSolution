@@ -378,8 +378,8 @@ namespace SystemBRPresentation.Controllers
         public ActionResult EditarConta(ContaBancariaViewModel vm)
         {
             ViewBag.Tipos = new SelectList(contaApp.GetAllTipos(), "TICO_CD_ID", "TICO_NM_NOME");
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     // Executa a operação
@@ -404,11 +404,11 @@ namespace SystemBRPresentation.Controllers
                     ViewBag.Message = ex.Message;
                     return View(vm);
                 }
-            }
-            else
-            {
-                return View(vm);
-            }
+            //}
+            //else
+            //{
+            //    return View(vm);
+            //}
         }
 
         [HttpGet]

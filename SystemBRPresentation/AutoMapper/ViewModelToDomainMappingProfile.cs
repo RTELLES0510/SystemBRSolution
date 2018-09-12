@@ -17,6 +17,8 @@ namespace MvcMapping.Mappers
             CreateMap<ConfiguracaoViewModel, CONFIGURACAO>();
             CreateMap<BancoViewModel, BANCO>();
             CreateMap<ContaBancariaViewModel, CONTA_BANCARIA>();
+            CreateMap<MatrizViewModel, MATRIZ>();
+            CreateMap<FilialViewModel, FILIAL>();
         }
     }
 }

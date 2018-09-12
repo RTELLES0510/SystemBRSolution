@@ -120,7 +120,7 @@ namespace SystemBRPresentation.Controllers
                 ViewBag.Foto = usuario.USUA_AQ_FOTO;
 
                 // Route
-                if (SessionMocks.voltaLogin != null)
+                if (SessionMocks.UserCredentials != null)
                 {
                     if (SessionMocks.UserCredentials.PERFIL.PERF_SG_SIGLA == "ADM")
                     {
@@ -189,7 +189,7 @@ namespace SystemBRPresentation.Controllers
                     return View(vm);
                 }
                 SessionMocks.UserCredentials = null;
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("Login", "ControleAcesso");
             }
             catch (Exception ex)
             {

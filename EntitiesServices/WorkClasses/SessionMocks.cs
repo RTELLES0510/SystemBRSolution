@@ -27,5 +27,6 @@ namespace EntitiesServices.Work_Classes
         public static List<TIPO_CONTA> listaTipoConta { get; set; }
         public static List<CONTA_BANCARIA> listaContaBancaria { get; set; }
         public static BANCO banco { get; set; }
+        public static Int32? IdMatriz { get; set; }
     }
 }

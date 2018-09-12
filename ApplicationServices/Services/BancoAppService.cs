@@ -105,10 +105,10 @@ namespace ApplicationServices.Services
             try
             {
                 // Verifica existencia prévia
-                if (_baseService.GetByCodigo(item.BANC_SG_CODIGO) != null)
-                {
-                    return 1;
-                }
+                //if (_baseService.GetByCodigo(item.BANC_SG_CODIGO) != null)
+                //{
+                //    return 1;
+                //}
 
                 // Monta Log
                 LOG log = new LOG

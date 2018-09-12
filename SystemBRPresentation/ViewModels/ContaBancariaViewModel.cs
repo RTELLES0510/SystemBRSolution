@@ -11,9 +11,7 @@ namespace SystemBRPresentation.ViewModels
     {
         [Key]
         public int COBA_CD_ID { get; set; }
-        [Required(ErrorMessage = "Campo ASSINANTE obrigatorio")]
         public int ASSI_CD_ID { get; set; }
-        [Required(ErrorMessage = "Campo BANCO obrigatorio")]
         public int BANC_CD_ID { get; set; }
         [Required(ErrorMessage = "Campo TIPO DE CONTA obrigatorio")]
         public int TICO_CD_ID { get; set; }

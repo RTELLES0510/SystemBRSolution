@@ -79,13 +79,13 @@
                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
                                 <div class="col-lg-4 col-md-4 col-xs-12">
                                     Tipo de Conta*
+                                    @Html.HiddenFor(m => m.BANCO)
                                     @Html.HiddenFor(m => m.COBA_CD_ID)
                                     @Html.HiddenFor(m => m.ASSI_CD_ID)
                                     @Html.HiddenFor(m => m.BANC_CD_ID)
                                     @Html.HiddenFor(m => m.COBA_IN_ATIVO)
                                     @Html.HiddenFor(m => m.CONTA_PAGAR)
                                     @Html.HiddenFor(m => m.CONTA_RECEBER)
-                                    @Html.HiddenFor(m => m.BANCO)
                                     @Html.DropDownListFor(m => m.TICO_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
                                     @Html.ValidationMessageFor(m => m.TICO_CD_ID, "",new { @style="color:red" })
                                 </div>
@@ -129,14 +129,14 @@
                             </div>
 
                         </div>
+                        <div class="form-group">
+                            @Html.ButtonActionSubmit(text: "Confirma Edição")
+                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseConta", controller: "Banco")
+                        </div>
                     </div>
                 }
             </div>
          </div>
-    </div>
-    <div class="form-group">
-        @Html.ButtonActionSubmit(text: "Confirma Edição")
-        @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseConta", controller: "Banco")
     </div>
 </div>
 

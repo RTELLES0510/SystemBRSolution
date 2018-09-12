@@ -2231,6 +2231,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MATRIZ_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MATRIZ">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_FILIAL">
           <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="0..1" />
           <End Role="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" Type="Self.MOVIMENTO_ESTOQUE_MATERIA_PRIMA" Multiplicity="*" />
@@ -3464,6 +3476,10 @@
             <End Role="UNIDADE" EntitySet="UNIDADE" />
             <End Role="MATERIA_PRIMA" EntitySet="MATERIA_PRIMA" />
           </AssociationSet>
+          <AssociationSet Name="FK_MATRIZ_ASSINANTE" Association="Self.FK_MATRIZ_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+          </AssociationSet>
           <AssociationSet Name="FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_FILIAL" Association="Self.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_FILIAL">
             <End Role="FILIAL" EntitySet="FILIAL" />
             <End Role="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" EntitySet="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" />
@@ -3773,6 +3789,7 @@
           <NavigationProperty Name="ASSINANTE_PLANO" Relationship="Self.FK_ASSINANTE_PLANO_ASSINANTE" FromRole="ASSINANTE" ToRole="ASSINANTE_PLANO" />
           <NavigationProperty Name="LOG" Relationship="Self.FK_LOG_ASSINANTE" FromRole="ASSINANTE" ToRole="LOG" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="ASSINANTE" ToRole="USUARIO" />
+          <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE" FromRole="ASSINANTE" ToRole="MATRIZ" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -4615,6 +4632,7 @@
           <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="Self.FK_TICKET_ATENDIMENTO_MATRIZ" FromRole="MATRIZ" ToRole="TICKET_ATENDIMENTO" />
           <NavigationProperty Name="TRANSPORTADORA" Relationship="Self.FK_TRANSPORTADORA_MATRIZ" FromRole="MATRIZ" ToRole="TRANSPORTADORA" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_MATRIZ" FromRole="MATRIZ" ToRole="VALOR_COMISSAO" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE" FromRole="MATRIZ" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA">
           <Key>
@@ -7772,7 +7790,23 @@
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
             <End Role="PROPOSTA_VENDA_ANEXO" EntitySet="PROPOSTA_VENDA_ANEXO" />
           </AssociationSet>
+          <AssociationSet Name="FK_MATRIZ_ASSINANTE" Association="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_MATRIZ_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.MATRIZ" Role="MATRIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MATRIZ">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
