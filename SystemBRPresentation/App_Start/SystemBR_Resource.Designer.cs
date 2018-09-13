@@ -212,5 +212,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0017", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cliente ja cadastrado.
+        /// </summary>
+        internal static string M0018 {
+            get {
+                return ResourceManager.GetString("M0018", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esse cliente. Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0019 {
+            get {
+                return ResourceManager.GetString("M0019", resourceCulture);
+            }
+        }
     }
 }

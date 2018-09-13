@@ -108,8 +108,8 @@ namespace SystemBRPresentation.Controllers
                 if (volta == 1)
                 {
                     ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
-                    listaMaster = new List<USUARIO>();
-                    return RedirectToAction("MontarTelaUsuario");
+                    //listaMaster = new List<USUARIO>();
+                    //return RedirectToAction("MontarTelaUsuario");
                 }
 
                 // Sucesso
@@ -275,8 +275,8 @@ namespace SystemBRPresentation.Controllers
                 if (volta == 1)
                 {
                     ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
-                    listaMasterLog = new List<LOG>();
-                    return RedirectToAction("MontarTelaLog");
+                    //listaMasterLog = new List<LOG>();
+                    //return RedirectToAction("MontarTelaLog");
                 }
 
                 // Sucesso

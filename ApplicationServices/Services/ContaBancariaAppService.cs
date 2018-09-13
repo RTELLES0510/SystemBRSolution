@@ -70,6 +70,7 @@ namespace ApplicationServices.Services
                 {
                     LOG_DT_DATA = DateTime.Now,
                     USUA_CD_ID = usuario.USUA_CD_ID,
+                    ASSI_CD_ID = SessionMocks.IdAssinante,
                     LOG_NM_OPERACAO = "AddCOBA",
                     LOG_IN_ATIVO = 1,
                     LOG_TX_REGISTRO = Serialization.SerializeJSON<CONTA_BANCARIA>(item)
@@ -100,6 +101,7 @@ namespace ApplicationServices.Services
                 {
                     LOG_DT_DATA = DateTime.Now,
                     USUA_CD_ID = usuario.USUA_CD_ID,
+                    ASSI_CD_ID = SessionMocks.IdAssinante,
                     LOG_NM_OPERACAO = "EditCOBA",
                     LOG_IN_ATIVO = 1,
                     LOG_TX_REGISTRO = Serialization.SerializeJSON<CONTA_BANCARIA>(item),
@@ -137,6 +139,7 @@ namespace ApplicationServices.Services
                 {
                     LOG_DT_DATA = DateTime.Now,
                     USUA_CD_ID = usuario.USUA_CD_ID,
+                    ASSI_CD_ID = SessionMocks.IdAssinante,
                     LOG_IN_ATIVO = 1,
                     LOG_NM_OPERACAO = "DelCOBA",
                     LOG_TX_REGISTRO = Serialization.SerializeJSON<CONTA_BANCARIA>(item)
@@ -165,6 +168,7 @@ namespace ApplicationServices.Services
                 {
                     LOG_DT_DATA = DateTime.Now,
                     USUA_CD_ID = usuario.USUA_CD_ID,
+                    ASSI_CD_ID = SessionMocks.IdAssinante,
                     LOG_IN_ATIVO = 1,
                     LOG_NM_OPERACAO = "ReatCOBA",
                     LOG_TX_REGISTRO = Serialization.SerializeJSON<CONTA_BANCARIA>(item)

@@ -10,24 +10,32 @@
     </div>
     <div class="row">
         <div class="col-lg-3">
-            <div class="ibox">
-                <div class="ibox-content">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Hoje</span>
                     <h5>Bancos</h5>
-                    <h1 class="no-margins">2</h1>
-                    <div class="stat-percent font-bold text-navy">50% <i class="fa fa-bolt"></i></div>
-                    <small>Bancos cadastrados</small>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.Bancos</h1>
+                    <div class="stat-percent font-bold text-navy">32% <i class="fa fa-level-up"></i></div>
+                    <small>Bancos Cadastrados</small>
                 </div>
             </div>
+
         </div>
         <div class="col-lg-3">
-            <div class="ibox">
-                <div class="ibox-content">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Hoje</span>
                     <h5>Contas Bancárias</h5>
-                    <h1 class="no-margins">5</h1>
-                    <div class="stat-percent font-bold text-navy">87% <i class="fa fa-bolt"></i></div>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.Contas</h1>
+                    <div class="stat-percent font-bold text-navy">21% <i class="fa fa-level-up"></i></div>
                     <small>Contas Cadastradas</small>
                 </div>
             </div>
+
         </div>
     </div>
 

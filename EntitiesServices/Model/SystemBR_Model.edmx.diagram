@@ -244,6 +244,10 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_ANEXO_PROPOSTA_SERVICO" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ANEXO_PROPOSTA_VENDA" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_ASSINANTE" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CLIENTE_ANEXO" Width="1.5" PointX="10.5" PointY="135.5" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_ANEXO_CLIENTE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

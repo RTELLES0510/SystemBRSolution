@@ -85,6 +85,10 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Listas = SessionMocks.listaBanco;
             ViewBag.Title = "Bancos";
 
+            // Indicadores
+            ViewBag.Bancos = listaMaster.Count;
+            ViewBag.Contas = contaApp.GetAllItens().Count;
+
             // Abre view
             objeto = new BANCO();
             return View(objeto);
@@ -528,15 +532,49 @@ namespace SystemBRPresentation.Controllers
             if (SessionMocks.Matriz == null)
             {
                 objMatriz = matrizApp.GetAllItens().FirstOrDefault();
-                SessionMocks.Matriz = objMatrizAntes;
+                SessionMocks.Matriz = objMatriz;
             }
             ViewBag.Title = "Matriz";
 
             // Abre view
-            return View(objMatriz);
+            MatrizViewModel vm = Mapper.Map<MATRIZ, MatrizViewModel>(objMatriz);
+            objMatrizAntes = objMatriz;
+            return View(vm);
         }
 
-       [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MontarTelaMatriz(MatrizViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    MATRIZ item = Mapper.Map<MatrizViewModel, MATRIZ>(vm);
+                    Int32 volta = matrizApp.ValidateEdit(item, objMatrizAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    objMatriz = new MATRIZ();
+                    SessionMocks.Matriz = null;
+                    return RedirectToAction("MontarTelaMatriz");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
         public ActionResult IncluirFilial()
         {
             // Prepara listas

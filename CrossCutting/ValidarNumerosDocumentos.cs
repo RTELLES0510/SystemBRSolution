@@ -6,16 +6,8 @@ using System.Threading.Tasks;
 
 namespace CrossCutting
 {
-    /// <summary>
-    /// The validar CPF class.
-    /// </summary>
     public static class ValidarNumerosDocumentos
     {
-        /// <summary>
-        /// The is CFP valid.
-        /// </summary>
-        /// <param name="cpf">The cpf.</param>
-        /// <returns>The <see cref="Boolean"/>.</returns>
         public static Boolean IsCFPValid(String cpf)
         {
             int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -71,13 +63,6 @@ namespace CrossCutting
             return cpf.EndsWith(digito, StringComparison.CurrentCulture);
         }
 
-        /// <summary>
-        /// Determines whether [is CNPJ valid] [the specified CNPJ].
-        /// </summary>
-        /// <param name="cnpj">The CNPJ.</param>
-        /// <returns>
-        ///   <c>true</c> if [is CNPJ valid] [the specified CNPJ]; otherwise, <c>false</c>.
-        /// </returns>
         public static bool IsCnpjValid(string cnpj)
         {
             int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -113,13 +98,6 @@ namespace CrossCutting
             return cnpj.EndsWith(digito);
         }
 
-        /// <summary>
-        /// Determines whether [is pis valid] [the specified pis].
-        /// </summary>
-        /// <param name="pis">The pis.</param>
-        /// <returns>
-        ///   <c>true</c> if [is pis valid] [the specified pis]; otherwise, <c>false</c>.
-        /// </returns>
         public static bool IsPisValid(string pis)
         {
             int[] multiplicador = new int[10] { 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -139,6 +117,13 @@ namespace CrossCutting
             else
                 resto = 11 - resto;
             return pis.EndsWith(resto.ToString());
+        }
+
+        public static string RemoveNaoNumericos(string text)
+        {
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"[^0-9]");
+            string ret = reg.Replace(text, string.Empty);
+            return ret;
         }
     }
 }

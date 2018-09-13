@@ -93,9 +93,12 @@
     <Compile Include="Attributes\CustomValidationCPFAttribute.cs" />
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
+    <Compile Include="Interfaces\Repositories\IClienteAnexoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IClienteRepository.cs" />
     <Compile Include="Interfaces\Repositories\IFilialRepository.cs" />
     <Compile Include="Interfaces\Repositories\IMatrizRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContaBancariaRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ICategoriaClienteRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITipoContaRepository.cs" />
     <Compile Include="Interfaces\Repositories\IConfiguracaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILogRepository.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
     <Compile Include="Interfaces\Repositories\IBancoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUsuarioRepository.cs" />
+    <Compile Include="Interfaces\Services\IClienteService.cs" />
     <Compile Include="Interfaces\Services\IFilialService.cs" />
     <Compile Include="Interfaces\Services\IMatrizService.cs" />
     <Compile Include="Interfaces\Services\IContaBancariaService.cs" />
@@ -162,6 +166,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CLIENTE.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CLIENTE_ANEXO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\COLABORADOR.cs">
@@ -393,6 +400,7 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ClienteService.cs" />
     <Compile Include="Services\FilialService.cs" />
     <Compile Include="Services\MatrizService.cs" />
     <Compile Include="Services\ContaBancariaService.cs" />

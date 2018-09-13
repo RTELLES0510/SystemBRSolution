@@ -57,7 +57,7 @@ namespace DataServices.Repositories
             }
             if (!String.IsNullOrEmpty(nome))
             {
-                query = query.Where(p => p.BANC_NM_NOME == nome);
+                query = query.Where(p => p.BANC_NM_NOME.Contains(nome));
             }
             if (query != null)
             {

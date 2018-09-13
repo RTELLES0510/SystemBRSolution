@@ -1,6 +1,6 @@
 @using Presentation.Extensions
 @using CrossCutting;
-@model EntitiesServices.Model.MATRIZ
+@model SystemBRPresentation.ViewModels.MatrizViewModel
 @{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
@@ -10,14 +10,18 @@
     </div>
     <div class="row">
         <div class="col-lg-3">
-            <div class="ibox">
-                <div class="ibox-content">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Hoje</span>
                     <h5>Filiais</h5>
+                </div>
+                <div class="ibox-content">
                     <h1 class="no-margins">@Model.FILIAL.Count</h1>
-                    <div class="stat-percent font-bold text-navy">50% <i class="fa fa-bolt"></i></div>
-                    <small>Filiais cadastradas</small>
+                    <div class="stat-percent font-bold text-navy">32% <i class="fa fa-level-up"></i></div>
+                    <small>Filiais Cadastradas</small>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -46,7 +50,7 @@
                         </a>
                     </div>
                 </div>
-                @using (Html.BeginForm("EditarMatriz", "Banco", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                @using (Html.BeginForm("MontarTelaMatriz", "Banco", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
                 {
                     <div class="ibox-content">
                         @Html.AntiForgeryToken()
@@ -63,7 +67,7 @@
                                     @Html.HiddenFor(m => m.MATR_CD_ID)
                                     @Html.HiddenFor(m => m.MATR_IN_ATIVO)
                                     @Html.HiddenFor(m => m.MATR_DT_CADASTRO)
-                                    @Html.HiddenFor(m => m.ASSINANTE)
+                                    @*@Html.HiddenFor(m => m.ASSINANTE)*@
                                     @Html.HiddenFor(m => m.ASSI_CD_ID)
                                     Nome*
                                     @Html.TextBoxFor(m => m.MATR_NM_NOME, new { @class = "form-control", autofocus = true })

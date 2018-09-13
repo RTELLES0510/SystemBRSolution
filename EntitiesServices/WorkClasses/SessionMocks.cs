@@ -30,5 +30,7 @@ namespace EntitiesServices.Work_Classes
         public static Int32? IdMatriz { get; set; }
         public static MATRIZ Matriz { get; set; }
         public static List<FILIAL> listaFilial { get; set; }
+        public static List<CLIENTE> listaCliente { get; set; }
+        public static CLIENTE cliente { get; set; }
     }
 }

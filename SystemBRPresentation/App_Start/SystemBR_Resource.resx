@@ -168,4 +168,10 @@
   <data name="M0017" xml:space="preserve">
     <value>Impossivel excluir essa filial. Existem registros vinculados a ela</value>
   </data>
+  <data name="M0018" xml:space="preserve">
+    <value>Cliente ja cadastrado</value>
+  </data>
+  <data name="M0019" xml:space="preserve">
+    <value>Impossivel excluir esse cliente. Existem registros vinculados a ele.</value>
+  </data>
 </root>

@@ -44,7 +44,7 @@ namespace DataServices.Repositories
             }
             if (data != DateTime.MinValue)
             {
-                query = query.Where(p => p.LOG_DT_DATA == data);
+                query = query.Where(p => DbFunctions.TruncateTime(p.LOG_DT_DATA) == DbFunctions.TruncateTime(data));
             }
             if (query != null)
             {
@@ -52,7 +52,7 @@ namespace DataServices.Repositories
                 query = query.OrderByDescending(a => a.LOG_DT_DATA);
                 lista = query.ToList<LOG>();
             }
-            return lista;
+                return lista;
         }
     }
 }

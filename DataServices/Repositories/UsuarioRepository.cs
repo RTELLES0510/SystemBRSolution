@@ -5,6 +5,7 @@ using ModelServices.Interfaces.Repositories;
 using System.Linq;
 using EntitiesServices.Work_Classes;
 using System.Data.Entity;
+using CrossCutting;
 
 namespace DataServices.Repositories
 {
@@ -85,10 +86,11 @@ namespace DataServices.Repositories
             }
             if (!String.IsNullOrEmpty(nome))
             {
-                query = query.Where(p => p.COLABORADOR.COLA_NM_NOME == nome);
+                query = query.Where(p => p.COLABORADOR.COLA_NM_NOME.Contains(nome));
             }
             if (!String.IsNullOrEmpty(cpf))
             {
+                cpf = ValidarNumerosDocumentos.RemoveNaoNumericos(cpf);
                 query = query.Where(p => p.COLABORADOR.COLA_NR_CPF == cpf);
             }
             if (perfilId != 0)
