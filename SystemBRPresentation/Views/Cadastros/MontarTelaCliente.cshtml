@@ -75,7 +75,7 @@
                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">
                                 <div class="col-lg-4 col-md-4 col-xs-12">
                                     E-Mail
-                                    @Html.DropDownListFor(m => m.CLIE_NM_EMAIL, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
+                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL, new { @class = "form-control", autofocus = true })
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                     Cidade
@@ -95,8 +95,8 @@
                                     @Html.ButtonActionSubmit(text: "Filtrar")
                                     @Html.ButtonLinkIndex(text: "Retirar Filtro", controller: "Cadastros", action: "RetirarFiltroCliente")
                                     @Html.ButtonLinkIndex(text: "Exibir Todos", controller: "Cadastros", action: "MostrarTudoCliente")
-                                    @Html.ButtonLinkIndex(text: "Novo Banco", controller: "Cadastros", action: "IncluirCliente")
-                                    @Html.ButtonLinkIndex(text: "Exibir Cards", controller: "Cadastros", action: "VerCardsCliente")
+                                    @Html.ButtonLinkIndex(text: "Novo Cliente", controller: "Cadastros", action: "IncluirCliente")
+                                    @Html.ButtonLinkIndex(text: "Exibir Cards dos Clientes", controller: "Cadastros", action: "VerCardsCliente")
                                 </div>
                             </div>
                     </div>

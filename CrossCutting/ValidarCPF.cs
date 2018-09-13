@@ -18,6 +18,10 @@ namespace CrossCutting
         /// <returns>The <see cref="Boolean"/>.</returns>
         public static Boolean IsCFPValid(String cpf)
         {
+            if (String.IsNullOrEmpty(cpf))
+            {
+                return true;
+            }
             int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             string tempCpf;

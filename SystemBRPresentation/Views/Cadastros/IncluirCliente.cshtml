@@ -32,7 +32,7 @@
                         </a>
                     </div>
                 </div>
-                @using (Html.BeginForm("IncluirCliente", "Cadastro", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                @using (Html.BeginForm("IncluirCliente", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
                 {
                     <div class="ibox-content">
                         @Html.AntiForgeryToken()
@@ -50,7 +50,6 @@
                                     @Html.HiddenFor(m => m.CLIE_DT_CADASTRO)
                                     @Html.HiddenFor(m => m.CLIE_IN_ATIVO)
                                     @Html.HiddenFor(m => m.MATR_CD_ID)
-                                    @Html.HiddenFor(m => m.FILI_CD_ID)
                                     Categoria*
                                     @Html.DropDownListFor(m => m.CACL_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
                                     @Html.ValidationMessageFor(m => m.CACL_CD_ID, "",new { @style="color:red" })
@@ -136,7 +135,7 @@
                         </div>
                         <div class="form-group">
                             @Html.ButtonActionSubmit(text: "Confirma Inclusão de Cliente")
-                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseCliente", controller: "Cadastro")
+                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseCliente", controller: "Cadastros")
                         </div>
                     </div>
                 }

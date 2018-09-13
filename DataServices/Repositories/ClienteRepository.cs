@@ -69,7 +69,7 @@ namespace DataServices.Repositories
             Int32? idAss = SessionMocks.IdAssinante;
             List<CLIENTE> lista = new List<CLIENTE>();
             IQueryable<CLIENTE> query = Db.CLIENTE;
-            if (catId != 0)
+            if (catId != null)
             {
                 query = query.Where(p => p.CATEGORIA_CLIENTE.CACL_CD_ID == catId);
             }

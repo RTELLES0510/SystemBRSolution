@@ -10,6 +10,10 @@ namespace CrossCutting
     {
         public static Boolean IsCFPValid(String cpf)
         {
+            if (String.IsNullOrEmpty(cpf))
+            {
+                return true;
+            }
             int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             string tempCpf;
@@ -65,6 +69,10 @@ namespace CrossCutting
 
         public static bool IsCnpjValid(string cnpj)
         {
+            if (String.IsNullOrEmpty(cnpj))
+            {
+                return true;
+            }
             int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int soma;
@@ -100,6 +108,10 @@ namespace CrossCutting
 
         public static bool IsPisValid(string pis)
         {
+            if (String.IsNullOrEmpty(pis))
+            {
+                return true;
+            }
             int[] multiplicador = new int[10] { 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int soma;
             int resto;

@@ -174,8 +174,8 @@
           <Property Name="CLIE_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CLIE_NM_RAZAO" Type="varchar" MaxLength="100" />
           <Property Name="CLIE_IN_TIPO_PESSOA" Type="int" />
-          <Property Name="CLIE_NR_CPF" Type="varchar" MaxLength="15" />
-          <Property Name="CLIE_NR_CNPJ" Type="varchar" MaxLength="15" />
+          <Property Name="CLIE_NR_CPF" Type="varchar" MaxLength="20" />
+          <Property Name="CLIE_NR_CNPJ" Type="varchar" MaxLength="20" />
           <Property Name="CLIE_NM_EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CLIE_NR_TELEFONES" Type="varchar" MaxLength="250" />
           <Property Name="CLIE_NM_REDES_SOCIAIS" Type="varchar" MaxLength="250" />
@@ -186,6 +186,7 @@
           <Property Name="CLIE_NR_CEP" Type="varchar" MaxLength="10" />
           <Property Name="CLIE_DT_CADASTRO" Type="date" Nullable="false" />
           <Property Name="CLIE_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="CLIE_AQ_FOTO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CLIENTE_ANEXO">
           <Key>
@@ -4017,8 +4018,8 @@
           <Property Name="CLIE_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CLIE_NM_RAZAO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CLIE_IN_TIPO_PESSOA" Type="Int32" />
-          <Property Name="CLIE_NR_CPF" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="CLIE_NR_CNPJ" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CLIE_NR_CPF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CLIE_NR_CNPJ" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CLIE_NM_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CLIE_NR_TELEFONES" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CLIE_NM_REDES_SOCIAIS" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -4042,6 +4043,7 @@
           <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="Self.FK_TICKET_ATENDIMENTO_CLIENTE" FromRole="CLIENTE" ToRole="TICKET_ATENDIMENTO" />
           <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CLIENTE_ASSINANTE" FromRole="CLIENTE" ToRole="ASSINANTE" />
           <NavigationProperty Name="CLIENTE_ANEXO" Relationship="SystemBRDatabaseModel.FK_CLIENTE_ANEXO_CLIENTE" FromRole="CLIENTE" ToRole="CLIENTE_ANEXO" />
+          <Property Name="CLIE_AQ_FOTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="COLABORADOR">
           <Key>
@@ -8117,6 +8119,7 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="CLIE_AQ_FOTO" ColumnName="CLIE_AQ_FOTO" />
                 <ScalarProperty Name="CLIE_CD_ID" ColumnName="CLIE_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />

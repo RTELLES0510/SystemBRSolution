@@ -150,6 +150,19 @@ namespace ApplicationServices.Services
             }
         }
 
+        public Int32 ValidateEdit(CLIENTE item, CLIENTE itemAntes)
+        {
+            try
+            {
+                // Persiste
+                return _baseService.Edit(item);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public Int32 ValidateDelete(CLIENTE item, USUARIO usuario)
         {
             try

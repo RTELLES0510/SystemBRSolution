@@ -11,6 +11,7 @@ namespace ApplicationServices.Interfaces
     {
         Int32 ValidateCreate(CLIENTE perfil, USUARIO usuario);
         Int32 ValidateEdit(CLIENTE perfil, CLIENTE perfilAntes, USUARIO usuario);
+        Int32 ValidateEdit(CLIENTE item, CLIENTE itemAntes);
         Int32 ValidateDelete(CLIENTE perfil, USUARIO usuario);
         Int32 ValidateReativar(CLIENTE perfil, USUARIO usuario);
         List<CLIENTE> GetAllItens();

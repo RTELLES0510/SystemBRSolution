@@ -30,7 +30,7 @@ namespace DataServices.Repositories
 
         public List<FILIAL> GetAllItens()
         {
-            Int32? idMatriz = SessionMocks.IdMatriz;
+            Int32? idMatriz = SessionMocks.Matriz.MATR_CD_ID;
             IQueryable<FILIAL> query = Db.FILIAL.Where(p => p.FILI_IN_ATIVO == 1);
             query = query.Where(p => p.MATR_CD_ID == idMatriz);
             query = query.Include(p => p.MATRIZ);

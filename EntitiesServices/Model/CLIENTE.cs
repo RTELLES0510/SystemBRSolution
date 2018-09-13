@@ -48,6 +48,7 @@ namespace EntitiesServices.Model
         public string CLIE_NR_CEP { get; set; }
         public System.DateTime CLIE_DT_CADASTRO { get; set; }
         public int CLIE_IN_ATIVO { get; set; }
+        public string CLIE_AQ_FOTO { get; set; }
     
         public virtual CATEGORIA_CLIENTE CATEGORIA_CLIENTE { get; set; }
         public virtual FILIAL FILIAL { get; set; }

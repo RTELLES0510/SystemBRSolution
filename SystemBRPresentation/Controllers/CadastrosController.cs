@@ -27,6 +27,7 @@ namespace SystemBRPresentation.Controllers
         LOG objLog = new LOG();
         LOG objLogAntes = new LOG();
         List<LOG> listaMasterLog = new List<LOG>();
+        String extensao = String.Empty;
 
         public CadastrosController(IClienteAppService baseApps, ILogAppService logApps, IMatrizAppService matrizApps)
         {
@@ -73,18 +74,25 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Listas = SessionMocks.listaCliente;
             ViewBag.Title = "Clientes";
             SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
 
             // Indicadores
             ViewBag.Clientes = baseApp.GetAllItens().Count;
             
             // Abre view
             objeto = new CLIENTE();
+            SessionMocks.voltaCliente = 1;
             return View(objeto);
         }
 
         public ActionResult RetirarFiltroCliente()
         {
             SessionMocks.listaCliente = null;
+            if (SessionMocks.voltaCliente == 2)
+            {
+                return RedirectToAction("VerCardsCliente");
+            }
             return RedirectToAction("MontarTelaCliente");
         }
 
@@ -92,6 +100,10 @@ namespace SystemBRPresentation.Controllers
         {
             listaMaster = baseApp.GetAllItensAdm();
             SessionMocks.listaCliente = listaMaster;
+            if (SessionMocks.voltaCliente == 2)
+            {
+                return RedirectToAction("VerCardsCliente");
+            }
             return RedirectToAction("MontarTelaCliente");
         }
 
@@ -113,6 +125,10 @@ namespace SystemBRPresentation.Controllers
                 // Sucesso
                 listaMaster = listaObj;
                 SessionMocks.listaCliente = listaObj;
+                if (SessionMocks.voltaCliente == 2)
+                {
+                    return RedirectToAction("VerCardsCliente");
+                }
                 return RedirectToAction("MontarTelaCliente");
             }
             catch (Exception ex)
@@ -170,9 +186,32 @@ namespace SystemBRPresentation.Controllers
                         return View(vm);
                     }
 
+                    // Carrega foto e processa alteracao
+                    if (!String.IsNullOrEmpty(item.CLIE_NR_CPF))
+                    {
+                        String cpf = CrossCutting.ValidarNumerosDocumentos.RemoveNaoNumericos(item.CLIE_NR_CPF);
+                        item.CLIE_AQ_FOTO = "~/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/" + cpf + ".jpg";
+                    }
+                    else
+                    {
+                        String cnpj = CrossCutting.ValidarNumerosDocumentos.RemoveNaoNumericos(item.CLIE_NR_CNPJ);
+                        item.CLIE_AQ_FOTO = "~/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/" + cnpj + ".jpg";
+                    }
+                    volta = baseApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    
                     // Sucesso
                     listaMaster = new List<CLIENTE>();
                     SessionMocks.listaCliente = null;
+                    if (SessionMocks.voltaCliente == 2)
+                    {
+                        return RedirectToAction("VerCardsCliente");
+                    }
                     return RedirectToAction("MontarTelaCliente");
                 }
                 catch (Exception ex)
@@ -196,6 +235,7 @@ namespace SystemBRPresentation.Controllers
             CLIENTE item = baseApp.GetItemById(id);
             objetoAntes = item;
             SessionMocks.cliente = item;
+            SessionMocks.idVolta = id;
             ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
             return View(vm);
         }
@@ -314,14 +354,100 @@ namespace SystemBRPresentation.Controllers
                 SessionMocks.listaCliente = listaMaster;
             }
             ViewBag.Listas = SessionMocks.listaCliente;
+            ViewBag.Title = "Clientes";
             SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
 
             // Indicadores
             ViewBag.Clientes = baseApp.GetAllItens().Count;
 
             // Abre view
             objeto = new CLIENTE();
+            SessionMocks.voltaCliente = 2;
             return View(objeto);
+        }
+
+        [HttpGet]
+        public ActionResult VerAnexoCliente(Int32 id)
+        {
+            // Prepara view
+            CLIENTE_ANEXO item = baseApp.GetAnexoById(id);
+            return View(item);
+        }
+
+        public ActionResult ShowImage()
+        {
+            byte[] imgbytes = System.IO.File.ReadAllBytes(SessionMocks.arquivo);
+            return File(imgbytes, "image/jpeg");
+        }
+
+        public ActionResult VoltarAnexoCliente()
+        {
+            return RedirectToAction("EditarCliente", new { id = SessionMocks.idVolta });
+        }
+
+        public FileResult DownloadCliente(Int32 id)
+        {
+            CLIENTE_ANEXO item = baseApp.GetAnexoById(id);
+            String arquivo = item.CLAN_AQ_ARQUIVO;
+            Int32 pos = arquivo.LastIndexOf("/") + 1;
+            String nomeDownload = arquivo.Substring(pos);
+            String contentType = string.Empty;
+            if (arquivo.Contains(".pdf"))
+            {
+                contentType = "application/pdf";
+            }
+            else if (arquivo.Contains(".jpg"))
+            {
+                contentType = "image/jpg";
+            }
+            else if (arquivo.Contains(".png"))
+            {
+                contentType = "image/png";
+            }
+            return File(arquivo, contentType, nomeDownload);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFileCliente(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            CLIENTE item = baseApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            CLIENTE_ANEXO foto = new CLIENTE_ANEXO();
+            foto.CLAN_AQ_ARQUIVO = "~" + caminho + fileName;
+            foto.CLAN_DT_ANEXO = DateTime.Today;
+            foto.CLAN_IN_ATIVO = 1;
+            Int32 tipo = 3;
+            if (extensao.ToUpper() == ".JPG" || extensao.ToUpper() == ".GIF" || extensao.ToUpper() == ".PNG" || extensao.ToUpper() == ".JPEG")
+            {
+                tipo = 1;
+            }
+            if (extensao.ToUpper() == ".MP4" || extensao.ToUpper() == ".AVI" || extensao.ToUpper() == ".MPEG")
+            {
+                tipo = 2;
+            }
+            foto.CLAN_IN_TIPO = tipo;
+            foto.CLAN_NM_TITULO = fileName;
+            foto.CLIE_CD_ID = item.CLIE_CD_ID;
+
+            item.CLIENTE_ANEXO.Add(foto);
+            objetoAntes = item;
+            Int32 volta = baseApp.ValidateEdit(item, objetoAntes);
+            return RedirectToAction("VoltarAnexoCliente");
         }
     }
 }
