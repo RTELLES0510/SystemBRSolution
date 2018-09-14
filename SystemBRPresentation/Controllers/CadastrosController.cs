@@ -187,16 +187,7 @@ namespace SystemBRPresentation.Controllers
                     }
 
                     // Carrega foto e processa alteracao
-                    if (!String.IsNullOrEmpty(item.CLIE_NR_CPF))
-                    {
-                        String cpf = CrossCutting.ValidarNumerosDocumentos.RemoveNaoNumericos(item.CLIE_NR_CPF);
-                        item.CLIE_AQ_FOTO = "~/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/" + cpf + ".jpg";
-                    }
-                    else
-                    {
-                        String cnpj = CrossCutting.ValidarNumerosDocumentos.RemoveNaoNumericos(item.CLIE_NR_CNPJ);
-                        item.CLIE_AQ_FOTO = "~/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/" + cnpj + ".jpg";
-                    }
+                    item.CLIE_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
                     volta = baseApp.ValidateEdit(item, item, usuarioLogado);
 
                     // Cria pastas
@@ -449,5 +440,35 @@ namespace SystemBRPresentation.Controllers
             Int32 volta = baseApp.ValidateEdit(item, objetoAntes);
             return RedirectToAction("VoltarAnexoCliente");
         }
+
+        [HttpPost]
+        public ActionResult UploadFotoCliente(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            CLIENTE item = baseApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            item.CLIE_AQ_FOTO = "~" + caminho + fileName;
+            objetoAntes = item;
+            Int32 volta = baseApp.ValidateEdit(item, objetoAntes);
+            return RedirectToAction("VoltarAnexoCliente");
+        }
+
+        public ActionResult BuscarCEPCliente(CLIENTE item)
+        {
+            return RedirectToAction("IncluirClienteEspecial", new { objeto = item});
+        }
+
     }
 }

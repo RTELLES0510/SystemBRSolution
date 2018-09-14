@@ -544,8 +544,10 @@
     <Content Include="Imagens\2\Clientes\2\Fotos\00000000000000.jpg" />
     <Content Include="Imagens\2\Clientes\4\Fotos\60746948000112.jpg" />
     <Content Include="Imagens\2\Clientes\5\Fotos\00894138731.jpg" />
+    <Content Include="Imagens\2\Clientes\7\Fotos\a1.jpg" />
     <Content Include="Imagens\2\Usuarios\00894138731.jpg" />
     <Content Include="Imagens\2\Usuarios\60691280797.jpg" />
+    <Content Include="Imagens\Base\FotoBase.jpg" />
     <Content Include="Images\1.jpg" />
     <Content Include="Images\1.png" />
     <Content Include="Images\favicon_SystemBR.jpg" />
@@ -2027,6 +2029,7 @@
     <Folder Include="Imagens\2\Clientes\3\Anexos\" />
     <Folder Include="Imagens\2\Clientes\4\Anexos\" />
     <Folder Include="Imagens\2\Clientes\5\Anexos\" />
+    <Folder Include="Imagens\2\Clientes\7\Anexos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
