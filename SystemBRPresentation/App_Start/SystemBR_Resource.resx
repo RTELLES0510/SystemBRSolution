@@ -174,4 +174,10 @@
   <data name="M0019" xml:space="preserve">
     <value>Impossivel excluir esse cliente. Existem registros vinculados a ele.</value>
   </data>
+  <data name="M0020" xml:space="preserve">
+    <value>Fornecedor ja cadastrado</value>
+  </data>
+  <data name="M0021" xml:space="preserve">
+    <value>Impossivel excluir esse fornecedor. Existem registros vinculados a ele.</value>
+  </data>
 </root>

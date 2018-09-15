@@ -18,6 +18,7 @@ namespace EntitiesServices.Model
         public FORNECEDOR()
         {
             this.CONTA_PAGAR = new HashSet<CONTA_PAGAR>();
+            this.FORNECEDOR_ANEXO = new HashSet<FORNECEDOR_ANEXO>();
             this.ITEM_PEDIDO_COMPRA_COTACAO = new HashSet<ITEM_PEDIDO_COMPRA_COTACAO>();
             this.PEDIDO_COMPRA = new HashSet<PEDIDO_COMPRA>();
         }
@@ -29,7 +30,6 @@ namespace EntitiesServices.Model
         public Nullable<int> CAFO_CD_ID { get; set; }
         public string FORN_NM_NOME { get; set; }
         public string FORN_NM_RAZAO { get; set; }
-        public int FORN_IN_TIPO_PESSOA { get; set; }
         public string FORN_NR_CPF { get; set; }
         public string FORN_NR_CNPJ { get; set; }
         public string FORN_NM_EMAIL { get; set; }
@@ -42,16 +42,19 @@ namespace EntitiesServices.Model
         public string FORN_NR_CEP { get; set; }
         public System.DateTime FORN_DT_CADASTRO { get; set; }
         public int FORN_IN_ATIVO { get; set; }
+        public string FORN_AQ_FOTO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_FORNECEDOR CATEGORIA_FORNECEDOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_PAGAR> CONTA_PAGAR { get; set; }
         public virtual FILIAL FILIAL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FORNECEDOR_ANEXO> FORNECEDOR_ANEXO { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ITEM_PEDIDO_COMPRA_COTACAO> ITEM_PEDIDO_COMPRA_COTACAO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO_COMPRA> PEDIDO_COMPRA { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

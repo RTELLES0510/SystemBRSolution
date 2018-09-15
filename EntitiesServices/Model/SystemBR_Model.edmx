@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AGENDA">
           <Key>
             <PropertyRef Name="AGEN_CD_ID" />
@@ -496,7 +496,6 @@
           <Property Name="CAFO_CD_ID" Type="int" />
           <Property Name="FORN_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FORN_NM_RAZAO" Type="varchar" MaxLength="100" />
-          <Property Name="FORN_IN_TIPO_PESSOA" Type="int" Nullable="false" />
           <Property Name="FORN_NR_CPF" Type="varchar" MaxLength="15" />
           <Property Name="FORN_NR_CNPJ" Type="varchar" MaxLength="15" />
           <Property Name="FORN_NM_EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
@@ -509,6 +508,19 @@
           <Property Name="FORN_NR_CEP" Type="varchar" MaxLength="10" />
           <Property Name="FORN_DT_CADASTRO" Type="date" Nullable="false" />
           <Property Name="FORN_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="FORN_AQ_FOTO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FORNECEDOR_ANEXO">
+          <Key>
+            <PropertyRef Name="FOAN_CD_ID" />
+          </Key>
+          <Property Name="FOAN_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FORN_CD_ID" Type="int" Nullable="false" />
+          <Property Name="FOAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FOAN_DT_ANEXO" Type="date" Nullable="false" />
+          <Property Name="FOAN_IN_TIPO" Type="int" Nullable="false" />
+          <Property Name="FOAN_AQ_ARQUVO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FOAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FUNCIONALIDADE">
           <Key>
@@ -1884,6 +1896,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FORNECEDOR_ANEXO_FORNECEDOR">
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
+          <End Role="FORNECEDOR_ANEXO" Type="Self.FORNECEDOR_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Principal>
+            <Dependent Role="FORNECEDOR_ANEXO">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FORNECEDOR_ASSINANTE">
           <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
           <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="*" />
@@ -3146,6 +3170,7 @@
           <EntitySet Name="EXAME_PERIODICO" EntityType="Self.EXAME_PERIODICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FILIAL" EntityType="Self.FILIAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORNECEDOR" EntityType="Self.FORNECEDOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FORNECEDOR_ANEXO" EntityType="Self.FORNECEDOR_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FUNCIONALIDADE" EntityType="Self.FUNCIONALIDADE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INVENTARIO" EntityType="Self.INVENTARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INVENTARIO_ITEM" EntityType="Self.INVENTARIO_ITEM" Schema="dbo" store:Type="Tables" />
@@ -3405,6 +3430,10 @@
           <AssociationSet Name="FK_FILIAL_MATRIZ" Association="Self.FK_FILIAL_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="FILIAL" EntitySet="FILIAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_ANEXO_FORNECEDOR" Association="Self.FK_FORNECEDOR_ANEXO_FORNECEDOR">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="FORNECEDOR_ANEXO" EntitySet="FORNECEDOR_ANEXO" />
           </AssociationSet>
           <AssociationSet Name="FK_FORNECEDOR_ASSINANTE" Association="Self.FK_FORNECEDOR_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
@@ -3815,7 +3844,8 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SystemBRDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3849,11 +3879,11 @@
           <Property Name="ASSI_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CONFIGURACAO" Relationship="Self.FK_ASSINANTE_CONFIGURACAO" FromRole="ASSINANTE" ToRole="CONFIGURACAO" />
           <NavigationProperty Name="ASSINANTE_PLANO" Relationship="Self.FK_ASSINANTE_PLANO_ASSINANTE" FromRole="ASSINANTE" ToRole="ASSINANTE_PLANO" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_ASSINANTE" FromRole="ASSINANTE" ToRole="CLIENTE" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="Self.FK_FORNECEDOR_ASSINANTE" FromRole="ASSINANTE" ToRole="FORNECEDOR" />
           <NavigationProperty Name="LOG" Relationship="Self.FK_LOG_ASSINANTE" FromRole="ASSINANTE" ToRole="LOG" />
+          <NavigationProperty Name="MATRIZ" Relationship="Self.FK_MATRIZ_ASSINANTE" FromRole="ASSINANTE" ToRole="MATRIZ" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="ASSINANTE" ToRole="USUARIO" />
-          <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE" FromRole="ASSINANTE" ToRole="MATRIZ" />
-          <NavigationProperty Name="CLIENTE" Relationship="SystemBRDatabaseModel.FK_CLIENTE_ASSINANTE" FromRole="ASSINANTE" ToRole="CLIENTE" />
-          <NavigationProperty Name="FORNECEDOR" Relationship="SystemBRDatabaseModel.FK_FORNECEDOR_ASSINANTE" FromRole="ASSINANTE" ToRole="FORNECEDOR" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -4030,7 +4060,10 @@
           <Property Name="CLIE_NR_CEP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CLIE_DT_CADASTRO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CLIE_IN_ATIVO" Type="Int32" Nullable="false" />
+          <Property Name="CLIE_AQ_FOTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_CLIENTE_ASSINANTE" FromRole="CLIENTE" ToRole="ASSINANTE" />
           <NavigationProperty Name="CATEGORIA_CLIENTE" Relationship="Self.FK_CLIENTE_CATEGORIA_CLIENTE" FromRole="CLIENTE" ToRole="CATEGORIA_CLIENTE" />
+          <NavigationProperty Name="CLIENTE_ANEXO" Relationship="Self.FK_CLIENTE_ANEXO_CLIENTE" FromRole="CLIENTE" ToRole="CLIENTE_ANEXO" />
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_CLIENTE_FILIAL" FromRole="CLIENTE" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_CLIENTE_MATRIZ" FromRole="CLIENTE" ToRole="MATRIZ" />
           <NavigationProperty Name="CONTA_RECEBER" Relationship="Self.FK_CONTA_RECEBER_CLIENTE" FromRole="CLIENTE" ToRole="CONTA_RECEBER" />
@@ -4041,9 +4074,19 @@
           <NavigationProperty Name="PROPOSTA_SERVICO" Relationship="Self.FK_PROPOSTA_SERVICO_CLIENTE" FromRole="CLIENTE" ToRole="PROPOSTA_SERVICO" />
           <NavigationProperty Name="PROPOSTA_VENDA" Relationship="Self.FK_PROPOSTA_VENDA_CLIENTE" FromRole="CLIENTE" ToRole="PROPOSTA_VENDA" />
           <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="Self.FK_TICKET_ATENDIMENTO_CLIENTE" FromRole="CLIENTE" ToRole="TICKET_ATENDIMENTO" />
-          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CLIENTE_ASSINANTE" FromRole="CLIENTE" ToRole="ASSINANTE" />
-          <NavigationProperty Name="CLIENTE_ANEXO" Relationship="SystemBRDatabaseModel.FK_CLIENTE_ANEXO_CLIENTE" FromRole="CLIENTE" ToRole="CLIENTE_ANEXO" />
-          <Property Name="CLIE_AQ_FOTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CLIENTE_ANEXO">
+          <Key>
+            <PropertyRef Name="CLAN_CD_ID" />
+          </Key>
+          <Property Name="CLAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CLIE_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CLAN_NM_TITULO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CLAN_IN_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="CLAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CLAN_AQ_ARQUIVO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CLAN_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_ANEXO_CLIENTE" FromRole="CLIENTE_ANEXO" ToRole="CLIENTE" />
         </EntityType>
         <EntityType Name="COLABORADOR">
           <Key>
@@ -4175,13 +4218,13 @@
           <Property Name="COBA_NM_AGENCIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="COBA_NM_GERENTE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="COBA_NR_TELEFONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COBA_VL_SALDO_INICIAL" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="COBA_DT_ABERTURA" Type="DateTime" Precision="0" />
           <Property Name="COBA_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BANCO" Relationship="Self.FK_CONTA_BANCARIA_BANCO" FromRole="CONTA_BANCARIA" ToRole="BANCO" />
           <NavigationProperty Name="TIPO_CONTA" Relationship="Self.FK_CONTA_BANCARIA_TIPO_CONTA" FromRole="CONTA_BANCARIA" ToRole="TIPO_CONTA" />
           <NavigationProperty Name="CONTA_PAGAR" Relationship="Self.FK_CONTA_PAGAR_CONTA_BANCARIA" FromRole="CONTA_BANCARIA" ToRole="CONTA_PAGAR" />
           <NavigationProperty Name="CONTA_RECEBER" Relationship="Self.FK_CONTA_RECEBER_CONTA_BANCARIA" FromRole="CONTA_BANCARIA" ToRole="CONTA_RECEBER" />
-          <Property Name="COBA_VL_SALDO_INICIAL" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="CONTA_PAGAR">
           <Key>
@@ -4421,7 +4464,6 @@
           <Property Name="CAFO_CD_ID" Type="Int32" />
           <Property Name="FORN_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FORN_NM_RAZAO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="FORN_IN_TIPO_PESSOA" Type="Int32" Nullable="false" />
           <Property Name="FORN_NR_CPF" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="FORN_NR_CNPJ" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="FORN_NM_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -4434,13 +4476,28 @@
           <Property Name="FORN_NR_CEP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="FORN_DT_CADASTRO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FORN_IN_ATIVO" Type="Int32" Nullable="false" />
+          <Property Name="FORN_AQ_FOTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_FORNECEDOR_ASSINANTE" FromRole="FORNECEDOR" ToRole="ASSINANTE" />
           <NavigationProperty Name="CATEGORIA_FORNECEDOR" Relationship="Self.FK_FORNECEDOR_CATEGORIA_FORNECEDOR" FromRole="FORNECEDOR" ToRole="CATEGORIA_FORNECEDOR" />
           <NavigationProperty Name="CONTA_PAGAR" Relationship="Self.FK_CONTA_PAGAR_FORNECEDOR" FromRole="FORNECEDOR" ToRole="CONTA_PAGAR" />
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_FORNECEDOR_FILIAL" FromRole="FORNECEDOR" ToRole="FILIAL" />
+          <NavigationProperty Name="FORNECEDOR_ANEXO" Relationship="Self.FK_FORNECEDOR_ANEXO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="FORNECEDOR_ANEXO" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_FORNECEDOR_MATRIZ" FromRole="FORNECEDOR" ToRole="MATRIZ" />
           <NavigationProperty Name="ITEM_PEDIDO_COMPRA_COTACAO" Relationship="Self.FK_ITEM_PEDIDO_COMPRA_COTACAO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="ITEM_PEDIDO_COMPRA_COTACAO" />
           <NavigationProperty Name="PEDIDO_COMPRA" Relationship="Self.FK_PEDIDO_COMPRA_FORNECEDOR" FromRole="FORNECEDOR" ToRole="PEDIDO_COMPRA" />
-          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_FORNECEDOR_ASSINANTE" FromRole="FORNECEDOR" ToRole="ASSINANTE" />
+        </EntityType>
+        <EntityType Name="FORNECEDOR_ANEXO">
+          <Key>
+            <PropertyRef Name="FOAN_CD_ID" />
+          </Key>
+          <Property Name="FOAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FORN_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="FOAN_NM_TITULO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FOAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FOAN_IN_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="FOAN_AQ_ARQUVO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FOAN_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="Self.FK_FORNECEDOR_ANEXO_FORNECEDOR" FromRole="FORNECEDOR_ANEXO" ToRole="FORNECEDOR" />
         </EntityType>
         <EntityType Name="FUNCIONALIDADE">
           <Key>
@@ -4673,6 +4730,7 @@
           <Property Name="MATR_DT_CADASTRO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MATR_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AGENDA" Relationship="Self.FK_AGENDA_MATRIZ" FromRole="MATRIZ" ToRole="AGENDA" />
+          <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_MATRIZ_ASSINANTE" FromRole="MATRIZ" ToRole="ASSINANTE" />
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_MATRIZ" FromRole="MATRIZ" ToRole="CLIENTE" />
           <NavigationProperty Name="COLABORADOR" Relationship="Self.FK_COLABORADOR_MATRIZ" FromRole="MATRIZ" ToRole="COLABORADOR" />
           <NavigationProperty Name="CONTA_PAGAR" Relationship="Self.FK_CONTA_PAGAR_MATRIZ" FromRole="MATRIZ" ToRole="CONTA_PAGAR" />
@@ -4700,7 +4758,6 @@
           <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="Self.FK_TICKET_ATENDIMENTO_MATRIZ" FromRole="MATRIZ" ToRole="TICKET_ATENDIMENTO" />
           <NavigationProperty Name="TRANSPORTADORA" Relationship="Self.FK_TRANSPORTADORA_MATRIZ" FromRole="MATRIZ" ToRole="TRANSPORTADORA" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_MATRIZ" FromRole="MATRIZ" ToRole="VALOR_COMISSAO" />
-          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE" FromRole="MATRIZ" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA">
           <Key>
@@ -5429,6 +5486,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CLIENTE_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FORNECEDOR_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="FORNECEDOR">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LOG_ASSINANTE">
           <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="0..1" />
           <End Role="LOG" Type="Self.LOG" Multiplicity="*" />
@@ -5437,6 +5518,18 @@
               <PropertyRef Name="ASSI_CD_ID" />
             </Principal>
             <Dependent Role="LOG">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATRIZ_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MATRIZ">
               <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -5654,6 +5747,18 @@
             </Principal>
             <Dependent Role="CENTRO_CUSTO1">
               <PropertyRef Name="CECU_ID_PAI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTE_ANEXO_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="CLIENTE_ANEXO" Type="Self.CLIENTE_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CLIE_CD_ID" />
+            </Principal>
+            <Dependent Role="CLIENTE_ANEXO">
+              <PropertyRef Name="CLIE_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6449,6 +6554,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FORNECEDOR_ANEXO_FORNECEDOR">
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
+          <End Role="FORNECEDOR_ANEXO" Type="Self.FORNECEDOR_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Principal>
+            <Dependent Role="FORNECEDOR_ANEXO">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FORNECEDOR_MATRIZ">
           <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="0..1" />
           <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="*" />
@@ -7187,6 +7304,7 @@
           <EntitySet Name="CATEGORIA_SERVICO" EntityType="Self.CATEGORIA_SERVICO" />
           <EntitySet Name="CENTRO_CUSTO" EntityType="Self.CENTRO_CUSTO" />
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="CLIENTE_ANEXO" EntityType="Self.CLIENTE_ANEXO" />
           <EntitySet Name="COLABORADOR" EntityType="Self.COLABORADOR" />
           <EntitySet Name="COLABORADOR_ANEXO" EntityType="Self.COLABORADOR_ANEXO" />
           <EntitySet Name="COLABORADOR_FREQUENCIA" EntityType="Self.COLABORADOR_FREQUENCIA" />
@@ -7206,6 +7324,7 @@
           <EntitySet Name="EXAME_PERIODICO" EntityType="Self.EXAME_PERIODICO" />
           <EntitySet Name="FILIAL" EntityType="Self.FILIAL" />
           <EntitySet Name="FORNECEDOR" EntityType="Self.FORNECEDOR" />
+          <EntitySet Name="FORNECEDOR_ANEXO" EntityType="Self.FORNECEDOR_ANEXO" />
           <EntitySet Name="FUNCIONALIDADE" EntityType="Self.FUNCIONALIDADE" />
           <EntitySet Name="INVENTARIO" EntityType="Self.INVENTARIO" />
           <EntitySet Name="INVENTARIO_ITEM" EntityType="Self.INVENTARIO_ITEM" />
@@ -7278,9 +7397,21 @@
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="ASSINANTE_PLANO" EntitySet="ASSINANTE_PLANO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_ASSINANTE" Association="Self.FK_CLIENTE_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_ASSINANTE" Association="Self.FK_FORNECEDOR_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+          </AssociationSet>
           <AssociationSet Name="FK_LOG_ASSINANTE" Association="Self.FK_LOG_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="LOG" EntitySet="LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATRIZ_ASSINANTE" Association="Self.FK_MATRIZ_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIO_ASSINANTE" Association="Self.FK_USUARIO_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
@@ -7353,6 +7484,10 @@
           <AssociationSet Name="FK_CENTRO_CUSTO_CENTRO_CUSTO" Association="Self.FK_CENTRO_CUSTO_CENTRO_CUSTO">
             <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
             <End Role="CENTRO_CUSTO1" EntitySet="CENTRO_CUSTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_ANEXO_CLIENTE" Association="Self.FK_CLIENTE_ANEXO_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="CLIENTE_ANEXO" EntitySet="CLIENTE_ANEXO" />
           </AssociationSet>
           <AssociationSet Name="FK_CLIENTE_FILIAL" Association="Self.FK_CLIENTE_FILIAL">
             <End Role="FILIAL" EntitySet="FILIAL" />
@@ -7618,6 +7753,10 @@
             <End Role="FILIAL" EntitySet="FILIAL" />
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_ANEXO_FORNECEDOR" Association="Self.FK_FORNECEDOR_ANEXO_FORNECEDOR">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="FORNECEDOR_ANEXO" EntitySet="FORNECEDOR_ANEXO" />
+          </AssociationSet>
           <AssociationSet Name="FK_FORNECEDOR_MATRIZ" Association="Self.FK_FORNECEDOR_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
@@ -7858,85 +7997,7 @@
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
             <End Role="PROPOSTA_VENDA_ANEXO" EntitySet="PROPOSTA_VENDA_ANEXO" />
           </AssociationSet>
-          <AssociationSet Name="FK_MATRIZ_ASSINANTE" Association="SystemBRDatabaseModel.FK_MATRIZ_ASSINANTE">
-            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
-            <End Role="MATRIZ" EntitySet="MATRIZ" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLIENTE_ASSINANTE" Association="SystemBRDatabaseModel.FK_CLIENTE_ASSINANTE">
-            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
-            <End Role="CLIENTE" EntitySet="CLIENTE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FORNECEDOR_ASSINANTE" Association="SystemBRDatabaseModel.FK_FORNECEDOR_ASSINANTE">
-            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
-            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
-          </AssociationSet>
-          <EntitySet Name="CLIENTE_ANEXO" EntityType="SystemBRDatabaseModel.CLIENTE_ANEXO" />
-          <AssociationSet Name="FK_CLIENTE_ANEXO_CLIENTE" Association="SystemBRDatabaseModel.FK_CLIENTE_ANEXO_CLIENTE">
-            <End Role="CLIENTE" EntitySet="CLIENTE" />
-            <End Role="CLIENTE_ANEXO" EntitySet="CLIENTE_ANEXO" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_MATRIZ_ASSINANTE">
-          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
-          <End Type="SystemBRDatabaseModel.MATRIZ" Role="MATRIZ" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ASSINANTE">
-              <PropertyRef Name="ASSI_CD_ID" />
-            </Principal>
-            <Dependent Role="MATRIZ">
-              <PropertyRef Name="ASSI_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLIENTE_ASSINANTE">
-          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
-          <End Type="SystemBRDatabaseModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ASSINANTE">
-              <PropertyRef Name="ASSI_CD_ID" />
-            </Principal>
-            <Dependent Role="CLIENTE">
-              <PropertyRef Name="ASSI_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FORNECEDOR_ASSINANTE">
-          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
-          <End Type="SystemBRDatabaseModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ASSINANTE">
-              <PropertyRef Name="ASSI_CD_ID" />
-            </Principal>
-            <Dependent Role="FORNECEDOR">
-              <PropertyRef Name="ASSI_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CLIENTE_ANEXO">
-          <Key>
-            <PropertyRef Name="CLAN_CD_ID" />
-          </Key>
-          <Property Name="CLAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CLIE_CD_ID" Type="Int32" Nullable="false" />
-          <Property Name="CLAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CLAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="CLAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CLAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CLAN_IN_ATIVO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CLIENTE" Relationship="SystemBRDatabaseModel.FK_CLIENTE_ANEXO_CLIENTE" FromRole="CLIENTE_ANEXO" ToRole="CLIENTE" />
-        </EntityType>
-        <Association Name="FK_CLIENTE_ANEXO_CLIENTE">
-          <End Type="SystemBRDatabaseModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
-          <End Type="SystemBRDatabaseModel.CLIENTE_ANEXO" Role="CLIENTE_ANEXO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CLIENTE">
-              <PropertyRef Name="CLIE_CD_ID" />
-            </Principal>
-            <Dependent Role="CLIENTE_ANEXO">
-              <PropertyRef Name="CLIE_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8119,7 +8180,6 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
-                <ScalarProperty Name="CLIE_AQ_FOTO" ColumnName="CLIE_AQ_FOTO" />
                 <ScalarProperty Name="CLIE_CD_ID" ColumnName="CLIE_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -8140,6 +8200,20 @@
                 <ScalarProperty Name="CLIE_NR_CEP" ColumnName="CLIE_NR_CEP" />
                 <ScalarProperty Name="CLIE_DT_CADASTRO" ColumnName="CLIE_DT_CADASTRO" />
                 <ScalarProperty Name="CLIE_IN_ATIVO" ColumnName="CLIE_IN_ATIVO" />
+                <ScalarProperty Name="CLIE_AQ_FOTO" ColumnName="CLIE_AQ_FOTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTE_ANEXO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CLIENTE_ANEXO">
+              <MappingFragment StoreEntitySet="CLIENTE_ANEXO">
+                <ScalarProperty Name="CLAN_CD_ID" ColumnName="CLAN_CD_ID" />
+                <ScalarProperty Name="CLIE_CD_ID" ColumnName="CLIE_CD_ID" />
+                <ScalarProperty Name="CLAN_NM_TITULO" ColumnName="CLAN_NM_TITULO" />
+                <ScalarProperty Name="CLAN_IN_TIPO" ColumnName="CLAN_IN_TIPO" />
+                <ScalarProperty Name="CLAN_DT_ANEXO" ColumnName="CLAN_DT_ANEXO" />
+                <ScalarProperty Name="CLAN_AQ_ARQUIVO" ColumnName="CLAN_AQ_ARQUIVO" />
+                <ScalarProperty Name="CLAN_IN_ATIVO" ColumnName="CLAN_IN_ATIVO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8249,7 +8323,6 @@
           <EntitySetMapping Name="CONTA_BANCARIA">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTA_BANCARIA">
               <MappingFragment StoreEntitySet="CONTA_BANCARIA">
-                <ScalarProperty Name="COBA_VL_SALDO_INICIAL" ColumnName="COBA_VL_SALDO_INICIAL" />
                 <ScalarProperty Name="COBA_CD_ID" ColumnName="COBA_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="BANC_CD_ID" ColumnName="BANC_CD_ID" />
@@ -8259,6 +8332,7 @@
                 <ScalarProperty Name="COBA_NM_AGENCIA" ColumnName="COBA_NM_AGENCIA" />
                 <ScalarProperty Name="COBA_NM_GERENTE" ColumnName="COBA_NM_GERENTE" />
                 <ScalarProperty Name="COBA_NR_TELEFONE" ColumnName="COBA_NR_TELEFONE" />
+                <ScalarProperty Name="COBA_VL_SALDO_INICIAL" ColumnName="COBA_VL_SALDO_INICIAL" />
                 <ScalarProperty Name="COBA_DT_ABERTURA" ColumnName="COBA_DT_ABERTURA" />
                 <ScalarProperty Name="COBA_IN_ATIVO" ColumnName="COBA_IN_ATIVO" />
               </MappingFragment>
@@ -8456,7 +8530,6 @@
                 <ScalarProperty Name="CAFO_CD_ID" ColumnName="CAFO_CD_ID" />
                 <ScalarProperty Name="FORN_NM_NOME" ColumnName="FORN_NM_NOME" />
                 <ScalarProperty Name="FORN_NM_RAZAO" ColumnName="FORN_NM_RAZAO" />
-                <ScalarProperty Name="FORN_IN_TIPO_PESSOA" ColumnName="FORN_IN_TIPO_PESSOA" />
                 <ScalarProperty Name="FORN_NR_CPF" ColumnName="FORN_NR_CPF" />
                 <ScalarProperty Name="FORN_NR_CNPJ" ColumnName="FORN_NR_CNPJ" />
                 <ScalarProperty Name="FORN_NM_EMAIL" ColumnName="FORN_NM_EMAIL" />
@@ -8469,6 +8542,20 @@
                 <ScalarProperty Name="FORN_NR_CEP" ColumnName="FORN_NR_CEP" />
                 <ScalarProperty Name="FORN_DT_CADASTRO" ColumnName="FORN_DT_CADASTRO" />
                 <ScalarProperty Name="FORN_IN_ATIVO" ColumnName="FORN_IN_ATIVO" />
+                <ScalarProperty Name="FORN_AQ_FOTO" ColumnName="FORN_AQ_FOTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORNECEDOR_ANEXO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.FORNECEDOR_ANEXO">
+              <MappingFragment StoreEntitySet="FORNECEDOR_ANEXO">
+                <ScalarProperty Name="FOAN_CD_ID" ColumnName="FOAN_CD_ID" />
+                <ScalarProperty Name="FORN_CD_ID" ColumnName="FORN_CD_ID" />
+                <ScalarProperty Name="FOAN_NM_TITULO" ColumnName="FOAN_NM_TITULO" />
+                <ScalarProperty Name="FOAN_DT_ANEXO" ColumnName="FOAN_DT_ANEXO" />
+                <ScalarProperty Name="FOAN_IN_TIPO" ColumnName="FOAN_IN_TIPO" />
+                <ScalarProperty Name="FOAN_AQ_ARQUVO" ColumnName="FOAN_AQ_ARQUVO" />
+                <ScalarProperty Name="FOAN_IN_ATIVO" ColumnName="FOAN_IN_ATIVO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9271,19 +9358,6 @@
                 <ScalarProperty Name="VIEM_CD_ID" ColumnName="VIEM_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="VIEM_NM_NOME" ColumnName="VIEM_NM_NOME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CLIENTE_ANEXO">
-            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CLIENTE_ANEXO">
-              <MappingFragment StoreEntitySet="CLIENTE_ANEXO">
-                <ScalarProperty Name="CLAN_IN_ATIVO" ColumnName="CLAN_IN_ATIVO" />
-                <ScalarProperty Name="CLAN_AQ_ARQUIVO" ColumnName="CLAN_AQ_ARQUIVO" />
-                <ScalarProperty Name="CLAN_DT_ANEXO" ColumnName="CLAN_DT_ANEXO" />
-                <ScalarProperty Name="CLAN_IN_TIPO" ColumnName="CLAN_IN_TIPO" />
-                <ScalarProperty Name="CLAN_NM_TITULO" ColumnName="CLAN_NM_TITULO" />
-                <ScalarProperty Name="CLIE_CD_ID" ColumnName="CLIE_CD_ID" />
-                <ScalarProperty Name="CLAN_CD_ID" ColumnName="CLAN_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

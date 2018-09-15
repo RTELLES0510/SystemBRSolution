@@ -20,6 +20,7 @@ namespace MvcMapping.Mappers
             CreateMap<MATRIZ, MatrizViewModel>();
             CreateMap<FILIAL, FilialViewModel>();
             CreateMap<CLIENTE, ClienteViewModel>();
+            CreateMap<FORNECEDOR, FornecedorViewModel>();
         }
     }
 }

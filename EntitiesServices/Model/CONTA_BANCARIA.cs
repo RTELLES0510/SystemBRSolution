@@ -30,9 +30,9 @@ namespace EntitiesServices.Model
         public string COBA_NM_AGENCIA { get; set; }
         public string COBA_NM_GERENTE { get; set; }
         public string COBA_NR_TELEFONE { get; set; }
+        public Nullable<decimal> COBA_VL_SALDO_INICIAL { get; set; }
         public Nullable<System.DateTime> COBA_DT_ABERTURA { get; set; }
         public int COBA_IN_ATIVO { get; set; }
-        public Nullable<decimal> COBA_VL_SALDO_INICIAL { get; set; }
     
         public virtual BANCO BANCO { get; set; }
         public virtual TIPO_CONTA TIPO_CONTA { get; set; }

@@ -230,5 +230,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0019", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fornecedor ja cadastrado.
+        /// </summary>
+        internal static string M0020 {
+            get {
+                return ResourceManager.GetString("M0020", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esse fornecedor. Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0021 {
+            get {
+                return ResourceManager.GetString("M0021", resourceCulture);
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CLIENTE()
         {
+            this.CLIENTE_ANEXO = new HashSet<CLIENTE_ANEXO>();
             this.CONTA_RECEBER = new HashSet<CONTA_RECEBER>();
             this.CONTRATO = new HashSet<CONTRATO>();
             this.OPORTUNIDADE_NEGOCIO = new HashSet<OPORTUNIDADE_NEGOCIO>();
@@ -25,7 +26,6 @@ namespace EntitiesServices.Model
             this.PROPOSTA_SERVICO = new HashSet<PROPOSTA_SERVICO>();
             this.PROPOSTA_VENDA = new HashSet<PROPOSTA_VENDA>();
             this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
-            this.CLIENTE_ANEXO = new HashSet<CLIENTE_ANEXO>();
         }
     
         public int CLIE_CD_ID { get; set; }
@@ -50,7 +50,10 @@ namespace EntitiesServices.Model
         public int CLIE_IN_ATIVO { get; set; }
         public string CLIE_AQ_FOTO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_CLIENTE CATEGORIA_CLIENTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE_ANEXO> CLIENTE_ANEXO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -69,8 +72,5 @@ namespace EntitiesServices.Model
         public virtual ICollection<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE_ANEXO> CLIENTE_ANEXO { get; set; }
     }
 }

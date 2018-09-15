@@ -42,6 +42,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<CATEGORIA_SERVICO> CATEGORIA_SERVICO { get; set; }
         public virtual DbSet<CENTRO_CUSTO> CENTRO_CUSTO { get; set; }
         public virtual DbSet<CLIENTE> CLIENTE { get; set; }
+        public virtual DbSet<CLIENTE_ANEXO> CLIENTE_ANEXO { get; set; }
         public virtual DbSet<COLABORADOR> COLABORADOR { get; set; }
         public virtual DbSet<COLABORADOR_ANEXO> COLABORADOR_ANEXO { get; set; }
         public virtual DbSet<COLABORADOR_FREQUENCIA> COLABORADOR_FREQUENCIA { get; set; }
@@ -61,6 +62,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<EXAME_PERIODICO> EXAME_PERIODICO { get; set; }
         public virtual DbSet<FILIAL> FILIAL { get; set; }
         public virtual DbSet<FORNECEDOR> FORNECEDOR { get; set; }
+        public virtual DbSet<FORNECEDOR_ANEXO> FORNECEDOR_ANEXO { get; set; }
         public virtual DbSet<FUNCIONALIDADE> FUNCIONALIDADE { get; set; }
         public virtual DbSet<INVENTARIO> INVENTARIO { get; set; }
         public virtual DbSet<INVENTARIO_ITEM> INVENTARIO_ITEM { get; set; }
@@ -113,6 +115,5 @@ namespace EntitiesServices.Model
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
         public virtual DbSet<VINCULO_EMPREGATICIO> VINCULO_EMPREGATICIO { get; set; }
-        public virtual DbSet<CLIENTE_ANEXO> CLIENTE_ANEXO { get; set; }
     }
 }
