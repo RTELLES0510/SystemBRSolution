@@ -248,5 +248,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0021", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Produto ja cadastrado.
+        /// </summary>
+        internal static string M0022 {
+            get {
+                return ResourceManager.GetString("M0022", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esse produto. Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0023 {
+            get {
+                return ResourceManager.GetString("M0023", resourceCulture);
+            }
+        }
     }
 }

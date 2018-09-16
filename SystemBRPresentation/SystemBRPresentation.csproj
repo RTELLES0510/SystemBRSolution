@@ -215,6 +215,7 @@
     <Compile Include="ViewModels\FornecedorViewModel.cs" />
     <Compile Include="ViewModels\LogViewModel.cs" />
     <Compile Include="ViewModels\MatrizViewModel.cs" />
+    <Compile Include="ViewModels\ProdutoViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -546,6 +547,8 @@
     <Content Include="Imagens\2\Clientes\4\Fotos\60746948000112.jpg" />
     <Content Include="Imagens\2\Clientes\5\Fotos\00894138731.jpg" />
     <Content Include="Imagens\2\Clientes\7\Fotos\a1.jpg" />
+    <Content Include="Imagens\2\Fornecedores\1\Anexos\19510399_1932133873700401_942801202603797565_n.jpg" />
+    <Content Include="Imagens\2\Fornecedores\1\Fotos\a7.jpg" />
     <Content Include="Imagens\2\Usuarios\00894138731.jpg" />
     <Content Include="Imagens\2\Usuarios\60691280797.jpg" />
     <Content Include="Imagens\Base\FotoBase.jpg" />
@@ -2030,6 +2033,14 @@
     <Content Include="Views\Cadastros\ReativarFornecedor.cshtml" />
     <Content Include="Views\Cadastros\VerCardsFornecedor.cshtml" />
     <Content Include="Views\Cadastros\VerAnexoFornecedor.cshtml" />
+    <Content Include="Views\Cadastros\MontarTelaProduto.cshtml" />
+    <Content Include="Views\Cadastros\IncluirProduto.cshtml" />
+    <Content Include="Views\Cadastros\EditarProduto.cshtml" />
+    <Content Include="Views\Cadastros\ExcluirProduto.cshtml" />
+    <Content Include="Views\Cadastros\ReativarProduto.cshtml" />
+    <Content Include="Views\Cadastros\VerAnexoProduto.cshtml" />
+    <Content Include="Views\Cadastros\VerCardsProduto.cshtml" />
+    <Content Include="Views\Cadastros\VerMovimentacaoEstoqueProduto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2038,6 +2049,7 @@
     <Folder Include="Imagens\2\Clientes\4\Anexos\" />
     <Folder Include="Imagens\2\Clientes\5\Anexos\" />
     <Folder Include="Imagens\2\Clientes\7\Anexos\" />
+    <Folder Include="Imagens\2\Produtos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

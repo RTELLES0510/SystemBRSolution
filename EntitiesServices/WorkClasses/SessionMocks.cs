@@ -36,5 +36,8 @@ namespace EntitiesServices.Work_Classes
         public static List<FORNECEDOR> listaFornecedor { get; set; }
         public static FORNECEDOR fornecedor { get; set; }
         public static Int32 voltaFornecedor { get; set; }
+        public static List<PRODUTO> listaProduto { get; set; }
+        public static PRODUTO produto { get; set; }
+        public static Int32 voltaProduto { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AGENDA">
           <Key>
             <PropertyRef Name="AGEN_CD_ID" />
@@ -1019,6 +1019,19 @@
           <Property Name="PROD_IN_AVISA_MINIMO" Type="int" Nullable="false" />
           <Property Name="PROD_DT_CADASTRO" Type="datetime" Nullable="false" />
           <Property Name="PROD_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="PROD_AQ_FOTO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PRODUTO_ANEXO">
+          <Key>
+            <PropertyRef Name="PRAN_CD_ID" />
+          </Key>
+          <Property Name="PRAN_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROD_CD_ID" Type="int" Nullable="false" />
+          <Property Name="PRAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRAN_DT_ANEXO" Type="date" Nullable="false" />
+          <Property Name="PRAN_IN_TIPO" Type="int" Nullable="false" />
+          <Property Name="PRAN_AQ_ARQUIVO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PRAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PROPOSTA_SERVICO">
           <Key>
@@ -2352,6 +2365,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="MOVIMENTO_ESTOQUE_PRODUTO" Type="Self.MOVIMENTO_ESTOQUE_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MOVIMENTO_ESTOQUE_PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MOVIMENTO_ESTOQUE_PRODUTO_FILIAL">
           <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="0..1" />
           <End Role="MOVIMENTO_ESTOQUE_PRODUTO" Type="Self.MOVIMENTO_ESTOQUE_PRODUTO" Multiplicity="*" />
@@ -2757,6 +2782,30 @@
             </Principal>
             <Dependent Role="PRECO_SERVICO">
               <PropertyRef Name="SERV_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_ANEXO_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_ANEXO" Type="Self.PRODUTO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ANEXO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3205,6 +3254,7 @@
           <EntitySet Name="PRECO_PRODUTO" EntityType="Self.PRECO_PRODUTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRECO_SERVICO" EntityType="Self.PRECO_SERVICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUTO" EntityType="Self.PRODUTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO_ANEXO" EntityType="Self.PRODUTO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROPOSTA_SERVICO" EntityType="Self.PROPOSTA_SERVICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROPOSTA_SERVICO_ANEXO" EntityType="Self.PROPOSTA_SERVICO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROPOSTA_VENDA" EntityType="Self.PROPOSTA_VENDA" Schema="dbo" store:Type="Tables" />
@@ -3583,6 +3633,10 @@
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" EntitySet="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" />
           </AssociationSet>
+          <AssociationSet Name="FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE" Association="Self.FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MOVIMENTO_ESTOQUE_PRODUTO" EntitySet="MOVIMENTO_ESTOQUE_PRODUTO" />
+          </AssociationSet>
           <AssociationSet Name="FK_MOVIMENTO_ESTOQUE_PRODUTO_FILIAL" Association="Self.FK_MOVIMENTO_ESTOQUE_PRODUTO_FILIAL">
             <End Role="FILIAL" EntitySet="FILIAL" />
             <End Role="MOVIMENTO_ESTOQUE_PRODUTO" EntitySet="MOVIMENTO_ESTOQUE_PRODUTO" />
@@ -3719,6 +3773,14 @@
             <End Role="SERVICO" EntitySet="SERVICO" />
             <End Role="PRECO_SERVICO" EntitySet="PRECO_SERVICO" />
           </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_ANEXO_PRODUTO" Association="Self.FK_PRODUTO_ANEXO_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_ANEXO" EntitySet="PRODUTO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_ASSINANTE" Association="Self.FK_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
           <AssociationSet Name="FK_PRODUTO_CATEGORIA_PRODUTO" Association="Self.FK_PRODUTO_CATEGORIA_PRODUTO">
             <End Role="CATEGORIA_PRODUTO" EntitySet="CATEGORIA_PRODUTO" />
             <End Role="PRODUTO" EntitySet="PRODUTO" />
@@ -3844,8 +3906,7 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SystemBRDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3884,6 +3945,8 @@
           <NavigationProperty Name="LOG" Relationship="Self.FK_LOG_ASSINANTE" FromRole="ASSINANTE" ToRole="LOG" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_MATRIZ_ASSINANTE" FromRole="ASSINANTE" ToRole="MATRIZ" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="ASSINANTE" ToRole="USUARIO" />
+          <NavigationProperty Name="PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_ASSINANTE" FromRole="ASSINANTE" ToRole="PRODUTO" />
+          <NavigationProperty Name="MOVIMENTO_ESTOQUE_PRODUTO" Relationship="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE" FromRole="ASSINANTE" ToRole="MOVIMENTO_ESTOQUE_PRODUTO" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -4798,6 +4861,7 @@
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_MOVIMENTO_ESTOQUE_PRODUTO_FILIAL" FromRole="MOVIMENTO_ESTOQUE_PRODUTO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_MOVIMENTO_ESTOQUE_PRODUTO_MATRIZ" FromRole="MOVIMENTO_ESTOQUE_PRODUTO" ToRole="MATRIZ" />
           <NavigationProperty Name="PRODUTO" Relationship="Self.FK_MOVIMENTO_ESTOQUE_PRODUTO_PRODUTO" FromRole="MOVIMENTO_ESTOQUE_PRODUTO" ToRole="PRODUTO" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE" FromRole="MOVIMENTO_ESTOQUE_PRODUTO" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="NIVEL_CONTA">
           <Key>
@@ -5126,6 +5190,9 @@
           <NavigationProperty Name="MOVIMENTO_ESTOQUE_PRODUTO" Relationship="Self.FK_MOVIMENTO_ESTOQUE_PRODUTO_PRODUTO" FromRole="PRODUTO" ToRole="MOVIMENTO_ESTOQUE_PRODUTO" />
           <NavigationProperty Name="PRECO_PRODUTO" Relationship="Self.FK_PRECO_PRODUTO_PRODUTO" FromRole="PRODUTO" ToRole="PRECO_PRODUTO" />
           <NavigationProperty Name="UNIDADE" Relationship="Self.FK_PRODUTO_UNIDADE" FromRole="PRODUTO" ToRole="UNIDADE" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_PRODUTO_ASSINANTE" FromRole="PRODUTO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="PRODUTO_ANEXO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_ANEXO_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_ANEXO" />
+          <Property Name="PROD_AQ_FOTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PROPOSTA_SERVICO">
           <Key>
@@ -7997,7 +8064,69 @@
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
             <End Role="PROPOSTA_VENDA_ANEXO" EntitySet="PROPOSTA_VENDA_ANEXO" />
           </AssociationSet>
+          <EntitySet Name="PRODUTO_ANEXO" EntityType="SystemBRDatabaseModel.PRODUTO_ANEXO" />
+          <AssociationSet Name="FK_PRODUTO_ASSINANTE" Association="SystemBRDatabaseModel.FK_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_ANEXO_PRODUTO" Association="SystemBRDatabaseModel.FK_PRODUTO_ANEXO_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_ANEXO" EntitySet="PRODUTO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE" Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MOVIMENTO_ESTOQUE_PRODUTO" EntitySet="MOVIMENTO_ESTOQUE_PRODUTO" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="PRODUTO_ANEXO">
+          <Key>
+            <PropertyRef Name="PRAN_CD_ID" />
+          </Key>
+          <Property Name="PRAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROD_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PRAN_IN_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="PRAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRAN_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_ANEXO_PRODUTO" FromRole="PRODUTO_ANEXO" ToRole="PRODUTO" />
+        </EntityType>
+        <Association Name="FK_PRODUTO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PRODUTO" Role="PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_ANEXO_PRODUTO">
+          <End Type="SystemBRDatabaseModel.PRODUTO" Role="PRODUTO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PRODUTO_ANEXO" Role="PRODUTO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_ANEXO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.MOVIMENTO_ESTOQUE_PRODUTO" Role="MOVIMENTO_ESTOQUE_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MOVIMENTO_ESTOQUE_PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9073,6 +9202,7 @@
           <EntitySetMapping Name="PRODUTO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.PRODUTO">
               <MappingFragment StoreEntitySet="PRODUTO">
+                <ScalarProperty Name="PROD_AQ_FOTO" ColumnName="PROD_AQ_FOTO" />
                 <ScalarProperty Name="PROD_CD_ID" ColumnName="PROD_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -9358,6 +9488,19 @@
                 <ScalarProperty Name="VIEM_CD_ID" ColumnName="VIEM_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="VIEM_NM_NOME" ColumnName="VIEM_NM_NOME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_ANEXO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.PRODUTO_ANEXO">
+              <MappingFragment StoreEntitySet="PRODUTO_ANEXO">
+                <ScalarProperty Name="PRAN_IN_ATIVO" ColumnName="PRAN_IN_ATIVO" />
+                <ScalarProperty Name="PRAN_AQ_ARQUIVO" ColumnName="PRAN_AQ_ARQUIVO" />
+                <ScalarProperty Name="PRAN_IN_TIPO" ColumnName="PRAN_IN_TIPO" />
+                <ScalarProperty Name="PRAN_DT_ANEXO" ColumnName="PRAN_DT_ANEXO" />
+                <ScalarProperty Name="PRAN_NM_TITULO" ColumnName="PRAN_NM_TITULO" />
+                <ScalarProperty Name="PROD_CD_ID" ColumnName="PROD_CD_ID" />
+                <ScalarProperty Name="PRAN_CD_ID" ColumnName="PRAN_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

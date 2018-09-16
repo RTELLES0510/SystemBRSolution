@@ -21,6 +21,7 @@ namespace MvcMapping.Mappers
             CreateMap<FILIAL, FilialViewModel>();
             CreateMap<CLIENTE, ClienteViewModel>();
             CreateMap<FORNECEDOR, FornecedorViewModel>();
+            CreateMap<PRODUTO, ProdutoViewModel>();
         }
     }
 }

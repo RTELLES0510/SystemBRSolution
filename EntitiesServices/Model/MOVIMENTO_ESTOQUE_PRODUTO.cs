@@ -30,5 +30,6 @@ namespace EntitiesServices.Model
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
         public virtual PRODUTO PRODUTO { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

@@ -180,4 +180,10 @@
   <data name="M0021" xml:space="preserve">
     <value>Impossivel excluir esse fornecedor. Existem registros vinculados a ele.</value>
   </data>
+  <data name="M0022" xml:space="preserve">
+    <value>Produto ja cadastrado</value>
+  </data>
+  <data name="M0023" xml:space="preserve">
+    <value>Impossivel excluir esse produto. Existem registros vinculados a ele.</value>
+  </data>
 </root>

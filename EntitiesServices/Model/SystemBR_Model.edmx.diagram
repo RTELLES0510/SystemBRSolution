@@ -250,6 +250,10 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_UNIDADE" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_SERVICO_ANEXO_PROPOSTA_SERVICO" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ANEXO_PROPOSTA_VENDA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PRODUTO_ANEXO" Width="1.5" PointX="21" PointY="111.125" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_ANEXO_PRODUTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

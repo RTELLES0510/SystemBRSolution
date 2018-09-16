@@ -20,6 +20,7 @@ namespace SystemBRPresentation.Controllers
         private readonly IMatrizAppService matrizApp;
         private readonly ILogAppService logApp;
         private readonly IFornecedorAppService fornApp;
+        private readonly IProdutoAppService prodApp;
         private String msg;
         private Exception exception;
         CLIENTE objeto = new CLIENTE();
@@ -32,13 +33,17 @@ namespace SystemBRPresentation.Controllers
         FORNECEDOR objetoForn = new FORNECEDOR();
         FORNECEDOR objetoFornAntes = new FORNECEDOR();
         List<FORNECEDOR> listaMasterForn = new List<FORNECEDOR>();
+        PRODUTO objetoProd = new PRODUTO();
+        PRODUTO objetoProdAntes = new PRODUTO();
+        List<PRODUTO> listaMasterProd = new List<PRODUTO>();
 
-        public CadastrosController(IClienteAppService baseApps, ILogAppService logApps, IMatrizAppService matrizApps, IFornecedorAppService fornApps)
+        public CadastrosController(IClienteAppService baseApps, ILogAppService logApps, IMatrizAppService matrizApps, IFornecedorAppService fornApps, IProdutoAppService prodApps)
         {
             baseApp = baseApps;
             logApp = logApps;
             matrizApp = matrizApps;
             fornApp = fornApps;
+            prodApp = prodApps;
         }
 
         [HttpGet]
@@ -901,6 +906,448 @@ namespace SystemBRPresentation.Controllers
         public ActionResult BuscarCEPFornecedor(FORNECEDOR item)
         {
             return RedirectToAction("IncluirFornecedorEspecial", new { objeto = item});
+        }
+
+        [HttpGet]
+        public ActionResult MontarTelaProduto()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            if (SessionMocks.listaProduto == null)
+            {
+                listaMasterProd = prodApp.GetAllItens();
+                SessionMocks.listaProduto = listaMasterProd;
+            }
+            ViewBag.Listas = SessionMocks.listaProduto;
+            ViewBag.Title = "Produtos";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+
+            // Indicadores
+            ViewBag.Produtos = prodApp.GetAllItens().Count;
+            
+            // Abre view
+            objetoProd = new PRODUTO();
+            SessionMocks.voltaProduto = 1;
+            return View(objetoProd);
+        }
+
+        public ActionResult RetirarFiltroProduto()
+        {
+            SessionMocks.listaProduto = null;
+            if (SessionMocks.voltaProduto == 2)
+            {
+                return RedirectToAction("VerCardsProduto");
+            }
+            return RedirectToAction("MontarTelaProduto");
+        }
+
+        public ActionResult MostrarTudoProduto()
+        {
+            listaMasterProd = prodApp.GetAllItensAdm();
+            SessionMocks.listaProduto = listaMasterProd;
+            if (SessionMocks.voltaProduto == 2)
+            {
+                return RedirectToAction("VerCardsProduto");
+            }
+            return RedirectToAction("MontarTelaProduto");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarProduto(PRODUTO item)
+        {
+            try
+            {
+                // Executa a operação
+                List<PRODUTO> listaObj = new List<PRODUTO>();
+                Int32 volta = prodApp.ExecuteFilter(item.CAPR_CD_ID, item.PROD_NM_NOME, item.PROD_DS_DESCRICAO, item.FILI_CD_ID, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                }
+
+                // Sucesso
+                listaMasterProd = listaObj;
+                SessionMocks.listaProduto = listaObj;
+                if (SessionMocks.voltaProduto == 2)
+                {
+                    return RedirectToAction("VerCardsProduto");
+                }
+                return RedirectToAction("MontarTelaProduto");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaProduto");
+            }
+        }
+
+        public ActionResult VoltarBaseProduto()
+        {
+            listaMasterProd = new List<PRODUTO>();
+            SessionMocks.listaProduto = null;
+            if (SessionMocks.voltaProduto == 2)
+            {
+                return RedirectToAction("VerCardsProduto");
+            }
+            return RedirectToAction("MontarTelaProduto");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirProduto()
+        {
+            // Prepara listas
+            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            PRODUTO item = new PRODUTO();
+            ProdutoViewModel vm = Mapper.Map<PRODUTO, ProdutoViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.PROD_DT_CADASTRO = DateTime.Today;
+            vm.PROD_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirProduto(ProdutoViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    PRODUTO item = Mapper.Map<ProdutoViewModel, PRODUTO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = prodApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0022", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Carrega foto e processa alteracao
+                    item.PROD_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = prodApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Produtos/" + item.PROD_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Produtos/" + item.PROD_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    
+                    // Sucesso
+                    listaMasterProd = new List<PRODUTO>();
+                    SessionMocks.listaProduto = null;
+                    if (SessionMocks.voltaProduto == 2)
+                    {
+                        return RedirectToAction("VerCardsProduto");
+                    }
+                    return RedirectToAction("MontarTelaProduto");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarProduto(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            PRODUTO item = prodApp.GetItemById(id);
+            objetoProdAntes = item;
+            SessionMocks.produto = item;
+            SessionMocks.idVolta = id;
+            ProdutoViewModel vm = Mapper.Map<PRODUTO, ProdutoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarProduto(ProdutoViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    PRODUTO item = Mapper.Map<ProdutoViewModel, PRODUTO>(vm);
+                    Int32 volta = prodApp.ValidateEdit(item, objetoProdAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMasterProd = new List<PRODUTO>();
+                    SessionMocks.listaProduto = null;
+                    if (SessionMocks.voltaProduto == 2)
+                    {
+                        return RedirectToAction("VerCardsProduto");
+                    }
+                    return RedirectToAction("MontarTelaProduto");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirProduto(Int32 id)
+        {
+            // Prepara view
+            PRODUTO item = prodApp.GetItemById(id);
+            ProdutoViewModel vm = Mapper.Map<PRODUTO, ProdutoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirProduto(ProdutoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                PRODUTO item = Mapper.Map<ProdutoViewModel, PRODUTO>(vm);
+                Int32 volta = prodApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0023", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                listaMasterProd = new List<PRODUTO>();
+                SessionMocks.listaProduto = null;
+                return RedirectToAction("MontarTelaProduto");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarProduto(Int32 id)
+        {
+            // Prepara view
+            PRODUTO item = prodApp.GetItemById(id);
+            ProdutoViewModel vm = Mapper.Map<PRODUTO, ProdutoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarProduto(ProdutoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                PRODUTO item = Mapper.Map<ProdutoViewModel, PRODUTO>(vm);
+                Int32 volta = prodApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterProd = new List<PRODUTO>();
+                SessionMocks.listaProduto = null;
+                return RedirectToAction("MontarTelaProduto");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        public ActionResult VerCardsProduto()
+        {
+            // Carrega listas
+            if (SessionMocks.listaProduto == null)
+            {
+                listaMasterProd = prodApp.GetAllItens();
+                SessionMocks.listaProduto = listaMasterProd;
+            }
+            ViewBag.Listas = SessionMocks.listaProduto;
+            ViewBag.Title = "Produtos";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+
+            // Indicadores
+            ViewBag.Produtos = prodApp.GetAllItens().Count;
+
+            // Abre view
+            objetoProd = new PRODUTO();
+            SessionMocks.voltaProduto = 2;
+            return View(objetoProd);
+        }
+
+        [HttpGet]
+        public ActionResult VerAnexoProduto(Int32 id)
+        {
+            // Prepara view
+            PRODUTO_ANEXO item = prodApp.GetAnexoById(id);
+            return View(item);
+        }
+
+        public ActionResult VoltarAnexoProduto()
+        {
+            return RedirectToAction("EditarProduto", new { id = SessionMocks.idVolta });
+        }
+
+        public FileResult DownloadProduto(Int32 id)
+        {
+            PRODUTO_ANEXO item = prodApp.GetAnexoById(id);
+            String arquivo = item.PRAN_AQ_ARQUIVO;
+            Int32 pos = arquivo.LastIndexOf("/") + 1;
+            String nomeDownload = arquivo.Substring(pos);
+            String contentType = string.Empty;
+            if (arquivo.Contains(".pdf"))
+            {
+                contentType = "application/pdf";
+            }
+            else if (arquivo.Contains(".jpg"))
+            {
+                contentType = "image/jpg";
+            }
+            else if (arquivo.Contains(".png"))
+            {
+                contentType = "image/png";
+            }
+            return File(arquivo, contentType, nomeDownload);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFileProduto(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            PRODUTO item = prodApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Produtos/" + item.PROD_CD_ID.ToString() + "/Anexos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            PRODUTO_ANEXO foto = new PRODUTO_ANEXO();
+            foto.PRAN_AQ_ARQUIVO = "~" + caminho + fileName;
+            foto.PRAN_DT_ANEXO = DateTime.Today;
+            foto.PRAN_IN_ATIVO = 1;
+            Int32 tipo = 3;
+            if (extensao.ToUpper() == ".JPG" || extensao.ToUpper() == ".GIF" || extensao.ToUpper() == ".PNG" || extensao.ToUpper() == ".JPEG")
+            {
+                tipo = 1;
+            }
+            if (extensao.ToUpper() == ".MP4" || extensao.ToUpper() == ".AVI" || extensao.ToUpper() == ".MPEG")
+            {
+                tipo = 2;
+            }
+            foto.PRAN_IN_TIPO = tipo;
+            foto.PRAN_NM_TITULO = fileName;
+            foto.PROD_CD_ID = item.PROD_CD_ID;
+
+            item.PRODUTO_ANEXO.Add(foto);
+            objetoProdAntes = item;
+            Int32 volta = prodApp.ValidateEdit(item, objetoProdAntes);
+            return RedirectToAction("VoltarAnexoProduto");
+        }
+
+        [HttpPost]
+        public ActionResult UploadFotoProduto(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            PRODUTO item = prodApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Produtos/" + item.PROD_CD_ID.ToString() + "/Fotos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            item.PROD_AQ_FOTO = "~" + caminho + fileName;
+            objetoProdAntes = item;
+            Int32 volta = prodApp.ValidateEdit(item, objetoProdAntes);
+            return RedirectToAction("VoltarAnexoProduto");
+        }
+
+        public ActionResult BuscarCEPProduto(PRODUTO item)
+        {
+            return RedirectToAction("IncluirProdutoEspecial", new { objeto = item});
+        }
+
+        public ActionResult VerMovimentacaoEstoqueProduto()
+        {
+            // Prepara view
+            PRODUTO item = prodApp.GetItemById(SessionMocks.idVolta);
+            objetoProdAntes = item;
+            ProdutoViewModel vm = Mapper.Map<PRODUTO, ProdutoViewModel>(item);
+            return View(vm);
         }
     }
 }
