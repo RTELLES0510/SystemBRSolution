@@ -1109,8 +1109,8 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
             ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     // Executa a operação
@@ -1134,11 +1134,11 @@ namespace SystemBRPresentation.Controllers
                     ViewBag.Message = ex.Message;
                     return View(vm);
                 }
-            }
-            else
-            {
-                return View(vm);
-            }
+            //}
+            //else
+            //{
+            //    return View(vm);
+            //}
         }
 
         [HttpGet]

@@ -101,7 +101,7 @@ namespace ModelServices.EntitiesServices
                 {
                     _logRepository.Add(log);
                     _baseRepository.Add(item);
-                    _movRepository.Add(movto);
+                    //_movRepository.Add(movto);
                     transaction.Commit();
                     return 0;
                 }

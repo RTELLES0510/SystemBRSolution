@@ -93,6 +93,7 @@ namespace Presentation.Start
             kernel.Bind<IClienteService>().To<ClienteService>();
             kernel.Bind<IFornecedorService>().To<FornecedorService>();
             kernel.Bind<IProdutoService>().To<ProdutoService>();
+            kernel.Bind<IMovimentoEstoqueProdutoService>().To<MovimentoEstoqueProdutoService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -115,6 +116,7 @@ namespace Presentation.Start
             kernel.Bind<IProdutoAnexoRepository>().To<ProdutoAnexoRepository>();
             kernel.Bind<ICategoriaProdutoRepository>().To<CategoriaProdutoRepository>();
             kernel.Bind<IUnidadeRepository>().To<UnidadeRepository>();
+            kernel.Bind<IMovimentoEstoqueProdutoRepository>().To<MovimentoEstoqueProdutoRepository>();
         }
     }
 }
