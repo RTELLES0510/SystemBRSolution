@@ -214,6 +214,7 @@
     <Compile Include="ViewModels\FilialViewModel.cs" />
     <Compile Include="ViewModels\FornecedorViewModel.cs" />
     <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\MateriaPrimaViewModel.cs" />
     <Compile Include="ViewModels\MatrizViewModel.cs" />
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />

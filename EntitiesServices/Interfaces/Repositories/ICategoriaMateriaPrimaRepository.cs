@@ -7,10 +7,9 @@ using EntitiesServices.Model;
 
 namespace ModelServices.Interfaces.Repositories
 {
-    public interface ILogRepository : IRepositoryBase<LOG>
+    public interface ICategoriaMateriaPrimaRepository : IRepositoryBase<CATEGORIA_MATERIA>
     {
-        LOG GetById(Int32 id);
-        List<LOG> GetAllItens();
-        List<LOG> ExecuteFilter(Int32? usuId, DateTime? data, String operacao);
+        List<CATEGORIA_MATERIA> GetAllItens();
+        CATEGORIA_MATERIA GetItemById(Int32 id);
     }
 }

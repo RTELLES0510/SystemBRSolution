@@ -12,6 +12,6 @@ namespace ModelServices.Interfaces.EntitiesServices
     {
         LOG GetById(Int32 id);
         List<LOG> GetAllItens();
-        List<LOG> ExecuteFilter(Int32? usuId, DateTime data, String operacao);
+        List<LOG> ExecuteFilter(Int32? usuId, DateTime? data, String operacao);
     }
 }

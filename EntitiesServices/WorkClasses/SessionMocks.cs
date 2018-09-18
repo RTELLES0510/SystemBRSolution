@@ -39,5 +39,6 @@ namespace EntitiesServices.Work_Classes
         public static List<PRODUTO> listaProduto { get; set; }
         public static PRODUTO produto { get; set; }
         public static Int32 voltaProduto { get; set; }
+        public static LOG filtroLog { get; set; }
     }
 }

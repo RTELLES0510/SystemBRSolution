@@ -37,7 +37,7 @@ namespace ModelServices.EntitiesServices
             return _logRepository.GetAllItens();
         }
 
-        public List<LOG> ExecuteFilter(Int32? usuId, DateTime data, String operacao)
+        public List<LOG> ExecuteFilter(Int32? usuId, DateTime? data, String operacao)
         {
             List<LOG> lista = _logRepository.ExecuteFilter(usuId, data, operacao);
             return lista;

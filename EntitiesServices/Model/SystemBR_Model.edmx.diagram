@@ -254,6 +254,9 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_ANEXO_PRODUTO" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.MATERIA_PRIMA_ANEXO" Width="1.5" PointX="18" PointY="143" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

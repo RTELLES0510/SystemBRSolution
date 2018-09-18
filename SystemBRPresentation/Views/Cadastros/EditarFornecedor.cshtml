@@ -58,10 +58,7 @@
                                     @Html.HiddenFor(m => m.FORN_IN_ATIVO)
                                     @Html.HiddenFor(m => m.MATR_CD_ID)
                                     @Html.HiddenFor(m => m.FILI_CD_ID)
-                                    @Html.HiddenFor(m => m.FORNECEDOR_ANEXO)
-                                    @Html.HiddenFor(m => m.CONTA_PAGAR)
-                                    @Html.HiddenFor(m => m.ITEM_PEDIDO_COMPRA_COTACAO)
-                                    @Html.HiddenFor(m => m.PEDIDO_COMPRA)
+                                    @Html.HiddenFor(m => m.FORN_AQ_FOTO)
                                     Categoria*
                                     @Html.DropDownListFor(m => m.CAFO_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
                                     @Html.ValidationMessageFor(m => m.CAFO_CD_ID, "",new { @style="color:red" })

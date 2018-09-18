@@ -62,7 +62,6 @@ namespace SystemBRPresentation.Controllers
             }
 
             // Carrega listas
-            //SessionMocks.IdAssinante = 2;
             ViewBag.Perfis = new SelectList(baseApp.GetAllPerfis(), "PERF_CD_ID", "PERF_NM_NOME");
             if (SessionMocks.listaUsuario == null)
             {
@@ -240,7 +239,6 @@ namespace SystemBRPresentation.Controllers
             }
 
             // Carrega listas
-            //SessionMocks.IdAssinante = 2;
             ViewBag.Usuarios = new SelectList(baseApp.GetAllUsuarios(), "USUA_CD_ID", "USUA_NM_EMAIL");
             if (SessionMocks.listaLog == null)
             {
@@ -252,13 +250,21 @@ namespace SystemBRPresentation.Controllers
 
             // Abre view
             objLog = new LOG();
-            objLog.LOG_DT_DATA = DateTime.Today;
+            if (SessionMocks.filtroLog == null)
+            {
+                objLog.LOG_DT_DATA = DateTime.Today;
+            }
+            else
+            {
+                objLog = SessionMocks.filtroLog;    
+            }
             return View(objLog);
         }
 
         public ActionResult RetirarFiltroLog()
         {
             SessionMocks.listaLog = null;
+            SessionMocks.filtroLog = null;
             return RedirectToAction("MontarTelaLog");
         }
 
@@ -269,14 +275,13 @@ namespace SystemBRPresentation.Controllers
             {
                 // Executa a operação
                 List<LOG> listaObj = new List<LOG>();
+                SessionMocks.filtroLog = item;
                 Int32 volta = logApp.ExecuteFilter(item.USUA_CD_ID, item.LOG_DT_DATA, item.LOG_NM_OPERACAO, out listaObj);
 
                 // Verifica retorno
                 if (volta == 1)
                 {
                     ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
-                    //listaMasterLog = new List<LOG>();
-                    //return RedirectToAction("MontarTelaLog");
                 }
 
                 // Sucesso
@@ -303,9 +308,17 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult VoltarBaseLog()
         {
+            //listaMasterLog = new List<LOG>();
+            //SessionMocks.listaLog = null;
+            return RedirectToAction("MontarTelaLog");
+        }
+
+        public ActionResult VoltarLog()
+        {
             listaMasterLog = new List<LOG>();
             SessionMocks.listaLog = null;
-            return RedirectToAction("MontarTelaLog");
+            SessionMocks.filtroLog = null;
+            return RedirectToAction("CarregarAdmin", "BaseAdmin");
         }
 
         [HttpGet]

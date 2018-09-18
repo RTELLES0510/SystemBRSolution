@@ -528,7 +528,6 @@ namespace SystemBRPresentation.Controllers
             }
 
             // Carrega listas
-            //SessionMocks.IdAssinante = 2;
             if (SessionMocks.Matriz == null)
             {
                 objMatriz = matrizApp.GetAllItens().FirstOrDefault();
@@ -537,8 +536,8 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Title = "Matriz";
 
             // Abre view
-            MatrizViewModel vm = Mapper.Map<MATRIZ, MatrizViewModel>(objMatriz);
-            objMatrizAntes = objMatriz;
+            MatrizViewModel vm = Mapper.Map<MATRIZ, MatrizViewModel>(SessionMocks.Matriz);
+            objMatrizAntes = SessionMocks.Matriz;
             return View(vm);
         }
 

@@ -80,6 +80,7 @@ namespace Presentation.Start
             kernel.Bind<IClienteAppService>().To<ClienteAppService>();
             kernel.Bind<IFornecedorAppService>().To<FornecedorAppService>();
             kernel.Bind<IProdutoAppService>().To<ProdutoAppService>();
+            kernel.Bind<IMateriaPrimaAppService>().To<MateriaPrimaAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
@@ -94,6 +95,8 @@ namespace Presentation.Start
             kernel.Bind<IFornecedorService>().To<FornecedorService>();
             kernel.Bind<IProdutoService>().To<ProdutoService>();
             kernel.Bind<IMovimentoEstoqueProdutoService>().To<MovimentoEstoqueProdutoService>();
+            kernel.Bind<IMateriaPrimaService>().To<MateriaPrimaService>();
+            kernel.Bind<IMovimentoEstoqueMateriaService>().To<MovimentoEstoqueMateriaService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -117,6 +120,11 @@ namespace Presentation.Start
             kernel.Bind<ICategoriaProdutoRepository>().To<CategoriaProdutoRepository>();
             kernel.Bind<IUnidadeRepository>().To<UnidadeRepository>();
             kernel.Bind<IMovimentoEstoqueProdutoRepository>().To<MovimentoEstoqueProdutoRepository>();
+            kernel.Bind<ICategoriaMateriaPrimaRepository>().To<CategoriaMateriaPrimaRepository>();
+            kernel.Bind<IMateriaPrimaRepository>().To<MateriaPrimaRepository>();
+            kernel.Bind<IMateriaPrimaAnexoRepository>().To<MateriaPrimaAnexoRepository>();
+            kernel.Bind<IProdutoAppService>().To<ProdutoAppService>();
+            kernel.Bind<IMovimentoEstoqueMateriaRepository>().To<MovimentoEstoqueMateriaRepository>();
         }
     }
 }

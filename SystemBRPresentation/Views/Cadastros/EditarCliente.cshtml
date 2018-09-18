@@ -58,15 +58,16 @@
                                     @Html.HiddenFor(m => m.CLIE_IN_ATIVO)
                                     @Html.HiddenFor(m => m.MATR_CD_ID)
                                     @Html.HiddenFor(m => m.FILI_CD_ID)
-                                    @Html.HiddenFor(m => m.CLIENTE_ANEXO)
-                                    @Html.HiddenFor(m => m.CONTA_RECEBER)
+                                    @Html.HiddenFor(m => m.CLIE_AQ_FOTO)
+                                    @*@Html.HiddenFor(m => m.CLIENTE_ANEXO)*@
+                                    @*@Html.HiddenFor(m => m.CONTA_RECEBER)
                                     @Html.HiddenFor(m => m.CONTRATO)
                                     @Html.HiddenFor(m => m.OPORTUNIDADE_NEGOCIO)
                                     @Html.HiddenFor(m => m.PEDIDO_SERVICO)
                                     @Html.HiddenFor(m => m.PEDIDO_VENDA)
                                     @Html.HiddenFor(m => m.PROPOSTA_SERVICO)
                                     @Html.HiddenFor(m => m.PROPOSTA_VENDA)
-                                    @Html.HiddenFor(m => m.TICKET_ATENDIMENTO)
+                                    @Html.HiddenFor(m => m.TICKET_ATENDIMENTO)*@
                                     Categoria*
                                     @Html.DropDownListFor(m => m.CACL_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
                                     @Html.ValidationMessageFor(m => m.CACL_CD_ID, "",new { @style="color:red" })

@@ -116,5 +116,6 @@ namespace EntitiesServices.Model
         public virtual DbSet<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
         public virtual DbSet<VINCULO_EMPREGATICIO> VINCULO_EMPREGATICIO { get; set; }
         public virtual DbSet<PRODUTO_ANEXO> PRODUTO_ANEXO { get; set; }
+        public virtual DbSet<MATERIA_PRIMA_ANEXO> MATERIA_PRIMA_ANEXO { get; set; }
     }
 }

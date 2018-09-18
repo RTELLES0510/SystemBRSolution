@@ -29,7 +29,7 @@ namespace DataServices.Repositories
             return query.ToList();
         }
 
-        public List<LOG> ExecuteFilter(Int32? usuId, DateTime data, String operacao)
+        public List<LOG> ExecuteFilter(Int32? usuId, DateTime? data, String operacao)
         {
             Int32? idAss = SessionMocks.IdAssinante;
             List<LOG> lista = new List<LOG>();
@@ -42,7 +42,7 @@ namespace DataServices.Repositories
             {
                 query = query.Where(p => p.USUARIO.USUA_CD_ID == usuId);
             }
-            if (data != DateTime.MinValue)
+            if (data != null)
             {
                 query = query.Where(p => DbFunctions.TruncateTime(p.LOG_DT_DATA) == DbFunctions.TruncateTime(data));
             }

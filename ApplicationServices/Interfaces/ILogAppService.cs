@@ -11,6 +11,6 @@ namespace ApplicationServices.Interfaces
     {
         LOG GetById(Int32 id);
         List<LOG> GetAllItens();
-        Int32 ExecuteFilter(Int32? usuId, DateTime data, String operacao, out List<LOG> objeto);
+        Int32 ExecuteFilter(Int32? usuId, DateTime? data, String operacao, out List<LOG> objeto);
     }
 }

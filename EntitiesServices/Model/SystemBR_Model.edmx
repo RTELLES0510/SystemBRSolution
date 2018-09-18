@@ -671,7 +671,7 @@
           </Key>
           <Property Name="LOG_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="USUA_CD_ID" Type="int" Nullable="false" />
-          <Property Name="LOG_DT_DATA" Type="datetime" Nullable="false" />
+          <Property Name="LOG_DT_DATA" Type="datetime" />
           <Property Name="LOG_NM_OPERACAO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LOG_TX_REGISTRO" Type="text" />
           <Property Name="LOG_TX_REGISTRO_ANTES" Type="text" />
@@ -697,6 +697,18 @@
           <Property Name="MAPR_IN_AVISA_MINIMO" Type="int" Nullable="false" />
           <Property Name="MAPR_DT_CADASTRO" Type="datetime" Nullable="false" />
           <Property Name="MAPR_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MATERIA_PRIMA_ANEXO">
+          <Key>
+            <PropertyRef Name="MAPA_CD_ID" />
+          </Key>
+          <Property Name="MAPA_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MAPR_D_ID" Type="int" Nullable="false" />
+          <Property Name="MAPA_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MAPA_DT_ANEXO" Type="date" Nullable="false" />
+          <Property Name="MAPA_IN_TIPO" Type="int" Nullable="false" />
+          <Property Name="MAPA_AQ_ARQUIVO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MAPA_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MATRIZ">
           <Key>
@@ -2269,6 +2281,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA">
+          <End Role="MATERIA_PRIMA" Type="Self.MATERIA_PRIMA" Multiplicity="1" />
+          <End Role="MATERIA_PRIMA_ANEXO" Type="Self.MATERIA_PRIMA_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIA_PRIMA">
+              <PropertyRef Name="MAPR_CD_ID" />
+            </Principal>
+            <Dependent Role="MATERIA_PRIMA_ANEXO">
+              <PropertyRef Name="MAPR_D_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATERIA_PRIMA_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="MATERIA_PRIMA" Type="Self.MATERIA_PRIMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MATERIA_PRIMA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MATERIA_PRIMA_CATEGORIA_MATERIA">
           <End Role="CATEGORIA_MATERIA" Type="Self.CATEGORIA_MATERIA" Multiplicity="0..1" />
           <End Role="MATERIA_PRIMA" Type="Self.MATERIA_PRIMA" Multiplicity="*" />
@@ -3233,6 +3269,7 @@
           <EntitySet Name="LICENSA_ATESTADO" EntityType="Self.LICENSA_ATESTADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOG" EntityType="Self.LOG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MATERIA_PRIMA" EntityType="Self.MATERIA_PRIMA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MATERIA_PRIMA_ANEXO" EntityType="Self.MATERIA_PRIMA_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MATRIZ" EntityType="Self.MATRIZ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" EntityType="Self.MOVIMENTO_ESTOQUE_MATERIA_PRIMA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVIMENTO_ESTOQUE_PRODUTO" EntityType="Self.MOVIMENTO_ESTOQUE_PRODUTO" Schema="dbo" store:Type="Tables" />
@@ -3601,6 +3638,14 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="LOG" EntitySet="LOG" />
           </AssociationSet>
+          <AssociationSet Name="FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA" Association="Self.FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA">
+            <End Role="MATERIA_PRIMA" EntitySet="MATERIA_PRIMA" />
+            <End Role="MATERIA_PRIMA_ANEXO" EntitySet="MATERIA_PRIMA_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATERIA_PRIMA_ASSINANTE" Association="Self.FK_MATERIA_PRIMA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MATERIA_PRIMA" EntitySet="MATERIA_PRIMA" />
+          </AssociationSet>
           <AssociationSet Name="FK_MATERIA_PRIMA_CATEGORIA_MATERIA" Association="Self.FK_MATERIA_PRIMA_CATEGORIA_MATERIA">
             <End Role="CATEGORIA_MATERIA" EntitySet="CATEGORIA_MATERIA" />
             <End Role="MATERIA_PRIMA" EntitySet="MATERIA_PRIMA" />
@@ -3947,6 +3992,7 @@
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="ASSINANTE" ToRole="USUARIO" />
           <NavigationProperty Name="PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_ASSINANTE" FromRole="ASSINANTE" ToRole="PRODUTO" />
           <NavigationProperty Name="MOVIMENTO_ESTOQUE_PRODUTO" Relationship="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_PRODUTO_ASSINANTE" FromRole="ASSINANTE" ToRole="MOVIMENTO_ESTOQUE_PRODUTO" />
+          <NavigationProperty Name="MATERIA_PRIMA" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ASSINANTE" FromRole="ASSINANTE" ToRole="MATERIA_PRIMA" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -4737,7 +4783,7 @@
           </Key>
           <Property Name="LOG_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="USUA_CD_ID" Type="Int32" Nullable="false" />
-          <Property Name="LOG_DT_DATA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LOG_DT_DATA" Type="DateTime" Precision="3" />
           <Property Name="LOG_NM_OPERACAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LOG_TX_REGISTRO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LOG_TX_REGISTRO_ANTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -4772,6 +4818,8 @@
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_MATERIA_PRIMA_MATRIZ" FromRole="MATERIA_PRIMA" ToRole="MATRIZ" />
           <NavigationProperty Name="UNIDADE" Relationship="Self.FK_MATERIA_PRIMA_UNIDADE" FromRole="MATERIA_PRIMA" ToRole="UNIDADE" />
           <NavigationProperty Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" Relationship="Self.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_MATERIA_PRIMA" FromRole="MATERIA_PRIMA" ToRole="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ASSINANTE" FromRole="MATERIA_PRIMA" ToRole="ASSINANTE" />
+          <NavigationProperty Name="MATERIA_PRIMA_ANEXO" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA" FromRole="MATERIA_PRIMA" ToRole="MATERIA_PRIMA_ANEXO" />
         </EntityType>
         <EntityType Name="MATRIZ">
           <Key>
@@ -8077,6 +8125,15 @@
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="MOVIMENTO_ESTOQUE_PRODUTO" EntitySet="MOVIMENTO_ESTOQUE_PRODUTO" />
           </AssociationSet>
+          <EntitySet Name="MATERIA_PRIMA_ANEXO" EntityType="SystemBRDatabaseModel.MATERIA_PRIMA_ANEXO" />
+          <AssociationSet Name="FK_MATERIA_PRIMA_ASSINANTE" Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MATERIA_PRIMA" EntitySet="MATERIA_PRIMA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA" Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA">
+            <End Role="MATERIA_PRIMA" EntitySet="MATERIA_PRIMA" />
+            <End Role="MATERIA_PRIMA_ANEXO" EntitySet="MATERIA_PRIMA_ANEXO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="PRODUTO_ANEXO">
           <Key>
@@ -8124,6 +8181,43 @@
             </Principal>
             <Dependent Role="MOVIMENTO_ESTOQUE_PRODUTO">
               <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MATERIA_PRIMA_ANEXO">
+          <Key>
+            <PropertyRef Name="MAPA_CD_ID" />
+          </Key>
+          <Property Name="MAPA_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MAPR_D_ID" Type="Int32" Nullable="false" />
+          <Property Name="MAPA_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MAPA_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MAPA_IN_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="MAPA_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MAPA_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MATERIA_PRIMA" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA" FromRole="MATERIA_PRIMA_ANEXO" ToRole="MATERIA_PRIMA" />
+        </EntityType>
+        <Association Name="FK_MATERIA_PRIMA_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.MATERIA_PRIMA" Role="MATERIA_PRIMA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="MATERIA_PRIMA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA">
+          <End Type="SystemBRDatabaseModel.MATERIA_PRIMA" Role="MATERIA_PRIMA" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.MATERIA_PRIMA_ANEXO" Role="MATERIA_PRIMA_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATERIA_PRIMA">
+              <PropertyRef Name="MAPR_CD_ID" />
+            </Principal>
+            <Dependent Role="MATERIA_PRIMA_ANEXO">
+              <PropertyRef Name="MAPR_D_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9501,6 +9595,19 @@
                 <ScalarProperty Name="PRAN_NM_TITULO" ColumnName="PRAN_NM_TITULO" />
                 <ScalarProperty Name="PROD_CD_ID" ColumnName="PROD_CD_ID" />
                 <ScalarProperty Name="PRAN_CD_ID" ColumnName="PRAN_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MATERIA_PRIMA_ANEXO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.MATERIA_PRIMA_ANEXO">
+              <MappingFragment StoreEntitySet="MATERIA_PRIMA_ANEXO">
+                <ScalarProperty Name="MAPA_IN_ATIVO" ColumnName="MAPA_IN_ATIVO" />
+                <ScalarProperty Name="MAPA_AQ_ARQUIVO" ColumnName="MAPA_AQ_ARQUIVO" />
+                <ScalarProperty Name="MAPA_IN_TIPO" ColumnName="MAPA_IN_TIPO" />
+                <ScalarProperty Name="MAPA_DT_ANEXO" ColumnName="MAPA_DT_ANEXO" />
+                <ScalarProperty Name="MAPA_NM_TITULO" ColumnName="MAPA_NM_TITULO" />
+                <ScalarProperty Name="MAPR_D_ID" ColumnName="MAPR_D_ID" />
+                <ScalarProperty Name="MAPA_CD_ID" ColumnName="MAPA_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

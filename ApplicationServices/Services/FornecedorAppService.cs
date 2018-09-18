@@ -104,6 +104,28 @@ namespace ApplicationServices.Services
                 item.FORN_IN_ATIVO = 1;
                 item.ASSI_CD_ID = usuario.ASSI_CD_ID;
 
+                // Checa endereço
+                if (String.IsNullOrEmpty(item.FORN_NM_ENDERECO))
+                {
+                    item.FORN_NM_ENDERECO = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NM_BAIRRO))
+                {
+                    item.FORN_NM_BAIRRO = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NM_CIDADE))
+                {
+                    item.FORN_NM_CIDADE = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_SG_UF))
+                {
+                    item.FORN_SG_UF = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NR_CEP))
+                {
+                    item.FORN_NR_CEP = "-";
+                }
+
                 // Monta Log
                 LOG log = new LOG
                 {
@@ -129,6 +151,28 @@ namespace ApplicationServices.Services
         {
             try
             {
+                // Checa endereço
+                if (String.IsNullOrEmpty(item.FORN_NM_ENDERECO))
+                {
+                    item.FORN_NM_ENDERECO = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NM_BAIRRO))
+                {
+                    item.FORN_NM_BAIRRO = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NM_CIDADE))
+                {
+                    item.FORN_NM_CIDADE = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_SG_UF))
+                {
+                    item.FORN_SG_UF = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NR_CEP))
+                {
+                    item.FORN_NR_CEP = "-";
+                }
+
                 // Monta Log
                 LOG log = new LOG
                 {
@@ -154,6 +198,28 @@ namespace ApplicationServices.Services
         {
             try
             {
+                // Checa endereço
+                if (String.IsNullOrEmpty(item.FORN_NM_ENDERECO))
+                {
+                    item.FORN_NM_ENDERECO = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NM_BAIRRO))
+                {
+                    item.FORN_NM_BAIRRO = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NM_CIDADE))
+                {
+                    item.FORN_NM_CIDADE = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_SG_UF))
+                {
+                    item.FORN_SG_UF = "-";
+                }
+                if (String.IsNullOrEmpty(item.FORN_NR_CEP))
+                {
+                    item.FORN_NR_CEP = "-";
+                }
+
                 // Persiste
                 return _baseService.Edit(item);
             }

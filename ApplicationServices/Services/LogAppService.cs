@@ -31,7 +31,7 @@ namespace ApplicationServices.Services
             return _baseService.GetAllItens();
         }
 
-        public Int32 ExecuteFilter(Int32? usuId, DateTime data, String operacao, out List<LOG> objeto)
+        public Int32 ExecuteFilter(Int32? usuId, DateTime? data, String operacao, out List<LOG> objeto)
         {
             try
             {

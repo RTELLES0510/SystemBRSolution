@@ -25,6 +25,7 @@ namespace EntitiesServices.Model
             this.USUARIO = new HashSet<USUARIO>();
             this.PRODUTO = new HashSet<PRODUTO>();
             this.MOVIMENTO_ESTOQUE_PRODUTO = new HashSet<MOVIMENTO_ESTOQUE_PRODUTO>();
+            this.MATERIA_PRIMA = new HashSet<MATERIA_PRIMA>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -54,5 +55,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<PRODUTO> PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVIMENTO_ESTOQUE_PRODUTO> MOVIMENTO_ESTOQUE_PRODUTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MATERIA_PRIMA> MATERIA_PRIMA { get; set; }
     }
 }
