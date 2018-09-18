@@ -186,4 +186,10 @@
   <data name="M0023" xml:space="preserve">
     <value>Impossivel excluir esse produto. Existem registros vinculados a ele.</value>
   </data>
+  <data name="M0024" xml:space="preserve">
+    <value>Materia prima ja cadastrada</value>
+  </data>
+  <data name="M0025" xml:space="preserve">
+    <value>Impossivel excluir essa materia prima. Existem registros vinculados a ele.</value>
+  </data>
 </root>

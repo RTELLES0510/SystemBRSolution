@@ -266,5 +266,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0023", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Materia prima ja cadastrada.
+        /// </summary>
+        internal static string M0024 {
+            get {
+                return ResourceManager.GetString("M0024", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir essa materia prima. Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0025 {
+            get {
+                return ResourceManager.GetString("M0025", resourceCulture);
+            }
+        }
     }
 }

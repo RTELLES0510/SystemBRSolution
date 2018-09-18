@@ -2042,6 +2042,14 @@
     <Content Include="Views\Cadastros\VerAnexoProduto.cshtml" />
     <Content Include="Views\Cadastros\VerCardsProduto.cshtml" />
     <Content Include="Views\Cadastros\VerMovimentacaoEstoqueProduto.cshtml" />
+    <Content Include="Views\Cadastros\MontarTelaMateria.cshtml" />
+    <Content Include="Views\Cadastros\IncluirMateria.cshtml" />
+    <Content Include="Views\Cadastros\EditarMateria.cshtml" />
+    <Content Include="Views\Cadastros\ExcluirMateria.cshtml" />
+    <Content Include="Views\Cadastros\ReativarMateria.cshtml" />
+    <Content Include="Views\Cadastros\VerCardsMateria.cshtml" />
+    <Content Include="Views\Cadastros\VerAnexoMateria.cshtml" />
+    <Content Include="Views\Cadastros\VerMovimentacaoEstoqueMateria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
