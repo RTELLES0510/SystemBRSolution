@@ -123,7 +123,6 @@ namespace Presentation.Start
             kernel.Bind<ICategoriaMateriaPrimaRepository>().To<CategoriaMateriaPrimaRepository>();
             kernel.Bind<IMateriaPrimaRepository>().To<MateriaPrimaRepository>();
             kernel.Bind<IMateriaPrimaAnexoRepository>().To<MateriaPrimaAnexoRepository>();
-            kernel.Bind<IProdutoAppService>().To<ProdutoAppService>();
             kernel.Bind<IMovimentoEstoqueMateriaRepository>().To<MovimentoEstoqueMateriaRepository>();
         }
     }

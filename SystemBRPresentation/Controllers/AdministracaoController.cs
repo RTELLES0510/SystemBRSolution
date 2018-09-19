@@ -73,6 +73,10 @@ namespace SystemBRPresentation.Controllers
 
             // Abre view
             objeto = new USUARIO();
+            if (SessionMocks.filtroUsuario != null)
+            {
+                objeto = SessionMocks.filtroUsuario;
+            }
             return View(objeto);
         }
 
@@ -84,12 +88,14 @@ namespace SystemBRPresentation.Controllers
         public ActionResult RetirarFiltro()
         {
             SessionMocks.listaUsuario = null;
+            SessionMocks.filtroUsuario = null;
             return RedirectToAction("MontarTelaUsuario");
         }
 
         public ActionResult MostrarTudo()
         {
             listaMaster = baseApp.GetAllUsuariosAdm();
+            SessionMocks.filtroUsuario = null;
             SessionMocks.listaUsuario = listaMaster;
             return RedirectToAction("MontarTelaUsuario");
         }
@@ -101,14 +107,13 @@ namespace SystemBRPresentation.Controllers
             {
                 // Executa a operação
                 List<USUARIO> listaObj = new List<USUARIO>();
+                SessionMocks.filtroUsuario = item;
                 Int32 volta = baseApp.ExecuteFilter(item.PERF_CD_ID, item.COLABORADOR.COLA_NM_NOME, item.COLABORADOR.COLA_NR_CPF, item.USUA_NM_EMAIL, out listaObj);
 
                 // Verifica retorno
                 if (volta == 1)
                 {
                     ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
-                    //listaMaster = new List<USUARIO>();
-                    //return RedirectToAction("MontarTelaUsuario");
                 }
 
                 // Sucesso
@@ -135,8 +140,8 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult VoltarBase()
         {
-            listaMaster = new List<USUARIO>();
-            SessionMocks.listaUsuario = null;
+            //listaMaster = new List<USUARIO>();
+            //SessionMocks.listaUsuario = null;
             return RedirectToAction("MontarTelaUsuario");
         }
         

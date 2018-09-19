@@ -29,7 +29,7 @@ namespace SystemBRPresentation.ViewModels
         [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public int MAPR_QN_QUANTIDADE_M { get; set; }
         [Required(ErrorMessage = "Campo QUANTIDADE INICIAL obrigatorio")]
-        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        //[RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public int MAPR_QN_QUANTIDADE_INICIAL { get; set; }
         [Required(ErrorMessage = "Campo QUANTIDADE ESTOQUE obrigatorio")]
         [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]

@@ -32,8 +32,19 @@ namespace SystemBRPresentation.ViewModels
         public Nullable<System.DateTime> COBA_DT_ABERTURA { get; set; }
         public int COBA_IN_ATIVO { get; set; }
         [Required(ErrorMessage = "Campo SALDO INICIAL obrigatorio")]
-        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<decimal> COBA_VL_SALDO_INICIAL { get; set; }
+        public Nullable<decimal> SaldoInicial
+        {
+            get
+            {
+                return COBA_VL_SALDO_INICIAL;
+            }
+            set
+            {
+                COBA_VL_SALDO_INICIAL = SaldoInicial;
+            }
+        }
 
         public virtual BANCO BANCO { get; set; }
         public virtual TIPO_CONTA TIPO_CONTA { get; set; }

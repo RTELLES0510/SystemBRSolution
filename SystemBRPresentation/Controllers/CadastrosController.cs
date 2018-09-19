@@ -111,6 +111,10 @@ namespace SystemBRPresentation.Controllers
             
             // Abre view
             objeto = new CLIENTE();
+            if (SessionMocks.filtroCliente != null)
+            {
+                objeto = SessionMocks.filtroCliente;
+            }
             SessionMocks.voltaCliente = 1;
             return View(objeto);
         }
@@ -118,6 +122,7 @@ namespace SystemBRPresentation.Controllers
         public ActionResult RetirarFiltroCliente()
         {
             SessionMocks.listaCliente = null;
+            SessionMocks.filtroCliente = null;
             if (SessionMocks.voltaCliente == 2)
             {
                 return RedirectToAction("VerCardsCliente");
@@ -128,6 +133,7 @@ namespace SystemBRPresentation.Controllers
         public ActionResult MostrarTudoCliente()
         {
             listaMaster = baseApp.GetAllItensAdm();
+            SessionMocks.filtroCliente = null;
             SessionMocks.listaCliente = listaMaster;
             if (SessionMocks.voltaCliente == 2)
             {
@@ -143,6 +149,7 @@ namespace SystemBRPresentation.Controllers
             {
                 // Executa a operação
                 List<CLIENTE> listaObj = new List<CLIENTE>();
+                SessionMocks.filtroCliente = item;
                 Int32 volta = baseApp.ExecuteFilter(item.CACL_CD_ID, item.CLIE_NM_NOME, item.CLIE_NR_CPF, item.CLIE_NR_CNPJ, item.CLIE_NM_EMAIL, item.CLIE_NM_CIDADE, item.CLIE_SG_UF, item.CLIE_NM_REDES_SOCIAIS, out listaObj);
 
                 // Verifica retorno
@@ -169,12 +176,16 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult VoltarBaseCliente()
         {
-            listaMaster = new List<CLIENTE>();
-            SessionMocks.listaCliente = null;
+            //listaMaster = new List<CLIENTE>();
+            //SessionMocks.listaCliente = null;
+            if (SessionMocks.voltaCliente == 2)
+            {
+                return RedirectToAction("VerCardsCliente");
+            }
             return RedirectToAction("MontarTelaCliente");
         }
 
-       [HttpGet]
+        [HttpGet]
         public ActionResult IncluirCliente()
         {
             // Prepara listas
@@ -541,12 +552,17 @@ namespace SystemBRPresentation.Controllers
             // Abre view
             objetoForn = new FORNECEDOR();
             SessionMocks.voltaFornecedor = 1;
+            if (SessionMocks.filtroFornecedor != null)
+            {
+                objetoForn = SessionMocks.filtroFornecedor;
+            }
             return View(objetoForn);
         }
 
         public ActionResult RetirarFiltroFornecedor()
         {
             SessionMocks.listaFornecedor = null;
+            SessionMocks.filtroFornecedor = null;
             if (SessionMocks.voltaFornecedor == 2)
             {
                 return RedirectToAction("VerCardsFornecedor");
@@ -557,6 +573,7 @@ namespace SystemBRPresentation.Controllers
         public ActionResult MostrarTudoFornecedor()
         {
             listaMasterForn = fornApp.GetAllItensAdm();
+            SessionMocks.filtroFornecedor = null;
             SessionMocks.listaFornecedor = listaMasterForn;
             if (SessionMocks.voltaFornecedor == 2)
             {
@@ -572,6 +589,7 @@ namespace SystemBRPresentation.Controllers
             {
                 // Executa a operação
                 List<FORNECEDOR> listaObj = new List<FORNECEDOR>();
+                SessionMocks.filtroFornecedor = item;
                 Int32 volta = fornApp.ExecuteFilter(item.CAFO_CD_ID, item.FORN_NM_NOME, item.FORN_NR_CPF, item.FORN_NR_CNPJ, item.FORN_NM_EMAIL, item.FORN_NM_CIDADE, item.FORN_SG_UF, item.FORN_NM_REDES_SOCIAIS, out listaObj);
 
                 // Verifica retorno
@@ -598,12 +616,16 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult VoltarBaseFornecedor()
         {
-            listaMasterForn = new List<FORNECEDOR>();
-            SessionMocks.listaFornecedor = null;
+            //listaMasterForn = new List<FORNECEDOR>();
+            //SessionMocks.listaFornecedor = null;
+            if (SessionMocks.voltaFornecedor == 2)
+            {
+                return RedirectToAction("VerCardsFornecedor");
+            }
             return RedirectToAction("MontarTelaFornecedor");
         }
 
-       [HttpGet]
+        [HttpGet]
         public ActionResult IncluirFornecedor()
         {
             // Prepara listas
@@ -966,12 +988,17 @@ namespace SystemBRPresentation.Controllers
             // Abre view
             objetoProd = new PRODUTO();
             SessionMocks.voltaProduto = 1;
+            if (SessionMocks.filtroProduto != null)
+            {
+                objetoProd = SessionMocks.filtroProduto;
+            }
             return View(objetoProd);
         }
 
         public ActionResult RetirarFiltroProduto()
         {
             SessionMocks.listaProduto = null;
+            SessionMocks.filtroProduto = null;
             if (SessionMocks.voltaProduto == 2)
             {
                 return RedirectToAction("VerCardsProduto");
@@ -982,6 +1009,7 @@ namespace SystemBRPresentation.Controllers
         public ActionResult MostrarTudoProduto()
         {
             listaMasterProd = prodApp.GetAllItensAdm();
+            SessionMocks.filtroProduto = null;
             SessionMocks.listaProduto = listaMasterProd;
             if (SessionMocks.voltaProduto == 2)
             {
@@ -997,6 +1025,7 @@ namespace SystemBRPresentation.Controllers
             {
                 // Executa a operação
                 List<PRODUTO> listaObj = new List<PRODUTO>();
+                SessionMocks.filtroProduto = item;
                 Int32 volta = prodApp.ExecuteFilter(item.CAPR_CD_ID, item.PROD_NM_NOME, item.PROD_DS_DESCRICAO, item.FILI_CD_ID, out listaObj);
 
                 // Verifica retorno
@@ -1023,8 +1052,8 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult VoltarBaseProduto()
         {
-            listaMasterProd = new List<PRODUTO>();
-            SessionMocks.listaProduto = null;
+            //listaMasterProd = new List<PRODUTO>();
+            //SessionMocks.listaProduto = null;
             if (SessionMocks.voltaProduto == 2)
             {
                 return RedirectToAction("VerCardsProduto");
@@ -1505,9 +1534,9 @@ namespace SystemBRPresentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IncluirMateria(MateriaPrimaViewModel vm)
         {
-            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
-            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
+            ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -1553,9 +1582,9 @@ namespace SystemBRPresentation.Controllers
         public ActionResult EditarMateria(Int32 id)
         {
             // Prepara view
-            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
-            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
+            ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
             MATERIA_PRIMA item = matApp.GetItemById(id);
             objetoMatAntes = item;
             SessionMocks.materiaPrima = item;
@@ -1568,9 +1597,9 @@ namespace SystemBRPresentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditarMateria(MateriaPrimaViewModel vm)
         {
-            ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
-            ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
+            ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
             //if (ModelState.IsValid)
             //{
                 try

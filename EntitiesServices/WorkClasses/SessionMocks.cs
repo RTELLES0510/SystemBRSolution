@@ -44,5 +44,9 @@ namespace EntitiesServices.Work_Classes
         public static MATERIA_PRIMA materiaPrima { get; set; }
         public static Int32 voltaMateria { get; set; }
         public static MATERIA_PRIMA filtroMateria { get; set; }
+        public static CLIENTE filtroCliente { get; set; }
+        public static FORNECEDOR filtroFornecedor { get; set; }
+        public static PRODUTO filtroProduto { get; set; }
+        public static USUARIO filtroUsuario { get; set; }
     }
 }

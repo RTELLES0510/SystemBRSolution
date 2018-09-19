@@ -111,7 +111,7 @@ namespace ApplicationServices.Services
                 // Completa objeto
                 item.MAPR_IN_ATIVO = 1;
                 item.ASSI_CD_ID = usuario.ASSI_CD_ID;
-                item.MAPR_QN_ESTOQUE = item.MAPR_QN_ESTOQUE;
+                item.MAPR_QN_ESTOQUE = item.MAPR_QN_QUANTIDADE_INICIAL;
                 item.MAPR_DT_ULTIMA_MOVIMENTACAO = DateTime.Today;
                 MOVIMENTO_ESTOQUE_MATERIA_PRIMA movto = new MOVIMENTO_ESTOQUE_MATERIA_PRIMA();
 
