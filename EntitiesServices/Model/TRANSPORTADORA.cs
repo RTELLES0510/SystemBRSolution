@@ -14,6 +14,12 @@ namespace EntitiesServices.Model
     
     public partial class TRANSPORTADORA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TRANSPORTADORA()
+        {
+            this.TRANSPORTADORA_ANEXO = new HashSet<TRANSPORTADORA_ANEXO>();
+        }
+    
         public int TRAN_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
         public Nullable<int> MATR_CD_ID { get; set; }
@@ -34,5 +40,8 @@ namespace EntitiesServices.Model
     
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TRANSPORTADORA_ANEXO> TRANSPORTADORA_ANEXO { get; set; }
     }
 }

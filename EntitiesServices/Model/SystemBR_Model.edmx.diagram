@@ -257,6 +257,12 @@
         <EntityTypeShape EntityType="SystemBRDatabaseModel.MATERIA_PRIMA_ANEXO" Width="1.5" PointX="18" PointY="143" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.SERVICO_ANEXO" Width="1.5" PointX="12" PointY="157.125" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SERVICO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SERVICO_ANEXO_SERVICO" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TRANSPORTADORA_ANEXO" Width="1.5" PointX="24" PointY="147.125" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

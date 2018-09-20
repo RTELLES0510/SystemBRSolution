@@ -284,5 +284,41 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0025", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Servico ja cadastrado.
+        /// </summary>
+        internal static string M0026 {
+            get {
+                return ResourceManager.GetString("M0026", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esse serviço. Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0027 {
+            get {
+                return ResourceManager.GetString("M0027", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Transportadora ja cadastrada.
+        /// </summary>
+        internal static string M0028 {
+            get {
+                return ResourceManager.GetString("M0028", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir essa transportadora, Existem registros vinculados a ela..
+        /// </summary>
+        internal static string M0029 {
+            get {
+                return ResourceManager.GetString("M0029", resourceCulture);
+            }
+        }
     }
 }

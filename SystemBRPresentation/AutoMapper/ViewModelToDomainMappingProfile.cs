@@ -23,6 +23,8 @@ namespace MvcMapping.Mappers
             CreateMap<FornecedorViewModel, FORNECEDOR>();
             CreateMap<ProdutoViewModel, PRODUTO>();
             CreateMap<MateriaPrimaViewModel, MATERIA_PRIMA>();
+            CreateMap<ServicoViewModel, SERVICO>();
+            CreateMap<TransportadoraViewModel, TRANSPORTADORA>();
         }
     }
 }

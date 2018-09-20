@@ -192,4 +192,16 @@
   <data name="M0025" xml:space="preserve">
     <value>Impossivel excluir essa materia prima. Existem registros vinculados a ele.</value>
   </data>
+  <data name="M0026" xml:space="preserve">
+    <value>Servico ja cadastrado</value>
+  </data>
+  <data name="M0027" xml:space="preserve">
+    <value>Impossivel excluir esse serviço. Existem registros vinculados a ele.</value>
+  </data>
+  <data name="M0028" xml:space="preserve">
+    <value>Transportadora ja cadastrada</value>
+  </data>
+  <data name="M0029" xml:space="preserve">
+    <value>Impossivel excluir essa transportadora, Existem registros vinculados a ela.</value>
+  </data>
 </root>

@@ -48,5 +48,13 @@ namespace EntitiesServices.Work_Classes
         public static FORNECEDOR filtroFornecedor { get; set; }
         public static PRODUTO filtroProduto { get; set; }
         public static USUARIO filtroUsuario { get; set; }
+        public static List<SERVICO> listaServico { get; set; }
+        public static SERVICO servico { get; set; }
+        public static Int32 voltaSevico { get; set; }
+        public static SERVICO filtroServico { get; set; }
+        public static List<TRANSPORTADORA> listaTransportadora { get; set; }
+        public static TRANSPORTADORA transportadora { get; set; }
+        public static Int32 voltaTransportadora { get; set; }
+        public static TRANSPORTADORA filtroTransportadora { get; set; }
     }
 }

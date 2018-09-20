@@ -217,6 +217,8 @@
     <Compile Include="ViewModels\MateriaPrimaViewModel.cs" />
     <Compile Include="ViewModels\MatrizViewModel.cs" />
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
+    <Compile Include="ViewModels\ServicoViewModel.cs" />
+    <Compile Include="ViewModels\TransportadoraViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2050,6 +2052,20 @@
     <Content Include="Views\Cadastros\VerCardsMateria.cshtml" />
     <Content Include="Views\Cadastros\VerAnexoMateria.cshtml" />
     <Content Include="Views\Cadastros\VerMovimentacaoEstoqueMateria.cshtml" />
+    <Content Include="Views\Cadastros\MontarTelaServico.cshtml" />
+    <Content Include="Views\Cadastros\IncluirServico.cshtml" />
+    <Content Include="Views\Cadastros\EditarServico.cshtml" />
+    <Content Include="Views\Cadastros\ExcluirServico.cshtml" />
+    <Content Include="Views\Cadastros\ReativarServico.cshtml" />
+    <Content Include="Views\Cadastros\VerCardsServico.cshtml" />
+    <Content Include="Views\Cadastros\VerAnexoServico.cshtml" />
+    <Content Include="Views\Cadastros\MontarTelaTransportadora.cshtml" />
+    <Content Include="Views\Cadastros\IncluirTransportadora.cshtml" />
+    <Content Include="Views\Cadastros\EditarTransportadora.cshtml" />
+    <Content Include="Views\Cadastros\ExcluirTransportadora.cshtml" />
+    <Content Include="Views\Cadastros\ReativarTransportadora.cshtml" />
+    <Content Include="Views\Cadastros\VerCardsTransportadora.cshtml" />
+    <Content Include="Views\Cadastros\VerAnexoTransportadora.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

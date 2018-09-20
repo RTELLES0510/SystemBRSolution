@@ -22,6 +22,8 @@ namespace SystemBRPresentation.Controllers
         private readonly IFornecedorAppService fornApp;
         private readonly IProdutoAppService prodApp;
         private readonly IMateriaPrimaAppService matApp;
+        private readonly IServicoAppService servApp;
+        private readonly ITransportadoraAppService tranApp;
         private String msg;
         private Exception exception;
         CLIENTE objeto = new CLIENTE();
@@ -40,8 +42,14 @@ namespace SystemBRPresentation.Controllers
         MATERIA_PRIMA objetoMat = new MATERIA_PRIMA();
         MATERIA_PRIMA objetoMatAntes = new MATERIA_PRIMA();
         List<MATERIA_PRIMA> listaMasterMat = new List<MATERIA_PRIMA>();
+        SERVICO objetoServ = new SERVICO();
+        SERVICO objetoServAntes = new SERVICO();
+        List<SERVICO> listaMasterServ = new List<SERVICO>();
+        TRANSPORTADORA objetoTran = new TRANSPORTADORA();
+        TRANSPORTADORA objetoTranAntes = new TRANSPORTADORA();
+        List<TRANSPORTADORA> listaMasterTran = new List<TRANSPORTADORA>();
 
-        public CadastrosController(IClienteAppService baseApps, ILogAppService logApps, IMatrizAppService matrizApps, IFornecedorAppService fornApps, IProdutoAppService prodApps, IMateriaPrimaAppService matApps)
+        public CadastrosController(IClienteAppService baseApps, ILogAppService logApps, IMatrizAppService matrizApps, IFornecedorAppService fornApps, IProdutoAppService prodApps, IMateriaPrimaAppService matApps, IServicoAppService servApps, ITransportadoraAppService tranApps)
         {
             baseApp = baseApps;
             logApp = logApps;
@@ -49,6 +57,8 @@ namespace SystemBRPresentation.Controllers
             fornApp = fornApps;
             prodApp = prodApps;
             matApp = matApps;
+            servApp = servApps;
+            tranApp = tranApps;
         }
 
         [HttpGet]
@@ -1814,6 +1824,803 @@ namespace SystemBRPresentation.Controllers
             objetoMatAntes = item;
             MateriaPrimaViewModel vm = Mapper.Map<MATERIA_PRIMA, MateriaPrimaViewModel>(item);
             return View(vm);
+        }
+
+       [HttpGet]
+        public ActionResult MontarTelaServico()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            if (SessionMocks.listaServico == null)
+            {
+                listaMasterServ = servApp.GetAllItens();
+                SessionMocks.listaServico = listaMasterServ;
+            }
+            ViewBag.Listas = SessionMocks.listaServico;
+            ViewBag.Title = "Serviços";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(servApp.GetAllTipos(), "CASE_CD_ID", "CASE_NM_NOME");
+            ViewBag.Filiais = new SelectList(servApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Indicadores
+            ViewBag.Servicos = servApp.GetAllItens().Count;
+            
+            // Abre view
+            objetoServ = new SERVICO();
+            SessionMocks.voltaSevico = 1;
+            if (SessionMocks.filtroServico != null)
+            {
+                objetoServ = SessionMocks.filtroServico;
+            }
+            return View(objetoServ);
+        }
+
+        public ActionResult RetirarFiltroServico()
+        {
+            SessionMocks.listaServico = null;
+            SessionMocks.filtroServico = null;
+            if (SessionMocks.voltaSevico == 2)
+            {
+                return RedirectToAction("VerCardsServico");
+            }
+            return RedirectToAction("MontarTelaServico");
+        }
+
+        public ActionResult MostrarTudoServico()
+        {
+            listaMasterServ = servApp.GetAllItensAdm();
+            SessionMocks.filtroServico = null;
+            SessionMocks.listaServico = listaMasterServ;
+            if (SessionMocks.voltaSevico == 2)
+            {
+                return RedirectToAction("VerCardsServico");
+            }
+            return RedirectToAction("MontarTelaServico");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarServico(SERVICO item)
+        {
+            try
+            {
+                // Executa a operação
+                List<SERVICO> listaObj = new List<SERVICO>();
+                SessionMocks.filtroServico = item;
+                Int32 volta = servApp.ExecuteFilter(item.CASE_CD_ID, item.SERV_NM_NOME, item.SERV_DS_DESCRICAO, item.FILI_CD_ID, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                }
+
+                // Sucesso
+                listaMasterServ = listaObj;
+                SessionMocks.listaServico = listaObj;
+                if (SessionMocks.voltaSevico == 2)
+                {
+                    return RedirectToAction("VerCardsServico");
+                }
+                return RedirectToAction("MontarTelaServico");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaProduto");
+            }
+        }
+
+        public ActionResult VoltarBaseServico()
+        {
+            if (SessionMocks.voltaSevico == 2)
+            {
+                return RedirectToAction("VerCardsServico");
+            }
+            return RedirectToAction("MontarTelaServico");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirServico()
+        {
+            // Prepara listas
+            ViewBag.Tipos = new SelectList(servApp.GetAllTipos(), "CASE_CD_ID", "CASE_NM_NOME");
+            ViewBag.Filiais = new SelectList(servApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            SERVICO item = new SERVICO();
+            ServicoViewModel vm = Mapper.Map<SERVICO, ServicoViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.SERV_DT_CADASTRO = DateTime.Today;
+            vm.SERV_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirServico(ServicoViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(servApp.GetAllTipos(), "CASE_CD_ID", "CASE_NM_NOME");
+            ViewBag.Filiais = new SelectList(servApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    SERVICO item = Mapper.Map<ServicoViewModel, SERVICO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = servApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0026", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Servicos/" + item.SERV_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    
+                    // Sucesso
+                    listaMasterServ = new List<SERVICO>();
+                    SessionMocks.listaServico = null;
+                    if (SessionMocks.voltaSevico == 2)
+                    {
+                        return RedirectToAction("VerCardsServico");
+                    }
+                    return RedirectToAction("MontarTelaServico");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarServico(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Tipos = new SelectList(servApp.GetAllTipos(), "CASE_CD_ID", "CASE_NM_NOME");
+            ViewBag.Filiais = new SelectList(servApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            SERVICO item = servApp.GetItemById(id);
+            objetoServAntes = item;
+            SessionMocks.servico = item;
+            SessionMocks.idVolta = id;
+            ServicoViewModel vm = Mapper.Map<SERVICO, ServicoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarServico(ServicoViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(servApp.GetAllTipos(), "CASE_CD_ID", "CASE_NM_NOME");
+            ViewBag.Filiais = new SelectList(servApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            //if (ModelState.IsValid)
+            //{
+            try
+            {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    SERVICO item = Mapper.Map<ServicoViewModel, SERVICO>(vm);
+                    Int32 volta = servApp.ValidateEdit(item, objetoServAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMasterServ = new List<SERVICO>();
+                    SessionMocks.listaServico = null;
+                    if (SessionMocks.voltaSevico == 2)
+                    {
+                        return RedirectToAction("VerCardsServico");
+                    }
+                    return RedirectToAction("MontarTelaServico");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            //}
+            //else
+            //{
+            //    return View(vm);
+            //}
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirServico(Int32 id)
+        {
+            // Prepara view
+            SERVICO item = servApp.GetItemById(id);
+            ServicoViewModel vm = Mapper.Map<SERVICO, ServicoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirServico(ServicoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                SERVICO item = Mapper.Map<ServicoViewModel, SERVICO>(vm);
+                Int32 volta = servApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0027", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                listaMasterServ = new List<SERVICO>();
+                SessionMocks.listaServico = null;
+                return RedirectToAction("MontarTelaServico");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarServico(Int32 id)
+        {
+            // Prepara view
+            SERVICO item = servApp.GetItemById(id);
+            ServicoViewModel vm = Mapper.Map<SERVICO, ServicoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarServico(ServicoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                SERVICO item = Mapper.Map<ServicoViewModel, SERVICO>(vm);
+                Int32 volta = servApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterServ = new List<SERVICO>();
+                SessionMocks.listaServico = null;
+                return RedirectToAction("MontarTelaServico");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        public ActionResult VerCardsServico()
+        {
+            // Carrega listas
+            if (SessionMocks.listaServico == null)
+            {
+                listaMasterServ = servApp.GetAllItens();
+                SessionMocks.listaServico = listaMasterServ;
+            }
+            ViewBag.Listas = SessionMocks.listaServico;
+            ViewBag.Title = "Serviços";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(servApp.GetAllTipos(), "CASE_CD_ID", "CASE_NM_NOME");
+            ViewBag.Filiais = new SelectList(servApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Indicadores
+            ViewBag.Servicos = servApp.GetAllItens().Count;
+
+            // Abre view
+            objetoServ = new SERVICO();
+            SessionMocks.voltaSevico = 2;
+            if (SessionMocks.filtroServico != null)
+            {
+                objetoServ = SessionMocks.filtroServico;
+            }
+            return View(objetoServ);
+        }
+
+        [HttpGet]
+        public ActionResult VerAnexoServico(Int32 id)
+        {
+            // Prepara view
+            SERVICO_ANEXO item = servApp.GetAnexoById(id);
+            return View(item);
+        }
+
+        public ActionResult VoltarAnexoServico()
+        {
+            return RedirectToAction("EditarServico", new { id = SessionMocks.idVolta });
+        }
+
+        public FileResult DownloadServico(Int32 id)
+        {
+            SERVICO_ANEXO item = servApp.GetAnexoById(id);
+            String arquivo = item.SEAN_AQ_ARQUIVO;
+            Int32 pos = arquivo.LastIndexOf("/") + 1;
+            String nomeDownload = arquivo.Substring(pos);
+            String contentType = string.Empty;
+            if (arquivo.Contains(".pdf"))
+            {
+                contentType = "application/pdf";
+            }
+            else if (arquivo.Contains(".jpg"))
+            {
+                contentType = "image/jpg";
+            }
+            else if (arquivo.Contains(".png"))
+            {
+                contentType = "image/png";
+            }
+            return File(arquivo, contentType, nomeDownload);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFileServico(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            SERVICO item = servApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Servicos/" + item.SERV_CD_ID.ToString() + "/Anexos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            SERVICO_ANEXO foto = new SERVICO_ANEXO();
+            foto.SEAN_AQ_ARQUIVO = "~" + caminho + fileName;
+            foto.SEAN_DT_ANEXO = DateTime.Today;
+            foto.SEAN_IN_ATIVO = 1;
+            Int32 tipo = 3;
+            if (extensao.ToUpper() == ".JPG" || extensao.ToUpper() == ".GIF" || extensao.ToUpper() == ".PNG" || extensao.ToUpper() == ".JPEG")
+            {
+                tipo = 1;
+            }
+            if (extensao.ToUpper() == ".MP4" || extensao.ToUpper() == ".AVI" || extensao.ToUpper() == ".MPEG")
+            {
+                tipo = 2;
+            }
+            foto.SEAN_IN_TIPO = tipo;
+            foto.SEAN_NM_TITULO = fileName;
+            foto.SERV_CD_ID = item.SERV_CD_ID;
+
+            item.SERVICO_ANEXO.Add(foto);
+            objetoServAntes = item;
+            Int32 volta = servApp.ValidateEdit(item, objetoServAntes);
+            return RedirectToAction("VoltarAnexoServico");
+        }
+
+       [HttpGet]
+        public ActionResult MontarTelaTransportadora()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            //SessionMocks.IdAssinante = 2;
+            if (SessionMocks.listaTransportadora == null)
+            {
+                listaMasterTran = tranApp.GetAllItens();
+                SessionMocks.listaTransportadora = listaMasterTran;
+            }
+            ViewBag.Listas = SessionMocks.listaTransportadora;
+            ViewBag.Title = "Transportadoras";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Filiais = new SelectList(tranApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Indicadores
+            ViewBag.Transportadoras = tranApp.GetAllItens().Count;
+            
+            // Abre view
+            objetoTran = new TRANSPORTADORA();
+            if (SessionMocks.filtroTransportadora != null)
+            {
+                objetoTran = SessionMocks.filtroTransportadora;
+            }
+            SessionMocks.voltaTransportadora = 1;
+            return View(objetoTran);
+        }
+
+        public ActionResult RetirarFiltroTransportadora()
+        {
+            SessionMocks.listaTransportadora = null;
+            SessionMocks.filtroTransportadora = null;
+            if (SessionMocks.voltaTransportadora == 2)
+            {
+                return RedirectToAction("VerCardsTransportadora");
+            }
+            return RedirectToAction("MontarTelaTransportadora");
+        }
+
+        public ActionResult MostrarTudoTransportadora()
+        {
+            listaMasterTran = tranApp.GetAllItensAdm();
+            SessionMocks.filtroTransportadora = null;
+            SessionMocks.listaTransportadora = listaMasterTran;
+            if (SessionMocks.voltaTransportadora == 2)
+            {
+                return RedirectToAction("VerCardsTransportadoras");
+            }
+            return RedirectToAction("MontarTelaTransportadora");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarTransportadora(TRANSPORTADORA item)
+        {
+            try
+            {
+                // Executa a operação
+                List<TRANSPORTADORA> listaObj = new List<TRANSPORTADORA>();
+                SessionMocks.filtroTransportadora = item;
+                Int32 volta = tranApp.ExecuteFilter(item.TRAN_NM_NOME, item.TRAN_NR_CNPJ, item.TRAN_NM_EMAIL, item.TRAN_NM_CIDADE, item.TRAN_SG_UF, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                }
+
+                // Sucesso
+                listaMasterTran = listaObj;
+                SessionMocks.listaTransportadora = listaObj;
+                if (SessionMocks.voltaTransportadora == 2)
+                {
+                    return RedirectToAction("VerCardsTransportadora");
+                }
+                return RedirectToAction("MontarTelaTransportadora");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaTransportadora");
+            }
+        }
+
+        public ActionResult VoltarBaseTransportadora()
+        {
+            if (SessionMocks.voltaTransportadora == 2)
+            {
+                return RedirectToAction("VerCardsTransportadora");
+            }
+            return RedirectToAction("MontarTelaTransportadora");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirTransportadora()
+        {
+            // Prepara listas
+            ViewBag.Filiais = new SelectList(tranApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            TRANSPORTADORA item = new TRANSPORTADORA();
+            TransportadoraViewModel vm = Mapper.Map<TRANSPORTADORA, TransportadoraViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.TRAN_DT_CADASTRO = DateTime.Today;
+            vm.TRAN_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirTransportadora(TransportadoraViewModel vm)
+        {
+            ViewBag.Filiais = new SelectList(tranApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    TRANSPORTADORA item = Mapper.Map<TransportadoraViewModel, TRANSPORTADORA>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = tranApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0028", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Transportadoras/" + item.TRAN_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    
+                    // Sucesso
+                    listaMasterTran = new List<TRANSPORTADORA>();
+                    SessionMocks.listaTransportadora = null;
+                    if (SessionMocks.voltaTransportadora == 2)
+                    {
+                        return RedirectToAction("VerCardsTransportadora");
+                    }
+                    return RedirectToAction("MontarTelaTransportadora");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarTransportadora(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Filiais = new SelectList(tranApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            TRANSPORTADORA item = tranApp.GetItemById(id);
+            objetoTranAntes = item;
+            SessionMocks.transportadora = item;
+            SessionMocks.idVolta = id;
+            TransportadoraViewModel vm = Mapper.Map<TRANSPORTADORA, TransportadoraViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarTransportadora(TransportadoraViewModel vm)
+        {
+            ViewBag.Filiais = new SelectList(tranApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    TRANSPORTADORA item = Mapper.Map<TransportadoraViewModel, TRANSPORTADORA>(vm);
+                    Int32 volta = tranApp.ValidateEdit(item, objetoTranAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMasterTran = new List<TRANSPORTADORA>();
+                    SessionMocks.listaTransportadora = null;
+                    if (SessionMocks.voltaTransportadora == 2)
+                    {
+                        return RedirectToAction("VerCardsTransportadora");
+                    }
+                    return RedirectToAction("MontarTelaTransportadora");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirTransportadora(Int32 id)
+        {
+            // Prepara view
+            TRANSPORTADORA item = tranApp.GetItemById(id);
+            TransportadoraViewModel vm = Mapper.Map<TRANSPORTADORA, TransportadoraViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirTransportadora(TransportadoraViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                TRANSPORTADORA item = Mapper.Map<TransportadoraViewModel, TRANSPORTADORA>(vm);
+                Int32 volta = tranApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0029", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                listaMasterTran = new List<TRANSPORTADORA>();
+                SessionMocks.listaTransportadora = null;
+                return RedirectToAction("MontarTelaTransportadora");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarTransportadora(Int32 id)
+        {
+            // Prepara view
+            TRANSPORTADORA item = tranApp.GetItemById(id);
+            TransportadoraViewModel vm = Mapper.Map<TRANSPORTADORA, TransportadoraViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarTransportadora(TransportadoraViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                TRANSPORTADORA item = Mapper.Map<TransportadoraViewModel, TRANSPORTADORA>(vm);
+                Int32 volta = tranApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterTran = new List<TRANSPORTADORA>();
+                SessionMocks.listaTransportadora = null;
+                return RedirectToAction("MontarTelaTransportadora");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        public ActionResult VerCardsTransportadora()
+        {
+            // Carrega listas
+            if (SessionMocks.listaTransportadora == null)
+            {
+                listaMasterTran = tranApp.GetAllItens();
+                SessionMocks.listaTransportadora = listaMasterTran;
+            }
+            ViewBag.Listas = SessionMocks.listaTransportadora;
+            ViewBag.Title = "Transportadoras";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Filiais = new SelectList(tranApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Indicadores
+            ViewBag.Transportadoras = tranApp.GetAllItens().Count;
+
+            // Abre view
+            objetoTran = new TRANSPORTADORA();
+            SessionMocks.voltaTransportadora = 2;
+            if (SessionMocks.filtroTransportadora != null)
+            {
+                objetoTran = SessionMocks.filtroTransportadora;
+            }
+            return View(objetoTran);
+        }
+
+        [HttpGet]
+        public ActionResult VerAnexoTransportadora(Int32 id)
+        {
+            // Prepara view
+            TRANSPORTADORA_ANEXO item = tranApp.GetAnexoById(id);
+            return View(item);
+        }
+
+        public ActionResult VoltarAnexoTransportadora()
+        {
+            return RedirectToAction("EditarTransportadora", new { id = SessionMocks.idVolta });
+        }
+
+        public FileResult DownloadTransportadora(Int32 id)
+        {
+            TRANSPORTADORA_ANEXO item = tranApp.GetAnexoById(id);
+            String arquivo = item.TRAX_AQ_ARQUIVO;
+            Int32 pos = arquivo.LastIndexOf("/") + 1;
+            String nomeDownload = arquivo.Substring(pos);
+            String contentType = string.Empty;
+            if (arquivo.Contains(".pdf"))
+            {
+                contentType = "application/pdf";
+            }
+            else if (arquivo.Contains(".jpg"))
+            {
+                contentType = "image/jpg";
+            }
+            else if (arquivo.Contains(".png"))
+            {
+                contentType = "image/png";
+            }
+            return File(arquivo, contentType, nomeDownload);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFileTransportadora(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            TRANSPORTADORA item = tranApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Transportadoras/" + item.TRAN_CD_ID.ToString() + "/Anexos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            TRANSPORTADORA_ANEXO foto = new TRANSPORTADORA_ANEXO();
+            foto.TRAX_AQ_ARQUIVO = "~" + caminho + fileName;
+            foto.TRAX_DT_ANEXO = DateTime.Today;
+            foto.TRAX_IN_ATIVO = 1;
+            Int32 tipo = 3;
+            if (extensao.ToUpper() == ".JPG" || extensao.ToUpper() == ".GIF" || extensao.ToUpper() == ".PNG" || extensao.ToUpper() == ".JPEG")
+            {
+                tipo = 1;
+            }
+            if (extensao.ToUpper() == ".MP4" || extensao.ToUpper() == ".AVI" || extensao.ToUpper() == ".MPEG")
+            {
+                tipo = 2;
+            }
+            foto.TRAX_IN_TIPO = tipo;
+            foto.TRAX_NM_TITULO = fileName;
+            foto.TRAN_CD_ID = item.TRAN_CD_ID;
+
+            item.TRANSPORTADORA_ANEXO.Add(foto);
+            objetoTranAntes = item;
+            Int32 volta = tranApp.ValidateEdit(item, objetoTranAntes);
+            return RedirectToAction("VoltarAnexoTransportadora");
         }
     }
 }
