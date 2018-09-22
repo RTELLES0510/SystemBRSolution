@@ -204,4 +204,10 @@
   <data name="M0029" xml:space="preserve">
     <value>Impossivel excluir essa transportadora, Existem registros vinculados a ela.</value>
   </data>
+  <data name="M0030" xml:space="preserve">
+    <value>Item de patrimonio ja cadastrado</value>
+  </data>
+  <data name="M0031" xml:space="preserve">
+    <value>Equipamento ja cadastrado</value>
+  </data>
 </root>

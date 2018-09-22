@@ -56,5 +56,13 @@ namespace EntitiesServices.Work_Classes
         public static TRANSPORTADORA transportadora { get; set; }
         public static Int32 voltaTransportadora { get; set; }
         public static TRANSPORTADORA filtroTransportadora { get; set; }
+        public static List<PATRIMONIO> listaPatrimonio { get; set; }
+        public static PATRIMONIO patrimonio { get; set; }
+        public static Int32 voltaPatrimonio { get; set; }
+        public static PATRIMONIO filtroPatrimonio { get; set; }
+        public static List<EQUIPAMENTO> listaEquipamento { get; set; }
+        public static EQUIPAMENTO equipamento { get; set; }
+        public static Int32 voltaEquipamento { get; set; }
+        public static EQUIPAMENTO filtroEquipamento { get; set; }
     }
 }

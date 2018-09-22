@@ -14,6 +14,12 @@ namespace EntitiesServices.Model
     
     public partial class EQUIPAMENTO
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public EQUIPAMENTO()
+        {
+            this.EQUIPAMENTO_ANEXO = new HashSet<EQUIPAMENTO_ANEXO>();
+        }
+    
         public int EQUI_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
         public Nullable<int> MATR_CD_ID { get; set; }
@@ -28,9 +34,14 @@ namespace EntitiesServices.Model
         public Nullable<System.DateTime> EQUI_DT_BAIXA { get; set; }
         public string EQUI_DS_MOTIVO_BAIXA { get; set; }
         public int EQUI_IN_ATIVO { get; set; }
+        public Nullable<System.DateTime> EQUI_DT_CADASTRO { get; set; }
+        public string EQUI_AQ_FOTO { get; set; }
     
         public virtual CATEGORIA_EQUIPAMENTO CATEGORIA_EQUIPAMENTO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
     }
 }

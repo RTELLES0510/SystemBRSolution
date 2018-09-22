@@ -34,6 +34,8 @@ namespace SystemBRPresentation.ViewModels
         [Required(ErrorMessage = "Campo SALDO INICIAL obrigatorio")]
         [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<decimal> COBA_VL_SALDO_INICIAL { get; set; }
+        [Required(ErrorMessage = "Campo SALDO INICIAL obrigatorio")]
+        [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<decimal> SaldoInicial
         {
             get
@@ -42,7 +44,7 @@ namespace SystemBRPresentation.ViewModels
             }
             set
             {
-                COBA_VL_SALDO_INICIAL = SaldoInicial;
+                COBA_VL_SALDO_INICIAL = value;
             }
         }
 

@@ -83,6 +83,8 @@ namespace Presentation.Start
             kernel.Bind<IMateriaPrimaAppService>().To<MateriaPrimaAppService>();
             kernel.Bind<IServicoAppService>().To<ServicoAppService>();
             kernel.Bind<ITransportadoraAppService>().To<TransportadoraAppService>();
+            kernel.Bind<IPatrimonioAppService>().To<PatrimonioAppService>();
+            kernel.Bind<IEquipamentoAppService>().To<EquipamentoAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
@@ -101,6 +103,8 @@ namespace Presentation.Start
             kernel.Bind<IMovimentoEstoqueMateriaService>().To<MovimentoEstoqueMateriaService>();
             kernel.Bind<IServicoService>().To<ServicoService>();
             kernel.Bind<ITransportadoraService>().To<TransportadoraService>();
+            kernel.Bind<IPatrimonioService>().To<PatrimonioService>();
+            kernel.Bind<IEquipamentoService>().To<EquipamentoService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -133,6 +137,12 @@ namespace Presentation.Start
             kernel.Bind<ICategoriaServicoRepository>().To<CategoriaServicoRepository>();
             kernel.Bind<ITransportadoraRepository>().To<TransportadoraRepository>();
             kernel.Bind<ITransportadoraAnexoRepository>().To<TransportadoraAnexoRepository>();
+            kernel.Bind<ICategoriaEquipamentoRepository>().To<CategoriaEquipamentoRepository>();
+            kernel.Bind<ICategoriaPatrimonioRepository>().To<CategoriaPatrimonioRepository>();
+            kernel.Bind<IPatrimonioAnexoRepository>().To<PatrimonioAnexoRepository>();
+            kernel.Bind<IEquipamentoAnexoRepository>().To<EquipamentoAnexoRepository>();
+            kernel.Bind<IPatrimonioRepository>().To<PatrimonioRepository>();
+            kernel.Bind<IEquipementoRepository>().To<EquipamentoRepository>();
         }
     }
 }

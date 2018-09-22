@@ -429,6 +429,20 @@
           <Property Name="EQUI_DT_BAIXA" Type="date" />
           <Property Name="EQUI_DS_MOTIVO_BAIXA" Type="varchar" MaxLength="250" />
           <Property Name="EQUI_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="EQUI_DT_CADASTRO" Type="date" />
+          <Property Name="EQUI_AQ_FOTO" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="EQUIPAMENTO_ANEXO">
+          <Key>
+            <PropertyRef Name="EQAN_CD_ID" />
+          </Key>
+          <Property Name="EQAN_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EQUI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="EQAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EQAN_DT_ANEXO" Type="date" Nullable="false" />
+          <Property Name="EQAN_IN_TIPO" Type="int" Nullable="false" />
+          <Property Name="EQAN_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EQAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ESCALA_TRABALHO">
           <Key>
@@ -828,6 +842,20 @@
           <Property Name="PATR_DT_BAIXA" Type="date" />
           <Property Name="PATR_DS_MOTIVO_BAIXA" Type="varchar" MaxLength="250" />
           <Property Name="PATR_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="PATR_DT_CADASTRO" Type="date" Nullable="false" />
+          <Property Name="PATR_AQ_FOTO" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="PATRIMONIO_ANEXO">
+          <Key>
+            <PropertyRef Name="PAAN_CD_ID" />
+          </Key>
+          <Property Name="PAAN_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PATR_CD_ID" Type="int" Nullable="false" />
+          <Property Name="PAAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PAAN_DT_ANEXO" Type="date" Nullable="false" />
+          <Property Name="PAAN_IN_TIPO" Type="int" Nullable="false" />
+          <Property Name="PAAN_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PAAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PEDIDO_COMPRA">
           <Key>
@@ -1885,6 +1913,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO">
+          <End Role="EQUIPAMENTO" Type="Self.EQUIPAMENTO" Multiplicity="1" />
+          <End Role="EQUIPAMENTO_ANEXO" Type="Self.EQUIPAMENTO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPAMENTO">
+              <PropertyRef Name="EQUI_CD_ID" />
+            </Principal>
+            <Dependent Role="EQUIPAMENTO_ANEXO">
+              <PropertyRef Name="EQUI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EQUIPAMENTO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="EQUIPAMENTO" Type="Self.EQUIPAMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="EQUIPAMENTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EQUIPAMENTO_CATEGORIA_EQUIPAMENTO">
           <End Role="CATEGORIA_EQUIPAMENTO" Type="Self.CATEGORIA_EQUIPAMENTO" Multiplicity="0..1" />
           <End Role="EQUIPAMENTO" Type="Self.EQUIPAMENTO" Multiplicity="*" />
@@ -2542,6 +2594,30 @@
             </Principal>
             <Dependent Role="OPORTUNIDADE_NEGOCIO">
               <PropertyRef Name="PRVE_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PATRIMONIO_ANEXO_PATRIMONIO">
+          <End Role="PATRIMONIO" Type="Self.PATRIMONIO" Multiplicity="1" />
+          <End Role="PATRIMONIO_ANEXO" Type="Self.PATRIMONIO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATRIMONIO">
+              <PropertyRef Name="PATR_CD_ID" />
+            </Principal>
+            <Dependent Role="PATRIMONIO_ANEXO">
+              <PropertyRef Name="PATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PATRIMONIO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="PATRIMONIO" Type="Self.PATRIMONIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PATRIMONIO">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3321,6 +3397,7 @@
           <EntitySet Name="CONTRATO" EntityType="Self.CONTRATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DEPENDENTE" EntityType="Self.DEPENDENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EQUIPAMENTO" EntityType="Self.EQUIPAMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EQUIPAMENTO_ANEXO" EntityType="Self.EQUIPAMENTO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ESCALA_TRABALHO" EntityType="Self.ESCALA_TRABALHO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ESCOLARIDADE" EntityType="Self.ESCOLARIDADE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ESTADO_CIVIL" EntityType="Self.ESTADO_CIVIL" Schema="dbo" store:Type="Tables" />
@@ -3349,6 +3426,7 @@
           <EntitySet Name="OPORTUNIDADE_NEGOCIO" EntityType="Self.OPORTUNIDADE_NEGOCIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPORTUNIDADE_NEGOCIO_ANEXO" EntityType="Self.OPORTUNIDADE_NEGOCIO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PATRIMONIO" EntityType="Self.PATRIMONIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PATRIMONIO_ANEXO" EntityType="Self.PATRIMONIO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PEDIDO_COMPRA" EntityType="Self.PEDIDO_COMPRA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PEDIDO_COMPRA_ANEXO" EntityType="Self.PEDIDO_COMPRA_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PEDIDO_SERVICO" EntityType="Self.PEDIDO_SERVICO" Schema="dbo" store:Type="Tables" />
@@ -3572,6 +3650,14 @@
             <End Role="COLABORADOR" EntitySet="COLABORADOR" />
             <End Role="DEPENDENTE" EntitySet="DEPENDENTE" />
           </AssociationSet>
+          <AssociationSet Name="FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO" Association="Self.FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO">
+            <End Role="EQUIPAMENTO" EntitySet="EQUIPAMENTO" />
+            <End Role="EQUIPAMENTO_ANEXO" EntitySet="EQUIPAMENTO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EQUIPAMENTO_ASSINANTE" Association="Self.FK_EQUIPAMENTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="EQUIPAMENTO" EntitySet="EQUIPAMENTO" />
+          </AssociationSet>
           <AssociationSet Name="FK_EQUIPAMENTO_CATEGORIA_EQUIPAMENTO" Association="Self.FK_EQUIPAMENTO_CATEGORIA_EQUIPAMENTO">
             <End Role="CATEGORIA_EQUIPAMENTO" EntitySet="CATEGORIA_EQUIPAMENTO" />
             <End Role="EQUIPAMENTO" EntitySet="EQUIPAMENTO" />
@@ -3791,6 +3877,14 @@
           <AssociationSet Name="FK_OPORTUNIDADE_NEGOCIO_PROPOSTA_VENDA" Association="Self.FK_OPORTUNIDADE_NEGOCIO_PROPOSTA_VENDA">
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
             <End Role="OPORTUNIDADE_NEGOCIO" EntitySet="OPORTUNIDADE_NEGOCIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PATRIMONIO_ANEXO_PATRIMONIO" Association="Self.FK_PATRIMONIO_ANEXO_PATRIMONIO">
+            <End Role="PATRIMONIO" EntitySet="PATRIMONIO" />
+            <End Role="PATRIMONIO_ANEXO" EntitySet="PATRIMONIO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PATRIMONIO_ASSINANTE" Association="Self.FK_PATRIMONIO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PATRIMONIO" EntitySet="PATRIMONIO" />
           </AssociationSet>
           <AssociationSet Name="FK_PATRIMONIO_CATEGORIA_PATRIMONIO" Association="Self.FK_PATRIMONIO_CATEGORIA_PATRIMONIO">
             <End Role="CATEGORIA_PATRIMONIO" EntitySet="CATEGORIA_PATRIMONIO" />
@@ -4085,6 +4179,8 @@
           <NavigationProperty Name="MATERIA_PRIMA" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ASSINANTE" FromRole="ASSINANTE" ToRole="MATERIA_PRIMA" />
           <NavigationProperty Name="SERVICO" Relationship="SystemBRDatabaseModel.FK_SERVICO_ASSINANTE" FromRole="ASSINANTE" ToRole="SERVICO" />
           <NavigationProperty Name="TRANSPORTADORA" Relationship="SystemBRDatabaseModel.FK_TRANSPORTADORA_ASSINANTE" FromRole="ASSINANTE" ToRole="TRANSPORTADORA" />
+          <NavigationProperty Name="EQUIPAMENTO" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_ASSINANTE" FromRole="ASSINANTE" ToRole="EQUIPAMENTO" />
+          <NavigationProperty Name="PATRIMONIO" Relationship="SystemBRDatabaseModel.FK_PATRIMONIO_ASSINANTE" FromRole="ASSINANTE" ToRole="PATRIMONIO" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -4566,6 +4662,10 @@
           <NavigationProperty Name="CATEGORIA_EQUIPAMENTO" Relationship="Self.FK_EQUIPAMENTO_CATEGORIA_EQUIPAMENTO" FromRole="EQUIPAMENTO" ToRole="CATEGORIA_EQUIPAMENTO" />
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_EQUIPAMENTO_FILIAL" FromRole="EQUIPAMENTO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_EQUIPAMENTO_MATRIZ" FromRole="EQUIPAMENTO" ToRole="MATRIZ" />
+          <Property Name="EQUI_DT_CADASTRO" Type="DateTime" Precision="0" />
+          <Property Name="EQUI_AQ_FOTO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_ASSINANTE" FromRole="EQUIPAMENTO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="EQUIPAMENTO_ANEXO" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO" FromRole="EQUIPAMENTO" ToRole="EQUIPAMENTO_ANEXO" />
         </EntityType>
         <EntityType Name="ESCALA_TRABALHO">
           <Key>
@@ -5078,6 +5178,10 @@
           <NavigationProperty Name="CATEGORIA_PATRIMONIO" Relationship="Self.FK_PATRIMONIO_CATEGORIA_PATRIMONIO" FromRole="PATRIMONIO" ToRole="CATEGORIA_PATRIMONIO" />
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_PATRIMONIO_FILIAL" FromRole="PATRIMONIO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_PATRIMONIO_MATRIZ" FromRole="PATRIMONIO" ToRole="MATRIZ" />
+          <Property Name="PATR_DT_CADASTRO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PATR_AQ_FOTO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_PATRIMONIO_ASSINANTE" FromRole="PATRIMONIO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="PATRIMONIO_ANEXO" Relationship="SystemBRDatabaseModel.FK_PATRIMONIO_ANEXO_PATRIMONIO" FromRole="PATRIMONIO" ToRole="PATRIMONIO_ANEXO" />
         </EntityType>
         <EntityType Name="PEDIDO_COMPRA">
           <Key>
@@ -8248,6 +8352,24 @@
             <End Role="TRANSPORTADORA" EntitySet="TRANSPORTADORA" />
             <End Role="TRANSPORTADORA_ANEXO" EntitySet="TRANSPORTADORA_ANEXO" />
           </AssociationSet>
+          <EntitySet Name="EQUIPAMENTO_ANEXO" EntityType="SystemBRDatabaseModel.EQUIPAMENTO_ANEXO" />
+          <EntitySet Name="PATRIMONIO_ANEXO" EntityType="SystemBRDatabaseModel.PATRIMONIO_ANEXO" />
+          <AssociationSet Name="FK_EQUIPAMENTO_ASSINANTE" Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="EQUIPAMENTO" EntitySet="EQUIPAMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PATRIMONIO_ASSINANTE" Association="SystemBRDatabaseModel.FK_PATRIMONIO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PATRIMONIO" EntitySet="PATRIMONIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO" Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO">
+            <End Role="EQUIPAMENTO" EntitySet="EQUIPAMENTO" />
+            <End Role="EQUIPAMENTO_ANEXO" EntitySet="EQUIPAMENTO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PATRIMONIO_ANEXO_PATRIMONIO" Association="SystemBRDatabaseModel.FK_PATRIMONIO_ANEXO_PATRIMONIO">
+            <End Role="PATRIMONIO" EntitySet="PATRIMONIO" />
+            <End Role="PATRIMONIO_ANEXO" EntitySet="PATRIMONIO_ANEXO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="PRODUTO_ANEXO">
           <Key>
@@ -8406,6 +8528,80 @@
             </Principal>
             <Dependent Role="TRANSPORTADORA_ANEXO">
               <PropertyRef Name="TRAN_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EQUIPAMENTO_ANEXO">
+          <Key>
+            <PropertyRef Name="EQAN_CD_ID" />
+          </Key>
+          <Property Name="EQAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EQUI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="EQAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EQAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EQAN_IN_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="EQAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EQAN_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EQUIPAMENTO" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO" FromRole="EQUIPAMENTO_ANEXO" ToRole="EQUIPAMENTO" />
+        </EntityType>
+        <EntityType Name="PATRIMONIO_ANEXO">
+          <Key>
+            <PropertyRef Name="PAAN_CD_ID" />
+          </Key>
+          <Property Name="PAAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PATR_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="PAAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PAAN_IN_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="PAAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAAN_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PATRIMONIO" Relationship="SystemBRDatabaseModel.FK_PATRIMONIO_ANEXO_PATRIMONIO" FromRole="PATRIMONIO_ANEXO" ToRole="PATRIMONIO" />
+        </EntityType>
+        <Association Name="FK_EQUIPAMENTO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.EQUIPAMENTO" Role="EQUIPAMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="EQUIPAMENTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PATRIMONIO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PATRIMONIO" Role="PATRIMONIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PATRIMONIO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO">
+          <End Type="SystemBRDatabaseModel.EQUIPAMENTO" Role="EQUIPAMENTO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.EQUIPAMENTO_ANEXO" Role="EQUIPAMENTO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPAMENTO">
+              <PropertyRef Name="EQUI_CD_ID" />
+            </Principal>
+            <Dependent Role="EQUIPAMENTO_ANEXO">
+              <PropertyRef Name="EQUI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PATRIMONIO_ANEXO_PATRIMONIO">
+          <End Type="SystemBRDatabaseModel.PATRIMONIO" Role="PATRIMONIO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PATRIMONIO_ANEXO" Role="PATRIMONIO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATRIMONIO">
+              <PropertyRef Name="PATR_CD_ID" />
+            </Principal>
+            <Dependent Role="PATRIMONIO_ANEXO">
+              <PropertyRef Name="PATR_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8854,6 +9050,8 @@
           <EntitySetMapping Name="EQUIPAMENTO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.EQUIPAMENTO">
               <MappingFragment StoreEntitySet="EQUIPAMENTO">
+                <ScalarProperty Name="EQUI_AQ_FOTO" ColumnName="EQUI_AQ_FOTO" />
+                <ScalarProperty Name="EQUI_DT_CADASTRO" ColumnName="EQUI_DT_CADASTRO" />
                 <ScalarProperty Name="EQUI_CD_ID" ColumnName="EQUI_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -9268,6 +9466,8 @@
           <EntitySetMapping Name="PATRIMONIO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.PATRIMONIO">
               <MappingFragment StoreEntitySet="PATRIMONIO">
+                <ScalarProperty Name="PATR_AQ_FOTO" ColumnName="PATR_AQ_FOTO" />
+                <ScalarProperty Name="PATR_DT_CADASTRO" ColumnName="PATR_DT_CADASTRO" />
                 <ScalarProperty Name="PATR_CD_ID" ColumnName="PATR_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -9822,6 +10022,32 @@
                 <ScalarProperty Name="TRAX_NM_TITULO" ColumnName="TRAX_NM_TITULO" />
                 <ScalarProperty Name="TRAN_CD_ID" ColumnName="TRAN_CD_ID" />
                 <ScalarProperty Name="TRAX_CD_ID" ColumnName="TRAX_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EQUIPAMENTO_ANEXO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.EQUIPAMENTO_ANEXO">
+              <MappingFragment StoreEntitySet="EQUIPAMENTO_ANEXO">
+                <ScalarProperty Name="EQAN_IN_ATIVO" ColumnName="EQAN_IN_ATIVO" />
+                <ScalarProperty Name="EQAN_AQ_ARQUIVO" ColumnName="EQAN_AQ_ARQUIVO" />
+                <ScalarProperty Name="EQAN_IN_TIPO" ColumnName="EQAN_IN_TIPO" />
+                <ScalarProperty Name="EQAN_DT_ANEXO" ColumnName="EQAN_DT_ANEXO" />
+                <ScalarProperty Name="EQAN_NM_TITULO" ColumnName="EQAN_NM_TITULO" />
+                <ScalarProperty Name="EQUI_CD_ID" ColumnName="EQUI_CD_ID" />
+                <ScalarProperty Name="EQAN_CD_ID" ColumnName="EQAN_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PATRIMONIO_ANEXO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.PATRIMONIO_ANEXO">
+              <MappingFragment StoreEntitySet="PATRIMONIO_ANEXO">
+                <ScalarProperty Name="PAAN_IN_ATIVO" ColumnName="PAAN_IN_ATIVO" />
+                <ScalarProperty Name="PAAN_AQ_ARQUIVO" ColumnName="PAAN_AQ_ARQUIVO" />
+                <ScalarProperty Name="PAAN_IN_TIPO" ColumnName="PAAN_IN_TIPO" />
+                <ScalarProperty Name="PAAN_DT_ANEXO" ColumnName="PAAN_DT_ANEXO" />
+                <ScalarProperty Name="PAAN_NM_TITULO" ColumnName="PAAN_NM_TITULO" />
+                <ScalarProperty Name="PATR_CD_ID" ColumnName="PATR_CD_ID" />
+                <ScalarProperty Name="PAAN_CD_ID" ColumnName="PAAN_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

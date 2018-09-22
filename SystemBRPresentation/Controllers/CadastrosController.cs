@@ -24,6 +24,8 @@ namespace SystemBRPresentation.Controllers
         private readonly IMateriaPrimaAppService matApp;
         private readonly IServicoAppService servApp;
         private readonly ITransportadoraAppService tranApp;
+        private readonly IPatrimonioAppService patrApp;
+        private readonly IEquipamentoAppService equiApp;
         private String msg;
         private Exception exception;
         CLIENTE objeto = new CLIENTE();
@@ -48,8 +50,14 @@ namespace SystemBRPresentation.Controllers
         TRANSPORTADORA objetoTran = new TRANSPORTADORA();
         TRANSPORTADORA objetoTranAntes = new TRANSPORTADORA();
         List<TRANSPORTADORA> listaMasterTran = new List<TRANSPORTADORA>();
+        PATRIMONIO objetoPatr = new PATRIMONIO();
+        PATRIMONIO objetoPatrAntes = new PATRIMONIO();
+        List<PATRIMONIO> listaMasterPatr = new List<PATRIMONIO>();
+        EQUIPAMENTO objetoEqui = new EQUIPAMENTO();
+        EQUIPAMENTO objetoEquiAntes = new EQUIPAMENTO();
+        List<EQUIPAMENTO> listaMasterEqui = new List<EQUIPAMENTO>();
 
-        public CadastrosController(IClienteAppService baseApps, ILogAppService logApps, IMatrizAppService matrizApps, IFornecedorAppService fornApps, IProdutoAppService prodApps, IMateriaPrimaAppService matApps, IServicoAppService servApps, ITransportadoraAppService tranApps)
+        public CadastrosController(IClienteAppService baseApps, ILogAppService logApps, IMatrizAppService matrizApps, IFornecedorAppService fornApps, IProdutoAppService prodApps, IMateriaPrimaAppService matApps, IServicoAppService servApps, ITransportadoraAppService tranApps, IPatrimonioAppService patrApps, IEquipamentoAppService equiApps)
         {
             baseApp = baseApps;
             logApp = logApps;
@@ -59,6 +67,8 @@ namespace SystemBRPresentation.Controllers
             matApp = matApps;
             servApp = servApps;
             tranApp = tranApps;
+            patrApp = patrApps;
+            equiApp = equiApps;
         }
 
         [HttpGet]
@@ -2621,6 +2631,758 @@ namespace SystemBRPresentation.Controllers
             objetoTranAntes = item;
             Int32 volta = tranApp.ValidateEdit(item, objetoTranAntes);
             return RedirectToAction("VoltarAnexoTransportadora");
+        }
+
+       [HttpGet]
+        public ActionResult MontarTelaPatrimonio()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            if (SessionMocks.listaPatrimonio == null)
+            {
+                listaMasterPatr = patrApp.GetAllItens();
+                SessionMocks.listaPatrimonio = listaMasterPatr;
+            }
+            ViewBag.Listas = SessionMocks.listaPatrimonio;
+            ViewBag.Title = "Patrimonio";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(patrApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(patrApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Indicadores
+            ViewBag.Patrimonios = patrApp.GetAllItens().Count;
+            
+            // Abre view
+            objetoPatr = new PATRIMONIO();
+            SessionMocks.voltaPatrimonio = 1;
+            if (SessionMocks.filtroPatrimonio != null)
+            {
+                objetoPatr = SessionMocks.filtroPatrimonio;
+            }
+            return View(objetoPatr);
+        }
+
+        public ActionResult RetirarFiltroPatrimonio()
+        {
+            SessionMocks.listaPatrimonio = null;
+            SessionMocks.filtroPatrimonio = null;
+            return RedirectToAction("MontarTelaPatrimonio");
+        }
+
+        public ActionResult MostrarTudoPatrimonio()
+        {
+            listaMasterPatr = patrApp.GetAllItensAdm();
+            SessionMocks.filtroPatrimonio = null;
+            SessionMocks.listaPatrimonio = listaMasterPatr;
+            return RedirectToAction("MontarTelaPatrimonio");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarPatrimonio(PATRIMONIO item)
+        {
+            try
+            {
+                // Executa a operação
+                List<PATRIMONIO> listaObj = new List<PATRIMONIO>();
+                SessionMocks.filtroPatrimonio = item;
+                Int32 volta = patrApp.ExecuteFilter(item.CAPA_CD_ID, item.PATR_NM_NOME, item.PATR_NR_NUMERO_PATRIMONIO, item.FILI_CD_ID, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                }
+
+                // Sucesso
+                listaMasterPatr = listaObj;
+                SessionMocks.listaPatrimonio = listaObj;
+                return RedirectToAction("MontarTelaPatrimonio");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaPatrimonio");
+            }
+        }
+
+        public ActionResult VoltarBasePatrimonio()
+        {
+            return RedirectToAction("MontarTelaPatrimonio");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirPatrimonio()
+        {
+            // Prepara listas
+            ViewBag.Tipos = new SelectList(patrApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(patrApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            PATRIMONIO item = new PATRIMONIO();
+            PatrimonioViewModel vm = Mapper.Map<PATRIMONIO, PatrimonioViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.PATR_DT_CADASTRO = DateTime.Today;
+            vm.PATR_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirPatrimonio(PatrimonioViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(patrApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(patrApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    PATRIMONIO item = Mapper.Map<PatrimonioViewModel, PATRIMONIO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = patrApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0030", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Carrega foto e processa alteracao
+                    item.PATR_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = patrApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Patrimonio/" + item.PATR_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Patrimonio/" + item.PATR_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    
+                    // Sucesso
+                    listaMasterPatr = new List<PATRIMONIO>();
+                    SessionMocks.listaPatrimonio = null;
+                    return RedirectToAction("MontarTelaPatrimonio");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarPatrimonio(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Tipos = new SelectList(patrApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(patrApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            PATRIMONIO item = patrApp.GetItemById(id);
+            ViewBag.Dias = 50; // Implementar
+            objetoPatrAntes = item;
+            SessionMocks.patrimonio = item;
+            SessionMocks.idVolta = id;
+            PatrimonioViewModel vm = Mapper.Map<PATRIMONIO, PatrimonioViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarPatrimonio(PatrimonioViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(patrApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(patrApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            //if (ModelState.IsValid)
+            //{
+            try
+            {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    PATRIMONIO item = Mapper.Map<PatrimonioViewModel, PATRIMONIO>(vm);
+                    Int32 volta = patrApp.ValidateEdit(item, objetoPatrAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMasterPatr = new List<PATRIMONIO>();
+                    SessionMocks.listaPatrimonio = null;
+                    return RedirectToAction("MontarTelaPatrimonio");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            //}
+            //else
+            //{
+            //    return View(vm);
+            //}
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirPatrimonio(Int32 id)
+        {
+            // Prepara view
+            PATRIMONIO item = patrApp.GetItemById(id);
+            PatrimonioViewModel vm = Mapper.Map<PATRIMONIO, PatrimonioViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirPatrimonio(PatrimonioViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                PATRIMONIO item = Mapper.Map<PatrimonioViewModel, PATRIMONIO>(vm);
+                Int32 volta = patrApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterPatr = new List<PATRIMONIO>();
+                SessionMocks.listaPatrimonio = null;
+                return RedirectToAction("MontarTelaPatrimonio");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarPatrimonio(Int32 id)
+        {
+            // Prepara view
+            PATRIMONIO item = patrApp.GetItemById(id);
+            PatrimonioViewModel vm = Mapper.Map<PATRIMONIO, PatrimonioViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarPatrimonio(PatrimonioViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                PATRIMONIO item = Mapper.Map<PatrimonioViewModel, PATRIMONIO>(vm);
+                Int32 volta = patrApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterPatr = new List<PATRIMONIO>();
+                SessionMocks.listaPatrimonio = null;
+                return RedirectToAction("MontarTelaPatrimonio");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult VerAnexoPatrimonio(Int32 id)
+        {
+            // Prepara view
+            PATRIMONIO_ANEXO item = patrApp.GetAnexoById(id);
+            return View(item);
+        }
+
+        public ActionResult VoltarAnexoPatrimonio()
+        {
+            return RedirectToAction("EditarPatrimonio", new { id = SessionMocks.idVolta });
+        }
+
+        public FileResult DownloadPatrimonio(Int32 id)
+        {
+            PATRIMONIO_ANEXO item = patrApp.GetAnexoById(id);
+            String arquivo = item.PAAN_AQ_ARQUIVO;
+            Int32 pos = arquivo.LastIndexOf("/") + 1;
+            String nomeDownload = arquivo.Substring(pos);
+            String contentType = string.Empty;
+            if (arquivo.Contains(".pdf"))
+            {
+                contentType = "application/pdf";
+            }
+            else if (arquivo.Contains(".jpg"))
+            {
+                contentType = "image/jpg";
+            }
+            else if (arquivo.Contains(".png"))
+            {
+                contentType = "image/png";
+            }
+            return File(arquivo, contentType, nomeDownload);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFilePatrimonio(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            PATRIMONIO item = patrApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Patrimonio/" + item.PATR_CD_ID.ToString() + "/Anexos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            PATRIMONIO_ANEXO foto = new PATRIMONIO_ANEXO();
+            foto.PAAN_AQ_ARQUIVO = "~" + caminho + fileName;
+            foto.PAAN_DT_ANEXO = DateTime.Today;
+            foto.PAAN_IN_ATIVO = 1;
+            Int32 tipo = 3;
+            if (extensao.ToUpper() == ".JPG" || extensao.ToUpper() == ".GIF" || extensao.ToUpper() == ".PNG" || extensao.ToUpper() == ".JPEG")
+            {
+                tipo = 1;
+            }
+            if (extensao.ToUpper() == ".MP4" || extensao.ToUpper() == ".AVI" || extensao.ToUpper() == ".MPEG")
+            {
+                tipo = 2;
+            }
+            foto.PAAN_IN_TIPO = tipo;
+            foto.PAAN_NM_TITULO = fileName;
+            foto.PATR_CD_ID = item.PATR_CD_ID;
+
+            item.PATRIMONIO_ANEXO.Add(foto);
+            objetoPatrAntes = item;
+            Int32 volta = patrApp.ValidateEdit(item, objetoPatrAntes);
+            return RedirectToAction("VoltarAnexoPatrimonio");
+        }
+
+        [HttpPost]
+        public ActionResult UploadFotoPatrimonio(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            PATRIMONIO item = patrApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Patrimonio/" + item.PATR_CD_ID.ToString() + "/Fotos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            item.PATR_AQ_FOTO = "~" + caminho + fileName;
+            objetoPatrAntes = item;
+            Int32 volta = patrApp.ValidateEdit(item, objetoPatrAntes);
+            return RedirectToAction("VoltarAnexoPatrimonio");
+        }
+
+        [HttpGet]
+        public ActionResult MontarTelaEquipamento()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            if (SessionMocks.listaEquipamento == null)
+            {
+                listaMasterEqui = equiApp.GetAllItens();
+                SessionMocks.listaEquipamento = listaMasterEqui;
+            }
+            ViewBag.Listas = SessionMocks.listaEquipamento;
+            ViewBag.Title = "Equipamentos";
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
+            ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Indicadores
+            ViewBag.Equipamentos = equiApp.GetAllItens().Count;
+            
+            // Abre view
+            objetoEqui = new EQUIPAMENTO();
+            SessionMocks.voltaEquipamento = 1;
+            if (SessionMocks.filtroEquipamento != null)
+            {
+                objetoEqui = SessionMocks.filtroEquipamento;
+            }
+            return View(objetoEqui);
+        }
+
+        public ActionResult RetirarFiltroEquipamento()
+        {
+            SessionMocks.listaEquipamento = null;
+            SessionMocks.filtroEquipamento = null;
+            return RedirectToAction("MontarTelaequipamento");
+        }
+
+        public ActionResult MostrarTudoEquipamento()
+        {
+            listaMasterEqui = equiApp.GetAllItensAdm();
+            SessionMocks.filtroEquipamento = null;
+            SessionMocks.listaEquipamento = listaMasterEqui;
+            return RedirectToAction("MontarTelaEquipamento");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarEquipamento(EQUIPAMENTO item)
+        {
+            try
+            {
+                // Executa a operação
+                List<EQUIPAMENTO> listaObj = new List<EQUIPAMENTO>();
+                SessionMocks.filtroEquipamento = item;
+                Int32 volta = equiApp.ExecuteFilter(item.CAEQ_CD_ID, item.EQUI_NM_NOME, item.EQUI_NR_NUMERO, item.FILI_CD_ID, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                }
+
+                // Sucesso
+                listaMasterEqui = listaObj;
+                SessionMocks.listaEquipamento = listaObj;
+                return RedirectToAction("MontarTelaEquipamento");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaEquipamento");
+            }
+        }
+
+        public ActionResult VoltarBaseEquipamento()
+        {
+            return RedirectToAction("MontarTelaEquipamento");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirEquipamento()
+        {
+            // Prepara listas
+            ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
+            ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            EQUIPAMENTO item = new EQUIPAMENTO();
+            EquipamentoViewModel vm = Mapper.Map<EQUIPAMENTO, EquipamentoViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.EQUI_DT_CADASTRO = DateTime.Today;
+            vm.EQUI_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirEquipamento(EquipamentoViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
+            ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    EQUIPAMENTO item = Mapper.Map<EquipamentoViewModel, EQUIPAMENTO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = equiApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0031", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Carrega foto e processa alteracao
+                    item.EQUI_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = equiApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Equipamento/" + item.EQUI_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Equipamento/" + item.EQUI_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    
+                    // Sucesso
+                    listaMasterEqui = new List<EQUIPAMENTO>();
+                    SessionMocks.listaEquipamento = null;
+                    return RedirectToAction("MontarTelaEquipamento");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarEquipamento(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
+            ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            EQUIPAMENTO item = equiApp.GetItemById(id);
+            ViewBag.Dias = 50; // Implementar
+            objetoEquiAntes = item;
+            SessionMocks.equipamento = item;
+            SessionMocks.idVolta = id;
+            EquipamentoViewModel vm = Mapper.Map<EQUIPAMENTO, EquipamentoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarEquipamento(EquipamentoViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
+            ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            //if (ModelState.IsValid)
+            //{
+            try
+            {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    EQUIPAMENTO item = Mapper.Map<EquipamentoViewModel, EQUIPAMENTO>(vm);
+                    Int32 volta = equiApp.ValidateEdit(item, objetoEquiAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMasterEqui = new List<EQUIPAMENTO>();
+                    SessionMocks.listaEquipamento = null;
+                    return RedirectToAction("MontarTelaEquipamento");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            //}
+            //else
+            //{
+            //    return View(vm);
+            //}
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirEquipamento(Int32 id)
+        {
+            // Prepara view
+            EQUIPAMENTO item = equiApp.GetItemById(id);
+            EquipamentoViewModel vm = Mapper.Map<EQUIPAMENTO, EquipamentoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirEquipamento(EquipamentoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                EQUIPAMENTO item = Mapper.Map<EquipamentoViewModel, EQUIPAMENTO>(vm);
+                Int32 volta = equiApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterEqui = new List<EQUIPAMENTO>();
+                SessionMocks.listaEquipamento = null;
+                return RedirectToAction("MontarTelaEquipamento");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarEquipamento(Int32 id)
+        {
+            // Prepara view
+            EQUIPAMENTO item = equiApp.GetItemById(id);
+            EquipamentoViewModel vm = Mapper.Map<EQUIPAMENTO, EquipamentoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarEquipamento(EquipamentoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                EQUIPAMENTO item = Mapper.Map<EquipamentoViewModel, EQUIPAMENTO>(vm);
+                Int32 volta = equiApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterEqui = new List<EQUIPAMENTO>();
+                SessionMocks.listaEquipamento = null;
+                return RedirectToAction("MontarTelaEquipamento");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult VerAnexoEquipamento(Int32 id)
+        {
+            // Prepara view
+            EQUIPAMENTO_ANEXO item = equiApp.GetAnexoById(id);
+            return View(item);
+        }
+
+        public ActionResult VoltarAnexoEquipamento()
+        {
+            return RedirectToAction("EditarEquipamento", new { id = SessionMocks.idVolta });
+        }
+
+        public FileResult DownloadEquipamento(Int32 id)
+        {
+            EQUIPAMENTO_ANEXO item = equiApp.GetAnexoById(id);
+            String arquivo = item.EQAN_AQ_ARQUIVO;
+            Int32 pos = arquivo.LastIndexOf("/") + 1;
+            String nomeDownload = arquivo.Substring(pos);
+            String contentType = string.Empty;
+            if (arquivo.Contains(".pdf"))
+            {
+                contentType = "application/pdf";
+            }
+            else if (arquivo.Contains(".jpg"))
+            {
+                contentType = "image/jpg";
+            }
+            else if (arquivo.Contains(".png"))
+            {
+                contentType = "image/png";
+            }
+            return File(arquivo, contentType, nomeDownload);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFileEquipamento(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            EQUIPAMENTO item = equiApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Equipamento/" + item.EQUI_CD_ID.ToString() + "/Anexos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            EQUIPAMENTO_ANEXO foto = new EQUIPAMENTO_ANEXO();
+            foto.EQAN_AQ_ARQUIVO = "~" + caminho + fileName;
+            foto.EQAN_DT_ANEXO = DateTime.Today;
+            foto.EQAN_IN_ATIVO = 1;
+            Int32 tipo = 3;
+            if (extensao.ToUpper() == ".JPG" || extensao.ToUpper() == ".GIF" || extensao.ToUpper() == ".PNG" || extensao.ToUpper() == ".JPEG")
+            {
+                tipo = 1;
+            }
+            if (extensao.ToUpper() == ".MP4" || extensao.ToUpper() == ".AVI" || extensao.ToUpper() == ".MPEG")
+            {
+                tipo = 2;
+            }
+            foto.EQAN_IN_TIPO = tipo;
+            foto.EQAN_NM_TITULO = fileName;
+            foto.EQUI_CD_ID = item.EQUI_CD_ID;
+
+            item.EQUIPAMENTO_ANEXO.Add(foto);
+            objetoEquiAntes = item;
+            Int32 volta = equiApp.ValidateEdit(item, objetoEquiAntes);
+            return RedirectToAction("VoltarAnexoEquipamento");
+        }
+
+        [HttpPost]
+        public ActionResult UploadFotoEquipamento(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            EQUIPAMENTO item = equiApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Equipamento/" + item.EQUI_CD_ID.ToString() + "/Fotos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            item.EQUI_AQ_FOTO = "~" + caminho + fileName;
+            objetoEquiAntes = item;
+            Int32 volta = equiApp.ValidateEdit(item, objetoEquiAntes);
+            return RedirectToAction("VoltarAnexoEquipamento");
         }
     }
 }

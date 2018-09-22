@@ -263,6 +263,12 @@
         <EntityTypeShape EntityType="SystemBRDatabaseModel.TRANSPORTADORA_ANEXO" Width="1.5" PointX="24" PointY="147.125" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.EQUIPAMENTO_ANEXO" Width="1.5" PointX="12" PointY="161.25" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PATRIMONIO_ANEXO" Width="1.5" PointX="21" PointY="144.25" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PATRIMONIO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PATRIMONIO_ANEXO_PATRIMONIO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -320,5 +320,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0029", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Item de patrimonio ja cadastrado.
+        /// </summary>
+        internal static string M0030 {
+            get {
+                return ResourceManager.GetString("M0030", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Equipamento ja cadastrado.
+        /// </summary>
+        internal static string M0031 {
+            get {
+                return ResourceManager.GetString("M0031", resourceCulture);
+            }
+        }
     }
 }

@@ -119,5 +119,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<MATERIA_PRIMA_ANEXO> MATERIA_PRIMA_ANEXO { get; set; }
         public virtual DbSet<SERVICO_ANEXO> SERVICO_ANEXO { get; set; }
         public virtual DbSet<TRANSPORTADORA_ANEXO> TRANSPORTADORA_ANEXO { get; set; }
+        public virtual DbSet<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
+        public virtual DbSet<PATRIMONIO_ANEXO> PATRIMONIO_ANEXO { get; set; }
     }
 }

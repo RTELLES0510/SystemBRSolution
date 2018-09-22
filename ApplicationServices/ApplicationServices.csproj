@@ -88,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IAppServiceBase.cs" />
+    <Compile Include="Interfaces\IEquipamentoAppService.cs" />
+    <Compile Include="Interfaces\IPatrimonioAppService.cs" />
     <Compile Include="Interfaces\ITransportadoraAppService.cs" />
     <Compile Include="Interfaces\IMateriaPrimaAppService.cs" />
     <Compile Include="Interfaces\IServicoAppService.cs" />
@@ -104,6 +106,8 @@
     <Compile Include="Interfaces\IUsuarioAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppServiceBase.cs" />
+    <Compile Include="Services\EquipamentoAppService.cs" />
+    <Compile Include="Services\PatrimonioAppService.cs" />
     <Compile Include="Services\TransportadoraAppService.cs" />
     <Compile Include="Services\MateriaPrimaAppService.cs" />
     <Compile Include="Services\ServicoAppService.cs" />

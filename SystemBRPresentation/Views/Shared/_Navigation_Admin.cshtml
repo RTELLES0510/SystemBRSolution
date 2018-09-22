@@ -147,9 +147,10 @@
             <li class="@Html.IsSelected(controller: "AdministracaoGeral")">
                 <a href="@Url.Action("Index", "AdministracaoGeral")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Administração Geral</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "AdministracaoGeral", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "MontarTelaAssinante")"><a href="@Url.Action("MontarTelaLog", "Administracao")">Gestão de Assinantes</a></li>
-                    <li class="@Html.IsSelected(action: "MontarTelaControle")"><a href="@Url.Action("MontarTelaLog", "Administracao")">Pagamentos</a></li>
-                    <li class="@Html.IsSelected(action: "MontarTelaPlano")"><a href="@Url.Action("MontarTelaUsuario", "Administracao")">Planos de Assinatura</a></li>
+                    <li class="@Html.IsSelected(action: "MontarTelaAssinante")"><a href="@Url.Action("MontarTelaAssinante", "AdministracaoGeral")">Gestão de Assinantes</a></li>
+                    <li class="@Html.IsSelected(action: "MontarTelaUsuario")"><a href="@Url.Action("MontarTelaUsuario", "AdministracaoGeral")">Gestão de Usuários</a></li>
+                    <li class="@Html.IsSelected(action: "MontarTelaControle")"><a href="@Url.Action("MontarTelaControle", "AdministracaoGeral")">Pagamentos</a></li>
+                    <li class="@Html.IsSelected(action: "MontarTelaPlano")"><a href="@Url.Action("MontarTelaPlano", "AdministracaoGeral")">Planos de Assinatura</a></li>
                 </ul>
             </li>
         </ul>

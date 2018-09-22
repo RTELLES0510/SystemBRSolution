@@ -88,8 +88,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CategoriaEquipamentoRepository.cs" />
+    <Compile Include="Repositories\CategoriaPatrimonioRepository.cs" />
     <Compile Include="Repositories\CategoriaServicoRepository.cs" />
     <Compile Include="Repositories\CategoriaMateriaPrimaRepository.cs" />
+    <Compile Include="Repositories\EquipamentoAnexoRepository.cs" />
+    <Compile Include="Repositories\PatrimonioAnexoRepository.cs" />
+    <Compile Include="Repositories\EquipamentoRepository.cs" />
+    <Compile Include="Repositories\PatrimonioRepository.cs" />
     <Compile Include="Repositories\TransportadoraRepository.cs" />
     <Compile Include="Repositories\ServicoRepository.cs" />
     <Compile Include="Repositories\TransportadoraAnexoRepository.cs" />

@@ -28,6 +28,8 @@ namespace EntitiesServices.Model
             this.MATERIA_PRIMA = new HashSet<MATERIA_PRIMA>();
             this.SERVICO = new HashSet<SERVICO>();
             this.TRANSPORTADORA = new HashSet<TRANSPORTADORA>();
+            this.EQUIPAMENTO = new HashSet<EQUIPAMENTO>();
+            this.PATRIMONIO = new HashSet<PATRIMONIO>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -63,5 +65,9 @@ namespace EntitiesServices.Model
         public virtual ICollection<SERVICO> SERVICO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRANSPORTADORA> TRANSPORTADORA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EQUIPAMENTO> EQUIPAMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PATRIMONIO> PATRIMONIO { get; set; }
     }
 }
