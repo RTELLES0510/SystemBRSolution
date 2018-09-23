@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,6 @@ namespace CrossCutting
 {
     public static class Formatters
     {
-        /// <summary>
-        /// CPFs the formatter.
-        /// </summary>
-        /// <param name="CPF">The CPF.</param>
-        /// <returns></returns>
         public static String CPFFormatter(String CPF)
         {
             if (String.IsNullOrEmpty(CPF))
@@ -25,11 +21,6 @@ namespace CrossCutting
             return cpf;
         }
 
-        /// <summary>
-        /// CNPJs the formatter.
-        /// </summary>
-        /// <param name="CNPJ">The CNPJ.</param>
-        /// <returns></returns>
         public static String CNPJFormatter(String CNPJ)
         {
             if (String.IsNullOrEmpty(CNPJ))
@@ -41,21 +32,24 @@ namespace CrossCutting
             return cnpj;
         }
 
-        /// <summary>
-        /// Ceps the formatter.
-        /// </summary>
-        /// <param name="CEP">The cep.</param>
-        /// <returns></returns>
         public static String CEPFormatter(String CEP)
         {
             if (String.IsNullOrEmpty(CEP))
             {
                 return CEP;
             }
+            Decimal valorOriginal = 0;
+            string valorFormatado = valorOriginal.ToString("#,0.00", new CultureInfo("pt-BR"));
+
             CEP = new String(CEP.Where(c => char.IsDigit(c)).ToArray());
             String cep = String.Format(@"{0:00000\-000}", Convert.ToInt64(CEP));
             return cep;
         }
 
+        public static String DecimalFormatter(Decimal number)
+        {
+            String valorFormatado = number.ToString("#,0.00", new CultureInfo("pt-BR"));
+            return valorFormatado;
+        }
     }
 }

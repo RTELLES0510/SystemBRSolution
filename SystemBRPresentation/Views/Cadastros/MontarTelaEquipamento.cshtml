@@ -130,11 +130,26 @@
                                         @foreach (var cond in (ViewBag.Listas as List<EntitiesServices.Model.EQUIPAMENTO>))
                                         {
                                             <tr>
-                                                <td>@cond.CATEGORIA_EQUIPAMENTO.CAEQ_CD_ID</td>
+                                                <td>@cond.CATEGORIA_EQUIPAMENTO.CAEQ_NM_NOME</td>
                                                 <td>@cond.EQUI_NM_NOME</td>
                                                 <td>@cond.EQUI_NR_NUMERO</td>
+                                                @if (cond.EQUI_VL_VALOR != null)
+	                                            {
+                                                    <td>@CrossCutting.Formatters.DecimalFormatter(cond.EQUI_VL_VALOR.Value)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
                                                 <td>@cond.EQUI_DT_COMPRA.Value.ToShortDateString()</td>
-                                                <td>@cond.EQUI_DT_BAIXA.Value.ToShortDateString()</td>
+                                                @if (cond.EQUI_DT_BAIXA != null)
+	                                            {
+                                                    <td>@cond.EQUI_DT_BAIXA.Value.ToShortDateString()</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
                                                 <td class="td-one-action">
                                                     @Html.TableLinkDetails(cond.EQUI_CD_ID, "EditarEquipamento","fa-edit", "Editar/Consultar Equipamento")
                                                     @if (cond.EQUI_IN_ATIVO == 1)

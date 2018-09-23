@@ -1,5 +1,6 @@
 @using Presentation.Extensions
 @using CrossCutting;
+@using System.Globalization;
 @model EntitiesServices.Model.PATRIMONIO
 @{
     Layout = "~/Views/Shared/_Layout_Admin.cshtml";
@@ -130,11 +131,26 @@
                                         @foreach (var cond in (ViewBag.Listas as List<EntitiesServices.Model.PATRIMONIO>))
                                         {
                                             <tr>
-                                                <td>@cond.CATEGORIA_PATRIMONIO.CAPR_CD_ID</td>
+                                                <td>@cond.CATEGORIA_PATRIMONIO.CAPR_NM_NOME</td>
                                                 <td>@cond.PATR_NM_NOME</td>
                                                 <td>@cond.PATR_NR_NUMERO_PATRIMONIO</td>
+                                                @if (cond.PATR_VL_VALOR != null)
+	                                            {
+                                                    <td>@CrossCutting.Formatters.DecimalFormatter(cond.PATR_VL_VALOR.Value)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
                                                 <td>@cond.PATR_DT_COMPRA.Value.ToShortDateString()</td>
-                                                <td>@cond.PATR_DT_BAIXA.Value.ToShortDateString()</td>
+                                                @if (cond.PATR_DT_BAIXA != null)
+	                                            {
+                                                    <td>@cond.PATR_DT_BAIXA.Value.ToShortDateString()</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
                                                 <td class="td-one-action">
                                                     @Html.TableLinkDetails(cond.PATR_CD_ID, "EditarPatrimonio","fa-edit", "Editar/Consultar Item de Patrimônio")
                                                     @if (cond.PATR_IN_ATIVO == 1)
