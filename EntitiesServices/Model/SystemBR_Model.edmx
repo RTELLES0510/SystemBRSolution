@@ -1220,6 +1220,14 @@
           <Property Name="TIAT_DS_JUSTIFICATIVA" Type="varchar" MaxLength="500" />
           <Property Name="TIAT_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="TIPO_COMISSAO">
+          <Key>
+            <PropertyRef Name="TICO_CD_ID" />
+          </Key>
+          <Property Name="TICO_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="TICO_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="TIPO_CONTA">
           <Key>
             <PropertyRef Name="TICO_CD_ID" />
@@ -1336,9 +1344,9 @@
           <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
           <Property Name="MATR_CD_ID" Type="int" />
           <Property Name="FILI_CD_ID" Type="int" />
+          <Property Name="TICO_CD_ID" Type="int" />
           <Property Name="CAPR_CD_ID" Type="int" />
           <Property Name="VACO_VL_VALOR" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="VACO_IN_TIPO" Type="int" Nullable="false" />
           <Property Name="VACO_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VINCULO_EMPREGATICIO">
@@ -1430,6 +1438,30 @@
             </Principal>
             <Dependent Role="ATENDIMENTO_ANEXO">
               <PropertyRef Name="ATAC_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CARGO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CARGO_VALOR_COMISSAO">
+          <End Role="VALOR_COMISSAO" Type="Self.VALOR_COMISSAO" Multiplicity="0..1" />
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALOR_COMISSAO">
+              <PropertyRef Name="VACO_CD_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="VACO_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3329,6 +3361,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VALOR_COMISSAO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="VALOR_COMISSAO" Type="Self.VALOR_COMISSAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="VALOR_COMISSAO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VALOR_COMISSAO_CATEGORIA_PRODUTO">
           <End Role="CATEGORIA_PRODUTO" Type="Self.CATEGORIA_PRODUTO" Multiplicity="0..1" />
           <End Role="VALOR_COMISSAO" Type="Self.VALOR_COMISSAO" Multiplicity="*" />
@@ -3362,6 +3406,18 @@
             </Principal>
             <Dependent Role="VALOR_COMISSAO">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VALOR_COMISSAO_TIPO_COMISSAO">
+          <End Role="TIPO_COMISSAO" Type="Self.TIPO_COMISSAO" Multiplicity="0..1" />
+          <End Role="VALOR_COMISSAO" Type="Self.VALOR_COMISSAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_COMISSAO">
+              <PropertyRef Name="TICO_CD_ID" />
+            </Principal>
+            <Dependent Role="VALOR_COMISSAO">
+              <PropertyRef Name="TICO_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3451,6 +3507,7 @@
           <EntitySet Name="TAREFA" EntityType="Self.TAREFA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEMPLATE" EntityType="Self.TEMPLATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TICKET_ATENDIMENTO" EntityType="Self.TICKET_ATENDIMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_COMISSAO" EntityType="Self.TIPO_COMISSAO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CONTA" EntityType="Self.TIPO_CONTA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_FAVORECIDO" EntityType="Self.TIPO_FAVORECIDO" Schema="dbo" store:Type="Tables" />
@@ -3489,6 +3546,14 @@
           <AssociationSet Name="FK_ATENDIMENTO_ANEXO_ATENDIMENTO_ACOMPANHAMENTO" Association="Self.FK_ATENDIMENTO_ANEXO_ATENDIMENTO_ACOMPANHAMENTO">
             <End Role="ATENDIMENTO_ACOMPANHAMENTO" EntitySet="ATENDIMENTO_ACOMPANHAMENTO" />
             <End Role="ATENDIMENTO_ANEXO" EntitySet="ATENDIMENTO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CARGO_ASSINANTE" Association="Self.FK_CARGO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CARGO" EntitySet="CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CARGO_VALOR_COMISSAO" Association="Self.FK_CARGO_VALOR_COMISSAO">
+            <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
+            <End Role="CARGO" EntitySet="CARGO" />
           </AssociationSet>
           <AssociationSet Name="FK_CENTRO_CUSTO_CENTRO_CUSTO" Association="Self.FK_CENTRO_CUSTO_CENTRO_CUSTO">
             <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
@@ -4122,6 +4187,10 @@
             <End Role="PERFIL" EntitySet="PERFIL" />
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
+          <AssociationSet Name="FK_VALOR_COMISSAO_ASSINANTE" Association="Self.FK_VALOR_COMISSAO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
+          </AssociationSet>
           <AssociationSet Name="FK_VALOR_COMISSAO_CATEGORIA_PRODUTO" Association="Self.FK_VALOR_COMISSAO_CATEGORIA_PRODUTO">
             <End Role="CATEGORIA_PRODUTO" EntitySet="CATEGORIA_PRODUTO" />
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
@@ -4132,6 +4201,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_VALOR_COMISSAO_MATRIZ" Association="Self.FK_VALOR_COMISSAO_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
+            <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VALOR_COMISSAO_TIPO_COMISSAO" Association="Self.FK_VALOR_COMISSAO_TIPO_COMISSAO">
+            <End Role="TIPO_COMISSAO" EntitySet="TIPO_COMISSAO" />
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
         </EntityContainer>
@@ -4181,6 +4254,8 @@
           <NavigationProperty Name="TRANSPORTADORA" Relationship="SystemBRDatabaseModel.FK_TRANSPORTADORA_ASSINANTE" FromRole="ASSINANTE" ToRole="TRANSPORTADORA" />
           <NavigationProperty Name="EQUIPAMENTO" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_ASSINANTE" FromRole="ASSINANTE" ToRole="EQUIPAMENTO" />
           <NavigationProperty Name="PATRIMONIO" Relationship="SystemBRDatabaseModel.FK_PATRIMONIO_ASSINANTE" FromRole="ASSINANTE" ToRole="PATRIMONIO" />
+          <NavigationProperty Name="CARGO" Relationship="SystemBRDatabaseModel.FK_CARGO_ASSINANTE" FromRole="ASSINANTE" ToRole="CARGO" />
+          <NavigationProperty Name="VALOR_COMISSAO" Relationship="SystemBRDatabaseModel.FK_VALOR_COMISSAO_ASSINANTE" FromRole="ASSINANTE" ToRole="VALOR_COMISSAO" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -4244,6 +4319,8 @@
           <Property Name="CARG_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CARG_IN_COMISSAO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="COLABORADOR" Relationship="Self.FK_COLABORADOR_CARGO" FromRole="CARGO" ToRole="COLABORADOR" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CARGO_ASSINANTE" FromRole="CARGO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="VALOR_COMISSAO" Relationship="SystemBRDatabaseModel.FK_CARGO_VALOR_COMISSAO" FromRole="CARGO" ToRole="VALOR_COMISSAO" />
         </EntityType>
         <EntityType Name="CATEGORIA_ATENDIMENTO">
           <Key>
@@ -5731,6 +5808,10 @@
           <NavigationProperty Name="COMISSAO_VENDA" Relationship="Self.FK_COMISSAO_VENDA_VALOR_COMISSAO" FromRole="VALOR_COMISSAO" ToRole="COMISSAO_VENDA" />
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_VALOR_COMISSAO_FILIAL" FromRole="VALOR_COMISSAO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_VALOR_COMISSAO_MATRIZ" FromRole="VALOR_COMISSAO" ToRole="MATRIZ" />
+          <Property Name="TICO_CD_ID" Type="Int32" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_VALOR_COMISSAO_ASSINANTE" FromRole="VALOR_COMISSAO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CARGO" Relationship="SystemBRDatabaseModel.FK_CARGO_VALOR_COMISSAO" FromRole="VALOR_COMISSAO" ToRole="CARGO" />
+          <NavigationProperty Name="TIPO_COMISSAO" Relationship="SystemBRDatabaseModel.FK_VALOR_COMISSAO_TIPO_COMISSAO" FromRole="VALOR_COMISSAO" ToRole="TIPO_COMISSAO" />
         </EntityType>
         <EntityType Name="VINCULO_EMPREGATICIO">
           <Key>
@@ -8370,6 +8451,23 @@
             <End Role="PATRIMONIO" EntitySet="PATRIMONIO" />
             <End Role="PATRIMONIO_ANEXO" EntitySet="PATRIMONIO_ANEXO" />
           </AssociationSet>
+          <EntitySet Name="TIPO_COMISSAO" EntityType="SystemBRDatabaseModel.TIPO_COMISSAO" />
+          <AssociationSet Name="FK_CARGO_ASSINANTE" Association="SystemBRDatabaseModel.FK_CARGO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CARGO" EntitySet="CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VALOR_COMISSAO_ASSINANTE" Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CARGO_VALOR_COMISSAO" Association="SystemBRDatabaseModel.FK_CARGO_VALOR_COMISSAO">
+            <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
+            <End Role="CARGO" EntitySet="CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VALOR_COMISSAO_TIPO_COMISSAO" Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_TIPO_COMISSAO">
+            <End Role="TIPO_COMISSAO" EntitySet="TIPO_COMISSAO" />
+            <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="PRODUTO_ANEXO">
           <Key>
@@ -8602,6 +8700,63 @@
             </Principal>
             <Dependent Role="PATRIMONIO_ANEXO">
               <PropertyRef Name="PATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TIPO_COMISSAO">
+          <Key>
+            <PropertyRef Name="TICO_CD_ID" />
+          </Key>
+          <Property Name="TICO_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="TICO_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VALOR_COMISSAO" Relationship="SystemBRDatabaseModel.FK_VALOR_COMISSAO_TIPO_COMISSAO" FromRole="TIPO_COMISSAO" ToRole="VALOR_COMISSAO" />
+        </EntityType>
+        <Association Name="FK_CARGO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CARGO" Role="CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VALOR_COMISSAO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.VALOR_COMISSAO" Role="VALOR_COMISSAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="VALOR_COMISSAO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CARGO_VALOR_COMISSAO">
+          <End Type="SystemBRDatabaseModel.VALOR_COMISSAO" Role="VALOR_COMISSAO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CARGO" Role="CARGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VALOR_COMISSAO">
+              <PropertyRef Name="VACO_CD_ID" />
+            </Principal>
+            <Dependent Role="CARGO">
+              <PropertyRef Name="VACO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VALOR_COMISSAO_TIPO_COMISSAO">
+          <End Type="SystemBRDatabaseModel.TIPO_COMISSAO" Role="TIPO_COMISSAO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.VALOR_COMISSAO" Role="VALOR_COMISSAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_COMISSAO">
+              <PropertyRef Name="TICO_CD_ID" />
+            </Principal>
+            <Dependent Role="VALOR_COMISSAO">
+              <PropertyRef Name="TICO_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9953,13 +10108,13 @@
           <EntitySetMapping Name="VALOR_COMISSAO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.VALOR_COMISSAO">
               <MappingFragment StoreEntitySet="VALOR_COMISSAO">
+                <ScalarProperty Name="TICO_CD_ID" ColumnName="TICO_CD_ID" />
                 <ScalarProperty Name="VACO_CD_ID" ColumnName="VACO_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
                 <ScalarProperty Name="FILI_CD_ID" ColumnName="FILI_CD_ID" />
                 <ScalarProperty Name="CAPR_CD_ID" ColumnName="CAPR_CD_ID" />
                 <ScalarProperty Name="VACO_VL_VALOR" ColumnName="VACO_VL_VALOR" />
-                <ScalarProperty Name="VACO_IN_TIPO" ColumnName="VACO_IN_TIPO" />
                 <ScalarProperty Name="VACO_IN_ATIVO" ColumnName="VACO_IN_ATIVO" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10048,6 +10203,15 @@
                 <ScalarProperty Name="PAAN_NM_TITULO" ColumnName="PAAN_NM_TITULO" />
                 <ScalarProperty Name="PATR_CD_ID" ColumnName="PATR_CD_ID" />
                 <ScalarProperty Name="PAAN_CD_ID" ColumnName="PAAN_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_COMISSAO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.TIPO_COMISSAO">
+              <MappingFragment StoreEntitySet="TIPO_COMISSAO">
+                <ScalarProperty Name="TICO_NM_NOME" ColumnName="TICO_NM_NOME" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="TICO_CD_ID" ColumnName="TICO_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

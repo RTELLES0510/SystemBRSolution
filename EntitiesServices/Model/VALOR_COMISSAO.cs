@@ -18,6 +18,7 @@ namespace EntitiesServices.Model
         public VALOR_COMISSAO()
         {
             this.COMISSAO_VENDA = new HashSet<COMISSAO_VENDA>();
+            this.CARGO = new HashSet<CARGO>();
         }
     
         public int VACO_CD_ID { get; set; }
@@ -28,11 +29,16 @@ namespace EntitiesServices.Model
         public decimal VACO_VL_VALOR { get; set; }
         public int VACO_IN_TIPO { get; set; }
         public int VACO_IN_ATIVO { get; set; }
+        public Nullable<int> TICO_CD_ID { get; set; }
     
         public virtual CATEGORIA_PRODUTO CATEGORIA_PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMISSAO_VENDA> COMISSAO_VENDA { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CARGO> CARGO { get; set; }
+        public virtual TIPO_COMISSAO TIPO_COMISSAO { get; set; }
     }
 }

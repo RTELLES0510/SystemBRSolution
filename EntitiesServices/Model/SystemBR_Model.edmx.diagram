@@ -269,6 +269,11 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PATRIMONIO_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PATRIMONIO_ANEXO_PATRIMONIO" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_COMISSAO" Width="1.5" PointX="5.375" PointY="6.875" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CARGO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CARGO_VALOR_COMISSAO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_TIPO_COMISSAO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

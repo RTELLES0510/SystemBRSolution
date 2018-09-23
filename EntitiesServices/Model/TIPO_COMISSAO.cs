@@ -12,23 +12,19 @@ namespace EntitiesServices.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class CARGO
+    public partial class TIPO_COMISSAO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CARGO()
+        public TIPO_COMISSAO()
         {
-            this.COLABORADOR = new HashSet<COLABORADOR>();
+            this.VALOR_COMISSAO = new HashSet<VALOR_COMISSAO>();
         }
     
-        public int CARG_CD_ID { get; set; }
+        public int TICO_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
-        public Nullable<int> VACO_CD_ID { get; set; }
-        public string CARG_NM_NOME { get; set; }
-        public int CARG_IN_COMISSAO { get; set; }
+        public string TICO_NM_NOME { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COLABORADOR> COLABORADOR { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
-        public virtual VALOR_COMISSAO VALOR_COMISSAO { get; set; }
+        public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
     }
 }

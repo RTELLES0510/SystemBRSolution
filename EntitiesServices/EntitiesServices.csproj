@@ -419,6 +419,9 @@
     <Compile Include="Model\TICKET_ATENDIMENTO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TIPO_COMISSAO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\TIPO_CONTA.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>

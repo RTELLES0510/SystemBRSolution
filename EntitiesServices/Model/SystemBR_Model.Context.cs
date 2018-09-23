@@ -121,5 +121,6 @@ namespace EntitiesServices.Model
         public virtual DbSet<TRANSPORTADORA_ANEXO> TRANSPORTADORA_ANEXO { get; set; }
         public virtual DbSet<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
         public virtual DbSet<PATRIMONIO_ANEXO> PATRIMONIO_ANEXO { get; set; }
+        public virtual DbSet<TIPO_COMISSAO> TIPO_COMISSAO { get; set; }
     }
 }
