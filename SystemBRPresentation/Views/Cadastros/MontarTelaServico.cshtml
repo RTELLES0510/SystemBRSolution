@@ -129,14 +129,14 @@
                                                 <td>@cond.CATEGORIA_SERVICO.CASE_CD_ID</td>
                                                 <td>@cond.SERV_NM_NOME</td>
                                                 <td class="td-one-action">
-                                                    @Html.TableLinkDetails(cond.SERV_CD_ID, "EditarServiço","fa-edit", "Editar/Consultar Serviço")
+                                                    @Html.TableLinkDetails(cond.SERV_CD_ID, "EditarServico","fa-edit", "Editar/Consultar Serviço")
                                                     @if (cond.SERV_IN_ATIVO == 1)
 	                                                {
-                                                        @Html.TableLinkDetails(cond.SERV_CD_ID, "ExcluirProduto","fa-trash-o", "Desativar Serviço")
+                                                        @Html.TableLinkDetails(cond.SERV_CD_ID, "ExcluirServico","fa-trash-o", "Desativar Serviço")
                                                     }
                                                     else
                                                     {   
-                                                        @Html.TableLinkDetails(cond.SERV_CD_ID, "ReativarProduto","fa-refresh", "Reativar Serviço")
+                                                        @Html.TableLinkDetails(cond.SERV_CD_ID, "ReativarServico","fa-refresh", "Reativar Serviço")
                                                     }
                                                 </td>
                                             </tr>

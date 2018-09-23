@@ -547,13 +547,20 @@
     <Content Include="Imagens\2\Clientes\1\Anexos\IMG-20180108-WA0009.jpg" />
     <Content Include="Imagens\2\Clientes\1\Anexos\IMG-20180108-WA0021.jpg" />
     <Content Include="Imagens\2\Clientes\1\Fotos\00894138731.jpg" />
+    <Content Include="Imagens\2\Clientes\3\Anexos\email_2.jpg" />
     <Content Include="Imagens\2\Clientes\3\Fotos\60691280797.jpg" />
     <Content Include="Imagens\2\Clientes\2\Fotos\00000000000000.jpg" />
     <Content Include="Imagens\2\Clientes\4\Fotos\60746948000112.jpg" />
     <Content Include="Imagens\2\Clientes\5\Fotos\00894138731.jpg" />
     <Content Include="Imagens\2\Clientes\7\Fotos\a1.jpg" />
+    <Content Include="Imagens\2\Equipamento\1\Anexos\IMG-20180108-WA0015.jpg" />
+    <Content Include="Imagens\2\Equipamento\1\Fotos\19510399_1932133873700401_942801202603797565_n.jpg" />
     <Content Include="Imagens\2\Fornecedores\1\Anexos\19510399_1932133873700401_942801202603797565_n.jpg" />
     <Content Include="Imagens\2\Fornecedores\1\Fotos\a7.jpg" />
+    <Content Include="Imagens\2\Patrimonio\1\Anexos\FB_IMG_1535866542751.jpg" />
+    <Content Include="Imagens\2\Patrimonio\1\Fotos\20180922_125233.jpg" />
+    <Content Include="Imagens\2\Produtos\3\Anexos\IMG-20180108-WA0018.jpg" />
+    <Content Include="Imagens\2\Produtos\3\Fotos\Beretta.jpg" />
     <Content Include="Imagens\2\Usuarios\00894138731.jpg" />
     <Content Include="Imagens\2\Usuarios\60691280797.jpg" />
     <Content Include="Imagens\Base\FotoBase.jpg" />
@@ -2084,11 +2091,23 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Imagens\2\Clientes\2\Anexos\" />
-    <Folder Include="Imagens\2\Clientes\3\Anexos\" />
     <Folder Include="Imagens\2\Clientes\4\Anexos\" />
     <Folder Include="Imagens\2\Clientes\5\Anexos\" />
     <Folder Include="Imagens\2\Clientes\7\Anexos\" />
-    <Folder Include="Imagens\2\Produtos\" />
+    <Folder Include="Imagens\2\Equipamento\2\Anexos\" />
+    <Folder Include="Imagens\2\Equipamento\2\Fotos\" />
+    <Folder Include="Imagens\2\Fornecedores\2\Anexos\" />
+    <Folder Include="Imagens\2\Fornecedores\2\Fotos\" />
+    <Folder Include="Imagens\2\Fornecedores\3\Anexos\" />
+    <Folder Include="Imagens\2\Fornecedores\3\Fotos\" />
+    <Folder Include="Imagens\2\Materia\1\Anexos\" />
+    <Folder Include="Imagens\2\Materia\2\Anexos\" />
+    <Folder Include="Imagens\2\Patrimonio\2\Anexos\" />
+    <Folder Include="Imagens\2\Patrimonio\2\Fotos\" />
+    <Folder Include="Imagens\2\Patrimonio\3\Anexos\" />
+    <Folder Include="Imagens\2\Patrimonio\3\Fotos\" />
+    <Folder Include="Imagens\2\Produtos\4\Anexos\" />
+    <Folder Include="Imagens\2\Produtos\4\Fotos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

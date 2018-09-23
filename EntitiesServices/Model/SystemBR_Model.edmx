@@ -441,7 +441,7 @@
           <Property Name="EQAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EQAN_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="EQAN_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="EQAN_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EQAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="EQAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ESCALA_TRABALHO">
@@ -533,7 +533,7 @@
           <Property Name="FOAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FOAN_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="FOAN_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="FOAN_AQ_ARQUVO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FOAN_AQ_ARQUVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="FOAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FUNCIONALIDADE">
@@ -721,7 +721,7 @@
           <Property Name="MAPA_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MAPA_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="MAPA_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="MAPA_AQ_ARQUIVO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MAPA_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="MAPA_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MATRIZ">
@@ -854,7 +854,7 @@
           <Property Name="PAAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PAAN_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="PAAN_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="PAAN_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PAAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="PAAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PEDIDO_COMPRA">
@@ -1070,7 +1070,7 @@
           <Property Name="PRAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PRAN_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="PRAN_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="PRAN_AQ_ARQUIVO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PRAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="PRAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PROPOSTA_SERVICO">
@@ -1168,7 +1168,7 @@
           <Property Name="SEAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SEAN_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="SEAN_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="SEAN_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SEAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="SEAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TAREFA">
@@ -1262,7 +1262,7 @@
           <Property Name="FILI_CD_ID" Type="int" />
           <Property Name="TRAN_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TRAN_NM_RAZAO" Type="varchar" MaxLength="100" />
-          <Property Name="TRAN_NR_CNPJ" Type="varchar" MaxLength="15" />
+          <Property Name="TRAN_NR_CNPJ" Type="varchar" MaxLength="20" />
           <Property Name="TRAN_NM_EMAIL" Type="varchar" MaxLength="100" />
           <Property Name="TRAN_NR_TELEFONES" Type="varchar" MaxLength="250" />
           <Property Name="TRAN_NM_CONTATOS" Type="varchar" MaxLength="250" />
@@ -1283,7 +1283,7 @@
           <Property Name="TRAX_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TRAX_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="TRAX_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="TRAX_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TRAX_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="TRAX_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TURNO_TRABALHO">
@@ -4796,7 +4796,7 @@
           <Property Name="FOAN_NM_TITULO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FOAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FOAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="FOAN_AQ_ARQUVO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FOAN_AQ_ARQUVO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FOAN_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FORNECEDOR" Relationship="Self.FK_FORNECEDOR_ANEXO_FORNECEDOR" FromRole="FORNECEDOR_ANEXO" ToRole="FORNECEDOR" />
         </EntityType>
@@ -5650,7 +5650,7 @@
           <Property Name="FILI_CD_ID" Type="Int32" />
           <Property Name="TRAN_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TRAN_NM_RAZAO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TRAN_NR_CNPJ" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TRAN_NR_CNPJ" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TRAN_NM_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TRAN_NR_TELEFONES" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="TRAN_NM_CONTATOS" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -8380,7 +8380,7 @@
           <Property Name="PRAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PRAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PRAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="PRAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PRAN_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_ANEXO_PRODUTO" FromRole="PRODUTO_ANEXO" ToRole="PRODUTO" />
         </EntityType>
@@ -8429,7 +8429,7 @@
           <Property Name="MAPA_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MAPA_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MAPA_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="MAPA_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MAPA_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="MAPA_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MATERIA_PRIMA" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_ANEXO_MATERIA_PRIMA" FromRole="MATERIA_PRIMA_ANEXO" ToRole="MATERIA_PRIMA" />
         </EntityType>
@@ -8466,7 +8466,7 @@
           <Property Name="SEAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SEAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="SEAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="SEAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SEAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="SEAN_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SERVICO" Relationship="SystemBRDatabaseModel.FK_SERVICO_ANEXO_SERVICO" FromRole="SERVICO_ANEXO" ToRole="SERVICO" />
         </EntityType>
@@ -8503,7 +8503,7 @@
           <Property Name="TRAX_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TRAX_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="TRAX_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="TRAX_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TRAX_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="TRAX_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TRANSPORTADORA" Relationship="SystemBRDatabaseModel.FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA" FromRole="TRANSPORTADORA_ANEXO" ToRole="TRANSPORTADORA" />
         </EntityType>
@@ -8540,7 +8540,7 @@
           <Property Name="EQAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EQAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EQAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="EQAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EQAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="EQAN_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EQUIPAMENTO" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_ANEXO_EQUIPAMENTO" FromRole="EQUIPAMENTO_ANEXO" ToRole="EQUIPAMENTO" />
         </EntityType>
@@ -8553,7 +8553,7 @@
           <Property Name="PAAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PAAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="PAAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="PAAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PAAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PAAN_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PATRIMONIO" Relationship="SystemBRDatabaseModel.FK_PATRIMONIO_ANEXO_PATRIMONIO" FromRole="PATRIMONIO_ANEXO" ToRole="PATRIMONIO" />
         </EntityType>
