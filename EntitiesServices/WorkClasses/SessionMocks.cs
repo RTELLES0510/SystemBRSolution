@@ -64,5 +64,11 @@ namespace EntitiesServices.Work_Classes
         public static EQUIPAMENTO equipamento { get; set; }
         public static Int32 voltaEquipamento { get; set; }
         public static EQUIPAMENTO filtroEquipamento { get; set; }
+        public static List<CARGO> listaCargo { get; set; }
+        public static CARGO cargo { get; set; }
+        public static CARGO filtroCargo { get; set; }
+        public static List<VALOR_COMISSAO> listaComissao { get; set; }
+        public static VALOR_COMISSAO comissao { get; set; }
+        public static VALOR_COMISSAO filtroComissao { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace SystemBRPresentation.Controllers
         private readonly IContaBancariaAppService contaApp;
         private readonly IMatrizAppService matrizApp;
         private readonly IFilialAppService filialApp;
+        private readonly ICargoAppService cargoApp;
+        private readonly IValorComissaoAppService comissaoApp;
         private String msg;
         private Exception exception;
         BANCO objeto = new BANCO();
@@ -37,14 +39,22 @@ namespace SystemBRPresentation.Controllers
         FILIAL objFilial = new FILIAL();
         FILIAL objFilialAntes = new FILIAL();
         List<FILIAL> listaMasterFilial = new List<FILIAL>();
+        CARGO objCargo = new CARGO();
+        CARGO objCargoAntes = new CARGO();
+        List<CARGO> listaMasterCargo = new List<CARGO>();
+        VALOR_COMISSAO objComissao = new VALOR_COMISSAO();
+        VALOR_COMISSAO objComissaoAntes = new VALOR_COMISSAO();
+        List<VALOR_COMISSAO> listaMasterComissao = new List<VALOR_COMISSAO>();
 
-        public BancoController(IBancoAppService baseApps, ILogAppService logApps, IContaBancariaAppService contaApps, IMatrizAppService matrizApps, IFilialAppService filialApps)
+        public BancoController(IBancoAppService baseApps, ILogAppService logApps, IContaBancariaAppService contaApps, IMatrizAppService matrizApps, IFilialAppService filialApps, ICargoAppService cargoApps, IValorComissaoAppService comissaoApps)
         {
             baseApp = baseApps;
             logApp = logApps;
             contaApp = contaApps;
             matrizApp = matrizApps;
             filialApp = filialApps;
+            cargoApp = cargoApps;
+            comissaoApp = comissaoApps;
         }
 
         [HttpGet]
@@ -746,6 +756,538 @@ namespace SystemBRPresentation.Controllers
             objMatriz = new MATRIZ();
             SessionMocks.Matriz = null;
             return RedirectToAction("MontarTelaMatriz");
+        }
+
+        [HttpGet]
+        public ActionResult MontarTelaCargo()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            if (SessionMocks.listaCargo == null)
+            {
+                listaMasterCargo = cargoApp.GetAllItens();
+                SessionMocks.listaCargo = listaMasterCargo;
+            }
+            ViewBag.Listas = SessionMocks.listaCargo;
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Valores = new SelectList(cargoApp.GetAllValores(), "VACO_CD_ID", "VACO_NM_NOME");
+            ViewBag.Title = "Cargos";
+
+            // Indicadores
+            ViewBag.Cargos = listaMasterCargo.Count;
+
+            // Abre view
+            objCargo = new CARGO();
+            if (SessionMocks.filtroCargo != null)
+            {
+                objCargo = SessionMocks.filtroCargo;
+            }
+            return View(objCargo);
+        }
+
+        public ActionResult RetirarFiltroCargo()
+        {
+            SessionMocks.listaCargo = null;
+            SessionMocks.filtroCargo = null;
+            return RedirectToAction("MontarTelaCargo");
+        }
+
+        public ActionResult MostrarTudoCargo()
+        {
+            listaMasterCargo = cargoApp.GetAllItensAdm();
+            SessionMocks.filtroCargo = null;
+            SessionMocks.listaCargo = listaMasterCargo;
+            return RedirectToAction("MontarTelaCargo");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarCargo(CARGO item)
+        {
+            try
+            {
+                // Executa a operação
+                List<CARGO> listaObj = new List<CARGO>();
+                SessionMocks.filtroCargo = item;
+                Int32 volta = cargoApp.ExecuteFilter(item.CARG_NM_NOME, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                }
+
+                // Sucesso
+                listaMasterCargo = listaObj;
+                SessionMocks.listaCargo = listaObj;
+                return RedirectToAction("MontarTelaCargo");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaCargo");
+            }
+        }
+
+        public ActionResult VoltarBaseCargo()
+        {
+            return RedirectToAction("MontarTelaCargo");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirCargo()
+        {
+            // Prepara listas
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            ViewBag.Valores = new SelectList(cargoApp.GetAllValores(), "VACO_CD_ID", "VACO_NM_NOME");
+            CARGO item = new CARGO();
+            CargoViewModel vm = Mapper.Map<CARGO, CargoViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.CARG_IN_ATIVO = 1;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirCargo(CargoViewModel vm)
+        {
+            ViewBag.Valores = new SelectList(cargoApp.GetAllValores(), "VACO_CD_ID", "VACO_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    CARGO item = Mapper.Map<CargoViewModel, CARGO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = cargoApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0032", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Sucesso
+                    listaMasterCargo = new List<CARGO>();
+                    SessionMocks.listaCargo = null;
+                    return RedirectToAction("MontarTelaCargo");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarCargo(Int32 id)
+        {
+            // Prepara view
+            CARGO item = cargoApp.GetItemById(id);
+            ViewBag.Valores = new SelectList(cargoApp.GetAllValores(), "VACO_CD_ID", "VACO_NM_NOME");
+            objCargoAntes = item;
+            SessionMocks.cargo = item;
+            CargoViewModel vm = Mapper.Map<CARGO, CargoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarCargo(CargoViewModel vm)
+        {
+            ViewBag.Valores = new SelectList(cargoApp.GetAllValores(), "VACO_CD_ID", "VACO_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    CARGO item = Mapper.Map<CargoViewModel, CARGO>(vm);
+                    Int32 volta = cargoApp.ValidateEdit(item, objCargoAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMasterCargo = new List<CARGO>();
+                    SessionMocks.listaCargo = null;
+                    return RedirectToAction("MontarTelaCargo");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirCargo(Int32 id)
+        {
+            // Prepara view
+            CARGO item = cargoApp.GetItemById(id);
+            CargoViewModel vm = Mapper.Map<CARGO, CargoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirCargo(CargoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                CARGO item = Mapper.Map<CargoViewModel, CARGO>(vm);
+                Int32 volta = cargoApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0033", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                listaMasterCargo = new List<CARGO>();
+                SessionMocks.listaCargo = null;
+                return RedirectToAction("MontarTelaCargo");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarCargo(Int32 id)
+        {
+            // Prepara view
+            CARGO item = cargoApp.GetItemById(id);
+            CargoViewModel vm = Mapper.Map<CARGO, CargoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarCargo(CargoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                CARGO item = Mapper.Map<CargoViewModel, CARGO>(vm);
+                Int32 volta = cargoApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterCargo = new List<CARGO>();
+                SessionMocks.listaCargo = null;
+                return RedirectToAction("MontarTelaCargo");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult MontarTelaComissao()
+        {
+            // Verifica se tem usuario logado
+            USUARIO usuario = new USUARIO();
+            if (SessionMocks.UserCredentials != null)
+            {
+                usuario = SessionMocks.UserCredentials;
+
+                // Verfifica permissão
+                if (usuario.PERFIL.PERF_SG_SIGLA != "ADM")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "ControleAcesso");
+            }
+
+            // Carrega listas
+            if (SessionMocks.listaComissao == null)
+            {
+                listaMasterComissao = comissaoApp.GetAllItens();
+                SessionMocks.listaComissao = listaMasterComissao;
+            }
+            ViewBag.Listas = SessionMocks.listaComissao;
+            SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
+            ViewBag.Title = "Valores de Comissão";
+            ViewBag.Categorias = new SelectList(comissaoApp.GetAllCategorias(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(comissaoApp.GetAllFiliais(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Tipos = new SelectList(comissaoApp.GetAllTipos(), "TICO_CD_ID", "TICO_NM_NOME");
+
+            // Indicadores
+            ViewBag.Comissoes = listaMasterComissao.Count;
+
+            // Abre view
+            objComissao = new VALOR_COMISSAO();
+            if (SessionMocks.filtroComissao != null)
+            {
+                objComissao = SessionMocks.filtroComissao;
+            }
+            return View(objComissao);
+        }
+
+        public ActionResult RetirarFiltroComissao()
+        {
+            SessionMocks.listaComissao = null;
+            SessionMocks.filtroComissao = null;
+            return RedirectToAction("MontarTelaComissao");
+        }
+
+        public ActionResult MostrarTudoComissao()
+        {
+            listaMasterComissao = comissaoApp.GetAllItensAdm();
+            SessionMocks.filtroComissao = null;
+            SessionMocks.listaComissao = listaMasterComissao;
+            return RedirectToAction("MontarTelaComissao");
+        }
+
+        [HttpPost]
+        public ActionResult FiltrarComissao(VALOR_COMISSAO item)
+        {
+            try
+            {
+                // Executa a operação
+                List<VALOR_COMISSAO> listaObj = new List<VALOR_COMISSAO>();
+                SessionMocks.filtroComissao = item;
+                Int32 volta = comissaoApp.ExecuteFilter(item.CAPR_CD_ID, item.TICO_CD_ID, item.VACO_NM_NOME, out listaObj);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0010", CultureInfo.CurrentCulture);
+                }
+
+                // Sucesso
+                listaMasterComissao = listaObj;
+                SessionMocks.listaComissao = listaObj;
+                return RedirectToAction("MontarTelaComissao");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("MontarTelaComissao");
+            }
+        }
+
+        public ActionResult VoltarBaseComissao()
+        {
+            return RedirectToAction("MontarTelaComissao");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirComissao()
+        {
+            // Prepara listas
+            ViewBag.Categorias = new SelectList(comissaoApp.GetAllCategorias(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(comissaoApp.GetAllFiliais(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Tipos = new SelectList(comissaoApp.GetAllTipos(), "TICO_CD_ID", "TICO_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            VALOR_COMISSAO item = new VALOR_COMISSAO();
+            ValorComissaoViewModel vm = Mapper.Map<VALOR_COMISSAO, ValorComissaoViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            vm.VACO_IN_ATIVO = 1;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirComissao(ValorComissaoViewModel vm)
+        {
+            ViewBag.Categorias = new SelectList(comissaoApp.GetAllCategorias(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(comissaoApp.GetAllFiliais(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Tipos = new SelectList(comissaoApp.GetAllTipos(), "TICO_CD_ID", "TICO_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    VALOR_COMISSAO item = Mapper.Map<ValorComissaoViewModel, VALOR_COMISSAO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = comissaoApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0034", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Sucesso
+                    listaMasterComissao = new List<VALOR_COMISSAO>();
+                    SessionMocks.listaComissao = null;
+                    return RedirectToAction("MontarTelaComissao");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarComissao(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Categorias = new SelectList(comissaoApp.GetAllCategorias(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(comissaoApp.GetAllFiliais(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Tipos = new SelectList(comissaoApp.GetAllTipos(), "TICO_CD_ID", "TICO_NM_NOME");
+            VALOR_COMISSAO item = comissaoApp.GetItemById(id);
+            objComissaoAntes = item;
+            SessionMocks.comissao = item;
+            ValorComissaoViewModel vm = Mapper.Map<VALOR_COMISSAO, ValorComissaoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarComissao(ValorComissaoViewModel vm)
+        {
+            ViewBag.Categorias = new SelectList(comissaoApp.GetAllCategorias(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Filiais = new SelectList(comissaoApp.GetAllFiliais(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Tipos = new SelectList(comissaoApp.GetAllTipos(), "TICO_CD_ID", "TICO_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    VALOR_COMISSAO item = Mapper.Map<ValorComissaoViewModel, VALOR_COMISSAO>(vm);
+                    Int32 volta = comissaoApp.ValidateEdit(item, objComissaoAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMasterComissao = new List<VALOR_COMISSAO>();
+                    SessionMocks.listaComissao = null;
+                    return RedirectToAction("MontarTelaComissao");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirComissao(Int32 id)
+        {
+            // Prepara view
+            VALOR_COMISSAO item = comissaoApp.GetItemById(id);
+            ValorComissaoViewModel vm = Mapper.Map<VALOR_COMISSAO, ValorComissaoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirComissao(ValorComissaoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                VALOR_COMISSAO item = Mapper.Map<ValorComissaoViewModel, VALOR_COMISSAO>(vm);
+                Int32 volta = comissaoApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0035", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                listaMasterComissao = new List<VALOR_COMISSAO>();
+                SessionMocks.listaComissao = null;
+                return RedirectToAction("MontarTelaComissao");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarComissao(Int32 id)
+        {
+            // Prepara view
+            VALOR_COMISSAO item = comissaoApp.GetItemById(id);
+            ValorComissaoViewModel vm = Mapper.Map<VALOR_COMISSAO, ValorComissaoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarComissao(ValorComissaoViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                VALOR_COMISSAO item = Mapper.Map<ValorComissaoViewModel, VALOR_COMISSAO>(vm);
+                Int32 volta = comissaoApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMasterComissao = new List<VALOR_COMISSAO>();
+                SessionMocks.listaComissao = null;
+                return RedirectToAction("MontarTelaComissao");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
         }
     }
 }

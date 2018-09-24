@@ -27,9 +27,9 @@ namespace EntitiesServices.Model
         public int MOEP_IN_CHAVE_ORIGEM { get; set; }
         public int MOEP_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
         public virtual PRODUTO PRODUTO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

@@ -43,6 +43,7 @@ namespace EntitiesServices.Model
         public int PROD_IN_ATIVO { get; set; }
         public string PROD_AQ_FOTO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_PRODUTO CATEGORIA_PRODUTO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -58,9 +59,8 @@ namespace EntitiesServices.Model
         public virtual ICollection<MOVIMENTO_ESTOQUE_PRODUTO> MOVIMENTO_ESTOQUE_PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRECO_PRODUTO> PRECO_PRODUTO { get; set; }
-        public virtual UNIDADE UNIDADE { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_ANEXO> PRODUTO_ANEXO { get; set; }
+        public virtual UNIDADE UNIDADE { get; set; }
     }
 }

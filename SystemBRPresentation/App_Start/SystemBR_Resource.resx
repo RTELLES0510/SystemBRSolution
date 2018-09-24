@@ -210,4 +210,16 @@
   <data name="M0031" xml:space="preserve">
     <value>Equipamento ja cadastrado</value>
   </data>
+  <data name="M0032" xml:space="preserve">
+    <value>Cargo ja cadastrado</value>
+  </data>
+  <data name="M0033" xml:space="preserve">
+    <value>Impossivel excluir esse cargo, Existem registros vinculados a ele.</value>
+  </data>
+  <data name="M0034" xml:space="preserve">
+    <value>Valor/Tipo de comissão já cadastrado</value>
+  </data>
+  <data name="M0035" xml:space="preserve">
+    <value>Impossivel excluir esse tipo/valor de comissão. Existem registros vinculados a ele.</value>
+  </data>
 </root>

@@ -27,6 +27,8 @@ namespace MvcMapping.Mappers
             CreateMap<TransportadoraViewModel, TRANSPORTADORA>();
             CreateMap<EquipamentoViewModel, EQUIPAMENTO>();
             CreateMap<PatrimonioViewModel, PATRIMONIO>();
+            CreateMap<CargoViewModel, CARGO>();
+            CreateMap<ValorComissaoViewModel, VALOR_COMISSAO>();
         }
     }
 }

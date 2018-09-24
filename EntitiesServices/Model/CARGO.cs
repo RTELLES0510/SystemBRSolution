@@ -25,10 +25,11 @@ namespace EntitiesServices.Model
         public Nullable<int> VACO_CD_ID { get; set; }
         public string CARG_NM_NOME { get; set; }
         public int CARG_IN_COMISSAO { get; set; }
+        public Nullable<int> CARG_IN_ATIVO { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COLABORADOR> COLABORADOR { get; set; }
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual VALOR_COMISSAO VALOR_COMISSAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COLABORADOR> COLABORADOR { get; set; }
     }
 }

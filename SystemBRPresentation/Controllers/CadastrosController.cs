@@ -114,7 +114,6 @@ namespace SystemBRPresentation.Controllers
             }
 
             // Carrega listas
-            //SessionMocks.IdAssinante = 2;
             if (SessionMocks.listaCliente == null)
             {
                 listaMaster = baseApp.GetAllItens();
@@ -196,8 +195,6 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult VoltarBaseCliente()
         {
-            //listaMaster = new List<CLIENTE>();
-            //SessionMocks.listaCliente = null;
             if (SessionMocks.voltaCliente == 2)
             {
                 return RedirectToAction("VerCardsCliente");

@@ -338,5 +338,41 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0031", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cargo ja cadastrado.
+        /// </summary>
+        internal static string M0032 {
+            get {
+                return ResourceManager.GetString("M0032", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esse cargo, Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0033 {
+            get {
+                return ResourceManager.GetString("M0033", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor/Tipo de comissão já cadastrado.
+        /// </summary>
+        internal static string M0034 {
+            get {
+                return ResourceManager.GetString("M0034", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esse tipo/valor de comissão. Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0035 {
+            get {
+                return ResourceManager.GetString("M0035", resourceCulture);
+            }
+        }
     }
 }

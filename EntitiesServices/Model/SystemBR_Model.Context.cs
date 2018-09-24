@@ -56,6 +56,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<CONTRATO> CONTRATO { get; set; }
         public virtual DbSet<DEPENDENTE> DEPENDENTE { get; set; }
         public virtual DbSet<EQUIPAMENTO> EQUIPAMENTO { get; set; }
+        public virtual DbSet<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
         public virtual DbSet<ESCALA_TRABALHO> ESCALA_TRABALHO { get; set; }
         public virtual DbSet<ESCOLARIDADE> ESCOLARIDADE { get; set; }
         public virtual DbSet<ESTADO_CIVIL> ESTADO_CIVIL { get; set; }
@@ -76,6 +77,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<LICENSA_ATESTADO> LICENSA_ATESTADO { get; set; }
         public virtual DbSet<LOG> LOG { get; set; }
         public virtual DbSet<MATERIA_PRIMA> MATERIA_PRIMA { get; set; }
+        public virtual DbSet<MATERIA_PRIMA_ANEXO> MATERIA_PRIMA_ANEXO { get; set; }
         public virtual DbSet<MATRIZ> MATRIZ { get; set; }
         public virtual DbSet<MOVIMENTO_ESTOQUE_MATERIA_PRIMA> MOVIMENTO_ESTOQUE_MATERIA_PRIMA { get; set; }
         public virtual DbSet<MOVIMENTO_ESTOQUE_PRODUTO> MOVIMENTO_ESTOQUE_PRODUTO { get; set; }
@@ -83,6 +85,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<OPORTUNIDADE_NEGOCIO> OPORTUNIDADE_NEGOCIO { get; set; }
         public virtual DbSet<OPORTUNIDADE_NEGOCIO_ANEXO> OPORTUNIDADE_NEGOCIO_ANEXO { get; set; }
         public virtual DbSet<PATRIMONIO> PATRIMONIO { get; set; }
+        public virtual DbSet<PATRIMONIO_ANEXO> PATRIMONIO_ANEXO { get; set; }
         public virtual DbSet<PEDIDO_COMPRA> PEDIDO_COMPRA { get; set; }
         public virtual DbSet<PEDIDO_COMPRA_ANEXO> PEDIDO_COMPRA_ANEXO { get; set; }
         public virtual DbSet<PEDIDO_SERVICO> PEDIDO_SERVICO { get; set; }
@@ -97,30 +100,27 @@ namespace EntitiesServices.Model
         public virtual DbSet<PRECO_PRODUTO> PRECO_PRODUTO { get; set; }
         public virtual DbSet<PRECO_SERVICO> PRECO_SERVICO { get; set; }
         public virtual DbSet<PRODUTO> PRODUTO { get; set; }
+        public virtual DbSet<PRODUTO_ANEXO> PRODUTO_ANEXO { get; set; }
         public virtual DbSet<PROPOSTA_SERVICO> PROPOSTA_SERVICO { get; set; }
         public virtual DbSet<PROPOSTA_SERVICO_ANEXO> PROPOSTA_SERVICO_ANEXO { get; set; }
         public virtual DbSet<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
         public virtual DbSet<PROPOSTA_VENDA_ANEXO> PROPOSTA_VENDA_ANEXO { get; set; }
         public virtual DbSet<SERVICO> SERVICO { get; set; }
+        public virtual DbSet<SERVICO_ANEXO> SERVICO_ANEXO { get; set; }
         public virtual DbSet<TAREFA> TAREFA { get; set; }
         public virtual DbSet<TEMPLATE> TEMPLATE { get; set; }
         public virtual DbSet<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
+        public virtual DbSet<TIPO_COMISSAO> TIPO_COMISSAO { get; set; }
         public virtual DbSet<TIPO_CONTA> TIPO_CONTA { get; set; }
         public virtual DbSet<TIPO_DOCUMENTO> TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TIPO_FAVORECIDO> TIPO_FAVORECIDO { get; set; }
         public virtual DbSet<TIPO_SALARIAL> TIPO_SALARIAL { get; set; }
         public virtual DbSet<TRANSPORTADORA> TRANSPORTADORA { get; set; }
+        public virtual DbSet<TRANSPORTADORA_ANEXO> TRANSPORTADORA_ANEXO { get; set; }
         public virtual DbSet<TURNO_TRABALHO> TURNO_TRABALHO { get; set; }
         public virtual DbSet<UNIDADE> UNIDADE { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
         public virtual DbSet<VINCULO_EMPREGATICIO> VINCULO_EMPREGATICIO { get; set; }
-        public virtual DbSet<PRODUTO_ANEXO> PRODUTO_ANEXO { get; set; }
-        public virtual DbSet<MATERIA_PRIMA_ANEXO> MATERIA_PRIMA_ANEXO { get; set; }
-        public virtual DbSet<SERVICO_ANEXO> SERVICO_ANEXO { get; set; }
-        public virtual DbSet<TRANSPORTADORA_ANEXO> TRANSPORTADORA_ANEXO { get; set; }
-        public virtual DbSet<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
-        public virtual DbSet<PATRIMONIO_ANEXO> PATRIMONIO_ANEXO { get; set; }
-        public virtual DbSet<TIPO_COMISSAO> TIPO_COMISSAO { get; set; }
     }
 }

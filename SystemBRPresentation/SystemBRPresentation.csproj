@@ -208,6 +208,7 @@
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BancoViewModel.cs" />
+    <Compile Include="ViewModels\CargoViewModel.cs" />
     <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\ConfiguracaoViewModel.cs" />
     <Compile Include="ViewModels\ContaBancariaViewModel.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="ViewModels\ServicoViewModel.cs" />
     <Compile Include="ViewModels\TransportadoraViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
+    <Compile Include="ViewModels\ValorComissaoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />
@@ -2087,6 +2089,16 @@
     <Content Include="Views\Cadastros\ExcluirEquipamento.cshtml" />
     <Content Include="Views\Cadastros\ReativarEquipamento.cshtml" />
     <Content Include="Views\Cadastros\VerAnexoEquipamento.cshtml" />
+    <Content Include="Views\Banco\MontarTelaCargo.cshtml" />
+    <Content Include="Views\Banco\IncluirCargo.cshtml" />
+    <Content Include="Views\Banco\EditarCargo.cshtml" />
+    <Content Include="Views\Banco\ExcluirCargo.cshtml" />
+    <Content Include="Views\Banco\ReativarCargo.cshtml" />
+    <Content Include="Views\Banco\IncluirComissao.cshtml" />
+    <Content Include="Views\Banco\EditarComissao.cshtml" />
+    <Content Include="Views\Banco\ExcluirComissao.cshtml" />
+    <Content Include="Views\Banco\MontarTelaComissao.cshtml" />
+    <Content Include="Views\Banco\ReativarComissao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

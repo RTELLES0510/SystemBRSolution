@@ -38,9 +38,9 @@ namespace EntitiesServices.Model
         public System.DateTime TRAN_DT_CADASTRO { get; set; }
         public int TRAN_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRANSPORTADORA_ANEXO> TRANSPORTADORA_ANEXO { get; set; }
     }

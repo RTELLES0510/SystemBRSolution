@@ -93,8 +93,11 @@
     <Compile Include="Attributes\CustomValidationCPFAttribute.cs" />
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
+    <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaEquipamentoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaPatrimonioRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IValorComissaoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITipoComissaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaServicoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaMateriaPrimaRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEquipamentoAnexoRepository.cs" />
@@ -130,6 +133,8 @@
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
     <Compile Include="Interfaces\Repositories\IBancoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUsuarioRepository.cs" />
+    <Compile Include="Interfaces\Services\ICargoService.cs" />
+    <Compile Include="Interfaces\Services\IValorComissaoService.cs" />
     <Compile Include="Interfaces\Services\IEquipamentoService.cs" />
     <Compile Include="Interfaces\Services\IPatrimonioService.cs" />
     <Compile Include="Interfaces\Services\ITransportadoraService.cs" />
@@ -456,6 +461,8 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CargoService.cs" />
+    <Compile Include="Services\ValorComissaoService.cs" />
     <Compile Include="Services\EquipamentoService.cs" />
     <Compile Include="Services\PatrimonioService.cs" />
     <Compile Include="Services\TransportadoraService.cs" />

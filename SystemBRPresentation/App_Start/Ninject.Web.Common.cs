@@ -85,6 +85,8 @@ namespace Presentation.Start
             kernel.Bind<ITransportadoraAppService>().To<TransportadoraAppService>();
             kernel.Bind<IPatrimonioAppService>().To<PatrimonioAppService>();
             kernel.Bind<IEquipamentoAppService>().To<EquipamentoAppService>();
+            kernel.Bind<ICargoAppService>().To<CargoAppService>();
+            kernel.Bind<IValorComissaoAppService>().To<ValorComissaoAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
@@ -105,6 +107,8 @@ namespace Presentation.Start
             kernel.Bind<ITransportadoraService>().To<TransportadoraService>();
             kernel.Bind<IPatrimonioService>().To<PatrimonioService>();
             kernel.Bind<IEquipamentoService>().To<EquipamentoService>();
+            kernel.Bind<ICargoService>().To<CargoService>();
+            kernel.Bind<IValorComissaoService>().To<ValorComissaoService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -143,6 +147,9 @@ namespace Presentation.Start
             kernel.Bind<IEquipamentoAnexoRepository>().To<EquipamentoAnexoRepository>();
             kernel.Bind<IPatrimonioRepository>().To<PatrimonioRepository>();
             kernel.Bind<IEquipementoRepository>().To<EquipamentoRepository>();
+            kernel.Bind<ICargoRepository>().To<CargoRepository>();
+            kernel.Bind<ITipoComissaoRepository>().To<TipoComissaoRepository>();
+            kernel.Bind<IValorComissaoRepository>().To<ValorComissaoRepository>();
         }
     }
 }

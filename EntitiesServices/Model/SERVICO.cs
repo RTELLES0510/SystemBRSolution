@@ -33,6 +33,7 @@ namespace EntitiesServices.Model
         public System.DateTime SERV_DT_CADASTRO { get; set; }
         public int SERV_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_SERVICO CATEGORIA_SERVICO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -42,7 +43,6 @@ namespace EntitiesServices.Model
         public virtual MATRIZ MATRIZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRECO_SERVICO> PRECO_SERVICO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SERVICO_ANEXO> SERVICO_ANEXO { get; set; }
     }
