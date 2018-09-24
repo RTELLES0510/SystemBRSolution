@@ -117,6 +117,7 @@
                                             <th>Filial</th>   
                                             <th>Tipo</th>
                                             <th>Categoria do Produto</th>   
+                                            <th>Nome</th>   
                                             <th>Valor</th>
                                             <th class="td-one-action">Ações</th>
                                         </tr>
@@ -127,7 +128,15 @@
                                             <tr>
                                                 <td>@cond.FILIAL.FILI_NM_NOME</td>
                                                 <td>@cond.TIPO_COMISSAO.TICO_NM_NOME</td>
-                                                <td>@cond.CATEGORIA_PRODUTO.CAPR_NM_NOME</td>
+                                                @if (cond.CATEGORIA_PRODUTO != null)
+	                                            {
+                                                    <td>@cond.CATEGORIA_PRODUTO.CAPR_NM_NOME</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                <td>@cond.VACO_NM_NOME</td>
                                                 <td>@CrossCutting.Formatters.DecimalFormatter(cond.VACO_VL_VALOR)</td>
                                                 <td class="td-one-action">
                                                     @Html.TableLinkDetails(cond.VACO_CD_ID, "EditarComissao","fa-edit", "Editar/Consultar Comissão")
