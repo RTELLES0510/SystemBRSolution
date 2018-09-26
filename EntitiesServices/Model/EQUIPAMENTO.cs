@@ -18,6 +18,7 @@ namespace EntitiesServices.Model
         public EQUIPAMENTO()
         {
             this.EQUIPAMENTO_ANEXO = new HashSet<EQUIPAMENTO_ANEXO>();
+            this.EQUIPAMENTO_MANUTENCAO = new HashSet<EQUIPAMENTO_MANUTENCAO>();
         }
     
         public int EQUI_CD_ID { get; set; }
@@ -36,6 +37,9 @@ namespace EntitiesServices.Model
         public int EQUI_IN_ATIVO { get; set; }
         public Nullable<System.DateTime> EQUI_DT_CADASTRO { get; set; }
         public string EQUI_AQ_FOTO { get; set; }
+        public Nullable<int> PERI_CD_ID { get; set; }
+        public Nullable<System.DateTime> EQUI_DT_MANUTENCAO { get; set; }
+        public Nullable<int> EQUI_IN_AVISA_MANUTENCAO { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_EQUIPAMENTO CATEGORIA_EQUIPAMENTO { get; set; }
@@ -43,5 +47,8 @@ namespace EntitiesServices.Model
         public virtual ICollection<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
+        public virtual PERIODICIDADE PERIODICIDADE { get; set; }
     }
 }

@@ -22,17 +22,21 @@ namespace ModelServices.EntitiesServices
         private readonly ILogRepository _logRepository;
         private readonly ICategoriaEquipamentoRepository _tipoRepository;
         private readonly IEquipamentoAnexoRepository _anexoRepository;
+        private readonly IEquipamentoManutencaoRepository _manRepository;
+        private readonly IPeriodicidadeRepository _perRepository;
         private readonly IFilialRepository _filialRepository;
 
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public EquipamentoService(IEquipementoRepository baseRepository, ILogRepository logRepository, ICategoriaEquipamentoRepository tipoRepository, IEquipamentoAnexoRepository anexoRepository, IFilialRepository filialRepository) : base(baseRepository)
+        public EquipamentoService(IEquipementoRepository baseRepository, ILogRepository logRepository, ICategoriaEquipamentoRepository tipoRepository, IEquipamentoAnexoRepository anexoRepository, IFilialRepository filialRepository, IPeriodicidadeRepository perRepository, IEquipamentoManutencaoRepository manRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
             _tipoRepository = tipoRepository;
             _anexoRepository = anexoRepository;
             _filialRepository = filialRepository;
+            _perRepository = perRepository;
+            _manRepository = manRepository;
         }
 
         public EQUIPAMENTO CheckExist(EQUIPAMENTO conta)
@@ -44,6 +48,12 @@ namespace ModelServices.EntitiesServices
         public EQUIPAMENTO GetItemById(Int32 id)
         {
             EQUIPAMENTO item = _baseRepository.GetItemById(id);
+            return item;
+        }
+
+        public EQUIPAMENTO_MANUTENCAO GetItemManutencaoById(Int32 id)
+        {
+            EQUIPAMENTO_MANUTENCAO item = _manRepository.GetItemById(id);
             return item;
         }
 
@@ -68,6 +78,11 @@ namespace ModelServices.EntitiesServices
             return _tipoRepository.GetAllItens();
         }
 
+        public List<PERIODICIDADE> GetAllPeriodicidades()
+        {
+            return _perRepository.GetAllItens();
+        }
+
         public List<FILIAL> GetAllFilial()
         {
             return _filialRepository.GetAllItens();
@@ -82,6 +97,16 @@ namespace ModelServices.EntitiesServices
         {
             return _baseRepository.ExecuteFilter(catId, nome, numero, filiId);
 
+        }
+
+        public Int32 CalcularManutencaoVencida()
+        {
+            return _baseRepository.CalcularManutencaoVencida();
+        }
+
+        public Int32 CalcularDepreciados()
+        {
+            return _baseRepository.CalcularDepreciados();
         }
 
         public Int32 Create(EQUIPAMENTO item, LOG log)

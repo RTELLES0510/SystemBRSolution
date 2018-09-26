@@ -21,8 +21,12 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<EQUIPAMENTO> GetAllItens();
         List<EQUIPAMENTO> GetAllItensAdm();
         List<CATEGORIA_EQUIPAMENTO> GetAllTipos();
+        List<PERIODICIDADE> GetAllPeriodicidades();
         List<FILIAL> GetAllFilial();
         EQUIPAMENTO_ANEXO GetAnexoById(Int32 id);
         List<EQUIPAMENTO> ExecuteFilter(Int32? catId, String nome, String numero, Int32? filiId);
+        Int32 CalcularManutencaoVencida();
+        Int32 CalcularDepreciados();
+        EQUIPAMENTO_MANUTENCAO GetItemManutencaoById(Int32 id);
     }
 }

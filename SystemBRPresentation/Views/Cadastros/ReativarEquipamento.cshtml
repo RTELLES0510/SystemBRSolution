@@ -62,6 +62,9 @@
                                     @Html.HiddenFor(m => m.EQUI_NR_NUMERO)
                                     @Html.HiddenFor(m => m.EQUI_NR_VIDA_UTIL)
                                     @Html.HiddenFor(m => m.EQUI_VL_VALOR)
+                                    @Html.HiddenFor(m => m.PERI_CD_ID)
+                                    @Html.HiddenFor(m => m.EQUI_DT_MANUTENCAO)
+                                    @Html.HiddenFor(m => m.EQUI_IN_AVISA_MANUTENCAO)
                                     Nome
                                     @Html.TextBoxFor(m => m.EQUI_NM_NOME, new { @class = "form-control", @readonly="readonly", autofocus = true })
                                     @Html.ValidationMessageFor(m => m.EQUI_NM_NOME, "",new { @style="color:red" })

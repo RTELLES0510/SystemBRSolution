@@ -23,5 +23,6 @@ namespace ApplicationServices.Interfaces
         List<FILIAL> GetAllFilial();
         PATRIMONIO_ANEXO GetAnexoById(Int32 id);
         Int32 ExecuteFilter(Int32? catId, String nome, String nuemro, Int32? filiId, out List<PATRIMONIO> objeto);
+        Int32 CalcularDiasDepreciacao(PATRIMONIO item);
     }
 }

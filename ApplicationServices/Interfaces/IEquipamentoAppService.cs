@@ -23,5 +23,11 @@ namespace ApplicationServices.Interfaces
         List<FILIAL> GetAllFilial();
         EQUIPAMENTO_ANEXO GetAnexoById(Int32 id);
         Int32 ExecuteFilter(Int32? catId, String nome, String numero, Int32? filiId, out List<EQUIPAMENTO> objeto);
+        Int32 CalcularDiasDepreciacao(EQUIPAMENTO item);
+        Int32 CalcularManutencaoVencida();
+        Int32 CalcularDepreciados();
+        Int32 CalcularDiasManutencao(EQUIPAMENTO item);
+        List<PERIODICIDADE> GetAllPeriodicidades();
+        EQUIPAMENTO_MANUTENCAO GetItemManutencaoById(Int32 id);
     }
 }

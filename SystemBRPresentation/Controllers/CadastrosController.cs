@@ -2797,8 +2797,12 @@ namespace SystemBRPresentation.Controllers
             // Prepara view
             ViewBag.Tipos = new SelectList(patrApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
             ViewBag.Filiais = new SelectList(patrApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+
+            // Objeto e indicadores
             PATRIMONIO item = patrApp.GetItemById(id);
-            ViewBag.Dias = 50; // Implementar
+            Int32 dias = patrApp.CalcularDiasDepreciacao(item);
+            ViewBag.Dias = dias;
+            ViewBag.Status = dias > 0 ? "Ativo" : "Depreciado";
             objetoPatrAntes = item;
             SessionMocks.patrimonio = item;
             SessionMocks.idVolta = id;
@@ -3040,7 +3044,9 @@ namespace SystemBRPresentation.Controllers
 
             // Indicadores
             ViewBag.Equipamentos = equiApp.GetAllItens().Count;
-            
+            ViewBag.ManutencaoVencida = equiApp.CalcularManutencaoVencida();
+            ViewBag.Depreciados = equiApp.CalcularDepreciados();
+
             // Abre view
             objetoEqui = new EQUIPAMENTO();
             SessionMocks.voltaEquipamento = 1;
@@ -3105,6 +3111,7 @@ namespace SystemBRPresentation.Controllers
             // Prepara listas
             ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
             ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Periodicidades = new SelectList(equiApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
 
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
@@ -3124,6 +3131,7 @@ namespace SystemBRPresentation.Controllers
         {
             ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
             ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Periodicidades = new SelectList(equiApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -3173,8 +3181,14 @@ namespace SystemBRPresentation.Controllers
             // Prepara view
             ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
             ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Periodicidades = new SelectList(equiApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
             EQUIPAMENTO item = equiApp.GetItemById(id);
-            ViewBag.Dias = 50; // Implementar
+            Int32 dias = equiApp.CalcularDiasDepreciacao(item);
+            Int32 diasManutencao = equiApp.CalcularDiasManutencao(item);
+            ViewBag.Dias = dias;
+            ViewBag.Status = dias > 0 ? "Ativo" : "Depreciado";
+            ViewBag.DiasManutencao = diasManutencao;
+            ViewBag.StatusManutencao = diasManutencao > 0 ? "Normal" : "Atrasada";
             objetoEquiAntes = item;
             SessionMocks.equipamento = item;
             SessionMocks.idVolta = id;
@@ -3188,6 +3202,7 @@ namespace SystemBRPresentation.Controllers
         {
             ViewBag.Tipos = new SelectList(equiApp.GetAllTipos(), "CAEQ_CD_ID", "CAEQ_NM_NOME");
             ViewBag.Filiais = new SelectList(equiApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.Periodicidades = new SelectList(equiApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
             //if (ModelState.IsValid)
             //{
             try
@@ -3380,6 +3395,14 @@ namespace SystemBRPresentation.Controllers
             objetoEquiAntes = item;
             Int32 volta = equiApp.ValidateEdit(item, objetoEquiAntes);
             return RedirectToAction("VoltarAnexoEquipamento");
+        }
+
+        [HttpGet]
+        public ActionResult VerManutencaoEquipamento(Int32 id)
+        {
+            // Prepara view
+            EQUIPAMENTO_MANUTENCAO item = equiApp.GetItemManutencaoById(id);
+            return View(item);
         }
     }
 }

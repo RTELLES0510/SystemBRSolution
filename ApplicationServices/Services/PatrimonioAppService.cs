@@ -69,6 +69,20 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public Int32 CalcularDiasDepreciacao(PATRIMONIO item)
+        {
+            Int32 totalDias = 0;
+            if (item.PATR_DT_COMPRA != null & item.PATR_NR_VIDA_UTIL != null)
+            {
+                if (item.PATR_DT_COMPRA != DateTime.MinValue & item.PATR_NR_VIDA_UTIL > 0)
+                {
+                    DateTime dataLimite = item.PATR_DT_COMPRA.Value.AddDays(item.PATR_NR_VIDA_UTIL.Value);
+                    totalDias = dataLimite.Subtract(DateTime.Today).Days;
+                }
+            }
+            return totalDias;
+        }
+
         public Int32 ExecuteFilter(Int32? catId, String nome, String numero, Int32? filiId, out List<PATRIMONIO> objeto)
         {
             try

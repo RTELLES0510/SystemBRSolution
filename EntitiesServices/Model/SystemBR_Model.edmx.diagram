@@ -274,6 +274,24 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_SERVICO_ANEXO_SERVICO" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_TIPO_COMISSAO" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.EQUIPAMENTO_MANUTENCAO" Width="1.5" PointX="16" PointY="98.5" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.FICHA_TECNICA" Width="1.5" PointX="15" PointY="102.875" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.FICHA_TECNICA_DETALHE" Width="1.5" PointX="25" PointY="99" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.FORMA_PAGAMENTO" Width="1.5" PointX="5.25" PointY="101.125" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PERIODICIDADE" Width="1.5" PointX="5.25" PointY="106.25" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.SEGMENTO" Width="1.5" PointX="5.25" PointY="103.625" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_MANUTENCAO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_DETALHE_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FORMA_PAGAMENTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PERIODICIDADE_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SEGMENTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_MANUTENCAO_EQUIPAMENTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_PERIODICIDADE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_EQUIPAMENTO_MANUTENCAO_FORNECEDOR" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_DETALHE_FICHA_TECNICA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_PRODUTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_DETALHE_MATERIA_PRIMA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

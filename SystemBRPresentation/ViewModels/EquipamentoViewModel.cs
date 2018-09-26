@@ -41,6 +41,12 @@ namespace SystemBRPresentation.ViewModels
         public int EQUI_IN_ATIVO { get; set; }
         public Nullable<System.DateTime> EQUI_DT_CADASTRO { get; set; }
         public string EQUI_AQ_FOTO { get; set; }
+        public Nullable<int> PERI_CD_ID { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Deve ser uma data válida")]
+        public Nullable<System.DateTime> EQUI_DT_MANUTENCAO { get; set; }
+        public Nullable<int> EQUI_IN_AVISA_MANUTENCAO { get; set; }
+
+
         [Required(ErrorMessage = "Campo VALOR obrigatorio")]
         [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<decimal> Valor
@@ -54,13 +60,30 @@ namespace SystemBRPresentation.ViewModels
                 EQUI_VL_VALOR = value;
             }
         }
+        public bool AvisaManutencao
+        {
+            get
+            {
+                if (EQUI_IN_AVISA_MANUTENCAO == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                EQUI_IN_AVISA_MANUTENCAO = (value == true) ? 1 : 0;
+            }
+        }
 
-        public virtual CATEGORIA_EQUIPAMENTO CATEGORIA_EQUIPAMENTO { get; set; }
-        public virtual FILIAL FILIAL { get; set; }
-        public virtual MATRIZ MATRIZ { get; set; }
         public virtual ASSINANTE ASSINANTE { get; set; }
+        public virtual CATEGORIA_EQUIPAMENTO CATEGORIA_EQUIPAMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
-
+        public virtual FILIAL FILIAL { get; set; }
+        public virtual MATRIZ MATRIZ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
+        public virtual PERIODICIDADE PERIODICIDADE { get; set; }
     }
 }

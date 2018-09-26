@@ -122,5 +122,11 @@ namespace EntitiesServices.Model
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
         public virtual DbSet<VINCULO_EMPREGATICIO> VINCULO_EMPREGATICIO { get; set; }
+        public virtual DbSet<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
+        public virtual DbSet<FICHA_TECNICA> FICHA_TECNICA { get; set; }
+        public virtual DbSet<FICHA_TECNICA_DETALHE> FICHA_TECNICA_DETALHE { get; set; }
+        public virtual DbSet<FORMA_PAGAMENTO> FORMA_PAGAMENTO { get; set; }
+        public virtual DbSet<PERIODICIDADE> PERIODICIDADE { get; set; }
+        public virtual DbSet<SEGMENTO> SEGMENTO { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace EntitiesServices.Model
             this.MOVIMENTO_ESTOQUE_PRODUTO = new HashSet<MOVIMENTO_ESTOQUE_PRODUTO>();
             this.PRECO_PRODUTO = new HashSet<PRECO_PRODUTO>();
             this.PRODUTO_ANEXO = new HashSet<PRODUTO_ANEXO>();
+            this.FICHA_TECNICA = new HashSet<FICHA_TECNICA>();
         }
     
         public int PROD_CD_ID { get; set; }
@@ -62,5 +63,7 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_ANEXO> PRODUTO_ANEXO { get; set; }
         public virtual UNIDADE UNIDADE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FICHA_TECNICA> FICHA_TECNICA { get; set; }
     }
 }

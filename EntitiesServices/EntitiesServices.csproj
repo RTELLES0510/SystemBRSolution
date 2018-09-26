@@ -94,6 +94,8 @@
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IEquipamentoManutencaoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IPeriodicidadeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaEquipamentoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaPatrimonioRepository.cs" />
     <Compile Include="Interfaces\Repositories\IValorComissaoRepository.cs" />
@@ -250,6 +252,9 @@
     <Compile Include="Model\EQUIPAMENTO_ANEXO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\EQUIPAMENTO_MANUTENCAO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ESCALA_TRABALHO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
@@ -262,7 +267,16 @@
     <Compile Include="Model\EXAME_PERIODICO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\FICHA_TECNICA.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FICHA_TECNICA_DETALHE.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\FILIAL.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FORMA_PAGAMENTO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\FORNECEDOR.cs">
@@ -358,6 +372,9 @@
     <Compile Include="Model\PERFIL.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PERIODICIDADE.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\PLANO_ASSINATURA.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
@@ -392,6 +409,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PROPOSTA_VENDA_ANEXO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SEGMENTO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\SERVICO.cs">

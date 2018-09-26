@@ -39,6 +39,12 @@ namespace ApplicationServices.Services
             return item;
         }
 
+        public EQUIPAMENTO_MANUTENCAO GetItemManutencaoById(Int32 id)
+        {
+            EQUIPAMENTO_MANUTENCAO item = _baseService.GetItemManutencaoById(id);
+            return item;
+        }
+
         public EQUIPAMENTO GetByNumero(String numero)
         {
             EQUIPAMENTO item = _baseService.GetByNumero(numero);
@@ -57,9 +63,55 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public List<PERIODICIDADE> GetAllPeriodicidades()
+        {
+            List<PERIODICIDADE> lista = _baseService.GetAllPeriodicidades();
+            return lista;
+        }
+
         public List<FILIAL> GetAllFilial()
         {
             List<FILIAL> lista = _baseService.GetAllFilial();
+            return lista;
+        }
+
+        public Int32 CalcularDiasDepreciacao(EQUIPAMENTO item)
+        {
+            Int32 totalDias = 0;
+            if (item.EQUI_DT_COMPRA != null & item.EQUI_NR_VIDA_UTIL != null)
+            {
+                if (item.EQUI_DT_COMPRA != DateTime.MinValue & item.EQUI_NR_VIDA_UTIL > 0)
+                {
+                    DateTime dataLimite = item.EQUI_DT_COMPRA.Value.AddDays(item.EQUI_NR_VIDA_UTIL.Value);
+                    totalDias = dataLimite.Subtract(DateTime.Today).Days;
+                }
+            }
+            return totalDias;
+        }
+
+        public Int32 CalcularDiasManutencao(EQUIPAMENTO item)
+        {
+            Int32 totalDias = 0;
+            if (item.EQUI_DT_COMPRA != null & item.EQUI_NR_VIDA_UTIL != null)
+            {
+                if (item.EQUI_DT_COMPRA != DateTime.MinValue & item.EQUI_NR_VIDA_UTIL > 0)
+                {
+                    DateTime dataLimite = item.EQUI_DT_MANUTENCAO.Value.AddDays(item.PERIODICIDADE.PERI_NR_DIAS);
+                    totalDias = dataLimite.Subtract(DateTime.Today).Days;
+                }
+            }
+           return totalDias;
+        }
+
+        public Int32 CalcularManutencaoVencida()
+        {
+            Int32 lista = _baseService.CalcularManutencaoVencida();
+            return lista;
+        }
+
+        public Int32 CalcularDepreciados()
+        {
+            Int32 lista = _baseService.CalcularDepreciados();
             return lista;
         }
 
@@ -103,6 +155,10 @@ namespace ApplicationServices.Services
                 // Completa objeto
                 item.EQUI_IN_ATIVO = 1;
                 item.ASSI_CD_ID = usuario.ASSI_CD_ID;
+                if (item.EQUI_DT_COMPRA != null & item.EQUI_DT_COMPRA != DateTime.MinValue)
+                {
+                    item.EQUI_DT_MANUTENCAO = item.EQUI_DT_COMPRA;
+                }
 
                 // Monta Log
                 LOG log = new LOG

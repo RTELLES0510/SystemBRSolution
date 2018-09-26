@@ -29,6 +29,9 @@ namespace DataServices.Repositories
             query = query.Include(p => p.ASSINANTE);
             query = query.Include(p => p.MATRIZ);
             query = query.Include(p => p.FILIAL);
+            query = query.Include(p => p.PERIODICIDADE);
+            query = query.Include(p => p.EQUIPAMENTO_ANEXO);
+            query = query.Include(p => p.EQUIPAMENTO_MANUTENCAO);
             return query.FirstOrDefault();
         }
 
@@ -39,6 +42,9 @@ namespace DataServices.Repositories
             query = query.Include(p => p.ASSINANTE);
             query = query.Include(p => p.MATRIZ);
             query = query.Include(p => p.FILIAL);
+            query = query.Include(p => p.PERIODICIDADE);
+            query = query.Include(p => p.EQUIPAMENTO_ANEXO);
+            query = query.Include(p => p.EQUIPAMENTO_MANUTENCAO);
             return query.FirstOrDefault();
         }
 
@@ -62,6 +68,30 @@ namespace DataServices.Repositories
             query = query.Include(p => p.MATRIZ);
             query = query.Include(p => p.FILIAL);
             return query.ToList();
+        }
+
+        public Int32 CalcularManutencaoVencida()
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<EQUIPAMENTO> query = Db.EQUIPAMENTO.Where(p => p.EQUI_IN_ATIVO == 1);
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.EQUI_DT_MANUTENCAO < DateTime.Today);
+            query = query.Include(p => p.ASSINANTE);
+            query = query.Include(p => p.MATRIZ);
+            query = query.Include(p => p.FILIAL);
+            return query.ToList().Count;
+        }
+
+        public Int32 CalcularDepreciados()
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<EQUIPAMENTO> query = Db.EQUIPAMENTO.Where(p => p.EQUI_IN_ATIVO == 1);
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.EQUI_DT_COMPRA.Value.AddDays(p.EQUI_NR_VIDA_UTIL.Value) < DateTime.Today);
+            query = query.Include(p => p.ASSINANTE);
+            query = query.Include(p => p.MATRIZ);
+            query = query.Include(p => p.FILIAL);
+            return query.ToList().Count;
         }
 
         public List<EQUIPAMENTO> ExecuteFilter(Int32? catId, String nome, String numero, Int32? filiId)

@@ -150,6 +150,8 @@ namespace Presentation.Start
             kernel.Bind<ICargoRepository>().To<CargoRepository>();
             kernel.Bind<ITipoComissaoRepository>().To<TipoComissaoRepository>();
             kernel.Bind<IValorComissaoRepository>().To<ValorComissaoRepository>();
+            kernel.Bind<IPeriodicidadeRepository>().To<PeriodicidadeRepository>();
+            kernel.Bind<IEquipamentoManutencaoRepository>().To<EquipamentoManutencaoRepository>();
         }
     }
 }
