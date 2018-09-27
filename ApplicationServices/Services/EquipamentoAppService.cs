@@ -155,7 +155,7 @@ namespace ApplicationServices.Services
                 // Completa objeto
                 item.EQUI_IN_ATIVO = 1;
                 item.ASSI_CD_ID = usuario.ASSI_CD_ID;
-                if (item.EQUI_DT_COMPRA != null & item.EQUI_DT_COMPRA != DateTime.MinValue)
+                if (item.EQUI_DT_COMPRA != null & item.EQUI_DT_COMPRA != DateTime.MinValue & item.EQUI_IN_AVISA_MANUTENCAO == 1)
                 {
                     item.EQUI_DT_MANUTENCAO = item.EQUI_DT_COMPRA;
                 }

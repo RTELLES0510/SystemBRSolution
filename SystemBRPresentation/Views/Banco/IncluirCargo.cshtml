@@ -59,7 +59,8 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                     Comissão?
-                                    @Html.CheckBoxFor(m => m.Comissao, new { @class = "checkbox-inline"})
+                                    <br />
+                                    @Html.CheckBoxFor(m => m.Comissao, new { @class = "checkbox i-checks"})
                                     @Html.ValidationMessageFor(m => m.Comissao, "",new { @style="color:red" })
                                 </div>
                             </div>
@@ -81,6 +82,8 @@
     @Styles.Render("~/Content/plugins/chosen/chosenStyles")
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/Content/jquery-ui-timepicker-addon.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+
 }
 @section Scripts {
    
@@ -101,6 +104,20 @@
     <script src="~/Scripts/jquery-ui-timepicker-addon.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+
+    @Scripts.Render("~/plugins/iCheck")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+        });
+    </script>
+
 
     @if (ViewBag.Message != null)
     {

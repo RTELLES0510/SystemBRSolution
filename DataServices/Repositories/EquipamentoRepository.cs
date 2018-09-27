@@ -75,7 +75,8 @@ namespace DataServices.Repositories
             Int32? idAss = SessionMocks.IdAssinante;
             IQueryable<EQUIPAMENTO> query = Db.EQUIPAMENTO.Where(p => p.EQUI_IN_ATIVO == 1);
             query = query.Where(p => p.ASSI_CD_ID == idAss);
-            query = query.Where(p => p.EQUI_DT_MANUTENCAO < DateTime.Today);
+            query = query.Where(p => DbFunctions.AddDays(p.EQUI_DT_MANUTENCAO.Value, p.PERIODICIDADE.PERI_NR_DIAS) < DateTime.Today);
+            query = query.Where(p => p.EQUI_IN_AVISA_MANUTENCAO == 1);
             query = query.Include(p => p.ASSINANTE);
             query = query.Include(p => p.MATRIZ);
             query = query.Include(p => p.FILIAL);
@@ -87,7 +88,7 @@ namespace DataServices.Repositories
             Int32? idAss = SessionMocks.IdAssinante;
             IQueryable<EQUIPAMENTO> query = Db.EQUIPAMENTO.Where(p => p.EQUI_IN_ATIVO == 1);
             query = query.Where(p => p.ASSI_CD_ID == idAss);
-            query = query.Where(p => p.EQUI_DT_COMPRA.Value.AddDays(p.EQUI_NR_VIDA_UTIL.Value) < DateTime.Today);
+            query = query.Where(p => DbFunctions.AddDays(p.EQUI_DT_COMPRA.Value, p.EQUI_NR_VIDA_UTIL.Value) < DateTime.Today);
             query = query.Include(p => p.ASSINANTE);
             query = query.Include(p => p.MATRIZ);
             query = query.Include(p => p.FILIAL);

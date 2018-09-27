@@ -175,7 +175,8 @@
                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">               
                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                     Manutenção?
-                                    @Html.CheckBoxFor(m => m.AvisaManutencao, new { @class = "checkbox-inline"})
+                                    <br />
+                                    @Html.CheckBoxFor(m => m.AvisaManutencao, new { @class = "checkbox i-checks"})
                                     @Html.ValidationMessageFor(m => m.AvisaManutencao, "",new { @style="color:red" })
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-12">
@@ -400,6 +401,8 @@
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />  
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+
 }
 @section Scripts {
    
@@ -474,6 +477,19 @@
             $("#cep").mask("99999-999");
         });
     </script>
+    @Scripts.Render("~/plugins/iCheck")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+        });
+    </script>
+
 
     @if (ViewBag.Message != null)
     {

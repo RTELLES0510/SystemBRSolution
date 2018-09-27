@@ -60,7 +60,8 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                     Comissão?
-                                    @Html.CheckBoxFor(m => m.Comissao, new { @class = "checkbox-inline"})
+                                    <br />
+                                    @Html.CheckBoxFor(m => m.Comissao, new { @class = "checkbox i-checks"})
                                     @Html.ValidationMessageFor(m => m.Comissao, "",new { @style="color:red" })
                                 </div>
                             </div>
@@ -81,6 +82,8 @@
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+
 }
 @section Scripts {
    
@@ -120,6 +123,19 @@
             $("#cep").mask("99999-999");
         });
     </script>
+    @Scripts.Render("~/plugins/iCheck")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+        });
+    </script>
+
 
     @if (ViewBag.Message != null)
     {

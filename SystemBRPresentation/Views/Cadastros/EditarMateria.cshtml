@@ -127,7 +127,8 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                     Avisa Mínima
-                                    @Html.CheckBoxFor(m => m.AvisaMinima, new { @class = "checkbox-inline"})
+                                    <br />
+                                    @Html.CheckBoxFor(m => m.AvisaMinima, new { @class = "checkbox i-checks"})
                                     @Html.ValidationMessageFor(m => m.AvisaMinima, "",new { @style="color:red" })
                                 </div>
                             </div>
@@ -233,6 +234,8 @@
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />  
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+
 }
 @section Scripts {
    
@@ -280,6 +283,19 @@
             $("#cep").mask("99999-999");
         });
     </script>
+    @Scripts.Render("~/plugins/iCheck")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+        });
+    </script>
+
 
     @if (ViewBag.Message != null)
     {
