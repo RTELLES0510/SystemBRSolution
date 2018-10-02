@@ -128,5 +128,10 @@ namespace EntitiesServices.Model
         public virtual DbSet<FORMA_PAGAMENTO> FORMA_PAGAMENTO { get; set; }
         public virtual DbSet<PERIODICIDADE> PERIODICIDADE { get; set; }
         public virtual DbSet<SEGMENTO> SEGMENTO { get; set; }
+        public virtual DbSet<CLIENTE_CONTATO> CLIENTE_CONTATO { get; set; }
+        public virtual DbSet<CLIENTE_REFERENCIA> CLIENTE_REFERENCIA { get; set; }
+        public virtual DbSet<CLIENTE_TAG> CLIENTE_TAG { get; set; }
+        public virtual DbSet<TIPO_CONTRIBUINTE> TIPO_CONTRIBUINTE { get; set; }
+        public virtual DbSet<TIPO_PESSOA> TIPO_PESSOA { get; set; }
     }
 }

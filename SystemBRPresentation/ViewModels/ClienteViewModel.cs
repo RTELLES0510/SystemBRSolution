@@ -53,7 +53,62 @@ namespace SystemBRPresentation.ViewModels
         public int CLIE_IN_ATIVO { get; set; }
         public string CLIE_AQ_FOTO { get; set; }
 
+        public Nullable<int> TICO_CD_ID { get; set; }
+        public Nullable<int> COLA_CD_ID { get; set; }
+        [StringLength(50, ErrorMessage = "A INSCRIÇÃO ESTADUAL deve conter no máximo 50.")]
+        public string CLIE_NR_INSCRICAO_ESTADUAL { get; set; }
+        [StringLength(50, ErrorMessage = "A INSCRIÇÃO MUNICIPAL deve conter no máximo 50.")]
+        public string CLIE_NR_INSCRICAO_MUNICIPAL { get; set; }
+        [StringLength(50, ErrorMessage = "O CELULAR deve conter no máximo 50.")]
+        public string CLIE_NR_CELULAR { get; set; }
+        [StringLength(50, ErrorMessage = "O WEBSITE deve conter no máximo 50.")]
+        public string CLIE_NM_WEBSITE { get; set; }
+        [StringLength(100, ErrorMessage = "O E_MAIL para DANFE deve conter no máximo 100.")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Deve ser um e-mail válido")]
+        public string CLIE_NM_EMAIL_DANFE { get; set; }
+        [StringLength(50, ErrorMessage = "O ENDEREÇO deve conter no máximo 50.")]
+        public string CLIE_NM_ENDERECO_ENTREGA { get; set; }
+        [StringLength(50, ErrorMessage = "O BAIRRO deve conter no máximo 50.")]
+        public string CLIE_NM_BAIRRO_ENTREGA { get; set; }
+        [StringLength(50, ErrorMessage = "A CIDADE deve conter no máximo 50.")]
+        public string CLIE_NM_CIDADE_ENTREGA { get; set; }
+        [StringLength(2, ErrorMessage = "A UF deve conter no máximo 2.")]
+        public string CLIE_SG_UF_ENTREGA { get; set; }
+        [StringLength(10, ErrorMessage = "O CEP deve conter no máximo 10.")]
+        public string CLIE_NR_CEP_ENTREGA { get; set; }
+        [StringLength(50, ErrorMessage = "O NOME DO PAI deve conter no máximo 50.")]
+        public string CLIE_NM_PAI { get; set; }
+        [StringLength(50, ErrorMessage = "O NOME DA MÃE deve conter no máximo 50.")]
+        public string CLIE_NM_MAE { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Deve ser uma data válida")]
+        public Nullable<System.DateTime> CLIE_DT_NASCIMENTO { get; set; }
+        [StringLength(50, ErrorMessage = "A NATURALIDADE deve conter no máximo 50.")]
+        public string CLIE_NM_NATURALIDADE { get; set; }
+        [StringLength(2, ErrorMessage = "A UF deve conter no máximo 2.")]
+        public string CLIE_SG_NATURALIADE_UF { get; set; }
+        [StringLength(50, ErrorMessage = "A NACIONALIDADE deve conter no máximo 50.")]
+        public string CLIE_NM_NACIONALIDADE { get; set; }
+        public string CLIE_TX_OBSERVACOES { get; set; }
+        [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        public Nullable<decimal> CLIE_VL_LIMITE_CREDITO { get; set; }
+        public Nullable<int> TIPE_CD_ID { get; set; }
+        [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        public Nullable<decimal> LimiteCredito
+        {
+            get
+            {
+                return CLIE_VL_LIMITE_CREDITO;
+            }
+            set
+            {
+                CLIE_VL_LIMITE_CREDITO = value;
+            }
+        }
+
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_CLIENTE CATEGORIA_CLIENTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE_ANEXO> CLIENTE_ANEXO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -72,8 +127,14 @@ namespace SystemBRPresentation.ViewModels
         public virtual ICollection<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
+        public virtual COLABORADOR COLABORADOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE_ANEXO> CLIENTE_ANEXO { get; set; }
+        public virtual ICollection<CLIENTE_CONTATO> CLIENTE_CONTATO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE_REFERENCIA> CLIENTE_REFERENCIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE_TAG> CLIENTE_TAG { get; set; }
+        public virtual TIPO_CONTRIBUINTE TIPO_CONTRIBUINTE { get; set; }
+        public virtual TIPO_PESSOA TIPO_PESSOA { get; set; }
     }
 }

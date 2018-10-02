@@ -152,6 +152,12 @@ namespace Presentation.Start
             kernel.Bind<IValorComissaoRepository>().To<ValorComissaoRepository>();
             kernel.Bind<IPeriodicidadeRepository>().To<PeriodicidadeRepository>();
             kernel.Bind<IEquipamentoManutencaoRepository>().To<EquipamentoManutencaoRepository>();
+            kernel.Bind<IClienteContatoRepository>().To<ClienteContatoRepository>();
+            kernel.Bind<IClienteReferenciaRepository>().To<ClienteReferenciaRepository>();
+            kernel.Bind<IClienteTagRepository>().To<ClienteTagRepository>();
+            kernel.Bind<IColaboradorRepository>().To<ColaboradorRepository>();
+            kernel.Bind<ITipoContribuinteRepository>().To<TipoContribuinteRepository>();
+            kernel.Bind<ITipoPessoaRepository>().To<TipoPessoaRepository>();
         }
     }
 }

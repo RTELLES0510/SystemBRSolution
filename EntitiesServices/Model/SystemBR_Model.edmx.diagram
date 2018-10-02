@@ -292,6 +292,18 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_DETALHE_FICHA_TECNICA" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_PRODUTO" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_FICHA_TECNICA_DETALHE_MATERIA_PRIMA" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CLIENTE_CONTATO" Width="1.5" PointX="12" PointY="83.125" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CLIENTE_REFERENCIA" Width="1.5" PointX="12" PointY="159.625" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CLIENTE_TAG" Width="1.5" PointX="12" PointY="87.375" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_CONTRIBUINTE" Width="1.5" PointX="5.375" PointY="10.625" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_COLABORADOR_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_COLABORADOR" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_CONTATO_CLIENTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_REFERENCIA_CLIENTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_TAG_CLIENTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_TIPO_CONTRIBUINTE" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_PESSOA" Width="1.5" PointX="5.375" PointY="6.75" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_TIPO_PESSOA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

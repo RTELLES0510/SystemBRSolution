@@ -208,6 +208,9 @@ namespace SystemBRPresentation.Controllers
             // Prepara listas
             ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
             ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
 
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
@@ -227,6 +230,9 @@ namespace SystemBRPresentation.Controllers
         {
             ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
             ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -280,6 +286,9 @@ namespace SystemBRPresentation.Controllers
             // Prepara view
             ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
             ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             CLIENTE item = baseApp.GetItemById(id);
             objetoAntes = item;
             SessionMocks.cliente = item;
@@ -294,6 +303,9 @@ namespace SystemBRPresentation.Controllers
         {
             ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
             ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -531,7 +543,509 @@ namespace SystemBRPresentation.Controllers
             return RedirectToAction("IncluirClienteEspecial", new { objeto = item});
         }
 
-       [HttpGet]
+        [HttpGet]
+        public ActionResult VisualizarCliente(Int32 id)
+        {
+            // Prepara view
+            CLIENTE item = baseApp.GetItemById(id);
+            objetoAntes = item;
+            SessionMocks.cliente = item;
+            SessionMocks.idVolta = id;
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpGet]
+        public ActionResult EditarContato(Int32 id)
+        {
+            // Prepara view
+            CLIENTE item = baseApp.GetItemById(id);
+            objetoAntes = item;
+            SessionMocks.cliente = item;
+            SessionMocks.idVolta = id;
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarContato(ClienteViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    Int32 volta = baseApp.ValidateEdit(item, objetoAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMaster = new List<CLIENTE>();
+                    SessionMocks.listaCliente = null;
+                    if (SessionMocks.voltaCliente == 2)
+                    {
+                        return RedirectToAction("VerCardsCliente");
+                    }
+                    return RedirectToAction("MontarTelaCliente");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirContato(Int32 id)
+        {
+            // Prepara view
+            CLIENTE item = baseApp.GetItemById(id);
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirContato(ClienteViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                Int32 volta = baseApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0019", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                listaMaster = new List<CLIENTE>();
+                SessionMocks.listaCliente = null;
+                return RedirectToAction("MontarTelaCliente");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarContato(Int32 id)
+        {
+            // Prepara view
+            CLIENTE item = baseApp.GetItemById(id);
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarContato(ClienteViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                Int32 volta = baseApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMaster = new List<CLIENTE>();
+                SessionMocks.listaCliente = null;
+                return RedirectToAction("MontarTelaCliente");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult IncluirContato()
+        {
+            // Prepara listas
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            CLIENTE item = new CLIENTE();
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.CLIE_DT_CADASTRO = DateTime.Today;
+            vm.CLIE_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirContato(ClienteViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = baseApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0018", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Carrega foto e processa alteracao
+                    item.CLIE_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = baseApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+
+                    // Sucesso
+                    listaMaster = new List<CLIENTE>();
+                    SessionMocks.listaCliente = null;
+                    if (SessionMocks.voltaCliente == 2)
+                    {
+                        return RedirectToAction("VerCardsCliente");
+                    }
+                    return RedirectToAction("MontarTelaCliente");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+                [HttpGet]
+        public ActionResult EditarReferencia(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            CLIENTE item = baseApp.GetItemById(id);
+            objetoAntes = item;
+            SessionMocks.cliente = item;
+            SessionMocks.idVolta = id;
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarReferencia(ClienteViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    Int32 volta = baseApp.ValidateEdit(item, objetoAntes, usuarioLogado);
+
+                    // Verifica retorno
+
+                    // Sucesso
+                    listaMaster = new List<CLIENTE>();
+                    SessionMocks.listaCliente = null;
+                    if (SessionMocks.voltaCliente == 2)
+                    {
+                        return RedirectToAction("VerCardsCliente");
+                    }
+                    return RedirectToAction("MontarTelaCliente");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirReferencia(Int32 id)
+        {
+            // Prepara view
+            CLIENTE item = baseApp.GetItemById(id);
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirReferencia(ClienteViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                Int32 volta = baseApp.ValidateDelete(item, usuarioLogado);
+
+                // Verifica retorno
+                if (volta == 1)
+                {
+                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0019", CultureInfo.CurrentCulture);
+                    return View(vm);
+                }
+
+                // Sucesso
+                listaMaster = new List<CLIENTE>();
+                SessionMocks.listaCliente = null;
+                return RedirectToAction("MontarTelaCliente");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ReativarReferencia(Int32 id)
+        {
+            // Prepara view
+            CLIENTE item = baseApp.GetItemById(id);
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ReativarReferencia(ClienteViewModel vm)
+        {
+            try
+            {
+                // Executa a operação
+                USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                Int32 volta = baseApp.ValidateReativar(item, usuarioLogado);
+
+                // Verifica retorno
+
+                // Sucesso
+                listaMaster = new List<CLIENTE>();
+                SessionMocks.listaCliente = null;
+                return RedirectToAction("MontarTelaCliente");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(objeto);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult IncluirReferencia()
+        {
+            // Prepara listas
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            CLIENTE item = new CLIENTE();
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.CLIE_DT_CADASTRO = DateTime.Today;
+            vm.CLIE_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirReferencia(ClienteViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = baseApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0018", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Carrega foto e processa alteracao
+                    item.CLIE_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = baseApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+
+                    // Sucesso
+                    listaMaster = new List<CLIENTE>();
+                    SessionMocks.listaCliente = null;
+                    if (SessionMocks.voltaCliente == 2)
+                    {
+                        return RedirectToAction("VerCardsCliente");
+                    }
+                    return RedirectToAction("MontarTelaCliente");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult IncluirTag()
+        {
+            // Prepara listas
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            CLIENTE item = new CLIENTE();
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
+            vm.CLIE_DT_CADASTRO = DateTime.Today;
+            vm.CLIE_IN_ATIVO = 1;
+            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
+            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirTag(ClienteViewModel vm)
+        {
+            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
+            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = baseApp.ValidateCreate(item, usuarioLogado);
+
+                    // Verifica retorno
+                    if (volta == 1)
+                    {
+                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0018", CultureInfo.CurrentCulture);
+                        return View(vm);
+                    }
+
+                    // Carrega foto e processa alteracao
+                    item.CLIE_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = baseApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+
+                    // Sucesso
+                    listaMaster = new List<CLIENTE>();
+                    SessionMocks.listaCliente = null;
+                    if (SessionMocks.voltaCliente == 2)
+                    {
+                        return RedirectToAction("VerCardsCliente");
+                    }
+                    return RedirectToAction("MontarTelaCliente");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+
+
+
+        [HttpGet]
         public ActionResult MontarTelaFornecedor()
         {
             // Verifica se tem usuario logado

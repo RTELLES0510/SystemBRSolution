@@ -94,10 +94,16 @@
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IColaboradorRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IClienteTagRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IClienteReferenciaRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IClienteContatoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IEquipamentoManutencaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPeriodicidadeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaEquipamentoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaPatrimonioRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITipoPessoaRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITipoContribuinteRepository.cs" />
     <Compile Include="Interfaces\Repositories\IValorComissaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITipoComissaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaServicoRepository.cs" />
@@ -208,6 +214,15 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CLIENTE_ANEXO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CLIENTE_CONTATO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CLIENTE_REFERENCIA.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CLIENTE_TAG.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\COLABORADOR.cs">
@@ -450,10 +465,16 @@
     <Compile Include="Model\TIPO_CONTA.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TIPO_CONTRIBUINTE.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\TIPO_DOCUMENTO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TIPO_FAVORECIDO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TIPO_PESSOA.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TIPO_SALARIAL.cs">

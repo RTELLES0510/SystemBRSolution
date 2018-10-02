@@ -2035,7 +2035,7 @@
     <Content Include="Views\Cadastros\Index.cshtml" />
     <Content Include="Views\Cadastros\MontarTelaCliente.cshtml" />
     <Content Include="Views\Cadastros\IncluirCliente.cshtml" />
-    <Content Include="Views\Cadastros\EditarCliente.cshtml" />
+    <Content Include="Views\Cadastros\EditarClienteOld.cshtml" />
     <Content Include="Views\Cadastros\ExcluirCliente.cshtml" />
     <Content Include="Views\Cadastros\ReativarCliente.cshtml" />
     <Content Include="Views\Cadastros\VerCardsCliente.cshtml" />
@@ -2100,6 +2100,8 @@
     <Content Include="Views\Banco\MontarTelaComissao.cshtml" />
     <Content Include="Views\Banco\ReativarComissao.cshtml" />
     <Content Include="Views\Cadastros\VerManutencaoEquipamento.cshtml" />
+    <Content Include="Views\Cadastros\EditarCliente.cshtml" />
+    <Content Include="Views\Cadastros\VisualizarCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -26,6 +26,9 @@ namespace EntitiesServices.Model
             this.PROPOSTA_SERVICO = new HashSet<PROPOSTA_SERVICO>();
             this.PROPOSTA_VENDA = new HashSet<PROPOSTA_VENDA>();
             this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
+            this.CLIENTE_CONTATO = new HashSet<CLIENTE_CONTATO>();
+            this.CLIENTE_REFERENCIA = new HashSet<CLIENTE_REFERENCIA>();
+            this.CLIENTE_TAG = new HashSet<CLIENTE_TAG>();
         }
     
         public int CLIE_CD_ID { get; set; }
@@ -49,6 +52,27 @@ namespace EntitiesServices.Model
         public System.DateTime CLIE_DT_CADASTRO { get; set; }
         public int CLIE_IN_ATIVO { get; set; }
         public string CLIE_AQ_FOTO { get; set; }
+        public Nullable<int> TICO_CD_ID { get; set; }
+        public Nullable<int> COLA_CD_ID { get; set; }
+        public string CLIE_NR_INSCRICAO_ESTADUAL { get; set; }
+        public string CLIE_NR_INSCRICAO_MUNICIPAL { get; set; }
+        public string CLIE_NR_CELULAR { get; set; }
+        public string CLIE_NM_WEBSITE { get; set; }
+        public string CLIE_NM_EMAIL_DANFE { get; set; }
+        public string CLIE_NM_ENDERECO_ENTREGA { get; set; }
+        public string CLIE_NM_BAIRRO_ENTREGA { get; set; }
+        public string CLIE_NM_CIDADE_ENTREGA { get; set; }
+        public string CLIE_SG_UF_ENTREGA { get; set; }
+        public string CLIE_NR_CEP_ENTREGA { get; set; }
+        public string CLIE_NM_PAI { get; set; }
+        public string CLIE_NM_MAE { get; set; }
+        public Nullable<System.DateTime> CLIE_DT_NASCIMENTO { get; set; }
+        public string CLIE_NM_NATURALIDADE { get; set; }
+        public string CLIE_SG_NATURALIADE_UF { get; set; }
+        public string CLIE_NM_NACIONALIDADE { get; set; }
+        public string CLIE_TX_OBSERVACOES { get; set; }
+        public Nullable<decimal> CLIE_VL_LIMITE_CREDITO { get; set; }
+        public Nullable<int> TIPE_CD_ID { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_CLIENTE CATEGORIA_CLIENTE { get; set; }
@@ -72,5 +96,14 @@ namespace EntitiesServices.Model
         public virtual ICollection<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
+        public virtual COLABORADOR COLABORADOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE_CONTATO> CLIENTE_CONTATO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE_REFERENCIA> CLIENTE_REFERENCIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE_TAG> CLIENTE_TAG { get; set; }
+        public virtual TIPO_CONTRIBUINTE TIPO_CONTRIBUINTE { get; set; }
+        public virtual TIPO_PESSOA TIPO_PESSOA { get; set; }
     }
 }

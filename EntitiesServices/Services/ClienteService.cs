@@ -22,16 +22,26 @@ namespace ModelServices.EntitiesServices
         private readonly ILogRepository _logRepository;
         private readonly ICategoriaClienteRepository _tipoRepository;
         private readonly IClienteAnexoRepository _anexoRepository;
+        private readonly IClienteContatoRepository _contRepository;
+        private readonly IClienteReferenciaRepository _refRepository;
         private readonly IFilialRepository _filialRepository;
+        private readonly IColaboradorRepository _colaRepository;
+        private readonly ITipoContribuinteRepository _ctRepository;
+        private readonly ITipoPessoaRepository _pesRepository;
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public ClienteService(IClienteRepository baseRepository, ILogRepository logRepository, ICategoriaClienteRepository tipoRepository, IClienteAnexoRepository anexoRepository, IFilialRepository filialRepository) : base(baseRepository)
+        public ClienteService(IClienteRepository baseRepository, ILogRepository logRepository, ICategoriaClienteRepository tipoRepository, IClienteAnexoRepository anexoRepository, IFilialRepository filialRepository, IClienteContatoRepository contRepository, IClienteReferenciaRepository refRepository, IColaboradorRepository colaReposotory, ITipoContribuinteRepository ctRepository, ITipoPessoaRepository pesRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
             _tipoRepository = tipoRepository;
             _anexoRepository = anexoRepository;
             _filialRepository = filialRepository;
+            _contRepository = contRepository;
+            _refRepository = refRepository;
+            _colaRepository = colaReposotory;
+            _ctRepository = ctRepository;
+            _pesRepository = pesRepository;
         }
 
         public CLIENTE CheckExist(CLIENTE conta)
@@ -72,11 +82,36 @@ namespace ModelServices.EntitiesServices
             return _filialRepository.GetAllItens();
         }
 
+        public List<COLABORADOR> GetAllVendedores()
+        {
+            return _colaRepository.GetAllItens();
+        }
+
+        public List<TIPO_CONTRIBUINTE> GetAllTiposContribuinte()
+        {
+            return _ctRepository.GetAllItens();
+        }
+
+        public List<TIPO_PESSOA> GetAllTiposPessoa()
+        {
+            return _pesRepository.GetAllItens();
+        }
+
         public CLIENTE_ANEXO GetAnexoById(Int32 id)
         {
             return _anexoRepository.GetItemById(id);
         }
 
+        public CLIENTE_CONTATO GetContatoById(Int32 id)
+        {
+            return _contRepository.GetItemById(id);
+        }
+
+        public CLIENTE_REFERENCIA GetReferenciaById(Int32 id)
+        {
+            return _refRepository.GetItemById(id);
+        }
+        
         public List<CLIENTE> ExecuteFilter(Int32? catId, String nome, String cpf, String cnpj, String email, String cidade, String uf, String rede)
         {
             return _baseRepository.ExecuteFilter(catId, nome, cpf, cnpj, email, cidade, uf, rede);

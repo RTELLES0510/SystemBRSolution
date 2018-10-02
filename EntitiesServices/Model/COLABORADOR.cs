@@ -23,6 +23,7 @@ namespace EntitiesServices.Model
             this.EXAME_PERIODICO = new HashSet<EXAME_PERIODICO>();
             this.LICENSA_ATESTADO = new HashSet<LICENSA_ATESTADO>();
             this.USUARIO = new HashSet<USUARIO>();
+            this.CLIENTE = new HashSet<CLIENTE>();
         }
     
         public int COLA_CD_ID { get; set; }
@@ -93,5 +94,8 @@ namespace EntitiesServices.Model
         public virtual ICollection<LICENSA_ATESTADO> LICENSA_ATESTADO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USUARIO> USUARIO { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
     }
 }

@@ -89,8 +89,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CargoRepository.cs" />
+    <Compile Include="Repositories\ColaboradorRepository.cs" />
+    <Compile Include="Repositories\ClienteTagRepository.cs" />
+    <Compile Include="Repositories\ClienteReferenciaRepository.cs" />
+    <Compile Include="Repositories\ClienteContatoRepository.cs" />
     <Compile Include="Repositories\EquipamentoManutencaoRepository.cs" />
     <Compile Include="Repositories\PeriodicidadeRepository.cs" />
+    <Compile Include="Repositories\TipoPessoaRepository.cs" />
+    <Compile Include="Repositories\TipoContribuinteRepository.cs" />
     <Compile Include="Repositories\ValorComissaoRepository.cs" />
     <Compile Include="Repositories\TipoComissaoRepository.cs" />
     <Compile Include="Repositories\CategoriaEquipamentoRepository.cs" />

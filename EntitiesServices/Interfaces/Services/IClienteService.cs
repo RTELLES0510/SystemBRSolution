@@ -22,7 +22,12 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<CLIENTE> GetAllItensAdm();
         List<CATEGORIA_CLIENTE> GetAllTipos();
         List<FILIAL> GetAllFilial();
+        List<TIPO_CONTRIBUINTE> GetAllTiposContribuinte();
+        List<TIPO_PESSOA> GetAllTiposPessoa();
+        List<COLABORADOR> GetAllVendedores();
         CLIENTE_ANEXO GetAnexoById(Int32 id);
+        CLIENTE_CONTATO GetContatoById(Int32 id);
+        CLIENTE_REFERENCIA GetReferenciaById(Int32 id);
         List<CLIENTE> ExecuteFilter(Int32? catId, String nome, String cpf, String cnpj, String email, String cidade, String uf, String rede);
     }
 }

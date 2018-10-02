@@ -161,6 +161,7 @@
                                                 <td>@cond.CLIE_SG_UF</td>
                                                 <td class="td-one-action">
                                                     @Html.TableLinkDetails(cond.CLIE_CD_ID, "EditarCliente","fa-edit", "Editar/Consultar Cliente")
+                                                    @Html.TableLinkDetails(cond.CLIE_CD_ID, "VisualizarCliente","fa-search", "Visualizar Cliente")
                                                     @if (cond.CLIE_IN_ATIVO == 1)
 	                                                {
                                                         @Html.TableLinkDetails(cond.CLIE_CD_ID, "ExcluirCliente","fa-trash-o", "Desativar Cliente")

@@ -63,9 +63,39 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public List<COLABORADOR> GetAllVendedores()
+        {
+            List<COLABORADOR> lista = _baseService.GetAllVendedores();
+            return lista;
+        }
+
+        public List<TIPO_CONTRIBUINTE> GetAllTiposContribuinte()
+        {
+            List<TIPO_CONTRIBUINTE> lista = _baseService.GetAllTiposContribuinte();
+            return lista;
+        }
+
+        public List<TIPO_PESSOA> GetAllTiposPessoa()
+        {
+            List<TIPO_PESSOA> lista = _baseService.GetAllTiposPessoa();
+            return lista;
+        }
+
         public CLIENTE_ANEXO GetAnexoById(Int32 id)
         {
             CLIENTE_ANEXO lista = _baseService.GetAnexoById(id);
+            return lista;
+        }
+
+        public CLIENTE_CONTATO GetContatoById(Int32 id)
+        {
+            CLIENTE_CONTATO lista = _baseService.GetContatoById(id);
+            return lista;
+        }
+
+        public CLIENTE_REFERENCIA GetReferenciaById(Int32 id)
+        {
+            CLIENTE_REFERENCIA lista = _baseService.GetReferenciaById(id);
             return lista;
         }
 

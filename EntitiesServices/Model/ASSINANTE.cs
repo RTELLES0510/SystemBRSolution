@@ -38,6 +38,7 @@ namespace EntitiesServices.Model
             this.FORMA_PAGAMENTO = new HashSet<FORMA_PAGAMENTO>();
             this.PERIODICIDADE = new HashSet<PERIODICIDADE>();
             this.SEGMENTO = new HashSet<SEGMENTO>();
+            this.COLABORADOR = new HashSet<COLABORADOR>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -93,5 +94,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<PERIODICIDADE> PERIODICIDADE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SEGMENTO> SEGMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COLABORADOR> COLABORADOR { get; set; }
     }
 }
