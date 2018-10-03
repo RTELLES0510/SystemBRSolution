@@ -92,6 +92,8 @@ namespace SystemBRPresentation.ViewModels
         [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<decimal> CLIE_VL_LIMITE_CREDITO { get; set; }
         public Nullable<int> TIPE_CD_ID { get; set; }
+        public string CLIE_NR_TELEFONE_ADICIONAL { get; set; }
+
         [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<decimal> LimiteCredito
         {

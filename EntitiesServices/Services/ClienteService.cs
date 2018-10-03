@@ -24,13 +24,14 @@ namespace ModelServices.EntitiesServices
         private readonly IClienteAnexoRepository _anexoRepository;
         private readonly IClienteContatoRepository _contRepository;
         private readonly IClienteReferenciaRepository _refRepository;
+        private readonly IClienteTagRepository _tagRepository;
         private readonly IFilialRepository _filialRepository;
         private readonly IColaboradorRepository _colaRepository;
         private readonly ITipoContribuinteRepository _ctRepository;
         private readonly ITipoPessoaRepository _pesRepository;
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public ClienteService(IClienteRepository baseRepository, ILogRepository logRepository, ICategoriaClienteRepository tipoRepository, IClienteAnexoRepository anexoRepository, IFilialRepository filialRepository, IClienteContatoRepository contRepository, IClienteReferenciaRepository refRepository, IColaboradorRepository colaReposotory, ITipoContribuinteRepository ctRepository, ITipoPessoaRepository pesRepository) : base(baseRepository)
+        public ClienteService(IClienteRepository baseRepository, ILogRepository logRepository, ICategoriaClienteRepository tipoRepository, IClienteAnexoRepository anexoRepository, IFilialRepository filialRepository, IClienteContatoRepository contRepository, IClienteReferenciaRepository refRepository, IColaboradorRepository colaReposotory, ITipoContribuinteRepository ctRepository, ITipoPessoaRepository pesRepository, IClienteTagRepository tagRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
@@ -42,6 +43,7 @@ namespace ModelServices.EntitiesServices
             _colaRepository = colaReposotory;
             _ctRepository = ctRepository;
             _pesRepository = pesRepository;
+            _tagRepository = tagRepository;
         }
 
         public CLIENTE CheckExist(CLIENTE conta)
@@ -205,6 +207,100 @@ namespace ModelServices.EntitiesServices
                 {
                     _logRepository.Add(log);
                     _baseRepository.Remove(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 EditContato(CLIENTE_CONTATO item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    CLIENTE_CONTATO obj = _contRepository.GetById(item.CLCO_CD_ID);
+                    _contRepository.Detach(obj);
+                    _contRepository.Update(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 CreateContato(CLIENTE_CONTATO item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    _contRepository.Add(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 EditReferencia(CLIENTE_REFERENCIA item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    CLIENTE_REFERENCIA obj = _refRepository.GetById(item.CLRE_CD_ID);
+                    _refRepository.Detach(obj);
+                    _refRepository.Update(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 CreateReferencia(CLIENTE_REFERENCIA item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    _refRepository.Add(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 CreateTag(CLIENTE_TAG item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    _tagRepository.Add(item);
                     transaction.Commit();
                     return 0;
                 }

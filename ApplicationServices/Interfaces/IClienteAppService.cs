@@ -28,5 +28,10 @@ namespace ApplicationServices.Interfaces
         CLIENTE_CONTATO GetContatoById(Int32 id);
         CLIENTE_REFERENCIA GetReferenciaById(Int32 id);
         Int32 ExecuteFilter(Int32? catId, String nome, String cpf, String cnpj, String email, String cidade, String uf, String rede, out List<CLIENTE> objeto);
+        Int32 ValidateEditContato(CLIENTE_CONTATO item);
+        Int32 ValidateCreateContato(CLIENTE_CONTATO item);
+        Int32 ValidateEditReferencia(CLIENTE_REFERENCIA item);
+        Int32 ValidateCreateReferencia(CLIENTE_REFERENCIA item);
+        Int32 ValidateCreateTag(CLIENTE_TAG item);
     }
 }

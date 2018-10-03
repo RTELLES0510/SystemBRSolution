@@ -29,5 +29,10 @@ namespace ModelServices.Interfaces.EntitiesServices
         CLIENTE_CONTATO GetContatoById(Int32 id);
         CLIENTE_REFERENCIA GetReferenciaById(Int32 id);
         List<CLIENTE> ExecuteFilter(Int32? catId, String nome, String cpf, String cnpj, String email, String cidade, String uf, String rede);
+        Int32 EditContato(CLIENTE_CONTATO item);
+        Int32 CreateContato(CLIENTE_CONTATO item);
+        Int32 EditReferencia(CLIENTE_REFERENCIA item);
+        Int32 CreateReferencia(CLIENTE_REFERENCIA item);
+        Int32 CreateTag(CLIENTE_TAG item);
     }
 }

@@ -33,6 +33,8 @@ namespace DataServices.Repositories
             query = query.Include(p => p.CLIENTE_CONTATO);
             query = query.Include(p => p.CLIENTE_REFERENCIA);
             query = query.Include(p => p.CLIENTE_TAG);
+            query = query.Include(p => p.PEDIDO_VENDA);
+            query = query.Include(p => p.PEDIDO_SERVICO);
             return query.FirstOrDefault();
         }
 
@@ -47,6 +49,8 @@ namespace DataServices.Repositories
             query = query.Include(p => p.CLIENTE_CONTATO);
             query = query.Include(p => p.CLIENTE_REFERENCIA);
             query = query.Include(p => p.CLIENTE_TAG);
+            query = query.Include(p => p.PEDIDO_VENDA);
+            query = query.Include(p => p.PEDIDO_SERVICO);
             return query.FirstOrDefault();
         }
 

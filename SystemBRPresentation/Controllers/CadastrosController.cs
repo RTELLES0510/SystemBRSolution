@@ -559,42 +559,27 @@ namespace SystemBRPresentation.Controllers
         public ActionResult EditarContato(Int32 id)
         {
             // Prepara view
-            CLIENTE item = baseApp.GetItemById(id);
-            objetoAntes = item;
-            SessionMocks.cliente = item;
-            SessionMocks.idVolta = id;
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            CLIENTE_CONTATO item = baseApp.GetContatoById(id);
+            objetoAntes = SessionMocks.cliente;
+            ClienteContatoViewModel vm = Mapper.Map<CLIENTE_CONTATO, ClienteContatoViewModel>(item);
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarContato(ClienteViewModel vm)
+        public ActionResult EditarContato(ClienteContatoViewModel vm)
         {
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Executa a operação
                     USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
-                    Int32 volta = baseApp.ValidateEdit(item, objetoAntes, usuarioLogado);
+                    CLIENTE_CONTATO item = Mapper.Map<ClienteContatoViewModel, CLIENTE_CONTATO>(vm);
+                    Int32 volta = baseApp.ValidateEditContato(item);
 
                     // Verifica retorno
-
-                    // Sucesso
-                    listaMaster = new List<CLIENTE>();
-                    SessionMocks.listaCliente = null;
-                    if (SessionMocks.voltaCliente == 2)
-                    {
-                        return RedirectToAction("VerCardsCliente");
-                    }
-                    return RedirectToAction("MontarTelaCliente");
+                    return RedirectToAction("VoltarAnexoCliente");
                 }
                 catch (Exception ex)
                 {
@@ -611,139 +596,49 @@ namespace SystemBRPresentation.Controllers
         [HttpGet]
         public ActionResult ExcluirContato(Int32 id)
         {
-            // Prepara view
-            CLIENTE item = baseApp.GetItemById(id);
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
-            return View(vm);
-        }
-
-        [HttpPost]
-        public ActionResult ExcluirContato(ClienteViewModel vm)
-        {
-            try
-            {
-                // Executa a operação
-                USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
-                Int32 volta = baseApp.ValidateDelete(item, usuarioLogado);
-
-                // Verifica retorno
-                if (volta == 1)
-                {
-                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0019", CultureInfo.CurrentCulture);
-                    return View(vm);
-                }
-
-                // Sucesso
-                listaMaster = new List<CLIENTE>();
-                SessionMocks.listaCliente = null;
-                return RedirectToAction("MontarTelaCliente");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = ex.Message;
-                return View(objeto);
-            }
+            CLIENTE_CONTATO item = baseApp.GetContatoById(id);
+            objetoAntes = SessionMocks.cliente;
+            item.CLCO_IN_ATIVO = 0;
+            Int32 volta = baseApp.ValidateEditContato(item);
+            return RedirectToAction("VoltarAnexoCliente");
         }
 
         [HttpGet]
         public ActionResult ReativarContato(Int32 id)
         {
-            // Prepara view
-            CLIENTE item = baseApp.GetItemById(id);
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
-            return View(vm);
-        }
-
-        [HttpPost]
-        public ActionResult ReativarContato(ClienteViewModel vm)
-        {
-            try
-            {
-                // Executa a operação
-                USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
-                Int32 volta = baseApp.ValidateReativar(item, usuarioLogado);
-
-                // Verifica retorno
-
-                // Sucesso
-                listaMaster = new List<CLIENTE>();
-                SessionMocks.listaCliente = null;
-                return RedirectToAction("MontarTelaCliente");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = ex.Message;
-                return View(objeto);
-            }
+            CLIENTE_CONTATO item = baseApp.GetContatoById(id);
+            objetoAntes = SessionMocks.cliente;
+            item.CLCO_IN_ATIVO = 1;
+            Int32 volta = baseApp.ValidateEditContato(item);
+            return RedirectToAction("VoltarAnexoCliente");
         }
 
         [HttpGet]
         public ActionResult IncluirContato()
         {
-            // Prepara listas
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
-
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
-            CLIENTE item = new CLIENTE();
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
-            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
-            vm.CLIE_DT_CADASTRO = DateTime.Today;
-            vm.CLIE_IN_ATIVO = 1;
-            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
-            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            CLIENTE_CONTATO item = new CLIENTE_CONTATO();
+            ClienteContatoViewModel vm = Mapper.Map<CLIENTE_CONTATO, ClienteContatoViewModel>(item);
+            vm.CLIE_CD_ID = SessionMocks.idVolta;
+            vm.CLCO_IN_ATIVO = 1;
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult IncluirContato(ClienteViewModel vm)
+        public ActionResult IncluirContato(ClienteContatoViewModel vm)
         {
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Executa a operação
-                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    CLIENTE_CONTATO item = Mapper.Map<ClienteContatoViewModel, CLIENTE_CONTATO>(vm);
                     USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                    Int32 volta = baseApp.ValidateCreate(item, usuarioLogado);
-
+                    Int32 volta = baseApp.ValidateCreateContato(item);
                     // Verifica retorno
-                    if (volta == 1)
-                    {
-                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0018", CultureInfo.CurrentCulture);
-                        return View(vm);
-                    }
-
-                    // Carrega foto e processa alteracao
-                    item.CLIE_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
-                    volta = baseApp.ValidateEdit(item, item, usuarioLogado);
-
-                    // Cria pastas
-                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
-                    Directory.CreateDirectory(Server.MapPath(caminho));
-                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
-                    Directory.CreateDirectory(Server.MapPath(caminho));
-
-                    // Sucesso
-                    listaMaster = new List<CLIENTE>();
-                    SessionMocks.listaCliente = null;
-                    if (SessionMocks.voltaCliente == 2)
-                    {
-                        return RedirectToAction("VerCardsCliente");
-                    }
-                    return RedirectToAction("MontarTelaCliente");
+                    return RedirectToAction("VoltarAnexoCliente");
                 }
                 catch (Exception ex)
                 {
@@ -757,51 +652,31 @@ namespace SystemBRPresentation.Controllers
             }
         }
 
-                [HttpGet]
+        [HttpGet]
         public ActionResult EditarReferencia(Int32 id)
         {
             // Prepara view
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
-            CLIENTE item = baseApp.GetItemById(id);
-            objetoAntes = item;
-            SessionMocks.cliente = item;
-            SessionMocks.idVolta = id;
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
+            CLIENTE_REFERENCIA item = baseApp.GetReferenciaById(id);
+            objetoAntes = SessionMocks.cliente;
+            ClienteReferenciaViewModel vm = Mapper.Map<CLIENTE_REFERENCIA, ClienteReferenciaViewModel>(item);
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditarReferencia(ClienteViewModel vm)
+        public ActionResult EditarReferencia(ClienteReferenciaViewModel vm)
         {
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Executa a operação
                     USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
-                    Int32 volta = baseApp.ValidateEdit(item, objetoAntes, usuarioLogado);
+                    CLIENTE_REFERENCIA item = Mapper.Map<ClienteReferenciaViewModel, CLIENTE_REFERENCIA>(vm);
+                    Int32 volta = baseApp.ValidateEditReferencia(item);
 
                     // Verifica retorno
-
-                    // Sucesso
-                    listaMaster = new List<CLIENTE>();
-                    SessionMocks.listaCliente = null;
-                    if (SessionMocks.voltaCliente == 2)
-                    {
-                        return RedirectToAction("VerCardsCliente");
-                    }
-                    return RedirectToAction("MontarTelaCliente");
+                    return RedirectToAction("VoltarAnexoCliente");
                 }
                 catch (Exception ex)
                 {
@@ -818,139 +693,49 @@ namespace SystemBRPresentation.Controllers
         [HttpGet]
         public ActionResult ExcluirReferencia(Int32 id)
         {
-            // Prepara view
-            CLIENTE item = baseApp.GetItemById(id);
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
-            return View(vm);
-        }
-
-        [HttpPost]
-        public ActionResult ExcluirReferencia(ClienteViewModel vm)
-        {
-            try
-            {
-                // Executa a operação
-                USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
-                Int32 volta = baseApp.ValidateDelete(item, usuarioLogado);
-
-                // Verifica retorno
-                if (volta == 1)
-                {
-                    ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0019", CultureInfo.CurrentCulture);
-                    return View(vm);
-                }
-
-                // Sucesso
-                listaMaster = new List<CLIENTE>();
-                SessionMocks.listaCliente = null;
-                return RedirectToAction("MontarTelaCliente");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = ex.Message;
-                return View(objeto);
-            }
+            CLIENTE_REFERENCIA item = baseApp.GetReferenciaById(id);
+            objetoAntes = SessionMocks.cliente;
+            item.CLRE_IN_ATIVO = 0;
+            Int32 volta = baseApp.ValidateEditReferencia(item);
+            return RedirectToAction("VoltarAnexoCliente");
         }
 
         [HttpGet]
         public ActionResult ReativarReferencia(Int32 id)
         {
-            // Prepara view
-            CLIENTE item = baseApp.GetItemById(id);
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
-            return View(vm);
-        }
-
-        [HttpPost]
-        public ActionResult ReativarReferencia(ClienteViewModel vm)
-        {
-            try
-            {
-                // Executa a operação
-                USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
-                Int32 volta = baseApp.ValidateReativar(item, usuarioLogado);
-
-                // Verifica retorno
-
-                // Sucesso
-                listaMaster = new List<CLIENTE>();
-                SessionMocks.listaCliente = null;
-                return RedirectToAction("MontarTelaCliente");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = ex.Message;
-                return View(objeto);
-            }
+            CLIENTE_REFERENCIA item = baseApp.GetReferenciaById(id);
+            objetoAntes = SessionMocks.cliente;
+            item.CLRE_IN_ATIVO = 1;
+            Int32 volta = baseApp.ValidateEditReferencia(item);
+            return RedirectToAction("VoltarAnexoCliente");
         }
 
         [HttpGet]
         public ActionResult IncluirReferencia()
         {
-            // Prepara listas
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
-
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
-            CLIENTE item = new CLIENTE();
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
-            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
-            vm.CLIE_DT_CADASTRO = DateTime.Today;
-            vm.CLIE_IN_ATIVO = 1;
-            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
-            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            CLIENTE_REFERENCIA item = new CLIENTE_REFERENCIA();
+            ClienteReferenciaViewModel vm = Mapper.Map<CLIENTE_REFERENCIA, ClienteReferenciaViewModel>(item);
+            vm.CLIE_CD_ID = SessionMocks.idVolta;
+            vm.CLRE_IN_ATIVO = 1;
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult IncluirReferencia(ClienteViewModel vm)
+        public ActionResult IncluirReferencia(ClienteReferenciaViewModel vm)
         {
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Executa a operação
-                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    CLIENTE_REFERENCIA item = Mapper.Map<ClienteReferenciaViewModel, CLIENTE_REFERENCIA>(vm);
                     USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                    Int32 volta = baseApp.ValidateCreate(item, usuarioLogado);
-
+                    Int32 volta = baseApp.ValidateCreateReferencia(item);
                     // Verifica retorno
-                    if (volta == 1)
-                    {
-                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0018", CultureInfo.CurrentCulture);
-                        return View(vm);
-                    }
-
-                    // Carrega foto e processa alteracao
-                    item.CLIE_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
-                    volta = baseApp.ValidateEdit(item, item, usuarioLogado);
-
-                    // Cria pastas
-                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
-                    Directory.CreateDirectory(Server.MapPath(caminho));
-                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
-                    Directory.CreateDirectory(Server.MapPath(caminho));
-
-                    // Sucesso
-                    listaMaster = new List<CLIENTE>();
-                    SessionMocks.listaCliente = null;
-                    if (SessionMocks.voltaCliente == 2)
-                    {
-                        return RedirectToAction("VerCardsCliente");
-                    }
-                    return RedirectToAction("MontarTelaCliente");
+                    return RedirectToAction("VoltarAnexoCliente");
                 }
                 catch (Exception ex)
                 {
@@ -967,68 +752,42 @@ namespace SystemBRPresentation.Controllers
         [HttpGet]
         public ActionResult IncluirTag()
         {
-            // Prepara listas
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
-
             // Prepara view
+            List<SelectListItem> tipoTag = new List<SelectListItem>();
+            tipoTag.Add(new SelectListItem() { Text = "Padrão", Value = "1" });
+            tipoTag.Add(new SelectListItem() { Text = "Aviso", Value = "2" });
+            tipoTag.Add(new SelectListItem() { Text = "Alarme", Value = "1" });
+            tipoTag.Add(new SelectListItem() { Text = "Elogio", Value = "2" });
+            ViewBag.TipoTag = new SelectList(tipoTag, "Value", "Text");
+            
             USUARIO usuario = SessionMocks.UserCredentials;
-            CLIENTE item = new CLIENTE();
-            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
-            vm.ASSI_CD_ID = SessionMocks.IdAssinante.Value;
-            vm.CLIE_DT_CADASTRO = DateTime.Today;
-            vm.CLIE_IN_ATIVO = 1;
-            vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
-            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
+            CLIENTE_TAG item = new CLIENTE_TAG();
+            ClienteTagViewModel vm = Mapper.Map<CLIENTE_TAG, ClienteTagViewModel>(item);
+            vm.CLIE_CD_ID = SessionMocks.idVolta;
+            vm.CLTA_IN_ATIVO = 1;
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult IncluirTag(ClienteViewModel vm)
+        public ActionResult IncluirTag(ClienteTagViewModel vm)
         {
-            ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
-            ViewBag.Filiais = new SelectList(baseApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
-            ViewBag.TiposContribuinte = new SelectList(baseApp.GetAllTiposContribuinte(), "TICO_CD_ID", "TICO_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
-            ViewBag.TiposPessoa = new SelectList(baseApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            List<SelectListItem> tipoTag = new List<SelectListItem>();
+            tipoTag.Add(new SelectListItem() { Text = "Padrão", Value = "1" });
+            tipoTag.Add(new SelectListItem() { Text = "Aviso", Value = "2" });
+            tipoTag.Add(new SelectListItem() { Text = "Alarme", Value = "1" });
+            tipoTag.Add(new SelectListItem() { Text = "Elogio", Value = "2" });
+            ViewBag.TipoTag = new SelectList(tipoTag, "Value", "Text");
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Executa a operação
-                    CLIENTE item = Mapper.Map<ClienteViewModel, CLIENTE>(vm);
+                    CLIENTE_TAG item = Mapper.Map<ClienteTagViewModel, CLIENTE_TAG>(vm);
                     USUARIO usuarioLogado = SessionMocks.UserCredentials;
-                    Int32 volta = baseApp.ValidateCreate(item, usuarioLogado);
-
+                    Int32 volta = baseApp.ValidateCreateTag(item);
                     // Verifica retorno
-                    if (volta == 1)
-                    {
-                        ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0018", CultureInfo.CurrentCulture);
-                        return View(vm);
-                    }
-
-                    // Carrega foto e processa alteracao
-                    item.CLIE_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
-                    volta = baseApp.ValidateEdit(item, item, usuarioLogado);
-
-                    // Cria pastas
-                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
-                    Directory.CreateDirectory(Server.MapPath(caminho));
-                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
-                    Directory.CreateDirectory(Server.MapPath(caminho));
-
-                    // Sucesso
-                    listaMaster = new List<CLIENTE>();
-                    SessionMocks.listaCliente = null;
-                    if (SessionMocks.voltaCliente == 2)
-                    {
-                        return RedirectToAction("VerCardsCliente");
-                    }
-                    return RedirectToAction("MontarTelaCliente");
+                    return RedirectToAction("VoltarAnexoCliente");
                 }
                 catch (Exception ex)
                 {
@@ -1041,9 +800,6 @@ namespace SystemBRPresentation.Controllers
                 return View(vm);
             }
         }
-
-
-
 
         [HttpGet]
         public ActionResult MontarTelaFornecedor()

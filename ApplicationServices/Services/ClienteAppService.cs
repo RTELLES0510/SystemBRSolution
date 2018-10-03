@@ -340,5 +340,73 @@ namespace ApplicationServices.Services
                 throw;
             }
         }
+
+        public Int32 ValidateEditContato(CLIENTE_CONTATO item)
+        {
+            try
+            {
+                // Persiste
+                return _baseService.EditContato(item);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateCreateContato(CLIENTE_CONTATO item)
+        {
+            try
+            {
+                // Persiste
+                Int32 volta = _baseService.CreateContato(item);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateEditReferencia(CLIENTE_REFERENCIA item)
+        {
+            try
+            {
+                // Persiste
+                return _baseService.EditReferencia(item);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateCreateReferencia(CLIENTE_REFERENCIA item)
+        {
+            try
+            {
+                // Persiste
+                Int32 volta = _baseService.CreateReferencia(item);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateCreateTag(CLIENTE_TAG item)
+        {
+            try
+            {
+                // Persiste
+                Int32 volta = _baseService.CreateTag(item);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

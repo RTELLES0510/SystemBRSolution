@@ -73,6 +73,7 @@ namespace EntitiesServices.Model
         public string CLIE_TX_OBSERVACOES { get; set; }
         public Nullable<decimal> CLIE_VL_LIMITE_CREDITO { get; set; }
         public Nullable<int> TIPE_CD_ID { get; set; }
+        public string CLIE_NR_TELEFONE_ADICIONAL { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_CLIENTE CATEGORIA_CLIENTE { get; set; }

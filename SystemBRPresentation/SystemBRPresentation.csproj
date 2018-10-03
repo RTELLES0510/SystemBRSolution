@@ -209,6 +209,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BancoViewModel.cs" />
     <Compile Include="ViewModels\CargoViewModel.cs" />
+    <Compile Include="ViewModels\ClienteContatoViewModel.cs" />
+    <Compile Include="ViewModels\ClienteReferenciaViewModel.cs" />
+    <Compile Include="ViewModels\ClienteTagViewModel.cs" />
     <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\ConfiguracaoViewModel.cs" />
     <Compile Include="ViewModels\ContaBancariaViewModel.cs" />
@@ -2102,6 +2105,11 @@
     <Content Include="Views\Cadastros\VerManutencaoEquipamento.cshtml" />
     <Content Include="Views\Cadastros\EditarCliente.cshtml" />
     <Content Include="Views\Cadastros\VisualizarCliente.cshtml" />
+    <Content Include="Views\Cadastros\EditarContato.cshtml" />
+    <Content Include="Views\Cadastros\IncluirContato.cshtml" />
+    <Content Include="Views\Cadastros\EditarReferencia.cshtml" />
+    <Content Include="Views\Cadastros\IncluirReferencia.cshtml" />
+    <Content Include="Views\Cadastros\IncluirTag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

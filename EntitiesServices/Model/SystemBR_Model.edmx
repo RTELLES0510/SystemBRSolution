@@ -209,6 +209,7 @@
           <Property Name="CLIE_NM_NACIONALIDADE" Type="varchar" MaxLength="50" />
           <Property Name="CLIE_TX_OBSERVACOES" Type="text" />
           <Property Name="CLIE_VL_LIMITE_CREDITO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CLIE_NR_TELEFONE_ADICIONAL" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CLIENTE_ANEXO">
           <Key>
@@ -4938,6 +4939,7 @@
           <NavigationProperty Name="TIPO_CONTRIBUINTE" Relationship="SystemBRDatabaseModel.FK_CLIENTE_TIPO_CONTRIBUINTE" FromRole="CLIENTE" ToRole="TIPO_CONTRIBUINTE" />
           <Property Name="TIPE_CD_ID" Type="Int32" />
           <NavigationProperty Name="TIPO_PESSOA" Relationship="SystemBRDatabaseModel.FK_CLIENTE_TIPO_PESSOA" FromRole="CLIENTE" ToRole="TIPO_PESSOA" />
+          <Property Name="CLIE_NR_TELEFONE_ADICIONAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CLIENTE_ANEXO">
           <Key>
@@ -9890,6 +9892,7 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="CLIE_NR_TELEFONE_ADICIONAL" ColumnName="CLIE_NR_TELEFONE_ADICIONAL" />
                 <ScalarProperty Name="TIPE_CD_ID" ColumnName="TIPE_CD_ID" />
                 <ScalarProperty Name="CLIE_VL_LIMITE_CREDITO" ColumnName="CLIE_VL_LIMITE_CREDITO" />
                 <ScalarProperty Name="CLIE_TX_OBSERVACOES" ColumnName="CLIE_TX_OBSERVACOES" />
