@@ -52,5 +52,6 @@ namespace EntitiesServices.Model
         public virtual PEDIDO_VENDA PEDIDO_VENDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROPOSTA_VENDA_ANEXO> PROPOSTA_VENDA_ANEXO { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

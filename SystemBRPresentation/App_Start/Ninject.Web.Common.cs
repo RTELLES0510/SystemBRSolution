@@ -158,6 +158,9 @@ namespace Presentation.Start
             kernel.Bind<IColaboradorRepository>().To<ColaboradorRepository>();
             kernel.Bind<ITipoContribuinteRepository>().To<TipoContribuinteRepository>();
             kernel.Bind<ITipoPessoaRepository>().To<TipoPessoaRepository>();
+            kernel.Bind<ISubcategoriaProdutoRepository>().To<SubcategoriaProdutoRepository>();
+            kernel.Bind<IProdutoFornecedorRepository>().To<ProdutoFornecedorRepository>();
+            kernel.Bind<IProdutoGradeRepository>().To<ProdutoGradeRepository>();
         }
     }
 }

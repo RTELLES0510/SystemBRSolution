@@ -520,21 +520,32 @@ namespace SystemBRPresentation.Controllers
             if (file == null)
                 return Content("Nenhum arquivo selecionado");
 
+            // Recupera arquivo
             CLIENTE item = baseApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
-            file.SaveAs(path);
 
             //Recupera tipo de arquivo
             extensao = Path.GetExtension(fileName);
             String a = extensao;
 
-            // Gravar registro
-            item.CLIE_AQ_FOTO = "~" + caminho + fileName;
-            objetoAntes = item;
-            Int32 volta = baseApp.ValidateEdit(item, objetoAntes);
+            // Checa extensão
+            if (extensao.ToUpper() == ".JPG" || extensao.ToUpper() == ".GIF" || extensao.ToUpper() == ".PNG" || extensao.ToUpper() == ".JPEG")
+            {
+                // Salva arquivo
+                file.SaveAs(path);
+
+                // Gravar registro
+                item.CLIE_AQ_FOTO = "~" + caminho + fileName;
+                objetoAntes = item;
+                Int32 volta = baseApp.ValidateEdit(item, objetoAntes);
+            }
+            else
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0036", CultureInfo.CurrentCulture);
+            }
             return RedirectToAction("VoltarAnexoCliente");
         }
 
@@ -1426,10 +1437,16 @@ namespace SystemBRPresentation.Controllers
         public ActionResult EditarProduto(Int32 id)
         {
             // Prepara view
+            PRODUTO item = prodApp.GetItemById(id);
             ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Subs = new SelectList(prodApp.GetAllSubcategorias(item.CAPR_CD_ID.Value), "SCPR_CD_ID", "SCPR_NM_NOME");
             ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
-            PRODUTO item = prodApp.GetItemById(id);
+            List<SelectListItem> tipoProduto = new List<SelectListItem>();
+            tipoProduto.Add(new SelectListItem() { Text = "Simples", Value = "1" });
+            tipoProduto.Add(new SelectListItem() { Text = "Kit", Value = "2" });
+            ViewBag.TiposProduto = new SelectList(tipoProduto, "Value", "Text");
+
             objetoProdAntes = item;
             SessionMocks.produto = item;
             SessionMocks.idVolta = id;
@@ -1442,10 +1459,15 @@ namespace SystemBRPresentation.Controllers
         public ActionResult EditarProduto(ProdutoViewModel vm)
         {
             ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Subs = new SelectList(prodApp.GetAllSubcategorias(vm.CAPR_CD_ID.Value), "SCPR_CD_ID", "SCPR_NM_NOME");
             ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
-            //if (ModelState.IsValid)
-            //{
+            List<SelectListItem> tipoProduto = new List<SelectListItem>();
+            tipoProduto.Add(new SelectListItem() { Text = "Simples", Value = "1" });
+            tipoProduto.Add(new SelectListItem() { Text = "Kit", Value = "2" });
+            ViewBag.TiposProduto = new SelectList(tipoProduto, "Value", "Text");
+            if (ModelState.IsValid)
+            {
                 try
                 {
                     // Executa a operação
@@ -1469,11 +1491,11 @@ namespace SystemBRPresentation.Controllers
                     ViewBag.Message = ex.Message;
                     return View(vm);
                 }
-            //}
-            //else
-            //{
-            //    return View(vm);
-            //}
+            }
+            else
+            {
+                return View(vm);
+            }
         }
 
         [HttpGet]

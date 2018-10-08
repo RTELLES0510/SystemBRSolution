@@ -374,5 +374,14 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0035", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Formato invalido para foto, Deve ser JPG, GIF ou PNG.
+        /// </summary>
+        internal static string M0036 {
+            get {
+                return ResourceManager.GetString("M0036", resourceCulture);
+            }
+        }
     }
 }

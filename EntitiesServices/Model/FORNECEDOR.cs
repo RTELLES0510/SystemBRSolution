@@ -22,6 +22,7 @@ namespace EntitiesServices.Model
             this.ITEM_PEDIDO_COMPRA_COTACAO = new HashSet<ITEM_PEDIDO_COMPRA_COTACAO>();
             this.PEDIDO_COMPRA = new HashSet<PEDIDO_COMPRA>();
             this.EQUIPAMENTO_MANUTENCAO = new HashSet<EQUIPAMENTO_MANUTENCAO>();
+            this.PRODUTO_FORNECEDOR = new HashSet<PRODUTO_FORNECEDOR>();
         }
     
         public int FORN_CD_ID { get; set; }
@@ -59,5 +60,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<PEDIDO_COMPRA> PEDIDO_COMPRA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
     }
 }

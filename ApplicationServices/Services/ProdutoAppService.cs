@@ -59,6 +59,12 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public List<SUBCATEGORIA_PRODUTO> GetAllSubcategorias(Int32 cat)
+        {
+            List<SUBCATEGORIA_PRODUTO> lista = _baseService.GetAllSubcategorias(cat);
+            return lista;
+        }
+
         public List<UNIDADE> GetAllUnidades()
         {
             List<UNIDADE> lista = _baseService.GetAllUnidades();
@@ -74,6 +80,18 @@ namespace ApplicationServices.Services
         public PRODUTO_ANEXO GetAnexoById(Int32 id)
         {
             PRODUTO_ANEXO lista = _baseService.GetAnexoById(id);
+            return lista;
+        }
+
+        public PRODUTO_FORNECEDOR GetFornecedorById(Int32 id)
+        {
+            PRODUTO_FORNECEDOR lista = _baseService.GetFornecedorById(id);
+            return lista;
+        }
+
+        public PRODUTO_GRADE GetGradeById(Int32 id)
+        {
+            PRODUTO_GRADE lista = _baseService.GetGradeById(id);
             return lista;
         }
 
@@ -271,5 +289,60 @@ namespace ApplicationServices.Services
                 throw;
             }
         }
+
+        public Int32 ValidateEditFornecedor(PRODUTO_FORNECEDOR item)
+        {
+            try
+            {
+                // Persiste
+                return _baseService.EditFornecedor(item);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateCreateFornecedor(PRODUTO_FORNECEDOR item)
+        {
+            try
+            {
+                // Persiste
+                Int32 volta = _baseService.CreateFornecedor(item);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateEditGrade(PRODUTO_GRADE item)
+        {
+            try
+            {
+                // Persiste
+                return _baseService.EditGrade(item);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateCreateGrade(PRODUTO_GRADE item)
+        {
+            try
+            {
+                // Persiste
+                Int32 volta = _baseService.CreateGrade(item);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }

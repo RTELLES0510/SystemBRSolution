@@ -25,6 +25,8 @@ namespace EntitiesServices.Model
             this.PRECO_PRODUTO = new HashSet<PRECO_PRODUTO>();
             this.PRODUTO_ANEXO = new HashSet<PRODUTO_ANEXO>();
             this.FICHA_TECNICA = new HashSet<FICHA_TECNICA>();
+            this.PRODUTO_FORNECEDOR = new HashSet<PRODUTO_FORNECEDOR>();
+            this.PRODUTO_GRADE = new HashSet<PRODUTO_GRADE>();
         }
     
         public int PROD_CD_ID { get; set; }
@@ -43,6 +45,42 @@ namespace EntitiesServices.Model
         public System.DateTime PROD_DT_CADASTRO { get; set; }
         public int PROD_IN_ATIVO { get; set; }
         public string PROD_AQ_FOTO { get; set; }
+        public string PROD_CD_CODIGO { get; set; }
+        public Nullable<int> PROD_IN_TIPO_PRODUTO { get; set; }
+        public Nullable<decimal> PROD_VL_PRECO_VENDA { get; set; }
+        public Nullable<decimal> PROD_VL_PRECO_PROMOCAO { get; set; }
+        public Nullable<int> SCPR_CD_ID { get; set; }
+        public string PROD_DS_INFORMACOES { get; set; }
+        public Nullable<int> PROD_NR_GARANTIA { get; set; }
+        public Nullable<int> PROD_QN_QUANTIDADE_MAXIMA { get; set; }
+        public Nullable<int> PROD_QN_RESERVA_ESTOQUE { get; set; }
+        public string PROD_NR_REFERENCIA { get; set; }
+        public Nullable<int> PROD_IN_BALANCA_PDV { get; set; }
+        public Nullable<int> PROD_IN_BALANCA_RETAGUARDA { get; set; }
+        public Nullable<int> PROD_NR_DIAS_VALIDADE { get; set; }
+        public Nullable<int> PROD_IN_TIPO_COMBO { get; set; }
+        public Nullable<int> PROD_IN_OPCAO_COMBO { get; set; }
+        public Nullable<int> PROD_IN_DIVISAO { get; set; }
+        public Nullable<int> PROD_NR_VALIDADE { get; set; }
+        public Nullable<int> PROD_IN_COBRAR_MAIOR { get; set; }
+        public string PROD_DS_INFORMACAO_NUTRICIONAL { get; set; }
+        public Nullable<int> PROD_IN_GERAR_ARQUIVO { get; set; }
+        public string PROD_NR_NCM { get; set; }
+        public string PROD_NM_ORIGEM { get; set; }
+        public string PROD_CD_GTIN_EAN { get; set; }
+        public string PROD_NM_LOCALIZACAO_ESTOQUE { get; set; }
+        public Nullable<decimal> PROD_QN_PESO_BRUTO { get; set; }
+        public Nullable<decimal> PROD_QN_PESO_LIQUIDO { get; set; }
+        public Nullable<int> PROD_IN_TIPO_EMBALAGEM { get; set; }
+        public Nullable<decimal> PROD_NR_LARGURA { get; set; }
+        public Nullable<decimal> PROD_NR_COMPRIMENTO { get; set; }
+        public Nullable<decimal> PROD_NR_ALTURA { get; set; }
+        public Nullable<decimal> PROD_NR_DIAMETRO { get; set; }
+        public Nullable<decimal> PROD_VL_CUSTO { get; set; }
+        public Nullable<decimal> PROD_PC_MARKUP_MININO { get; set; }
+        public Nullable<decimal> PROD_VL_PRECO_MINIMO { get; set; }
+        public Nullable<decimal> PROD_VL_MARKUP_PADRAO { get; set; }
+        public string PROD_TX_OBSERVACOES { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_PRODUTO CATEGORIA_PRODUTO { get; set; }
@@ -65,5 +103,10 @@ namespace EntitiesServices.Model
         public virtual UNIDADE UNIDADE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FICHA_TECNICA> FICHA_TECNICA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PRODUTO_GRADE> PRODUTO_GRADE { get; set; }
+        public virtual SUBCATEGORIA_PRODUTO SUBCATEGORIA_PRODUTO { get; set; }
     }
 }

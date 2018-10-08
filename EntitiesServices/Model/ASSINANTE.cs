@@ -39,6 +39,12 @@ namespace EntitiesServices.Model
             this.PERIODICIDADE = new HashSet<PERIODICIDADE>();
             this.SEGMENTO = new HashSet<SEGMENTO>();
             this.COLABORADOR = new HashSet<COLABORADOR>();
+            this.CATEGORIA_PRODUTO = new HashSet<CATEGORIA_PRODUTO>();
+            this.PEDIDO_SERVICO = new HashSet<PEDIDO_SERVICO>();
+            this.PEDIDO_VENDA = new HashSet<PEDIDO_VENDA>();
+            this.PROPOSTA_VENDA = new HashSet<PROPOSTA_VENDA>();
+            this.SUBCATEGORIA_PRODUTO = new HashSet<SUBCATEGORIA_PRODUTO>();
+            this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -96,5 +102,17 @@ namespace EntitiesServices.Model
         public virtual ICollection<SEGMENTO> SEGMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COLABORADOR> COLABORADOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CATEGORIA_PRODUTO> CATEGORIA_PRODUTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PEDIDO_SERVICO> PEDIDO_SERVICO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PEDIDO_VENDA> PEDIDO_VENDA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
     }
 }

@@ -42,5 +42,6 @@ namespace EntitiesServices.Model
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

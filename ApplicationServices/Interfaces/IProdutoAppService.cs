@@ -24,5 +24,12 @@ namespace ApplicationServices.Interfaces
         List<FILIAL> GetAllFilial();
         PRODUTO_ANEXO GetAnexoById(Int32 id);
         Int32 ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId, out List<PRODUTO> objeto);
+        List<SUBCATEGORIA_PRODUTO> GetAllSubcategorias(Int32 cat);
+        PRODUTO_FORNECEDOR GetFornecedorById(Int32 id);
+        PRODUTO_GRADE GetGradeById(Int32 id);
+        Int32 ValidateEditFornecedor(PRODUTO_FORNECEDOR item);
+        Int32 ValidateCreateFornecedor(PRODUTO_FORNECEDOR item);
+        Int32 ValidateEditGrade(PRODUTO_GRADE item);
+        Int32 ValidateCreateGrade(PRODUTO_GRADE item);
     }
 }

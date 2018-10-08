@@ -222,7 +222,7 @@
                                                 @using (Html.BeginForm("UploadFotoCliente", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container3" }))
                                                 {
                                                     <br />
-                                                    <input type="file" name="file" id="file" class="btn btn-sm btn-warning"/>
+                                                    <input type="file" accept=".jpg, .png, .jpeg, .gif|images/*" name="file" id="file" class="btn btn-sm btn-warning"/>
                                                     <br />
                                                     <div class="form-group">
                                                         <input type="submit" value="Incluir Fotografia do Cliente" class="btn btn-sm btn-success" />
@@ -719,7 +719,6 @@
                                             @Html.ButtonActionSubmit(text: "Confirma edição de Cliente")
                                             @Html.ButtonLinkIndex(text: "Incluir Nova Tag", action: "IncluirTag", controller: "Cadastros")
                                             @Html.ButtonLinkIndex(text: "Incluir Nova Referência", action: "IncluirReferencia", controller: "Cadastros")
-                                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseCliente", controller: "Cadastros")
                                         </div>
                                     }
                                 </div>
@@ -756,7 +755,6 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.ButtonActionSubmit(text: "Confirma edição de Cliente")
-                                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseCliente", controller: "Cadastros")
                                         </div>
                                     }
                                 </div>

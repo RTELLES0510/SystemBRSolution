@@ -94,6 +94,9 @@
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISubcategoriaProdutoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IProdutoGradeRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IProdutoFornecedorRepository.cs" />
     <Compile Include="Interfaces\Repositories\IColaboradorRepository.cs" />
     <Compile Include="Interfaces\Repositories\IClienteTagRepository.cs" />
     <Compile Include="Interfaces\Repositories\IClienteReferenciaRepository.cs" />
@@ -414,6 +417,12 @@
     <Compile Include="Model\PRODUTO_ANEXO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PRODUTO_FORNECEDOR.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PRODUTO_GRADE.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\PROPOSTA_SERVICO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
@@ -433,6 +442,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\SERVICO_ANEXO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SUBCATEGORIA_PRODUTO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\SystemBR_Model.Context.cs">

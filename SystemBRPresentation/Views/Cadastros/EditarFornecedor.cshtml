@@ -181,7 +181,7 @@
                 @using (Html.BeginForm("UploadFotoFornecedor", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container3" }))
                 {
                     <div class="ibox-content">
-                        <input type="file" name="file" id="file" class="btn btn-sm btn-warning"/>
+                        <input type="file" name="file" accept=".jpg, .png, .jpeg, .gif|images/*" id="file" class="btn btn-sm btn-warning"/>
                         <br />
                         <div class="form-group">
                             <input type="submit" value="Incluir Fotografia do Fornecedor" class="btn btn-sm btn-success" />

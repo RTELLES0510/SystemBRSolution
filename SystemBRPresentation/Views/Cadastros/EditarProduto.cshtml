@@ -7,17 +7,19 @@
     <div class="page-title"> 
         <h3 class="title">Produtos</h3> 
     </div>
+
+    @*INDICADORES*@
     <div class="row">
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-primary pull-right">Hoje</span>
-                    <h5>@Model.PROD_NM_NOME</h5>
+                    <h5>Preço de Venda</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">@Model.PROD_QN_ESTOQUE</h1>
-                    <div class="stat-percent font-bold text-navy">32% <i class="fa fa-level-up"></i></div>
-                    <small>Estoque</small>
+                    <h1 class="no-margins">@Model.PROD_VL_PRECO_VENDA</h1>
+                    <div class="stat-percent font-bold text-navy">10% <i class="fa fa-level-up"></i></div>
+                    <small>Preço de venda atualizado (R$)</small>
                 </div>
             </div>
         </div>
@@ -25,16 +27,44 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-primary pull-right">Hoje</span>
-                    <h5>@Model.PROD_NM_NOME</h5>
+                    <h5>Quantidade em Estoque</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">@Model.MOVIMENTO_ESTOQUE_PRODUTO.Count</h1>
-                    <div class="stat-percent font-bold text-navy">32% <i class="fa fa-level-up"></i></div>
-                    <small>Movimentações do Estoque</small>
+                    <h1 class="no-margins">@Model.PROD_QN_ESTOQUE</h1>
+                    <div class="stat-percent font-bold text-navy">2% <i class="fa fa-level-up"></i></div>
+                    <small>Estoque atualizado</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Hoje</span>
+                    <h5>Pedidos Aprovados</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">23</h1>
+                    <div class="stat-percent font-bold text-navy">29% <i class="fa fa-level-up"></i></div>
+                    <small>Pedidos aprovados até hoje</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">Hoje</span>
+                    <h5>Evolução de Vendas</h5>
+                </div>
+                <div class="ibox-content">
+                    <h5>Total Acumulado</h5>
+                    <h2>34</h2>
+                    <div id="sparkline1"></div>
                 </div>
             </div>
         </div>
     </div>
+
+    @*TABS - PRINCIPAL*@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
@@ -60,238 +90,851 @@
                         </a>
                     </div>
                 </div>
-                @using (Html.BeginForm("EditarProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
-                {
-                    <div class="ibox-content">
-                        @Html.AntiForgeryToken()
-                        @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
-                        {
-                            <div class="alert alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            </div>
-                        }
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <br />
-                                    <img src="@Url.Content(Model.PROD_AQ_FOTO)" style = "width: auto; height: auto; max-height: 110px; max-width: 90px;">
-                                </div>                       
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    @Html.HiddenFor(m => m.PROD_CD_ID)
-                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
-                                    @Html.HiddenFor(m => m.PROD_DT_CADASTRO)
-                                    @Html.HiddenFor(m => m.PROD_IN_ATIVO)
-                                    @Html.HiddenFor(m => m.MATR_CD_ID)
-                                    @Html.HiddenFor(m => m.FILI_CD_ID)
-                                    @*@Html.HiddenFor(m => m.ITEM_PROPOSTA_VENDA)
-                                    @Html.HiddenFor(m => m.INVENTARIO_ITEM)
-                                    @Html.HiddenFor(m => m.ITEM_PEDIDO_COMPRA)
-                                    @Html.HiddenFor(m => m.ITEM_PEDIDO_VENDA)
-                                    @Html.HiddenFor(m => m.ITEM_PROPOSTA_VENDA)*@
-                                    @Html.HiddenFor(m => m.MOVIMENTO_ESTOQUE_PRODUTO)
-                                    @*@Html.HiddenFor(m => m.PRECO_PRODUTO)*@
-                                    @Html.HiddenFor(m => m.PROD_AQ_FOTO)
-                                    @Html.HiddenFor(m => m.PRODUTO_ANEXO)
-                                    Categoria*
-                                    @Html.DropDownListFor(m => m.CAPR_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.CAPR_CD_ID, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Filial
-                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.FILI_CD_ID, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-9 col-md-9 col-xs-12">
-                                    Nome*
-                                    @Html.TextBoxFor(m => m.PROD_NM_NOME, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.PROD_NM_NOME, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Unidade
-                                    @Html.DropDownListFor(m => m.UNID_CD_ID, (SelectList)ViewBag.Unidades, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.UNID_CD_ID, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">               
-                                <div class="col-lg-2 col-md-2 col-xs-12">
-                                    Quant.Estoque
-                                    @Html.TextBoxFor(m => m.PROD_QN_ESTOQUE, new { @class = "form-control", @style="color:red", @readonly="readonly", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.PROD_QN_ESTOQUE, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-xs-12">
-                                    Quant.Inicial
-                                    @Html.TextBoxFor(m => m.PROD_QN_QUANTIDADE_INICIAL, new { @class = "form-control", @readonly="readonly", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.PROD_QN_QUANTIDADE_INICIAL, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Última Movimentação
-                                    @Html.TextBoxFor(m => m.PROD_DT_ULTIMA_MOVIMENTACAO, "{0:dd/MM/yyyy}",new { @class = "form-control", @readonly="readonly", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.PROD_DT_ULTIMA_MOVIMENTACAO, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-xs-12">
-                                    Quant.Mínima
-                                    @Html.TextBoxFor(m => m.PROD_QN_QUANTIDADE_MINIMA, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.PROD_QN_QUANTIDADE_MINIMA, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Avisa Mínima
-                                    <br />
-                                    @Html.CheckBoxFor(m => m.AvisaMinima, new { @class = "checkbox i-checks"})
-                                    @Html.ValidationMessageFor(m => m.AvisaMinima, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-12 col-md-12 col-xs-12">
-                                    Descrição
-                                    @Html.TextAreaFor(m => m.PROD_DS_DESCRICAO, new { @class = "form-control", style = "width: 910px; height: 100px;", autofocus = true})
-                                    @Html.ValidationMessageFor(m => m.PROD_DS_DESCRICAO, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.ButtonActionSubmit(text: "Confirma edição de Produto")
-                            @Html.ButtonLinkIndex(text: "Ver Movimentação do Estoque", action: "VerMovimentacaoEstoqueProduto", controller: "Cadastros")
-                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseProduto", controller: "Cadastros")
-                        </div>
-                    </div>
-                }
-            </div>
-         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class="col-lg-10 col-md-10 col-xs-12 ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Produto - Fotografia</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#">Configuração 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Configuração 2</a>
-                            </li>
+                <div class="ibox-content">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1">Dados Gerais</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2">Imagens</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-3">Estoque</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-4">Varejo</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-5">Food Service</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-6">Informações Tributárias</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-7">Expedição</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-8">E-Commerce</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-4">Imagens</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-5">Custos & Preços</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-6">Observações</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-7">Resumos</a></li>
                         </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                @using (Html.BeginForm("UploadFotoProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container3" }))
-                {
-                    <div class="ibox-content">
-                        <input type="file" name="file" id="file" class="btn btn-sm btn-warning"/>
-                        <br />
-                        <div class="form-group">
-                            <input type="submit" value="Incluir Fotografia do Produto" class="btn btn-sm btn-success" />
-                        </div>
-                    </div>
-                }
-            </div>
-            <div class="col-lg-2 col-md-2 col-xs-12">
-                <div class="form-group">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <br />
-                        @if (!String.IsNullOrEmpty(Model.PROD_AQ_FOTO))
-	                    {
-                            <img src="@Url.Content(Model.PROD_AQ_FOTO)" style = "width: auto; height: auto; max-height: 110px; max-width: 90px;">
-                        }
-                        else
-                        {
-                            <img src="~/Images/gallery/10s.jpg" style = "width: auto; height: auto; max-height: 110px; max-width: 90px;">
-                        }
-                    </div>                       
-                </div>
-            </div>
-         </div>
-    </div>
+                        <div class="tab-content">
 
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Produto - Anexos</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#">Configuração 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Configuração 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                @using (Html.BeginForm("UploadFileProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container2" }))
-                {
-                    <div class="ibox-content">
-                        @if (Model.PRODUTO_ANEXO.Count > 0)
-                        {
-                            <table class="table table-striped table-bordered table-hover dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>Título</th>
-                                        <th>Data</th>
-                                        <th>Tipo</th>
-                                        <th class="td-one-action">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var cond in (Model.PRODUTO_ANEXO))
+                            @*Dados Gerais*@
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+                                    @using (Html.BeginForm("EditarProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
                                     {
-                                        <tr>
-                                            <td>@cond.PRAN_NM_TITULO</td>
-                                            <td>@cond.PRAN_DT_ANEXO.ToShortDateString()</td>
-                                            @if (cond.PRAN_IN_TIPO == 1)
-	                                        {
-                                                <td>Imagem</td>
-                                            }
-                                            else
-                                            {
-                                                <td>Arquivo</td>
-                                            }
-                                            <td class="td-one-action">
-                                                @if (cond.PRAN_IN_TIPO == 1)
-	                                            {
-                                                    @Html.TableLinkDetails(cond.PRAN_CD_ID, "VerAnexoProduto","fa-camera", "Visualizar")
-	                                            }
-                                                @Html.TableLinkDetails(cond.PRAN_CD_ID, "DownloadProduto","fa-download", "Download")
-                                            </td>
-                                        </tr>
+                                        @Html.AntiForgeryToken()
+                                        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                                        {
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <br />
+                                                    <img src="@Url.Content(Model.PROD_AQ_FOTO)" style = "width: auto; height: auto; max-height: 110px; max-width: 90px;">
+                                                </div>                       
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    @Html.HiddenFor(m => m.PROD_CD_ID)
+                                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_DT_CADASTRO)
+                                                    @Html.HiddenFor(m => m.PROD_IN_ATIVO)
+                                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                                    @Html.HiddenFor(m => m.FILI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_AQ_FOTO)
+                                                    Categoria*
+                                                    @Html.DropDownListFor(m => m.CAPR_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.CAPR_CD_ID, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Subcategoria
+                                                    @Html.DropDownListFor(m => m.SCPR_CD_ID, (SelectList)ViewBag.Subs, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.SCPR_CD_ID, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Filial
+                                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.FILI_CD_ID, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Tipo de Produto*
+                                                    @Html.DropDownListFor(m => m.PROD_IN_TIPO_PRODUTO, (SelectList)ViewBag.TiposProduto, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.PROD_IN_TIPO_PRODUTO, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Código
+                                                    @Html.TextBoxFor(m => m.PROD_CD_CODIGO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_CD_CODIGO, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-10 col-md-10 col-xs-12">
+                                                    Nome*
+                                                    @Html.TextBoxFor(m => m.PROD_NM_NOME, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NM_NOME, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Unidade
+                                                    @Html.DropDownListFor(m => m.UNID_CD_ID, (SelectList)ViewBag.Unidades, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.UNID_CD_ID, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Preço Venda
+                                                    @Html.TextBoxFor(m => m.PrecoVenda, new { @class = "form-control", @id = "cnpj", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PrecoVenda, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Preço Promoção
+                                                    @Html.TextBoxFor(m => m.PrecoPromocao, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PrecoPromocao, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Garantia (dias)
+                                                    @Html.TextBoxFor(m => m.Garantia, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.Garantia, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+                                                    Descrição
+                                                    @Html.TextAreaFor(m => m.PROD_DS_DESCRICAO, new { @class = "form-control", style = "width: 1040px; height: 100px;", autofocus = true})
+                                                    @Html.ValidationMessageFor(m => m.PROD_DS_DESCRICAO, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+                                                    Informações do Produto
+                                                    @Html.TextAreaFor(m => m.PROD_DS_INFORMACOES, new { @class = "form-control", style = "width: 1040px; height: 200px;", autofocus = true})
+                                                    @Html.ValidationMessageFor(m => m.PROD_DS_INFORMACOES, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.ButtonActionSubmit(text: "Confirma edição de Produto")
+                                        </div>
                                     }
-                                </tbody>
-                            </table>
-                        }
-                        <br />
-                        <input type="file" name="file" id="file" class="btn btn-sm btn-warning"/>
-                        <br />
-                        <div class="form-group">
-                            <input type="submit" value="Incluir Anexo do Produto" class="btn btn-sm btn-success" />
-                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseProduto", controller: "Cadastros")
+                                </div>
+                            </div>
+
+                            @*Estoque*@
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                    @using (Html.BeginForm("EditarProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id = "pwd-container1" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                                        {
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    @Html.HiddenFor(m => m.PROD_CD_ID)
+                                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_DT_CADASTRO)
+                                                    @Html.HiddenFor(m => m.PROD_IN_ATIVO)
+                                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                                    @Html.HiddenFor(m => m.FILI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_AQ_FOTO)
+                                                    Estoque Atual
+                                                    @Html.TextBoxFor(m => m.PROD_QN_ESTOQUE, new { @class = "form-control", @style="color:green", autofocus = true, @readonly="readonly"  })
+                                                    @Html.ValidationMessageFor(m => m.PROD_QN_ESTOQUE, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Estoque Inicial
+                                                    @Html.TextBoxFor(m => m.PROD_QN_QUANTIDADE_INICIAL, new { @class = "form-control", autofocus = true, @readonly="readonly"  })
+                                                    @Html.ValidationMessageFor(m => m.PROD_QN_QUANTIDADE_INICIAL, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Estoque Máximo
+                                                    @Html.TextBoxFor(m => m.PROD_QN_QUANTIDADE_MAXIMA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_QN_QUANTIDADE_MAXIMA, "", new { @style = "color:red" })
+                                                </div>                                              
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Estoque Mínimo
+                                                    @Html.TextBoxFor(m => m.PROD_QN_QUANTIDADE_MINIMA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_QN_QUANTIDADE_MINIMA, "", new { @style = "color:red" })
+                                                </div>                                              
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Reserva de Estoque
+                                                    @Html.TextBoxFor(m => m.PROD_QN_RESERVA_ESTOQUE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_QN_RESERVA_ESTOQUE, "", new { @style = "color:red" })
+                                                </div>                                              
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Data Último Movimento
+                                                    @Html.TextBoxFor(m => m.PROD_DT_ULTIMA_MOVIMENTACAO,"{0:dd/MM/yyyy}", new { @class = "form-control", autofocus = true, @readonly="readonly" })
+                                                    @Html.ValidationMessageFor(m => m.PROD_DT_ULTIMA_MOVIMENTACAO, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Aviso de Limite Mínimo
+                                                    <br />
+                                                    @Html.CheckBoxFor(m => m.AvisaMinima, new { @class = "checkbox i-checks"})
+                                                    @Html.ValidationMessageFor(m => m.AvisaMinima, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.ButtonActionSubmit(text: "Confirma edição de Produto")
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="row">                                          
+                                        <hr />
+                                        <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                                <h4>Fornecedores</h4>
+                                                <br />
+                                                @if (Model.PRODUTO_FORNECEDOR.Count > 0)
+                                                {
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nome</th>
+                                                                <th>E-Mail</th>
+                                                                <th>Telefone</th>
+                                                                <th>Ativo</th>
+                                                                <th class="td-one-action">Ações</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var cond in (Model.PRODUTO_FORNECEDOR))
+                                                            {
+                                                                <tr>
+                                                                    <td>@cond.FORNECEDOR.FORN_NM_NOME</td>
+                                                                    <td>@cond.FORNECEDOR.FORN_NM_EMAIL</td>
+                                                                    <td>@cond.FORNECEDOR.FORN_NM_TELEFONES</td>
+                                                                    @if (cond.PRFO_CD_ID == 1)
+	                                                                {
+                                                                        <td>Sim</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>Não</td>
+                                                                    }
+                                                                    <td class="td-one-action">
+                                                                        @Html.TableLinkDetails(cond.PRFO_CD_ID, "EditarProdutoFornecedor","fa-edit", "Editar/Consultar Fornecedor")
+                                                                        @if (cond.PRFO_IN_ATIVO == 1)
+	                                                                    {
+                                                                            @Html.TableLinkDetails(cond.PRFO_CD_ID, "ExcluirProdutoFornecedor","fa-trash-o", "Desativar Fornecedor")
+                                                                        }
+                                                                        else
+                                                                        {   
+                                                                            @Html.TableLinkDetails(cond.PRFO_CD_ID, "ReativarProdutoFornecedor","fa-refresh", "Reativar Fornecedor")
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.ButtonLinkIndex(text: "Incluir Novo Fornecedor", action: "IncluirProdutoFornecedor", controller: "Cadastros")
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Varejo*@
+                            <div id="tab-3" class="tab-pane">
+                                <div class="panel-body">
+                                    @using (Html.BeginForm("EditarProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id = "pwd-container1" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                                        {
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    @Html.HiddenFor(m => m.PROD_CD_ID)
+                                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_DT_CADASTRO)
+                                                    @Html.HiddenFor(m => m.PROD_IN_ATIVO)
+                                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                                    @Html.HiddenFor(m => m.FILI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_AQ_FOTO)
+                                                    Referência
+                                                    @Html.TextBoxFor(m => m.PROD_NR_REFERENCIA, new { @class = "form-control", @style="color:green", autofocus = true, @readonly="readonly"  })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NR_REFERENCIA, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.ButtonActionSubmit(text: "Confirma edição de Produto")
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="row">                                          
+                                        <hr />
+                                        <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                                <h4>Grade</h4>
+                                                <br />
+                                                @if (Model.PRODUTO_GRADE.Count > 0)
+                                                {
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Cor</th>
+                                                                <th>Tamanho</th>
+                                                                <th>Quantidade</th>
+                                                                <th>Ativo</th>
+                                                                <th class="td-one-action">Ações</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var cond in (Model.PRODUTO_GRADE.OrderBy(a => a.PRGR_NM_COR).ThenBy(a => a.PRGR_NM_TAMANHO)))
+                                                            {
+                                                                <tr>
+                                                                    <td>@cond.PRGR_NM_COR</td>
+                                                                    <td>@cond.PRGR_NM_TAMANHO</td>
+                                                                    <td>@cond.PRGR_QN_QUANTIDADE</td>
+                                                                    @if (cond.PRGR_IN_ATIVO == 1)
+	                                                                {
+                                                                        <td>Sim</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>Não</td>
+                                                                    }
+                                                                    <td class="td-one-action">
+                                                                        @Html.TableLinkDetails(cond.PRGR_CD_ID, "EditarProdutoGrade","fa-edit", "Editar/Consultar Item")
+                                                                        @if (cond.PRGR_IN_ATIVO == 1)
+	                                                                    {
+                                                                            @Html.TableLinkDetails(cond.PRGR_CD_ID, "ExcluirProdutoGrade","fa-trash-o", "Desativar Item")
+                                                                        }
+                                                                        else
+                                                                        {   
+                                                                            @Html.TableLinkDetails(cond.PRGR_CD_ID, "ReativarProdutoGrade","fa-refresh", "Reativar Item")
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.ButtonLinkIndex(text: "Incluir Novo Item na Grade", action: "IncluirProdutoGrade", controller: "Cadastros")
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Food Service*@
+                            <div id="tab-4" class="tab-pane">
+                                <div class="panel-body">
+                                    @using (Html.BeginForm("EditarProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                                        {
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    @Html.HiddenFor(m => m.PROD_CD_ID)
+                                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_DT_CADASTRO)
+                                                    @Html.HiddenFor(m => m.PROD_IN_ATIVO)
+                                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                                    @Html.HiddenFor(m => m.FILI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_AQ_FOTO)
+                                                    Balança PDV
+                                                    <br />
+                                                    @Html.CheckBoxFor(m => m.BalancaPDV, new { @class = "checkbox i-checks"})
+                                                    @Html.ValidationMessageFor(m => m.BalancaPDV, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Balança Retaguarda
+                                                    <div class="switch">
+                                                        <div class="onoffswitch">
+                                                            @Html.CheckBoxFor(m => m.BalancaRetaguarda, new { @class = "onoffswitch-checkbox"})
+                                                            @*<input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example">*@
+                                                            <label class="onoffswitch-label" for="example">
+                                                                <span class="onoffswitch-inner"></span>
+                                                                <span class="onoffswitch-switch"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    @*<br />*@
+                                                    @*@Html.CheckBoxFor(m => m.BalancaRetaguarda, new { @class = "checkbox i-checks"})*@
+                                                    @Html.ValidationMessageFor(m => m.BalancaRetaguarda, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Validade
+                                                    @Html.TextBoxFor(m => m.PROD_NR_VALIDADE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NR_VALIDADE, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Produto Tipo Combo
+                                                    <br />
+                                                    @Html.CheckBoxFor(m => m.ProdutoTipoCombo, new { @class = "checkbox i-checks"})
+                                                    @Html.ValidationMessageFor(m => m.ProdutoTipoCombo, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Produto Opção Combo
+                                                    <br />
+                                                    @Html.CheckBoxFor(m => m.ProdutoOpcaoCombo, new { @class = "checkbox i-checks"})
+                                                    @Html.ValidationMessageFor(m => m.ProdutoOpcaoCombo, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Divisão
+                                                    @Html.TextBoxFor(m => m.PROD_IN_DIVISAO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_IN_DIVISAO, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Cobrar pelo Maior
+                                                    <br />
+                                                    @Html.CheckBoxFor(m => m.CobrarMaior, new { @class = "checkbox i-checks"})
+                                                    @Html.ValidationMessageFor(m => m.CobrarMaior, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Gerar Arquivo Texto
+                                                    <br />
+                                                    @Html.CheckBoxFor(m => m.ArquivoTexto, new { @class = "checkbox i-checks"})
+                                                    @Html.ValidationMessageFor(m => m.ArquivoTexto, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+                                                    Informações Nutricionais
+                                                    @Html.TextAreaFor(m => m.PROD_DS_INFORMACAO_NUTRICIONAL, new { @class = "form-control", style = "width: 1040px; height: 200px;", autofocus = true})
+                                                    @Html.ValidationMessageFor(m => m.PROD_DS_INFORMACAO_NUTRICIONAL, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="form-group">
+                                            @Html.ButtonActionSubmit(text: "Confirma edição de Produto")
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            @*Informações Tributarias*@
+                            <div id="tab-5" class="tab-pane">
+                                <div class="panel-body">
+                                    <h3>Em Desenvolvimento</h3>
+                                </div>
+                            </div>
+
+                            @*Expedição*@
+                            <div id="tab-6" class="tab-pane">
+                                <div class="panel-body">
+                                    @using (Html.BeginForm("EditarProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                                        {
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    @Html.HiddenFor(m => m.PROD_CD_ID)
+                                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_DT_CADASTRO)
+                                                    @Html.HiddenFor(m => m.PROD_IN_ATIVO)
+                                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                                    @Html.HiddenFor(m => m.FILI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_AQ_FOTO)
+                                                    Código GTIN/EAN
+                                                    @Html.TextBoxFor(m => m.PROD_CD_GTIN_EAN, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_CD_GTIN_EAN, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Localização do Estoque
+                                                    @Html.TextBoxFor(m => m.PROD_NM_LOCALIZACAO_ESTOQUE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NM_LOCALIZACAO_ESTOQUE, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Peso Líquido (Kg)
+                                                    @Html.TextBoxFor(m => m.PROD_QN_PESO_LIQUIDO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_QN_PESO_LIQUIDO, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Peso Bruto (Kg)
+                                                    @Html.TextBoxFor(m => m.PROD_QN_PESO_BRUTO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_QN_PESO_BRUTO, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Tipo de Embalagem
+                                                    @Html.DropDownListFor(m => m.PROD_IN_TIPO_EMBALAGEM, (SelectList)ViewBag.Embalagens, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.PROD_IN_TIPO_EMBALAGEM, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Altura (cm)
+                                                    @Html.TextBoxFor(m => m.PROD_NR_ALTURA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NR_ALTURA, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Largura (cm)
+                                                    @Html.TextBoxFor(m => m.PROD_NR_LARGURA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NR_LARGURA, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Comprimento (cm)
+                                                    @Html.TextBoxFor(m => m.PROD_NR_COMPRIMENTO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NR_COMPRIMENTO, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-xs-12">
+                                                    Diâmetro (cm)
+                                                    @Html.TextBoxFor(m => m.PROD_NR_DIAMETRO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.PROD_NR_DIAMETRO, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="form-group">
+                                            @Html.ButtonActionSubmit(text: "Confirma edição de Produto")
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            @*E-Commerce*@
+                            <div id="tab-7" class="tab-pane">
+                                <div class="panel-body">
+                                    <h3>Em Desenvolvimento</h3>
+                                </div>
+                            </div>
+
+                            @*Imagens - Foto e Anexos*@
+                            <div id="tab-8" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-xs-12">   
+                                            <div class="form-group">
+                                                <h4>Fotografia do Produto</h4>
+                                                @using (Html.BeginForm("UploadFotoProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container3" }))
+                                                {
+                                                    <br />
+                                                    <input type="file" accept=".jpg, .png, .jpeg, .gif|images/*" name="file" id="file" class="btn btn-sm btn-warning"/>
+                                                    <br />
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Incluir Fotografia do Produto" class="btn btn-sm btn-success" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-xs-12">
+                                            <div class="form-group">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <br />
+                                                    @if (!String.IsNullOrEmpty(Model.PROD_AQ_FOTO))
+	                                                {
+                                                        <img src="@Url.Content(Model.PROD_AQ_FOTO)" style = "width: auto; height: auto; max-height: 110px; max-width: 90px;">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/gallery/10s.jpg" style = "width: auto; height: auto; max-height: 110px; max-width: 90px;">
+                                                    }
+                                                </div>                       
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <hr />
+                                        <div class="col-lg-12 col-md-12 col-xs-12"> 
+                                            <h4>Anexos do Produto</h4>
+                                            <br />
+                                            <div class="form-group">
+                                                @using (Html.BeginForm("UploadFileProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container2" }))
+                                                {
+                                                    <div class="ibox-content">
+                                                        @if (Model.PRODUTO_ANEXO.Count > 0)
+                                                        {
+                                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Título</th>
+                                                                        <th>Data</th>
+                                                                        <th>Tipo</th>
+                                                                        <th class="td-one-action">Ações</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var cond in (Model.PRODUTO_ANEXO))
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@cond.PRAN_NM_TITULO</td>
+                                                                            <td>@cond.PRAN_DT_ANEXO.ToShortDateString()</td>
+                                                                            @if (cond.PRAN_IN_TIPO == 1)
+	                                                                        {
+                                                                                <td>Imagem</td>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <td>Arquivo</td>
+                                                                            }
+                                                                            <td class="td-one-action">
+                                                                                @if (cond.PRAN_IN_TIPO == 1)
+	                                                                            {
+                                                                                    @Html.TableLinkDetails(cond.PRAN_CD_ID, "VerAnexoProduto","fa-camera", "Visualizar")
+	                                                                            }
+                                                                                @Html.TableLinkDetails(cond.PRAN_CD_ID, "DownloadProduto","fa-download", "Download")
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        }
+                                                        <input type="file" name="file" id="file" class="btn btn-sm btn-warning"/>
+                                                        <br />
+                                                        <div class="form-group">
+                                                            <input type="submit" value="Incluir Anexo do Produto" class="btn btn-sm btn-success" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Custos e Preços*@
+                            <div id="tab-9" class="tab-pane">
+                                <div class="panel-body">
+                                    <h3>Em Desenvolvimento</h3>
+                                </div>
+                            </div>
+
+                            @*Observações*@
+                            <div id="tab-10" class="tab-pane">
+                                <div class="panel-body">
+                                    @using (Html.BeginForm("EditarProduto", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                                        {
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+                                                    @Html.HiddenFor(m => m.PROD_CD_ID)
+                                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_DT_CADASTRO)
+                                                    @Html.HiddenFor(m => m.PROD_IN_ATIVO)
+                                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                                    @Html.HiddenFor(m => m.FILI_CD_ID)
+                                                    @Html.HiddenFor(m => m.PROD_AQ_FOTO)
+                                                    Observações
+                                                    @Html.TextAreaFor(m => m.PROD_TX_OBSERVACOES, new { @class = "form-control", style = "width: 1040px; height: 400px;", autofocus = true})
+                                                    @Html.ValidationMessageFor(m => m.PROD_TX_OBSERVACOES, "",new { @style="color:red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.ButtonActionSubmit(text: "Confirma edição de Produto")
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            @*Indicadores*@
+                            <div id="tab-11" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox float-e-margins">
+                                                <div class="ibox-title">
+                                                    <span class="label label-primary pull-right">Hoje</span>
+                                                    <h5>Últimas Vendas</h5>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    @if (Model.ITEM_PEDIDO_VENDA.Count > 0)
+                                                    {
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Número</th>
+                                                                    <th>Cliente</th>
+                                                                    <th>Emissão</th>
+                                                                    <th>Status</th>
+                                                                    <th>Aprovação</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var cond in (Model.ITEM_PEDIDO_VENDA.OrderByDescending(a => a.PEDIDO_VENDA.PEVE_DT_DATA).Take(4)))
+                                                                {
+                                                                    <tr>
+                                                                        <td>@cond.PEDIDO_VENDA.PEVE_NR_NUMERO</td>
+                                                                        <td>@cond.PEDIDO_VENDA.CLIENTE.CLIE_NM_NOME</td>
+                                                                        <td>@cond.PEDIDO_VENDA.PEVE_DT_DATA.ToShortDateString()</td>
+                                                                        @if (cond.PEDIDO_VENDA.PEVE_IN_STATUS == 1)
+	                                                                    {
+                                                                            <td>Em Emissão</td>
+                                                                        }
+                                                                        else if (cond.PEDIDO_VENDA.PEVE_IN_STATUS == 2)
+	                                                                    {
+                                                                            <td>Em Aprovação</td>
+                                                                        }
+                                                                        else if (cond.PEDIDO_VENDA.PEVE_IN_STATUS == 3)
+                                                                        {
+                                                                            <td>Aprovado</td>
+                                                                        }
+                                                                        else if (cond.PEDIDO_VENDA.PEVE_IN_STATUS == 4)
+                                                                        {
+                                                                            <td>Cancelado</td>
+                                                                        }
+                                                                        @if (cond.PEDIDO_VENDA.PEVE_DT_APROVACAO == null)
+	                                                                    {
+                                                                            <td>-</td>
+                                                                        }
+                                                                        else
+	                                                                    {
+                                                                            <td>@cond.PEDIDO_VENDA.PEVE_DT_APROVACAO.Value.ToShortDateString()</td>
+                                                                        }
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="ibox float-e-margins">
+                                                <div class="ibox-title">
+                                                    <span class="label label-primary pull-right">Hoje</span>
+                                                    <h5>Últimas Compras</h5>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    @if (Model.ITEM_PEDIDO_COMPRA.Count > 0)
+                                                    {
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Número</th>
+                                                                    <th>Emissão</th>
+                                                                    <th>Status</th>
+                                                                    <th>Aprovação</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var cond in (Model.ITEM_PEDIDO_COMPRA.OrderByDescending(a => a.PEDIDO_COMPRA.PECO_DT_DATA).Take(4)))
+                                                                {
+                                                                    <tr>
+                                                                        <td>@cond.PEDIDO_COMPRA.PECO_NR_NUMERO</td>
+                                                                        <td>@cond.PEDIDO_COMPRA.PECO_DT_DATA.ToShortDateString()</td>
+                                                                        @if (cond.PEDIDO_COMPRA.PECO_IN_STATUS == 1)
+	                                                                    {
+                                                                            <td>Em Emissão</td>
+                                                                        }
+                                                                        else if (cond.PEDIDO_COMPRA.PECO_IN_STATUS == 2)
+	                                                                    {
+                                                                            <td>Em Aprovação</td>
+                                                                        }
+                                                                        else if (cond.PEDIDO_COMPRA.PECO_IN_STATUS == 3)
+                                                                        {
+                                                                            <td>Aprovado</td>
+                                                                        }
+                                                                        else if (cond.PEDIDO_COMPRA.PECO_IN_STATUS == 4)
+                                                                        {
+                                                                            <td>Cancelado</td>
+                                                                        }
+                                                                        @if (cond.PEDIDO_COMPRA.PECO_DT_APROVACAO == null)
+	                                                                    {
+                                                                            <td>-</td>
+                                                                        }
+                                                                        else
+	                                                                    {
+                                                                            <td>@cond.PEDIDO_COMPRA.PECO_DT_APROVACAO.Value.ToShortDateString()</td>
+                                                                        }
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="ibox float-e-margins">
+                                                <div class="ibox-title">
+                                                    <span class="label label-primary pull-right">Hoje</span>
+                                                    <h5>Últimas Movimentações de Estoque</h5>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    @if (Model.MOVIMENTO_ESTOQUE_PRODUTO.Count > 0)
+                                                    {
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Data</th>
+                                                                    <th>Tipo</th>
+                                                                    <th>Quantidade</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var cond in (Model.MOVIMENTO_ESTOQUE_PRODUTO.OrderByDescending(a => a.MOEP_DT_MOVIMENTO).Take(4)))
+                                                                {
+                                                                    <tr>
+                                                                        <td>@cond.MOEP_DT_MOVIMENTO.ToShortDateString()</td>
+                                                                        @if (cond.MOEP_IN_TIPO_MOVIMENTO == 1)
+	                                                                    {
+                                                                            <td>Entrada</td>
+                                                                        }
+                                                                        else 
+	                                                                    {
+                                                                            <td>Saída</td>
+                                                                        }
+                                                                        <td>@cond.MOEP_QN_QUANTIDADE</td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                }
+                </div>
+                <div class="form-group">
+                    <br />
+                    @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseProduto", controller: "Cadastros")
+                </div>
             </div>
          </div>
     </div>
@@ -301,13 +944,13 @@
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />  
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
-    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
 }
 @section Scripts {
    
     @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/bundles/inputmask")
     @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/sparkline")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
     
     <script type="text/javascript">
@@ -319,8 +962,8 @@
                 buttons: [
                     { extend: 'copy' },
                     { extend: 'csv' },
-                    { extend: 'excel', title: 'ExampleFile' },
-                    { extend: 'pdf', title: 'ExampleFile' },
+                    { extend: 'excel', title: 'Excel' },
+                    { extend: 'pdf', title: 'PDF' },
 
                     {
                         extend: 'print',
@@ -340,8 +983,10 @@
            
 
         });
-
     </script>
+
+
+
     <script type="text/javascript">
         $(function () {
             $("#cpf").mask("999.999.999-99");
@@ -349,14 +994,18 @@
             $("#cep").mask("99999-999");
         });
     </script>
-    @Scripts.Render("~/plugins/iCheck")
 
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
+            $('body').addClass('light-navbar');
+
+            $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
+                type: 'line',
+                width: '100%',
+                height: '60',
+                lineColor: '#1ab394',
+                fillColor: "#ffffff"
             });
 
         });

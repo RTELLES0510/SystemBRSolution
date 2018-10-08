@@ -222,4 +222,7 @@
   <data name="M0035" xml:space="preserve">
     <value>Impossivel excluir esse tipo/valor de comissão. Existem registros vinculados a ele.</value>
   </data>
+  <data name="M0036" xml:space="preserve">
+    <value>Formato invalido para foto, Deve ser JPG, GIF ou PNG</value>
+  </data>
 </root>

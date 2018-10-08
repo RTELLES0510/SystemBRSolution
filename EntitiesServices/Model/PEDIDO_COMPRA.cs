@@ -39,6 +39,7 @@ namespace EntitiesServices.Model
         public Nullable<System.DateTime> PECO_DT_ALTERACAO { get; set; }
         public string PECO_TX_OBSERVACOES { get; set; }
         public int PECO_IN_ATIVO { get; set; }
+        public string PECO_NR_NUMERO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_PAGAR> CONTA_PAGAR { get; set; }

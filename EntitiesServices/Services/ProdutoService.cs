@@ -22,13 +22,16 @@ namespace ModelServices.EntitiesServices
         private readonly ILogRepository _logRepository;
         private readonly ICategoriaProdutoRepository _tipoRepository;
         private readonly IProdutoAnexoRepository _anexoRepository;
+        private readonly IProdutoFornecedorRepository _fornRepository;
+        private readonly IProdutoGradeRepository _gradeRepository;
         private readonly IFilialRepository _filialRepository;
         private readonly IUnidadeRepository _unidRepository;
         private readonly IMovimentoEstoqueProdutoRepository _movRepository;
+        private readonly ISubcategoriaProdutoRepository _subRepository;
 
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public ProdutoService(IProdutoRepository baseRepository, ILogRepository logRepository, ICategoriaProdutoRepository tipoRepository, IProdutoAnexoRepository anexoRepository, IFilialRepository filialRepository, IUnidadeRepository unidRepository, IMovimentoEstoqueProdutoRepository movRepository) : base(baseRepository)
+        public ProdutoService(IProdutoRepository baseRepository, ILogRepository logRepository, ICategoriaProdutoRepository tipoRepository, IProdutoAnexoRepository anexoRepository, IFilialRepository filialRepository, IUnidadeRepository unidRepository, IMovimentoEstoqueProdutoRepository movRepository, IProdutoGradeRepository gradeRepository, IProdutoFornecedorRepository fornRepository, ISubcategoriaProdutoRepository subRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
@@ -37,6 +40,9 @@ namespace ModelServices.EntitiesServices
             _filialRepository = filialRepository;
             _unidRepository = unidRepository;
             _movRepository = movRepository;
+            _gradeRepository = gradeRepository;
+            _fornRepository = fornRepository;
+            _subRepository = subRepository;
         }
 
         public PRODUTO CheckExist(PRODUTO conta)
@@ -72,6 +78,11 @@ namespace ModelServices.EntitiesServices
             return _tipoRepository.GetAllItens();
         }
 
+        public List<SUBCATEGORIA_PRODUTO> GetAllSubcategorias(Int32 cat)
+        {
+            return _subRepository.GetItensByCategoria(cat);
+        }
+
         public List<UNIDADE> GetAllUnidades()
         {
             return _unidRepository.GetAllItens();
@@ -86,6 +97,17 @@ namespace ModelServices.EntitiesServices
         {
             return _anexoRepository.GetItemById(id);
         }
+
+        public PRODUTO_FORNECEDOR GetFornecedorById(Int32 id)
+        {
+            return _fornRepository.GetItemById(id);
+        }
+
+        public PRODUTO_GRADE GetGradeById(Int32 id)
+        {
+            return _gradeRepository.GetItemById(id);
+        }
+
 
         public List<PRODUTO> ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId)
         {
@@ -191,5 +213,82 @@ namespace ModelServices.EntitiesServices
                 }
             }
         }
+
+        public Int32 EditFornecedor(PRODUTO_FORNECEDOR item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    PRODUTO_FORNECEDOR obj = _fornRepository.GetById(item.PRFO_CD_ID);
+                    _fornRepository.Detach(obj);
+                    _fornRepository.Update(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 CreateFornecedor(PRODUTO_FORNECEDOR item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    _fornRepository.Add(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 EditGrade(PRODUTO_GRADE item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    PRODUTO_GRADE obj = _gradeRepository.GetById(item.PRGR_CD_ID);
+                    _gradeRepository.Detach(obj);
+                    _gradeRepository.Update(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 CreateGrade(PRODUTO_GRADE item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    _gradeRepository.Add(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
     }
 }

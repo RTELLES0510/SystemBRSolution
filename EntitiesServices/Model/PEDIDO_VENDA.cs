@@ -42,6 +42,7 @@ namespace EntitiesServices.Model
         public string PEVE_NM_FORMA_PAGAMENTO { get; set; }
         public string PEVE_TX_OBSERVACOES { get; set; }
         public int PEVE_IN_ATIVO { get; set; }
+        public string PEVE_NR_NUMERO { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -56,5 +57,6 @@ namespace EntitiesServices.Model
         public virtual ICollection<PEDIDO_VENDA_ANEXO> PEDIDO_VENDA_ANEXO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

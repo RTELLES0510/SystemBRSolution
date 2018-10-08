@@ -29,6 +29,9 @@ namespace DataServices.Repositories
             query = query.Include(p => p.ASSINANTE);
             query = query.Include(p => p.MATRIZ);
             query = query.Include(p => p.FILIAL);
+            query = query.Include(p => p.PRODUTO_FORNECEDOR);
+            query = query.Include(p => p.PRODUTO_ANEXO);
+            query = query.Include(p => p.PRODUTO_GRADE);
             return query.FirstOrDefault();
         }
 
@@ -39,6 +42,9 @@ namespace DataServices.Repositories
             query = query.Include(p => p.ASSINANTE);
             query = query.Include(p => p.MATRIZ);
             query = query.Include(p => p.FILIAL);
+            query = query.Include(p => p.PRODUTO_FORNECEDOR);
+            query = query.Include(p => p.PRODUTO_ANEXO);
+            query = query.Include(p => p.PRODUTO_GRADE);
             return query.FirstOrDefault();
         }
 

@@ -304,6 +304,20 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_TIPO_CONTRIBUINTE" />
         <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_PESSOA" Width="1.5" PointX="5.375" PointY="6.75" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_CLIENTE_TIPO_PESSOA" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PRODUTO_FORNECEDOR" Width="1.5" PointX="25" PointY="110" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.PRODUTO_GRADE" Width="1.5" PointX="12" PointY="79.875" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.SUBCATEGORIA_PRODUTO" Width="1.5" PointX="15.75" PointY="95.25" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CATEGORIA_PRODUTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PEDIDO_VENDA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_FORNECEDOR" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_PRODUTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_GRADE_PRODUTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_SUBCATEGORIA_PRODUTO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -2052,7 +2052,7 @@
     <Content Include="Views\Cadastros\VerAnexoFornecedor.cshtml" />
     <Content Include="Views\Cadastros\MontarTelaProduto.cshtml" />
     <Content Include="Views\Cadastros\IncluirProduto.cshtml" />
-    <Content Include="Views\Cadastros\EditarProduto.cshtml" />
+    <Content Include="Views\Cadastros\EditarProdutoOld.cshtml" />
     <Content Include="Views\Cadastros\ExcluirProduto.cshtml" />
     <Content Include="Views\Cadastros\ReativarProduto.cshtml" />
     <Content Include="Views\Cadastros\VerAnexoProduto.cshtml" />
@@ -2110,6 +2110,7 @@
     <Content Include="Views\Cadastros\EditarReferencia.cshtml" />
     <Content Include="Views\Cadastros\IncluirReferencia.cshtml" />
     <Content Include="Views\Cadastros\IncluirTag.cshtml" />
+    <Content Include="Views\Cadastros\EditarProduto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

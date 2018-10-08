@@ -985,6 +985,7 @@
           <Property Name="PECO_DT_ALTERACAO" Type="date" />
           <Property Name="PECO_TX_OBSERVACOES" Type="text" />
           <Property Name="PECO_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="PECO_NR_NUMERO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PEDIDO_COMPRA_ANEXO">
           <Key>
@@ -1002,7 +1003,7 @@
           <Key>
             <PropertyRef Name="PESE_CD_ID" />
           </Key>
-          <Property Name="PESE_CD_ID" Type="int" Nullable="false" />
+          <Property Name="PESE_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
           <Property Name="MATR_CD_ID" Type="int" />
           <Property Name="FILI_CD_ID" Type="int" />
@@ -1055,6 +1056,7 @@
           <Property Name="PEVE_NM_FORMA_PAGAMENTO" Type="varchar" MaxLength="50" />
           <Property Name="PEVE_TX_OBSERVACOES" Type="text" />
           <Property Name="PEVE_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="PEVE_NR_NUMERO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PEDIDO_VENDA_ANEXO">
           <Key>
@@ -1176,6 +1178,42 @@
           <Property Name="PROD_DT_CADASTRO" Type="datetime" Nullable="false" />
           <Property Name="PROD_IN_ATIVO" Type="int" Nullable="false" />
           <Property Name="PROD_AQ_FOTO" Type="varchar" MaxLength="50" />
+          <Property Name="PROD_CD_CODIGO" Type="varchar" MaxLength="20" />
+          <Property Name="PROD_IN_TIPO_PRODUTO" Type="int" />
+          <Property Name="PROD_VL_PRECO_VENDA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_PRECO_PROMOCAO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SCPR_CD_ID" Type="int" />
+          <Property Name="PROD_DS_INFORMACOES" Type="varchar" MaxLength="1000" />
+          <Property Name="PROD_NR_GARANTIA" Type="int" />
+          <Property Name="PROD_QN_QUANTIDADE_MAXIMA" Type="int" />
+          <Property Name="PROD_QN_RESERVA_ESTOQUE" Type="int" />
+          <Property Name="PROD_NR_REFERENCIA" Type="varchar" MaxLength="50" />
+          <Property Name="PROD_IN_BALANCA_PDV" Type="int" />
+          <Property Name="PROD_IN_BALANCA_RETAGUARDA" Type="int" />
+          <Property Name="PROD_NR_DIAS_VALIDADE" Type="int" />
+          <Property Name="PROD_IN_TIPO_COMBO" Type="int" />
+          <Property Name="PROD_IN_OPCAO_COMBO" Type="int" />
+          <Property Name="PROD_IN_DIVISAO" Type="int" />
+          <Property Name="PROD_NR_VALIDADE" Type="int" />
+          <Property Name="PROD_IN_COBRAR_MAIOR" Type="int" />
+          <Property Name="PROD_DS_INFORMACAO_NUTRICIONAL" Type="varchar" MaxLength="1000" />
+          <Property Name="PROD_IN_GERAR_ARQUIVO" Type="int" />
+          <Property Name="PROD_NR_NCM" Type="varchar" MaxLength="10" />
+          <Property Name="PROD_NM_ORIGEM" Type="varchar" MaxLength="50" />
+          <Property Name="PROD_CD_GTIN_EAN" Type="varchar" MaxLength="50" />
+          <Property Name="PROD_NM_LOCALIZACAO_ESTOQUE" Type="varchar" MaxLength="50" />
+          <Property Name="PROD_QN_PESO_BRUTO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_QN_PESO_LIQUIDO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_IN_TIPO_EMBALAGEM" Type="int" />
+          <Property Name="PROD_NR_LARGURA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_NR_COMPRIMENTO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_NR_ALTURA" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_NR_DIAMETRO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_CUSTO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_PC_MARKUP_MININO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_PRECO_MINIMO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_MARKUP_PADRAO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_TX_OBSERVACOES" Type="text" />
         </EntityType>
         <EntityType Name="PRODUTO_ANEXO">
           <Key>
@@ -1188,6 +1226,26 @@
           <Property Name="PRAN_IN_TIPO" Type="int" Nullable="false" />
           <Property Name="PRAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="PRAN_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUTO_FORNECEDOR">
+          <Key>
+            <PropertyRef Name="PRFO_CD_ID" />
+          </Key>
+          <Property Name="PRFO_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROD_CD_ID" Type="int" Nullable="false" />
+          <Property Name="FORN_CD_ID" Type="int" Nullable="false" />
+          <Property Name="PRFO_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUTO_GRADE">
+          <Key>
+            <PropertyRef Name="PRGR_CD_ID" />
+          </Key>
+          <Property Name="PRGR_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROD_CD_ID" Type="int" Nullable="false" />
+          <Property Name="PRGR_NM_COR" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRGR_NM_TAMANHO" Type="varchar" MaxLength="50" />
+          <Property Name="PRGR_QN_QUANTIDADE" Type="int" Nullable="false" />
+          <Property Name="PRGR_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PROPOSTA_SERVICO">
           <Key>
@@ -1294,6 +1352,15 @@
           <Property Name="SEAN_IN_TIPO" Type="int" Nullable="false" />
           <Property Name="SEAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="SEAN_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUBCATEGORIA_PRODUTO">
+          <Key>
+            <PropertyRef Name="SCPR_CD_ID" />
+          </Key>
+          <Property Name="SCPR_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CAPR_CD_ID" Type="int" />
+          <Property Name="SCPR_NM_NOME" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TAREFA">
           <Key>
@@ -1603,6 +1670,18 @@
             </Principal>
             <Dependent Role="CARGO">
               <PropertyRef Name="VACO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CATEGORIA_PRODUTO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="CATEGORIA_PRODUTO" Type="Self.CATEGORIA_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CATEGORIA_PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3094,6 +3173,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PEDIDO_SERVICO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="PEDIDO_SERVICO" Type="Self.PEDIDO_SERVICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PEDIDO_SERVICO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PEDIDO_SERVICO_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
           <End Role="PEDIDO_SERVICO" Type="Self.PEDIDO_SERVICO" Multiplicity="*" />
@@ -3139,6 +3230,18 @@
             </Principal>
             <Dependent Role="PEDIDO_VENDA_ANEXO">
               <PropertyRef Name="PEVE_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PEDIDO_VENDA_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="PEDIDO_VENDA" Type="Self.PEDIDO_VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PEDIDO_VENDA">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3358,6 +3461,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PRODUTO_FORNECEDOR_FORNECEDOR">
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
+          <End Role="PRODUTO_FORNECEDOR" Type="Self.PRODUTO_FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_FORNECEDOR_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_FORNECEDOR" Type="Self.PRODUTO_FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_FORNECEDOR">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_GRADE_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_GRADE" Type="Self.PRODUTO_GRADE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_GRADE">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PRODUTO_MATRIZ">
           <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="0..1" />
           <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="*" />
@@ -3367,6 +3506,18 @@
             </Principal>
             <Dependent Role="PRODUTO">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_SUBCATEGORIA_PRODUTO">
+          <End Role="SUBCATEGORIA_PRODUTO" Type="Self.SUBCATEGORIA_PRODUTO" Multiplicity="0..1" />
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBCATEGORIA_PRODUTO">
+              <PropertyRef Name="SCPR_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO">
+              <PropertyRef Name="SCPR_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3451,6 +3602,18 @@
             </Principal>
             <Dependent Role="PROPOSTA_VENDA_ANEXO">
               <PropertyRef Name="PRVE_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROPOSTA_VENDA_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="PROPOSTA_VENDA" Type="Self.PROPOSTA_VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PROPOSTA_VENDA">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3574,6 +3737,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SUBCATEGORIA_PRODUTO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="SUBCATEGORIA_PRODUTO" Type="Self.SUBCATEGORIA_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="SUBCATEGORIA_PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO">
+          <End Role="CATEGORIA_PRODUTO" Type="Self.CATEGORIA_PRODUTO" Multiplicity="0..1" />
+          <End Role="SUBCATEGORIA_PRODUTO" Type="Self.SUBCATEGORIA_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA_PRODUTO">
+              <PropertyRef Name="CAPR_CD_ID" />
+            </Principal>
+            <Dependent Role="SUBCATEGORIA_PRODUTO">
+              <PropertyRef Name="CAPR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TAREFA_FILIAL">
           <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="0..1" />
           <End Role="TAREFA" Type="Self.TAREFA" Multiplicity="*" />
@@ -3595,6 +3782,18 @@
             </Principal>
             <Dependent Role="TAREFA">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TICKET_ATENDIMENTO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="TICKET_ATENDIMENTO" Type="Self.TICKET_ATENDIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="TICKET_ATENDIMENTO">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3875,6 +4074,8 @@
           <EntitySet Name="PRECO_SERVICO" EntityType="Self.PRECO_SERVICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUTO" EntityType="Self.PRODUTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUTO_ANEXO" EntityType="Self.PRODUTO_ANEXO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO_FORNECEDOR" EntityType="Self.PRODUTO_FORNECEDOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO_GRADE" EntityType="Self.PRODUTO_GRADE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROPOSTA_SERVICO" EntityType="Self.PROPOSTA_SERVICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROPOSTA_SERVICO_ANEXO" EntityType="Self.PROPOSTA_SERVICO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROPOSTA_VENDA" EntityType="Self.PROPOSTA_VENDA" Schema="dbo" store:Type="Tables" />
@@ -3882,6 +4083,7 @@
           <EntitySet Name="SEGMENTO" EntityType="Self.SEGMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERVICO" EntityType="Self.SERVICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERVICO_ANEXO" EntityType="Self.SERVICO_ANEXO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUBCATEGORIA_PRODUTO" EntityType="Self.SUBCATEGORIA_PRODUTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAREFA" EntityType="Self.TAREFA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TEMPLATE" EntityType="Self.TEMPLATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TICKET_ATENDIMENTO" EntityType="Self.TICKET_ATENDIMENTO" Schema="dbo" store:Type="Tables" />
@@ -3934,6 +4136,10 @@
           <AssociationSet Name="FK_CARGO_VALOR_COMISSAO" Association="Self.FK_CARGO_VALOR_COMISSAO">
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
             <End Role="CARGO" EntitySet="CARGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CATEGORIA_PRODUTO_ASSINANTE" Association="Self.FK_CATEGORIA_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CATEGORIA_PRODUTO" EntitySet="CATEGORIA_PRODUTO" />
           </AssociationSet>
           <AssociationSet Name="FK_CENTRO_CUSTO_CENTRO_CUSTO" Association="Self.FK_CENTRO_CUSTO_CENTRO_CUSTO">
             <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
@@ -4431,6 +4637,10 @@
             <End Role="PEDIDO_SERVICO" EntitySet="PEDIDO_SERVICO" />
             <End Role="PEDIDO_SERVICO_ANEXO" EntitySet="PEDIDO_SERVICO_ANEXO" />
           </AssociationSet>
+          <AssociationSet Name="FK_PEDIDO_SERVICO_ASSINANTE" Association="Self.FK_PEDIDO_SERVICO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PEDIDO_SERVICO" EntitySet="PEDIDO_SERVICO" />
+          </AssociationSet>
           <AssociationSet Name="FK_PEDIDO_SERVICO_CLIENTE" Association="Self.FK_PEDIDO_SERVICO_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="PEDIDO_SERVICO" EntitySet="PEDIDO_SERVICO" />
@@ -4446,6 +4656,10 @@
           <AssociationSet Name="FK_PEDIDO_VENDA_ANEXO_PEDIDO_VENDA" Association="Self.FK_PEDIDO_VENDA_ANEXO_PEDIDO_VENDA">
             <End Role="PEDIDO_VENDA" EntitySet="PEDIDO_VENDA" />
             <End Role="PEDIDO_VENDA_ANEXO" EntitySet="PEDIDO_VENDA_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PEDIDO_VENDA_ASSINANTE" Association="Self.FK_PEDIDO_VENDA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PEDIDO_VENDA" EntitySet="PEDIDO_VENDA" />
           </AssociationSet>
           <AssociationSet Name="FK_PEDIDO_VENDA_CLIENTE" Association="Self.FK_PEDIDO_VENDA_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -4519,8 +4733,24 @@
             <End Role="FILIAL" EntitySet="FILIAL" />
             <End Role="PRODUTO" EntitySet="PRODUTO" />
           </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_FORNECEDOR_FORNECEDOR" Association="Self.FK_PRODUTO_FORNECEDOR_FORNECEDOR">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_FORNECEDOR_PRODUTO" Association="Self.FK_PRODUTO_FORNECEDOR_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_GRADE_PRODUTO" Association="Self.FK_PRODUTO_GRADE_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_GRADE" EntitySet="PRODUTO_GRADE" />
+          </AssociationSet>
           <AssociationSet Name="FK_PRODUTO_MATRIZ" Association="Self.FK_PRODUTO_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_SUBCATEGORIA_PRODUTO" Association="Self.FK_PRODUTO_SUBCATEGORIA_PRODUTO">
+            <End Role="SUBCATEGORIA_PRODUTO" EntitySet="SUBCATEGORIA_PRODUTO" />
             <End Role="PRODUTO" EntitySet="PRODUTO" />
           </AssociationSet>
           <AssociationSet Name="FK_PRODUTO_UNIDADE" Association="Self.FK_PRODUTO_UNIDADE">
@@ -4550,6 +4780,10 @@
           <AssociationSet Name="FK_PROPOSTA_VENDA_ANEXO_PROPOSTA_VENDA" Association="Self.FK_PROPOSTA_VENDA_ANEXO_PROPOSTA_VENDA">
             <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
             <End Role="PROPOSTA_VENDA_ANEXO" EntitySet="PROPOSTA_VENDA_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROPOSTA_VENDA_ASSINANTE" Association="Self.FK_PROPOSTA_VENDA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
           </AssociationSet>
           <AssociationSet Name="FK_PROPOSTA_VENDA_CLIENTE" Association="Self.FK_PROPOSTA_VENDA_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -4591,6 +4825,14 @@
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="SERVICO" EntitySet="SERVICO" />
           </AssociationSet>
+          <AssociationSet Name="FK_SUBCATEGORIA_PRODUTO_ASSINANTE" Association="Self.FK_SUBCATEGORIA_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="SUBCATEGORIA_PRODUTO" EntitySet="SUBCATEGORIA_PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO" Association="Self.FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO">
+            <End Role="CATEGORIA_PRODUTO" EntitySet="CATEGORIA_PRODUTO" />
+            <End Role="SUBCATEGORIA_PRODUTO" EntitySet="SUBCATEGORIA_PRODUTO" />
+          </AssociationSet>
           <AssociationSet Name="FK_TAREFA_FILIAL" Association="Self.FK_TAREFA_FILIAL">
             <End Role="FILIAL" EntitySet="FILIAL" />
             <End Role="TAREFA" EntitySet="TAREFA" />
@@ -4598,6 +4840,10 @@
           <AssociationSet Name="FK_TAREFA_MATRIZ" Association="Self.FK_TAREFA_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="TAREFA" EntitySet="TAREFA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TICKET_ATENDIMENTO_ASSINANTE" Association="Self.FK_TICKET_ATENDIMENTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="TICKET_ATENDIMENTO" EntitySet="TICKET_ATENDIMENTO" />
           </AssociationSet>
           <AssociationSet Name="FK_TICKET_ATENDIMENTO_CATEGORIA_ATENDIMENTO" Association="Self.FK_TICKET_ATENDIMENTO_CATEGORIA_ATENDIMENTO">
             <End Role="CATEGORIA_ATENDIMENTO" EntitySet="CATEGORIA_ATENDIMENTO" />
@@ -4719,6 +4965,12 @@
           <NavigationProperty Name="PERIODICIDADE" Relationship="SystemBRDatabaseModel.FK_PERIODICIDADE_ASSINANTE" FromRole="ASSINANTE" ToRole="PERIODICIDADE" />
           <NavigationProperty Name="SEGMENTO" Relationship="SystemBRDatabaseModel.FK_SEGMENTO_ASSINANTE" FromRole="ASSINANTE" ToRole="SEGMENTO" />
           <NavigationProperty Name="COLABORADOR" Relationship="SystemBRDatabaseModel.FK_COLABORADOR_ASSINANTE" FromRole="ASSINANTE" ToRole="COLABORADOR" />
+          <NavigationProperty Name="CATEGORIA_PRODUTO" Relationship="SystemBRDatabaseModel.FK_CATEGORIA_PRODUTO_ASSINANTE" FromRole="ASSINANTE" ToRole="CATEGORIA_PRODUTO" />
+          <NavigationProperty Name="PEDIDO_SERVICO" Relationship="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_ASSINANTE" FromRole="ASSINANTE" ToRole="PEDIDO_SERVICO" />
+          <NavigationProperty Name="PEDIDO_VENDA" Relationship="SystemBRDatabaseModel.FK_PEDIDO_VENDA_ASSINANTE" FromRole="ASSINANTE" ToRole="PEDIDO_VENDA" />
+          <NavigationProperty Name="PROPOSTA_VENDA" Relationship="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ASSINANTE" FromRole="ASSINANTE" ToRole="PROPOSTA_VENDA" />
+          <NavigationProperty Name="SUBCATEGORIA_PRODUTO" Relationship="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_ASSINANTE" FromRole="ASSINANTE" ToRole="SUBCATEGORIA_PRODUTO" />
+          <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_ASSINANTE" FromRole="ASSINANTE" ToRole="TICKET_ATENDIMENTO" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -4851,6 +5103,8 @@
           <NavigationProperty Name="INVENTARIO" Relationship="Self.FK_INVENTARIO_CATEGORIA_PRODUTO" FromRole="CATEGORIA_PRODUTO" ToRole="INVENTARIO" />
           <NavigationProperty Name="PRODUTO" Relationship="Self.FK_PRODUTO_CATEGORIA_PRODUTO" FromRole="CATEGORIA_PRODUTO" ToRole="PRODUTO" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_CATEGORIA_PRODUTO" FromRole="CATEGORIA_PRODUTO" ToRole="VALOR_COMISSAO" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CATEGORIA_PRODUTO_ASSINANTE" FromRole="CATEGORIA_PRODUTO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="SUBCATEGORIA_PRODUTO" Relationship="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO" FromRole="CATEGORIA_PRODUTO" ToRole="SUBCATEGORIA_PRODUTO" />
         </EntityType>
         <EntityType Name="CATEGORIA_SERVICO">
           <Key>
@@ -5376,6 +5630,7 @@
           <NavigationProperty Name="ITEM_PEDIDO_COMPRA_COTACAO" Relationship="Self.FK_ITEM_PEDIDO_COMPRA_COTACAO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="ITEM_PEDIDO_COMPRA_COTACAO" />
           <NavigationProperty Name="PEDIDO_COMPRA" Relationship="Self.FK_PEDIDO_COMPRA_FORNECEDOR" FromRole="FORNECEDOR" ToRole="PEDIDO_COMPRA" />
           <NavigationProperty Name="EQUIPAMENTO_MANUTENCAO" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_MANUTENCAO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="EQUIPAMENTO_MANUTENCAO" />
+          <NavigationProperty Name="PRODUTO_FORNECEDOR" Relationship="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_FORNECEDOR" FromRole="FORNECEDOR" ToRole="PRODUTO_FORNECEDOR" />
         </EntityType>
         <EntityType Name="FORNECEDOR_ANEXO">
           <Key>
@@ -5827,6 +6082,7 @@
           <NavigationProperty Name="ITEM_PEDIDO_COMPRA" Relationship="Self.FK_ITEM_PEDIDO_COMPRA_PEDIDO_COMPRA" FromRole="PEDIDO_COMPRA" ToRole="ITEM_PEDIDO_COMPRA" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_PEDIDO_COMPRA_MATRIZ" FromRole="PEDIDO_COMPRA" ToRole="MATRIZ" />
           <NavigationProperty Name="PEDIDO_COMPRA_ANEXO" Relationship="Self.FK_PEDIDO_COMPRA_ANEXO_PEDIDO_COMPRA" FromRole="PEDIDO_COMPRA" ToRole="PEDIDO_COMPRA_ANEXO" />
+          <Property Name="PECO_NR_NUMERO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PEDIDO_COMPRA_ANEXO">
           <Key>
@@ -5869,6 +6125,7 @@
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_PEDIDO_SERVICO_MATRIZ" FromRole="PEDIDO_SERVICO" ToRole="MATRIZ" />
           <NavigationProperty Name="PEDIDO_SERVICO_ANEXO" Relationship="Self.FK_PEDIDO_SERVICO_ANEXO_PEDIDO_SERVICO" FromRole="PEDIDO_SERVICO" ToRole="PEDIDO_SERVICO_ANEXO" />
           <NavigationProperty Name="PROPOSTA_SERVICO" Relationship="Self.FK_PROPOSTA_SERVICO_PEDIDO_SERVICO" FromRole="PEDIDO_SERVICO" ToRole="PROPOSTA_SERVICO" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_ASSINANTE" FromRole="PEDIDO_SERVICO" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="PEDIDO_SERVICO_ANEXO">
           <Key>
@@ -5913,6 +6170,8 @@
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_PEDIDO_VENDA_MATRIZ" FromRole="PEDIDO_VENDA" ToRole="MATRIZ" />
           <NavigationProperty Name="PEDIDO_VENDA_ANEXO" Relationship="Self.FK_PEDIDO_VENDA_ANEXO_PEDIDO_VENDA" FromRole="PEDIDO_VENDA" ToRole="PEDIDO_VENDA_ANEXO" />
           <NavigationProperty Name="PROPOSTA_VENDA" Relationship="Self.FK_PROPOSTA_VENDA_PEDIDO_VENDA" FromRole="PEDIDO_VENDA" ToRole="PROPOSTA_VENDA" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_PEDIDO_VENDA_ASSINANTE" FromRole="PEDIDO_VENDA" ToRole="ASSINANTE" />
+          <Property Name="PEVE_NR_NUMERO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PEDIDO_VENDA_ANEXO">
           <Key>
@@ -6055,6 +6314,45 @@
           <NavigationProperty Name="PRODUTO_ANEXO" Relationship="Self.FK_PRODUTO_ANEXO_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_ANEXO" />
           <NavigationProperty Name="UNIDADE" Relationship="Self.FK_PRODUTO_UNIDADE" FromRole="PRODUTO" ToRole="UNIDADE" />
           <NavigationProperty Name="FICHA_TECNICA" Relationship="SystemBRDatabaseModel.FK_FICHA_TECNICA_PRODUTO" FromRole="PRODUTO" ToRole="FICHA_TECNICA" />
+          <Property Name="PROD_CD_CODIGO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_IN_TIPO_PRODUTO" Type="Int32" />
+          <Property Name="PROD_VL_PRECO_VENDA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_PRECO_PROMOCAO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SCPR_CD_ID" Type="Int32" />
+          <Property Name="PROD_DS_INFORMACOES" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_NR_GARANTIA" Type="Int32" />
+          <Property Name="PROD_QN_QUANTIDADE_MAXIMA" Type="Int32" />
+          <Property Name="PROD_QN_RESERVA_ESTOQUE" Type="Int32" />
+          <Property Name="PROD_NR_REFERENCIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_IN_BALANCA_PDV" Type="Int32" />
+          <Property Name="PROD_IN_BALANCA_RETAGUARDA" Type="Int32" />
+          <Property Name="PROD_NR_DIAS_VALIDADE" Type="Int32" />
+          <Property Name="PROD_IN_TIPO_COMBO" Type="Int32" />
+          <Property Name="PROD_IN_OPCAO_COMBO" Type="Int32" />
+          <Property Name="PROD_IN_DIVISAO" Type="Int32" />
+          <Property Name="PROD_NR_VALIDADE" Type="Int32" />
+          <Property Name="PROD_IN_COBRAR_MAIOR" Type="Int32" />
+          <Property Name="PROD_DS_INFORMACAO_NUTRICIONAL" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_IN_GERAR_ARQUIVO" Type="Int32" />
+          <Property Name="PROD_NR_NCM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_NM_ORIGEM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_CD_GTIN_EAN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_NM_LOCALIZACAO_ESTOQUE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_QN_PESO_BRUTO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_QN_PESO_LIQUIDO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_IN_TIPO_EMBALAGEM" Type="Int32" />
+          <Property Name="PROD_NR_LARGURA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_NR_COMPRIMENTO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_NR_ALTURA" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_NR_DIAMETRO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_CUSTO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_PC_MARKUP_MININO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_PRECO_MINIMO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_VL_MARKUP_PADRAO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PROD_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PRODUTO_FORNECEDOR" Relationship="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_FORNECEDOR" />
+          <NavigationProperty Name="PRODUTO_GRADE" Relationship="SystemBRDatabaseModel.FK_PRODUTO_GRADE_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_GRADE" />
+          <NavigationProperty Name="SUBCATEGORIA_PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_SUBCATEGORIA_PRODUTO" FromRole="PRODUTO" ToRole="SUBCATEGORIA_PRODUTO" />
         </EntityType>
         <EntityType Name="PRODUTO_ANEXO">
           <Key>
@@ -6143,6 +6441,7 @@
           <NavigationProperty Name="OPORTUNIDADE_NEGOCIO" Relationship="Self.FK_OPORTUNIDADE_NEGOCIO_PROPOSTA_VENDA" FromRole="PROPOSTA_VENDA" ToRole="OPORTUNIDADE_NEGOCIO" />
           <NavigationProperty Name="PEDIDO_VENDA" Relationship="Self.FK_PROPOSTA_VENDA_PEDIDO_VENDA" FromRole="PROPOSTA_VENDA" ToRole="PEDIDO_VENDA" />
           <NavigationProperty Name="PROPOSTA_VENDA_ANEXO" Relationship="Self.FK_PROPOSTA_VENDA_ANEXO_PROPOSTA_VENDA" FromRole="PROPOSTA_VENDA" ToRole="PROPOSTA_VENDA_ANEXO" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ASSINANTE" FromRole="PROPOSTA_VENDA" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="PROPOSTA_VENDA_ANEXO">
           <Key>
@@ -6247,6 +6546,7 @@
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_TICKET_ATENDIMENTO_CLIENTE" FromRole="TICKET_ATENDIMENTO" ToRole="CLIENTE" />
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_TICKET_ATENDIMENTO_FILIAL" FromRole="TICKET_ATENDIMENTO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_TICKET_ATENDIMENTO_MATRIZ" FromRole="TICKET_ATENDIMENTO" ToRole="MATRIZ" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_ASSINANTE" FromRole="TICKET_ATENDIMENTO" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="TIPO_COMISSAO">
           <Key>
@@ -9348,6 +9648,53 @@
             <End Role="TIPO_PESSOA" EntitySet="TIPO_PESSOA" />
             <End Role="CLIENTE" EntitySet="CLIENTE" />
           </AssociationSet>
+          <EntitySet Name="PRODUTO_FORNECEDOR" EntityType="SystemBRDatabaseModel.PRODUTO_FORNECEDOR" />
+          <EntitySet Name="PRODUTO_GRADE" EntityType="SystemBRDatabaseModel.PRODUTO_GRADE" />
+          <EntitySet Name="SUBCATEGORIA_PRODUTO" EntityType="SystemBRDatabaseModel.SUBCATEGORIA_PRODUTO" />
+          <AssociationSet Name="FK_CATEGORIA_PRODUTO_ASSINANTE" Association="SystemBRDatabaseModel.FK_CATEGORIA_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CATEGORIA_PRODUTO" EntitySet="CATEGORIA_PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PEDIDO_SERVICO_ASSINANTE" Association="SystemBRDatabaseModel.FK_PEDIDO_SERVICO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PEDIDO_SERVICO" EntitySet="PEDIDO_SERVICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PEDIDO_VENDA_ASSINANTE" Association="SystemBRDatabaseModel.FK_PEDIDO_VENDA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PEDIDO_VENDA" EntitySet="PEDIDO_VENDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROPOSTA_VENDA_ASSINANTE" Association="SystemBRDatabaseModel.FK_PROPOSTA_VENDA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PROPOSTA_VENDA" EntitySet="PROPOSTA_VENDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUBCATEGORIA_PRODUTO_ASSINANTE" Association="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="SUBCATEGORIA_PRODUTO" EntitySet="SUBCATEGORIA_PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TICKET_ATENDIMENTO_ASSINANTE" Association="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="TICKET_ATENDIMENTO" EntitySet="TICKET_ATENDIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO" Association="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO">
+            <End Role="CATEGORIA_PRODUTO" EntitySet="CATEGORIA_PRODUTO" />
+            <End Role="SUBCATEGORIA_PRODUTO" EntitySet="SUBCATEGORIA_PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_FORNECEDOR_FORNECEDOR" Association="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_FORNECEDOR">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_FORNECEDOR_PRODUTO" Association="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_FORNECEDOR" EntitySet="PRODUTO_FORNECEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_GRADE_PRODUTO" Association="SystemBRDatabaseModel.FK_PRODUTO_GRADE_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_GRADE" EntitySet="PRODUTO_GRADE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_SUBCATEGORIA_PRODUTO" Association="SystemBRDatabaseModel.FK_PRODUTO_SUBCATEGORIA_PRODUTO">
+            <End Role="SUBCATEGORIA_PRODUTO" EntitySet="SUBCATEGORIA_PRODUTO" />
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="EQUIPAMENTO_MANUTENCAO">
           <Key>
@@ -9706,6 +10053,173 @@
             </Principal>
             <Dependent Role="CLIENTE">
               <PropertyRef Name="TIPE_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PRODUTO_FORNECEDOR">
+          <Key>
+            <PropertyRef Name="PRFO_CD_ID" />
+          </Key>
+          <Property Name="PRFO_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROD_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="FORN_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRFO_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_FORNECEDOR" FromRole="PRODUTO_FORNECEDOR" ToRole="FORNECEDOR" />
+          <NavigationProperty Name="PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_PRODUTO" FromRole="PRODUTO_FORNECEDOR" ToRole="PRODUTO" />
+        </EntityType>
+        <EntityType Name="PRODUTO_GRADE">
+          <Key>
+            <PropertyRef Name="PRGR_CD_ID" />
+          </Key>
+          <Property Name="PRGR_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROD_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRGR_NM_COR" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRGR_NM_TAMANHO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRGR_QN_QUANTIDADE" Type="Int32" Nullable="false" />
+          <Property Name="PRGR_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_GRADE_PRODUTO" FromRole="PRODUTO_GRADE" ToRole="PRODUTO" />
+        </EntityType>
+        <EntityType Name="SUBCATEGORIA_PRODUTO">
+          <Key>
+            <PropertyRef Name="SCPR_CD_ID" />
+          </Key>
+          <Property Name="SCPR_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CAPR_CD_ID" Type="Int32" />
+          <Property Name="SCPR_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_ASSINANTE" FromRole="SUBCATEGORIA_PRODUTO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CATEGORIA_PRODUTO" Relationship="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO" FromRole="SUBCATEGORIA_PRODUTO" ToRole="CATEGORIA_PRODUTO" />
+          <NavigationProperty Name="PRODUTO" Relationship="SystemBRDatabaseModel.FK_PRODUTO_SUBCATEGORIA_PRODUTO" FromRole="SUBCATEGORIA_PRODUTO" ToRole="PRODUTO" />
+        </EntityType>
+        <Association Name="FK_CATEGORIA_PRODUTO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CATEGORIA_PRODUTO" Role="CATEGORIA_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CATEGORIA_PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PEDIDO_SERVICO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PEDIDO_SERVICO" Role="PEDIDO_SERVICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PEDIDO_SERVICO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PEDIDO_VENDA_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PEDIDO_VENDA" Role="PEDIDO_VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PEDIDO_VENDA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROPOSTA_VENDA_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PROPOSTA_VENDA" Role="PROPOSTA_VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PROPOSTA_VENDA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUBCATEGORIA_PRODUTO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.SUBCATEGORIA_PRODUTO" Role="SUBCATEGORIA_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="SUBCATEGORIA_PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TICKET_ATENDIMENTO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.TICKET_ATENDIMENTO" Role="TICKET_ATENDIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="TICKET_ATENDIMENTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SUBCATEGORIA_PRODUTO_CATEGORIA_PRODUTO">
+          <End Type="SystemBRDatabaseModel.CATEGORIA_PRODUTO" Role="CATEGORIA_PRODUTO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.SUBCATEGORIA_PRODUTO" Role="SUBCATEGORIA_PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA_PRODUTO">
+              <PropertyRef Name="CAPR_CD_ID" />
+            </Principal>
+            <Dependent Role="SUBCATEGORIA_PRODUTO">
+              <PropertyRef Name="CAPR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_FORNECEDOR_FORNECEDOR">
+          <End Type="SystemBRDatabaseModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PRODUTO_FORNECEDOR" Role="PRODUTO_FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_FORNECEDOR_PRODUTO">
+          <End Type="SystemBRDatabaseModel.PRODUTO" Role="PRODUTO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PRODUTO_FORNECEDOR" Role="PRODUTO_FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_FORNECEDOR">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_GRADE_PRODUTO">
+          <End Type="SystemBRDatabaseModel.PRODUTO" Role="PRODUTO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PRODUTO_GRADE" Role="PRODUTO_GRADE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO_GRADE">
+              <PropertyRef Name="PROD_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_SUBCATEGORIA_PRODUTO">
+          <End Type="SystemBRDatabaseModel.SUBCATEGORIA_PRODUTO" Role="SUBCATEGORIA_PRODUTO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.PRODUTO" Role="PRODUTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBCATEGORIA_PRODUTO">
+              <PropertyRef Name="SCPR_CD_ID" />
+            </Principal>
+            <Dependent Role="PRODUTO">
+              <PropertyRef Name="SCPR_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -10657,6 +11171,7 @@
           <EntitySetMapping Name="PEDIDO_COMPRA">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.PEDIDO_COMPRA">
               <MappingFragment StoreEntitySet="PEDIDO_COMPRA">
+                <ScalarProperty Name="PECO_NR_NUMERO" ColumnName="PECO_NR_NUMERO" />
                 <ScalarProperty Name="PECO_CD_ID" ColumnName="PECO_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -10730,6 +11245,7 @@
           <EntitySetMapping Name="PEDIDO_VENDA">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.PEDIDO_VENDA">
               <MappingFragment StoreEntitySet="PEDIDO_VENDA">
+                <ScalarProperty Name="PEVE_NR_NUMERO" ColumnName="PEVE_NR_NUMERO" />
                 <ScalarProperty Name="PEVE_CD_ID" ColumnName="PEVE_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -10853,6 +11369,42 @@
           <EntitySetMapping Name="PRODUTO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.PRODUTO">
               <MappingFragment StoreEntitySet="PRODUTO">
+                <ScalarProperty Name="PROD_TX_OBSERVACOES" ColumnName="PROD_TX_OBSERVACOES" />
+                <ScalarProperty Name="PROD_VL_MARKUP_PADRAO" ColumnName="PROD_VL_MARKUP_PADRAO" />
+                <ScalarProperty Name="PROD_VL_PRECO_MINIMO" ColumnName="PROD_VL_PRECO_MINIMO" />
+                <ScalarProperty Name="PROD_PC_MARKUP_MININO" ColumnName="PROD_PC_MARKUP_MININO" />
+                <ScalarProperty Name="PROD_VL_CUSTO" ColumnName="PROD_VL_CUSTO" />
+                <ScalarProperty Name="PROD_NR_DIAMETRO" ColumnName="PROD_NR_DIAMETRO" />
+                <ScalarProperty Name="PROD_NR_ALTURA" ColumnName="PROD_NR_ALTURA" />
+                <ScalarProperty Name="PROD_NR_COMPRIMENTO" ColumnName="PROD_NR_COMPRIMENTO" />
+                <ScalarProperty Name="PROD_NR_LARGURA" ColumnName="PROD_NR_LARGURA" />
+                <ScalarProperty Name="PROD_IN_TIPO_EMBALAGEM" ColumnName="PROD_IN_TIPO_EMBALAGEM" />
+                <ScalarProperty Name="PROD_QN_PESO_LIQUIDO" ColumnName="PROD_QN_PESO_LIQUIDO" />
+                <ScalarProperty Name="PROD_QN_PESO_BRUTO" ColumnName="PROD_QN_PESO_BRUTO" />
+                <ScalarProperty Name="PROD_NM_LOCALIZACAO_ESTOQUE" ColumnName="PROD_NM_LOCALIZACAO_ESTOQUE" />
+                <ScalarProperty Name="PROD_CD_GTIN_EAN" ColumnName="PROD_CD_GTIN_EAN" />
+                <ScalarProperty Name="PROD_NM_ORIGEM" ColumnName="PROD_NM_ORIGEM" />
+                <ScalarProperty Name="PROD_NR_NCM" ColumnName="PROD_NR_NCM" />
+                <ScalarProperty Name="PROD_IN_GERAR_ARQUIVO" ColumnName="PROD_IN_GERAR_ARQUIVO" />
+                <ScalarProperty Name="PROD_DS_INFORMACAO_NUTRICIONAL" ColumnName="PROD_DS_INFORMACAO_NUTRICIONAL" />
+                <ScalarProperty Name="PROD_IN_COBRAR_MAIOR" ColumnName="PROD_IN_COBRAR_MAIOR" />
+                <ScalarProperty Name="PROD_NR_VALIDADE" ColumnName="PROD_NR_VALIDADE" />
+                <ScalarProperty Name="PROD_IN_DIVISAO" ColumnName="PROD_IN_DIVISAO" />
+                <ScalarProperty Name="PROD_IN_OPCAO_COMBO" ColumnName="PROD_IN_OPCAO_COMBO" />
+                <ScalarProperty Name="PROD_IN_TIPO_COMBO" ColumnName="PROD_IN_TIPO_COMBO" />
+                <ScalarProperty Name="PROD_NR_DIAS_VALIDADE" ColumnName="PROD_NR_DIAS_VALIDADE" />
+                <ScalarProperty Name="PROD_IN_BALANCA_RETAGUARDA" ColumnName="PROD_IN_BALANCA_RETAGUARDA" />
+                <ScalarProperty Name="PROD_IN_BALANCA_PDV" ColumnName="PROD_IN_BALANCA_PDV" />
+                <ScalarProperty Name="PROD_NR_REFERENCIA" ColumnName="PROD_NR_REFERENCIA" />
+                <ScalarProperty Name="PROD_QN_RESERVA_ESTOQUE" ColumnName="PROD_QN_RESERVA_ESTOQUE" />
+                <ScalarProperty Name="PROD_QN_QUANTIDADE_MAXIMA" ColumnName="PROD_QN_QUANTIDADE_MAXIMA" />
+                <ScalarProperty Name="PROD_NR_GARANTIA" ColumnName="PROD_NR_GARANTIA" />
+                <ScalarProperty Name="PROD_DS_INFORMACOES" ColumnName="PROD_DS_INFORMACOES" />
+                <ScalarProperty Name="SCPR_CD_ID" ColumnName="SCPR_CD_ID" />
+                <ScalarProperty Name="PROD_VL_PRECO_PROMOCAO" ColumnName="PROD_VL_PRECO_PROMOCAO" />
+                <ScalarProperty Name="PROD_VL_PRECO_VENDA" ColumnName="PROD_VL_PRECO_VENDA" />
+                <ScalarProperty Name="PROD_IN_TIPO_PRODUTO" ColumnName="PROD_IN_TIPO_PRODUTO" />
+                <ScalarProperty Name="PROD_CD_CODIGO" ColumnName="PROD_CD_CODIGO" />
                 <ScalarProperty Name="PROD_CD_ID" ColumnName="PROD_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -11313,6 +11865,38 @@
                 <ScalarProperty Name="TIPE_NM_NOME" ColumnName="TIPE_NM_NOME" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="TIPE_CD_ID" ColumnName="TIPE_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_FORNECEDOR">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.PRODUTO_FORNECEDOR">
+              <MappingFragment StoreEntitySet="PRODUTO_FORNECEDOR">
+                <ScalarProperty Name="PRFO_IN_ATIVO" ColumnName="PRFO_IN_ATIVO" />
+                <ScalarProperty Name="FORN_CD_ID" ColumnName="FORN_CD_ID" />
+                <ScalarProperty Name="PROD_CD_ID" ColumnName="PROD_CD_ID" />
+                <ScalarProperty Name="PRFO_CD_ID" ColumnName="PRFO_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_GRADE">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.PRODUTO_GRADE">
+              <MappingFragment StoreEntitySet="PRODUTO_GRADE">
+                <ScalarProperty Name="PRGR_IN_ATIVO" ColumnName="PRGR_IN_ATIVO" />
+                <ScalarProperty Name="PRGR_QN_QUANTIDADE" ColumnName="PRGR_QN_QUANTIDADE" />
+                <ScalarProperty Name="PRGR_NM_TAMANHO" ColumnName="PRGR_NM_TAMANHO" />
+                <ScalarProperty Name="PRGR_NM_COR" ColumnName="PRGR_NM_COR" />
+                <ScalarProperty Name="PROD_CD_ID" ColumnName="PROD_CD_ID" />
+                <ScalarProperty Name="PRGR_CD_ID" ColumnName="PRGR_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBCATEGORIA_PRODUTO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.SUBCATEGORIA_PRODUTO">
+              <MappingFragment StoreEntitySet="SUBCATEGORIA_PRODUTO">
+                <ScalarProperty Name="SCPR_NM_NOME" ColumnName="SCPR_NM_NOME" />
+                <ScalarProperty Name="CAPR_CD_ID" ColumnName="CAPR_CD_ID" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="SCPR_CD_ID" ColumnName="SCPR_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

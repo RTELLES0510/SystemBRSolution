@@ -20,6 +20,7 @@ namespace EntitiesServices.Model
             this.INVENTARIO = new HashSet<INVENTARIO>();
             this.PRODUTO = new HashSet<PRODUTO>();
             this.VALOR_COMISSAO = new HashSet<VALOR_COMISSAO>();
+            this.SUBCATEGORIA_PRODUTO = new HashSet<SUBCATEGORIA_PRODUTO>();
         }
     
         public int CAPR_CD_ID { get; set; }
@@ -32,5 +33,8 @@ namespace EntitiesServices.Model
         public virtual ICollection<PRODUTO> PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
     }
 }

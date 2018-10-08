@@ -25,5 +25,12 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<FILIAL> GetAllFilial();
         PRODUTO_ANEXO GetAnexoById(Int32 id);
         List<PRODUTO> ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId);
+        List<SUBCATEGORIA_PRODUTO> GetAllSubcategorias(Int32 cat);
+        PRODUTO_FORNECEDOR GetFornecedorById(Int32 id);
+        PRODUTO_GRADE GetGradeById(Int32 id);
+        Int32 EditFornecedor(PRODUTO_FORNECEDOR item);
+        Int32 CreateFornecedor(PRODUTO_FORNECEDOR item);
+        Int32 EditGrade(PRODUTO_GRADE item);
+        Int32 CreateGrade(PRODUTO_GRADE item);
     }
 }

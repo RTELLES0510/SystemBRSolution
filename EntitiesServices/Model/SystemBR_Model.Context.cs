@@ -133,5 +133,8 @@ namespace EntitiesServices.Model
         public virtual DbSet<CLIENTE_TAG> CLIENTE_TAG { get; set; }
         public virtual DbSet<TIPO_CONTRIBUINTE> TIPO_CONTRIBUINTE { get; set; }
         public virtual DbSet<TIPO_PESSOA> TIPO_PESSOA { get; set; }
+        public virtual DbSet<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
+        public virtual DbSet<PRODUTO_GRADE> PRODUTO_GRADE { get; set; }
+        public virtual DbSet<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
     }
 }
