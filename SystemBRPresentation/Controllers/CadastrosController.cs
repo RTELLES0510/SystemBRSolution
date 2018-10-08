@@ -1364,8 +1364,18 @@ namespace SystemBRPresentation.Controllers
         {
             // Prepara listas
             ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Subs = new SelectList(prodApp.GetAllSubcategorias(1), "SCPR_CD_ID", "SCPR_NM_NOME");
             ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            List<SelectListItem> tipoProduto = new List<SelectListItem>();
+            tipoProduto.Add(new SelectListItem() { Text = "Simples", Value = "1" });
+            tipoProduto.Add(new SelectListItem() { Text = "Kit", Value = "2" });
+            ViewBag.TiposProduto = new SelectList(tipoProduto, "Value", "Text");
+            List<SelectListItem> tipoEmbalagem = new List<SelectListItem>();
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Envelope", Value = "1" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Caixa", Value = "2" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Rolo", Value = "3" });
+            ViewBag.TiposEmbalagem = new SelectList(tipoEmbalagem, "Value", "Text");
 
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
@@ -1384,8 +1394,18 @@ namespace SystemBRPresentation.Controllers
         public ActionResult IncluirProduto(ProdutoViewModel vm)
         {
             ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");
+            ViewBag.Subs = new SelectList(prodApp.GetAllSubcategorias(1), "SCPR_CD_ID", "SCPR_NM_NOME");
             ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            List<SelectListItem> tipoProduto = new List<SelectListItem>();
+            tipoProduto.Add(new SelectListItem() { Text = "Simples", Value = "1" });
+            tipoProduto.Add(new SelectListItem() { Text = "Kit", Value = "2" });
+            ViewBag.TiposProduto = new SelectList(tipoProduto, "Value", "Text");
+            List<SelectListItem> tipoEmbalagem = new List<SelectListItem>();
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Envelope", Value = "1" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Caixa", Value = "2" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Rolo", Value = "3" });
+            ViewBag.TiposEmbalagem = new SelectList(tipoEmbalagem, "Value", "Text");
             if (ModelState.IsValid)
             {
                 try
@@ -1446,6 +1466,11 @@ namespace SystemBRPresentation.Controllers
             tipoProduto.Add(new SelectListItem() { Text = "Simples", Value = "1" });
             tipoProduto.Add(new SelectListItem() { Text = "Kit", Value = "2" });
             ViewBag.TiposProduto = new SelectList(tipoProduto, "Value", "Text");
+            List<SelectListItem> tipoEmbalagem = new List<SelectListItem>();
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Envelope", Value = "1" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Caixa", Value = "2" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Rolo", Value = "3" });
+            ViewBag.TiposEmbalagem = new SelectList(tipoEmbalagem, "Value", "Text");
 
             objetoProdAntes = item;
             SessionMocks.produto = item;
@@ -1466,6 +1491,11 @@ namespace SystemBRPresentation.Controllers
             tipoProduto.Add(new SelectListItem() { Text = "Simples", Value = "1" });
             tipoProduto.Add(new SelectListItem() { Text = "Kit", Value = "2" });
             ViewBag.TiposProduto = new SelectList(tipoProduto, "Value", "Text");
+            List<SelectListItem> tipoEmbalagem = new List<SelectListItem>();
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Envelope", Value = "1" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Caixa", Value = "2" });
+            tipoEmbalagem.Add(new SelectListItem() { Text = "Rolo", Value = "3" });
+            ViewBag.TiposEmbalagem = new SelectList(tipoEmbalagem, "Value", "Text");
             if (ModelState.IsValid)
             {
                 try
@@ -1496,6 +1526,13 @@ namespace SystemBRPresentation.Controllers
             {
                 return View(vm);
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetSubcategorias(Int32 cat)
+        {
+            var itens = prodApp.GetAllSubcategorias(cat);
+            return Json(itens);
         }
 
         [HttpGet]

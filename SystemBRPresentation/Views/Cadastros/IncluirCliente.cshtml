@@ -32,240 +32,326 @@
                         </a>
                     </div>
                 </div>
-                @using (Html.BeginForm("IncluirCliente", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id="pwd-container1" }))
-                {
-                    <div class="ibox-content">
-                        @Html.AntiForgeryToken()
-                        @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                <div class="ibox-content">
+                    <div class="tabs-container">
+                        @using (Html.BeginForm("IncluirCliente", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", @id = "pwd-container1" }))
                         {
-                            <div class="alert alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            </div>
+
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1">Dados Gerais</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-3">Endereços</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-4">Contatos</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-5">Dados Pessoais</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-6">Dados Comerciais</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-7">Observações</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                                @*Dados Gerais*@
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
+                                                    @Html.HiddenFor(m => m.CLIE_DT_CADASTRO)
+                                                    @Html.HiddenFor(m => m.CLIE_IN_ATIVO)
+                                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                                    Categoria*
+                                                    @Html.DropDownListFor(m => m.CACL_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.CACL_CD_ID, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Filial
+                                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.FILI_CD_ID, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Tipo de Contribuinte*
+                                                    @Html.DropDownListFor(m => m.TICO_CD_ID, (SelectList)ViewBag.TiposContribuinte, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.TICO_CD_ID, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Tipo de Pessoa*
+                                                    @Html.DropDownListFor(m => m.TIPE_CD_ID, (SelectList)ViewBag.TiposPessoa, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.TIPE_CD_ID, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    Nome*
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_NOME, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_NOME, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    Razão Social
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_RAZAO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_RAZAO, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    CPF
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_CPF, new { @class = "form-control", @id = "cpf", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CPF, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    CNPJ
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_CNPJ, new { @class = "form-control", @id = "cnpj", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CNPJ, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Inscrição Estadual
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_INSCRICAO_ESTADUAL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_INSCRICAO_ESTADUAL, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Inscrição Municipal
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_INSCRICAO_MUNICIPAL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_INSCRICAO_MUNICIPAL, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Telefone
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONES, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONES, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Celular
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_CELULAR, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CELULAR, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Telefone Adicional
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    E-Mail
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_EMAIL, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Endereços*@
+                                <div id="tab-3" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">                                
+                                                    <h4>Endereço Principal</h4>
+                                                    <br />
+                                                    CEP
+                                                    <div class="input-group">
+                                                        @Html.TextBoxFor(m => m.CLIE_NR_CEP, new { @class = "form-control", @id = "cep", autofocus = true })
+                                                        @Html.ValidationMessageFor(m => m.CLIE_NR_CEP, "", new { @style = "color:red" })
+                                                        <span class="input-group-btn">
+                                                            @Html.ButtonLinkIndex(text: "Buscar CEP", action: "BuscarCEPCliente", controller: "Cadastros", buttonClass: "warning", routeValues: new { item = Model })
+                                                        </span>
+                                                    </div>
+                                                </div>                                   
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">              
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Endereço
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_ENDERECO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_ENDERECO, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Bairro
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_BAIRRO, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_BAIRRO, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Cidade
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_CIDADE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_CIDADE, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-xs-12">
+                                                    UF
+                                                    @Html.TextBoxFor(m => m.CLIE_SG_UF, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_SG_UF, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="row">
+                                            <hr />
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">                                
+                                                    <h4>Endereço de Entrega</h4>
+                                                    <br />
+                                                    CEP Entrega
+                                                    <div class="input-group">
+                                                        @Html.TextBoxFor(m => m.CLIE_NR_CEP_ENTREGA, new { @class = "form-control", @id = "cep", autofocus = true })
+                                                        @Html.ValidationMessageFor(m => m.CLIE_NR_CEP_ENTREGA, "", new { @style = "color:red" })
+                                                        <span class="input-group-btn">
+                                                            @Html.ButtonLinkIndex(text: "Buscar CEP", action: "BuscarCEPCliente", controller: "Cadastros", buttonClass: "warning", routeValues: new { item = Model })
+                                                        </span>
+                                                    </div>
+                                                </div>                                   
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">              
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Endereço Entrega
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_ENDERECO_ENTREGA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_ENDERECO_ENTREGA, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Bairro Entrega
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_BAIRRO_ENTREGA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_BAIRRO_ENTREGA, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Cidade Entrega
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_CIDADE_ENTREGA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_CIDADE_ENTREGA, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-xs-12">
+                                                    UF
+                                                    @Html.TextBoxFor(m => m.CLIE_SG_UF_ENTREGA, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_SG_UF_ENTREGA, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Contatos*@
+                                <div id="tab-4" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    E-Mail*
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_EMAIL, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    E-Mail DANFE
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL_DANFE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_EMAIL_DANFE, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Redes Sociais
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_REDES_SOCIAIS, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_REDES_SOCIAIS, "", new { @style = "color:red" })
+                                                </div>                                              
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Telefone
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONES, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONES, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Celular
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_CELULAR, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CELULAR, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Telefone Adicional
+                                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    E-Mail
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_EMAIL, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Dados Pessoais*@
+                                <div id="tab-5" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Nome do Pai
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_PAI, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_PAI, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Nome da Mãe
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_MAE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_MAE, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Data Nascimento
+                                                    @Html.TextBoxFor(m => m.CLIE_DT_NASCIMENTO, "{0:dd/MM/yyyy}", new { @class = "form-control date-picker", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_DT_NASCIMENTO, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Naturalidade
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_NATURALIDADE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_NATURALIDADE, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-xs-12">
+                                                    UF
+                                                    @Html.TextBoxFor(m => m.CLIE_SG_NATURALIADE_UF, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_SG_NATURALIADE_UF, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Nacionalidade
+                                                    @Html.TextBoxFor(m => m.CLIE_NM_NACIONALIDADE, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_NACIONALIDADE, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+
+                                @*Dados Comerciais*@
+                                <div id="tab-6" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Vendedor
+                                                    @Html.DropDownListFor(m => m.COLA_CD_ID, (SelectList)ViewBag.Vendedores, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.ValidationMessageFor(m => m.COLA_CD_ID, "", new { @style = "color:red" })
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-xs-12">
+                                                    Limite de Crédito
+                                                    @Html.TextBoxFor(m => m.LimiteCredito, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.LimiteCredito, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Observações*@
+                                <div id="tab-7" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+                                                    Observações
+                                                    @Html.TextAreaFor(m => m.CLIE_TX_OBSERVACOES, new { @class = "form-control", style = "width: 1040px; height: 400px;", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.CLIE_TX_OBSERVACOES, "", new { @style = "color:red" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <br />
+                                    @Html.ButtonActionSubmit(text: "Confirma inclusão de Cliente")
+                                    @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseCliente", controller: "Cadastros")
+                                </div>
+                        </div>
                         }
-                        <div class="row">
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
-                                    @Html.HiddenFor(m => m.CLIE_DT_CADASTRO)
-                                    @Html.HiddenFor(m => m.CLIE_IN_ATIVO)
-                                    @Html.HiddenFor(m => m.MATR_CD_ID)
-                                    Categoria*
-                                    @Html.DropDownListFor(m => m.CACL_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.CACL_CD_ID, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Filial
-                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.FILI_CD_ID, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Tipo de Contribuinte
-                                    @Html.DropDownListFor(m => m.TICO_CD_ID, (SelectList)ViewBag.TiposContribuinte, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.TICO_CD_ID, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Tipo de Pessoa
-                                    @Html.DropDownListFor(m => m.TIPE_CD_ID, (SelectList)ViewBag.TiposPessoa, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.TIPE_CD_ID, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-6 col-md-6 col-xs-12">
-                                    Nome*
-                                    @Html.TextBoxFor(m => m.CLIE_NM_NOME, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_NOME, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-xs-12">
-                                    Razão Social
-                                    @Html.TextBoxFor(m => m.CLIE_NM_RAZAO, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_RAZAO, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    CPF
-                                    @Html.TextBoxFor(m => m.CLIE_NR_CPF, new { @class = "form-control", @id = "cpf", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CPF, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    CNPJ
-                                    @Html.TextBoxFor(m => m.CLIE_NR_CNPJ, new { @class = "form-control", @id = "cnpj", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CNPJ, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Inscrição Estadual
-                                    @Html.TextBoxFor(m => m.CLIE_NR_INSCRICAO_ESTADUAL, new { @class = "form-control", @id = "cpf", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NR_INSCRICAO_ESTADUAL, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Inscrição Municipal
-                                    @Html.TextBoxFor(m => m.CLIE_NR_INSCRICAO_MUNICIPAL, new { @class = "form-control", @id = "cnpj", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NR_INSCRICAO_MUNICIPAL, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    E-Mail*
-                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_EMAIL, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    E-Mail DANFE
-                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL_DANFE, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_EMAIL_DANFE, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Redes Sociais
-                                    @Html.TextBoxFor(m => m.CLIE_NM_REDES_SOCIAIS, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_REDES_SOCIAIS, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Telefone
-                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONES, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONES, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Celular
-                                    @Html.TextBoxFor(m => m.CLIE_NR_CELULAR, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CELULAR, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Telefone Adicional
-                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Website
-                                    @Html.TextBoxFor(m => m.CLIE_NM_WEBSITE, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_WEBSITE, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Nome do Pai
-                                    @Html.TextBoxFor(m => m.CLIE_NM_PAI, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_PAI, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Nome da Mãe
-                                    @Html.TextBoxFor(m => m.CLIE_NM_MAE, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_MAE, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Data Nascimento
-                                    @Html.TextBoxFor(m => m.CLIE_DT_NASCIMENTO, new { @class = "form-control date-picker", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_DT_NASCIMENTO, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Naturalidade
-                                    @Html.TextBoxFor(m => m.CLIE_NM_NATURALIDADE, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_NATURALIDADE, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-1 col-md-1 col-xs-12">
-                                    UF
-                                    @Html.TextBoxFor(m => m.CLIE_SG_NATURALIADE_UF, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_SG_NATURALIADE_UF, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Nacionalidade
-                                    @Html.TextBoxFor(m => m.CLIE_NM_NACIONALIDADE, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_NACIONALIDADE, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Vendedor
-                                    @Html.DropDownListFor(m => m.COLA_CD_ID, (SelectList)ViewBag.Vendedores, "Selecionar", new { @class = "form-control" })                            
-                                    @Html.ValidationMessageFor(m => m.COLA_CD_ID, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Limite de Crédito
-                                    @Html.TextBoxFor(m => m.LimiteCredito, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.LimiteCredito, "",new { @style="color:red" })
-                                </div>
-                            </div>
-
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-3 col-md-3 col-xs-12">                                
-                                    CEP
-                                    <div class="input-group">
-                                        @Html.TextBoxFor(m => m.CLIE_NR_CEP, new { @class = "form-control",  @id="cep", autofocus = true })
-                                        @Html.ValidationMessageFor(m => m.CLIE_NR_CEP, "",new { @style="color:red" })
-                                        <span class="input-group-btn">
-                                            @Html.ButtonLinkIndex(text: "Buscar CEP", action: "BuscarCEPCliente", controller: "Cadastros", buttonClass: "warning", routeValues:  new { item = Model})
-                                        </span>
-                                    </div>
-                                </div>                                   
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">              
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Endereço
-                                    @Html.TextBoxFor(m => m.CLIE_NM_ENDERECO, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_ENDERECO, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Bairro
-                                    @Html.TextBoxFor(m => m.CLIE_NM_BAIRRO, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_BAIRRO, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Cidade
-                                    @Html.TextBoxFor(m => m.CLIE_NM_CIDADE, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_CIDADE, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-1 col-md-1 col-xs-12">
-                                    UF
-                                    @Html.TextBoxFor(m => m.CLIE_SG_UF, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_SG_UF, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                <div class="col-lg-3 col-md-3 col-xs-12">                                
-                                    CEP Entrega
-                                    <div class="input-group">
-                                        @Html.TextBoxFor(m => m.CLIE_NR_CEP_ENTREGA, new { @class = "form-control",  @id="cep", autofocus = true })
-                                        @Html.ValidationMessageFor(m => m.CLIE_NR_CEP_ENTREGA, "",new { @style="color:red" })
-                                        <span class="input-group-btn">
-                                            @Html.ButtonLinkIndex(text: "Buscar CEP", action: "BuscarCEPCliente", controller: "Cadastros", buttonClass: "warning", routeValues:  new { item = Model})
-                                        </span>
-                                    </div>
-                                </div>                                   
-                            </div>
-                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">              
-                                <div class="col-lg-4 col-md-4 col-xs-12">
-                                    Endereço Entrega
-                                    @Html.TextBoxFor(m => m.CLIE_NM_ENDERECO_ENTREGA, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_ENDERECO_ENTREGA, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Bairro Entrega
-                                    @Html.TextBoxFor(m => m.CLIE_NM_BAIRRO_ENTREGA, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_BAIRRO_ENTREGA, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Cidade Entrega
-                                    @Html.TextBoxFor(m => m.CLIE_NM_CIDADE_ENTREGA, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_NM_CIDADE_ENTREGA, "",new { @style="color:red" })
-                                </div>
-                                <div class="col-lg-1 col-md-1 col-xs-12">
-                                    UF
-                                    @Html.TextBoxFor(m => m.CLIE_SG_UF_ENTREGA, new { @class = "form-control", autofocus = true })
-                                    @Html.ValidationMessageFor(m => m.CLIE_SG_UF_ENTREGA, "",new { @style="color:red" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.ButtonActionSubmit(text: "Confirma Inclusão de Cliente")
-                            @Html.ButtonLinkIndex(text: "Cancelar", action: "VoltarBaseCliente", controller: "Cadastros")
-                        </div>
                     </div>
-                }
+                </div>
             </div>
          </div>
     </div>
@@ -281,7 +367,42 @@
     @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/bundles/inputmask")
     @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/sparkline")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'Excel' },
+                    { extend: 'pdf', title: 'PDF' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+           
+
+        });
+    </script>
+
+
 
     <script type="text/javascript">
         $(function () {
@@ -290,6 +411,23 @@
             $("#cep").mask("99999-999");
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('body').addClass('light-navbar');
+
+            $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
+                type: 'line',
+                width: '100%',
+                height: '60',
+                lineColor: '#1ab394',
+                fillColor: "#ffffff"
+            });
+
+        });
+    </script>
+
 
     @if (ViewBag.Message != null)
     {

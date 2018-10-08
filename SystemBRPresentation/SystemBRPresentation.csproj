@@ -2037,7 +2037,7 @@
     <Content Include="Views\Banco\ReativarFilial.cshtml" />
     <Content Include="Views\Cadastros\Index.cshtml" />
     <Content Include="Views\Cadastros\MontarTelaCliente.cshtml" />
-    <Content Include="Views\Cadastros\IncluirCliente.cshtml" />
+    <Content Include="Views\Cadastros\IncluirClienteold.cshtml" />
     <Content Include="Views\Cadastros\EditarClienteOld.cshtml" />
     <Content Include="Views\Cadastros\ExcluirCliente.cshtml" />
     <Content Include="Views\Cadastros\ReativarCliente.cshtml" />
@@ -2051,7 +2051,7 @@
     <Content Include="Views\Cadastros\VerCardsFornecedor.cshtml" />
     <Content Include="Views\Cadastros\VerAnexoFornecedor.cshtml" />
     <Content Include="Views\Cadastros\MontarTelaProduto.cshtml" />
-    <Content Include="Views\Cadastros\IncluirProduto.cshtml" />
+    <Content Include="Views\Cadastros\IncluirProdutoOld.cshtml" />
     <Content Include="Views\Cadastros\EditarProdutoOld.cshtml" />
     <Content Include="Views\Cadastros\ExcluirProduto.cshtml" />
     <Content Include="Views\Cadastros\ReativarProduto.cshtml" />
@@ -2111,6 +2111,8 @@
     <Content Include="Views\Cadastros\IncluirReferencia.cshtml" />
     <Content Include="Views\Cadastros\IncluirTag.cshtml" />
     <Content Include="Views\Cadastros\EditarProduto.cshtml" />
+    <Content Include="Views\Cadastros\IncluirCliente.cshtml" />
+    <Content Include="Views\Cadastros\IncluirProduto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
