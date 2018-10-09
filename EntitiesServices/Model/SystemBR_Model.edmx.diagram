@@ -318,6 +318,9 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_FORNECEDOR_PRODUTO" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_GRADE_PRODUTO" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_SUBCATEGORIA_PRODUTO" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TAMANHO" Width="1.5" PointX="5.25" PointY="109.625" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TAMANHO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_GRADE_TAMANHO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

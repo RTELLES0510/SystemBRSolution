@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CargoRepository.cs" />
+    <Compile Include="Repositories\TamanhoRepository.cs" />
     <Compile Include="Repositories\SubcategoriaProdutoRepository.cs" />
     <Compile Include="Repositories\ProdutoGradeRepository.cs" />
     <Compile Include="Repositories\ProdutoFornecedorRepository.cs" />

@@ -31,5 +31,6 @@ namespace ApplicationServices.Interfaces
         Int32 ValidateCreateFornecedor(PRODUTO_FORNECEDOR item);
         Int32 ValidateEditGrade(PRODUTO_GRADE item);
         Int32 ValidateCreateGrade(PRODUTO_GRADE item);
+        List<TAMANHO> GetAllTamanhos();
     }
 }

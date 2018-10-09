@@ -94,6 +94,7 @@
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITamanhoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISubcategoriaProdutoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProdutoGradeRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProdutoFornecedorRepository.cs" />
@@ -461,6 +462,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SystemBR_Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TAMANHO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TAREFA.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>

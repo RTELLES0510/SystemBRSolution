@@ -3733,5 +3733,203 @@ namespace SystemBRPresentation.Controllers
             EQUIPAMENTO_MANUTENCAO item = equiApp.GetItemManutencaoById(id);
             return View(item);
         }
+
+        [HttpGet]
+        public ActionResult EditarProdutoFornecedor(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Fornecedores = new SelectList(fornApp.GetAllItens(), "FORN_CD_ID", "FORN_NM_NOME");
+            PRODUTO_FORNECEDOR item = prodApp.GetFornecedorById(id);
+            objetoProdAntes = SessionMocks.produto;
+            ProdutoFornecedorViewModel vm = Mapper.Map<PRODUTO_FORNECEDOR, ProdutoFornecedorViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarProdutoFornecedor(ProdutoFornecedorViewModel vm)
+        {
+            ViewBag.Fornecedores = new SelectList(fornApp.GetAllItens(), "FORN_CD_ID", "FORN_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    PRODUTO_FORNECEDOR item = Mapper.Map<ProdutoFornecedorViewModel, PRODUTO_FORNECEDOR>(vm);
+                    Int32 volta = prodApp.ValidateEditFornecedor(item);
+
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoProduto");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirProdutoFornecedor(Int32 id)
+        {
+            PRODUTO_FORNECEDOR item = prodApp.GetFornecedorById(id);
+            objetoProdAntes = SessionMocks.produto;
+            item.PRFO_IN_ATIVO = 0;
+            Int32 volta = prodApp.ValidateEditFornecedor(item);
+            return RedirectToAction("VoltarAnexoProduto");
+        }
+
+        [HttpGet]
+        public ActionResult ReativarProdutoFornecedor(Int32 id)
+        {
+            PRODUTO_FORNECEDOR item = prodApp.GetFornecedorById(id);
+            objetoProdAntes = SessionMocks.produto;
+            item.PRFO_IN_ATIVO = 1;
+            Int32 volta = prodApp.ValidateEditFornecedor(item);
+            return RedirectToAction("VoltarAnexoProduto");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirProdutoFornecedor()
+        {
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            PRODUTO_FORNECEDOR item = new PRODUTO_FORNECEDOR();
+            ProdutoFornecedorViewModel vm = Mapper.Map<PRODUTO_FORNECEDOR, ProdutoFornecedorViewModel>(item);
+            vm.PROD_CD_ID = SessionMocks.idVolta;
+            vm.PRFO_IN_ATIVO = 1;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirProdutoFornecedor(ProdutoFornecedorViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    PRODUTO_FORNECEDOR item = Mapper.Map<ProdutoFornecedorViewModel, PRODUTO_FORNECEDOR>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = prodApp.ValidateCreateFornecedor(item);
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoProduto");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditarProdutoGrade(Int32 id)
+        {
+            // Prepara view
+            ViewBag.Tamanhos = new SelectList(prodApp.GetAllTamanhos(), "TAMA_CD_ID", "TAMA_NM_NOME");
+            PRODUTO_GRADE item = prodApp.GetGradeById(id);
+            objetoProdAntes = SessionMocks.produto;
+            ProdutoGradeViewModel vm = Mapper.Map<PRODUTO_GRADE, ProdutoGradeViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarProdutoGrade(ProdutoGradeViewModel vm)
+        {
+            ViewBag.Tamanhos = new SelectList(prodApp.GetAllTamanhos(), "TAMA_CD_ID", "TAMA_NM_NOME");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    PRODUTO_GRADE item = Mapper.Map<ProdutoGradeViewModel, PRODUTO_GRADE>(vm);
+                    Int32 volta = prodApp.ValidateEditGrade(item);
+
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoProduto");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirProdutoGrade(Int32 id)
+        {
+            PRODUTO_GRADE item = prodApp.GetGradeById(id);
+            objetoProdAntes = SessionMocks.produto;
+            item.PRGR_IN_ATIVO = 0;
+            Int32 volta = prodApp.ValidateEditGrade(item);
+            return RedirectToAction("VoltarAnexoProduto");
+        }
+
+        [HttpGet]
+        public ActionResult ReativarProdutoGrade(Int32 id)
+        {
+            PRODUTO_GRADE item = prodApp.GetGradeById(id);
+            objetoProdAntes = SessionMocks.produto;
+            item.PRGR_IN_ATIVO = 1;
+            Int32 volta = prodApp.ValidateEditGrade(item);
+            return RedirectToAction("VoltarAnexoProduto");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirProdutoGrade()
+        {
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            PRODUTO_GRADE item = new PRODUTO_GRADE();
+            ProdutoGradeViewModel vm = Mapper.Map<PRODUTO_GRADE, ProdutoGradeViewModel>(item);
+            vm.PROD_CD_ID = SessionMocks.idVolta;
+            vm.PRGR_IN_ATIVO = 1;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirProdutoGrade(ProdutoGradeViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    PRODUTO_GRADE item = Mapper.Map<ProdutoGradeViewModel, PRODUTO_GRADE>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = prodApp.ValidateCreateGrade(item);
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoProduto");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
     }
 }

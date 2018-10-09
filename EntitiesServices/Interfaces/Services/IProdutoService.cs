@@ -32,5 +32,6 @@ namespace ModelServices.Interfaces.EntitiesServices
         Int32 CreateFornecedor(PRODUTO_FORNECEDOR item);
         Int32 EditGrade(PRODUTO_GRADE item);
         Int32 CreateGrade(PRODUTO_GRADE item);
+        List<TAMANHO> GetAllTamanhos();
     }
 }

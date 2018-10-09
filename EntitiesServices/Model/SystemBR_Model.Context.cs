@@ -136,5 +136,6 @@ namespace EntitiesServices.Model
         public virtual DbSet<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
         public virtual DbSet<PRODUTO_GRADE> PRODUTO_GRADE { get; set; }
         public virtual DbSet<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
+        public virtual DbSet<TAMANHO> TAMANHO { get; set; }
     }
 }

@@ -59,6 +59,12 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public List<TAMANHO> GetAllTamanhos()
+        {
+            List<TAMANHO> lista = _baseService.GetAllTamanhos();
+            return lista;
+        }
+
         public List<SUBCATEGORIA_PRODUTO> GetAllSubcategorias(Int32 cat)
         {
             List<SUBCATEGORIA_PRODUTO> lista = _baseService.GetAllSubcategorias(cat);

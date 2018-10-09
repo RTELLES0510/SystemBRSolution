@@ -27,11 +27,12 @@ namespace ModelServices.EntitiesServices
         private readonly IFilialRepository _filialRepository;
         private readonly IUnidadeRepository _unidRepository;
         private readonly IMovimentoEstoqueProdutoRepository _movRepository;
+        private readonly ITamanhoRepository _tamRepository;
         private readonly ISubcategoriaProdutoRepository _subRepository;
 
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public ProdutoService(IProdutoRepository baseRepository, ILogRepository logRepository, ICategoriaProdutoRepository tipoRepository, IProdutoAnexoRepository anexoRepository, IFilialRepository filialRepository, IUnidadeRepository unidRepository, IMovimentoEstoqueProdutoRepository movRepository, IProdutoGradeRepository gradeRepository, IProdutoFornecedorRepository fornRepository, ISubcategoriaProdutoRepository subRepository) : base(baseRepository)
+        public ProdutoService(IProdutoRepository baseRepository, ILogRepository logRepository, ICategoriaProdutoRepository tipoRepository, IProdutoAnexoRepository anexoRepository, IFilialRepository filialRepository, IUnidadeRepository unidRepository, IMovimentoEstoqueProdutoRepository movRepository, IProdutoGradeRepository gradeRepository, IProdutoFornecedorRepository fornRepository, ISubcategoriaProdutoRepository subRepository, ITamanhoRepository tamRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
@@ -43,6 +44,7 @@ namespace ModelServices.EntitiesServices
             _gradeRepository = gradeRepository;
             _fornRepository = fornRepository;
             _subRepository = subRepository;
+            _tamRepository = tamRepository;
         }
 
         public PRODUTO CheckExist(PRODUTO conta)
@@ -86,6 +88,11 @@ namespace ModelServices.EntitiesServices
         public List<UNIDADE> GetAllUnidades()
         {
             return _unidRepository.GetAllItens();
+        }
+
+        public List<TAMANHO> GetAllTamanhos()
+        {
+            return _tamRepository.GetAllItens();
         }
 
         public List<FILIAL> GetAllFilial()

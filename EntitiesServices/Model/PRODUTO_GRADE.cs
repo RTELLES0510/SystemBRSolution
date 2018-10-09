@@ -20,7 +20,9 @@ namespace EntitiesServices.Model
         public string PRGR_NM_TAMANHO { get; set; }
         public int PRGR_QN_QUANTIDADE { get; set; }
         public int PRGR_IN_ATIVO { get; set; }
+        public Nullable<int> TAMA_CD_ID { get; set; }
     
         public virtual PRODUTO PRODUTO { get; set; }
+        public virtual TAMANHO TAMANHO { get; set; }
     }
 }

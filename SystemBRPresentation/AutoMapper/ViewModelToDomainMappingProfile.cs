@@ -29,6 +29,11 @@ namespace MvcMapping.Mappers
             CreateMap<PatrimonioViewModel, PATRIMONIO>();
             CreateMap<CargoViewModel, CARGO>();
             CreateMap<ValorComissaoViewModel, VALOR_COMISSAO>();
+            CreateMap<ClienteContatoViewModel, CLIENTE_CONTATO>();
+            CreateMap<ClienteReferenciaViewModel, CLIENTE_REFERENCIA>();
+            CreateMap<ClienteTagViewModel, CLIENTE_TAG>();
+            CreateMap<ProdutoFornecedorViewModel, PRODUTO_FORNECEDOR>();
+            CreateMap<ProdutoGradeViewModel, PRODUTO_GRADE>();
         }
     }
 }

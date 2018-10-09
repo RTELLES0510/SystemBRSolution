@@ -45,6 +45,7 @@ namespace EntitiesServices.Model
             this.PROPOSTA_VENDA = new HashSet<PROPOSTA_VENDA>();
             this.SUBCATEGORIA_PRODUTO = new HashSet<SUBCATEGORIA_PRODUTO>();
             this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
+            this.TAMANHO = new HashSet<TAMANHO>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -114,5 +115,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TAMANHO> TAMANHO { get; set; }
     }
 }
