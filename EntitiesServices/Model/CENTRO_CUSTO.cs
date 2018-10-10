@@ -28,10 +28,10 @@ namespace EntitiesServices.Model
         public Nullable<int> CECU_ID_PAI { get; set; }
         public int CECU_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CENTRO_CUSTO> CENTRO_CUSTO1 { get; set; }
         public virtual CENTRO_CUSTO CENTRO_CUSTO2 { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }

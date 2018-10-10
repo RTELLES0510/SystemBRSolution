@@ -94,6 +94,12 @@
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IFormaPagamentoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ICategoriaContratoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IContratoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IContratoAnexoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ICentroCustoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IPlanoContaRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITamanhoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISubcategoriaProdutoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProdutoGradeRepository.cs" />
@@ -106,6 +112,7 @@
     <Compile Include="Interfaces\Repositories\IPeriodicidadeRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaEquipamentoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaPatrimonioRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITipoContratoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITipoPessoaRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITipoContribuinteRepository.cs" />
     <Compile Include="Interfaces\Repositories\IValorComissaoRepository.cs" />
@@ -362,6 +369,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\NIVEL_CONTA.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NOMENCLATURA_BRAS_SERVICOS.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\OPORTUNIDADE_NEGOCIO.cs">

@@ -18,10 +18,10 @@ namespace EntitiesServices.Model
         public FORNECEDOR()
         {
             this.CONTA_PAGAR = new HashSet<CONTA_PAGAR>();
+            this.EQUIPAMENTO_MANUTENCAO = new HashSet<EQUIPAMENTO_MANUTENCAO>();
             this.FORNECEDOR_ANEXO = new HashSet<FORNECEDOR_ANEXO>();
             this.ITEM_PEDIDO_COMPRA_COTACAO = new HashSet<ITEM_PEDIDO_COMPRA_COTACAO>();
             this.PEDIDO_COMPRA = new HashSet<PEDIDO_COMPRA>();
-            this.EQUIPAMENTO_MANUTENCAO = new HashSet<EQUIPAMENTO_MANUTENCAO>();
             this.PRODUTO_FORNECEDOR = new HashSet<PRODUTO_FORNECEDOR>();
         }
     
@@ -50,6 +50,8 @@ namespace EntitiesServices.Model
         public virtual CATEGORIA_FORNECEDOR CATEGORIA_FORNECEDOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_PAGAR> CONTA_PAGAR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FORNECEDOR_ANEXO> FORNECEDOR_ANEXO { get; set; }
@@ -58,8 +60,6 @@ namespace EntitiesServices.Model
         public virtual ICollection<ITEM_PEDIDO_COMPRA_COTACAO> ITEM_PEDIDO_COMPRA_COTACAO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO_COMPRA> PEDIDO_COMPRA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
     }

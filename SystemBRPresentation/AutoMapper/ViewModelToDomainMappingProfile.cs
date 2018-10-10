@@ -34,6 +34,7 @@ namespace MvcMapping.Mappers
             CreateMap<ClienteTagViewModel, CLIENTE_TAG>();
             CreateMap<ProdutoFornecedorViewModel, PRODUTO_FORNECEDOR>();
             CreateMap<ProdutoGradeViewModel, PRODUTO_GRADE>();
+            CreateMap<ContratoViewModel, CONTRATO>();
         }
     }
 }

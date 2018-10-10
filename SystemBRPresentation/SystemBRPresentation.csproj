@@ -215,6 +215,7 @@
     <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\ConfiguracaoViewModel.cs" />
     <Compile Include="ViewModels\ContaBancariaViewModel.cs" />
+    <Compile Include="ViewModels\ContratoViewModel.cs" />
     <Compile Include="ViewModels\EquipamentoViewModel.cs" />
     <Compile Include="ViewModels\FilialViewModel.cs" />
     <Compile Include="ViewModels\FornecedorViewModel.cs" />

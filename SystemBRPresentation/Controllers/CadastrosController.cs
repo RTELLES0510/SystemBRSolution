@@ -225,7 +225,7 @@ namespace SystemBRPresentation.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult IncluirCliente(ClienteViewModel vm)
         {
             ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "CACL_CD_ID", "CACL_NM_NOME");
@@ -1395,7 +1395,7 @@ namespace SystemBRPresentation.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult IncluirProduto(ProdutoViewModel vm)
         {
             ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAPR_CD_ID", "CAPR_NM_NOME");

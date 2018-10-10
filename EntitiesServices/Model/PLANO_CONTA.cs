@@ -19,8 +19,8 @@ namespace EntitiesServices.Model
         {
             this.CONTA_PAGAR = new HashSet<CONTA_PAGAR>();
             this.CONTA_RECEBER = new HashSet<CONTA_RECEBER>();
-            this.PLANO_CONTA1 = new HashSet<PLANO_CONTA>();
             this.CONTRATO = new HashSet<CONTRATO>();
+            this.PLANO_CONTA1 = new HashSet<PLANO_CONTA>();
         }
     
         public int PLCO_CD_ID { get; set; }
@@ -31,16 +31,16 @@ namespace EntitiesServices.Model
         public Nullable<int> PLCO_ID_PAI { get; set; }
         public int PLCO_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_PAGAR> CONTA_PAGAR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_RECEBER> CONTA_RECEBER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
         public virtual NIVEL_CONTA NIVEL_CONTA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PLANO_CONTA> PLANO_CONTA1 { get; set; }
         public virtual PLANO_CONTA PLANO_CONTA2 { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }
 }

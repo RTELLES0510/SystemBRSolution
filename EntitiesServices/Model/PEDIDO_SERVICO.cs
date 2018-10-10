@@ -41,6 +41,7 @@ namespace EntitiesServices.Model
         public string PESE_TX_OBSERVACOES { get; set; }
         public int PESE_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -50,6 +51,5 @@ namespace EntitiesServices.Model
         public virtual ICollection<PEDIDO_SERVICO_ANEXO> PEDIDO_SERVICO_ANEXO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROPOSTA_SERVICO> PROPOSTA_SERVICO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

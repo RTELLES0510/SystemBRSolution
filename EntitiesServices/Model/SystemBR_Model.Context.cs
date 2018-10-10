@@ -34,6 +34,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<CARGO> CARGO { get; set; }
         public virtual DbSet<CATEGORIA_ATENDIMENTO> CATEGORIA_ATENDIMENTO { get; set; }
         public virtual DbSet<CATEGORIA_CLIENTE> CATEGORIA_CLIENTE { get; set; }
+        public virtual DbSet<CATEGORIA_CONTRATO> CATEGORIA_CONTRATO { get; set; }
         public virtual DbSet<CATEGORIA_EQUIPAMENTO> CATEGORIA_EQUIPAMENTO { get; set; }
         public virtual DbSet<CATEGORIA_FORNECEDOR> CATEGORIA_FORNECEDOR { get; set; }
         public virtual DbSet<CATEGORIA_MATERIA> CATEGORIA_MATERIA { get; set; }
@@ -43,6 +44,9 @@ namespace EntitiesServices.Model
         public virtual DbSet<CENTRO_CUSTO> CENTRO_CUSTO { get; set; }
         public virtual DbSet<CLIENTE> CLIENTE { get; set; }
         public virtual DbSet<CLIENTE_ANEXO> CLIENTE_ANEXO { get; set; }
+        public virtual DbSet<CLIENTE_CONTATO> CLIENTE_CONTATO { get; set; }
+        public virtual DbSet<CLIENTE_REFERENCIA> CLIENTE_REFERENCIA { get; set; }
+        public virtual DbSet<CLIENTE_TAG> CLIENTE_TAG { get; set; }
         public virtual DbSet<COLABORADOR> COLABORADOR { get; set; }
         public virtual DbSet<COLABORADOR_ANEXO> COLABORADOR_ANEXO { get; set; }
         public virtual DbSet<COLABORADOR_FREQUENCIA> COLABORADOR_FREQUENCIA { get; set; }
@@ -54,14 +58,19 @@ namespace EntitiesServices.Model
         public virtual DbSet<CONTA_RECEBER> CONTA_RECEBER { get; set; }
         public virtual DbSet<CONTA_RECEBER_ANEXO> CONTA_RECEBER_ANEXO { get; set; }
         public virtual DbSet<CONTRATO> CONTRATO { get; set; }
+        public virtual DbSet<CONTRATO_ANEXO> CONTRATO_ANEXO { get; set; }
         public virtual DbSet<DEPENDENTE> DEPENDENTE { get; set; }
         public virtual DbSet<EQUIPAMENTO> EQUIPAMENTO { get; set; }
         public virtual DbSet<EQUIPAMENTO_ANEXO> EQUIPAMENTO_ANEXO { get; set; }
+        public virtual DbSet<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
         public virtual DbSet<ESCALA_TRABALHO> ESCALA_TRABALHO { get; set; }
         public virtual DbSet<ESCOLARIDADE> ESCOLARIDADE { get; set; }
         public virtual DbSet<ESTADO_CIVIL> ESTADO_CIVIL { get; set; }
         public virtual DbSet<EXAME_PERIODICO> EXAME_PERIODICO { get; set; }
+        public virtual DbSet<FICHA_TECNICA> FICHA_TECNICA { get; set; }
+        public virtual DbSet<FICHA_TECNICA_DETALHE> FICHA_TECNICA_DETALHE { get; set; }
         public virtual DbSet<FILIAL> FILIAL { get; set; }
+        public virtual DbSet<FORMA_PAGAMENTO> FORMA_PAGAMENTO { get; set; }
         public virtual DbSet<FORNECEDOR> FORNECEDOR { get; set; }
         public virtual DbSet<FORNECEDOR_ANEXO> FORNECEDOR_ANEXO { get; set; }
         public virtual DbSet<FUNCIONALIDADE> FUNCIONALIDADE { get; set; }
@@ -93,6 +102,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<PEDIDO_VENDA> PEDIDO_VENDA { get; set; }
         public virtual DbSet<PEDIDO_VENDA_ANEXO> PEDIDO_VENDA_ANEXO { get; set; }
         public virtual DbSet<PERFIL> PERFIL { get; set; }
+        public virtual DbSet<PERIODICIDADE> PERIODICIDADE { get; set; }
         public virtual DbSet<PLANO_ASSINATURA> PLANO_ASSINATURA { get; set; }
         public virtual DbSet<PLANO_CONTA> PLANO_CONTA { get; set; }
         public virtual DbSet<PLANO_PERMISSAO> PLANO_PERMISSAO { get; set; }
@@ -101,19 +111,27 @@ namespace EntitiesServices.Model
         public virtual DbSet<PRECO_SERVICO> PRECO_SERVICO { get; set; }
         public virtual DbSet<PRODUTO> PRODUTO { get; set; }
         public virtual DbSet<PRODUTO_ANEXO> PRODUTO_ANEXO { get; set; }
+        public virtual DbSet<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
+        public virtual DbSet<PRODUTO_GRADE> PRODUTO_GRADE { get; set; }
         public virtual DbSet<PROPOSTA_SERVICO> PROPOSTA_SERVICO { get; set; }
         public virtual DbSet<PROPOSTA_SERVICO_ANEXO> PROPOSTA_SERVICO_ANEXO { get; set; }
         public virtual DbSet<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
         public virtual DbSet<PROPOSTA_VENDA_ANEXO> PROPOSTA_VENDA_ANEXO { get; set; }
+        public virtual DbSet<SEGMENTO> SEGMENTO { get; set; }
         public virtual DbSet<SERVICO> SERVICO { get; set; }
         public virtual DbSet<SERVICO_ANEXO> SERVICO_ANEXO { get; set; }
+        public virtual DbSet<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
+        public virtual DbSet<TAMANHO> TAMANHO { get; set; }
         public virtual DbSet<TAREFA> TAREFA { get; set; }
         public virtual DbSet<TEMPLATE> TEMPLATE { get; set; }
         public virtual DbSet<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
         public virtual DbSet<TIPO_COMISSAO> TIPO_COMISSAO { get; set; }
         public virtual DbSet<TIPO_CONTA> TIPO_CONTA { get; set; }
+        public virtual DbSet<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
+        public virtual DbSet<TIPO_CONTRIBUINTE> TIPO_CONTRIBUINTE { get; set; }
         public virtual DbSet<TIPO_DOCUMENTO> TIPO_DOCUMENTO { get; set; }
         public virtual DbSet<TIPO_FAVORECIDO> TIPO_FAVORECIDO { get; set; }
+        public virtual DbSet<TIPO_PESSOA> TIPO_PESSOA { get; set; }
         public virtual DbSet<TIPO_SALARIAL> TIPO_SALARIAL { get; set; }
         public virtual DbSet<TRANSPORTADORA> TRANSPORTADORA { get; set; }
         public virtual DbSet<TRANSPORTADORA_ANEXO> TRANSPORTADORA_ANEXO { get; set; }
@@ -122,23 +140,6 @@ namespace EntitiesServices.Model
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
         public virtual DbSet<VINCULO_EMPREGATICIO> VINCULO_EMPREGATICIO { get; set; }
-        public virtual DbSet<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
-        public virtual DbSet<FICHA_TECNICA> FICHA_TECNICA { get; set; }
-        public virtual DbSet<FICHA_TECNICA_DETALHE> FICHA_TECNICA_DETALHE { get; set; }
-        public virtual DbSet<FORMA_PAGAMENTO> FORMA_PAGAMENTO { get; set; }
-        public virtual DbSet<PERIODICIDADE> PERIODICIDADE { get; set; }
-        public virtual DbSet<SEGMENTO> SEGMENTO { get; set; }
-        public virtual DbSet<CLIENTE_CONTATO> CLIENTE_CONTATO { get; set; }
-        public virtual DbSet<CLIENTE_REFERENCIA> CLIENTE_REFERENCIA { get; set; }
-        public virtual DbSet<CLIENTE_TAG> CLIENTE_TAG { get; set; }
-        public virtual DbSet<TIPO_CONTRIBUINTE> TIPO_CONTRIBUINTE { get; set; }
-        public virtual DbSet<TIPO_PESSOA> TIPO_PESSOA { get; set; }
-        public virtual DbSet<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
-        public virtual DbSet<PRODUTO_GRADE> PRODUTO_GRADE { get; set; }
-        public virtual DbSet<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
-        public virtual DbSet<TAMANHO> TAMANHO { get; set; }
-        public virtual DbSet<CATEGORIA_CONTRATO> CATEGORIA_CONTRATO { get; set; }
-        public virtual DbSet<CONTRATO_ANEXO> CONTRATO_ANEXO { get; set; }
-        public virtual DbSet<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
+        public virtual DbSet<NOMENCLATURA_BRAS_SERVICOS> NOMENCLATURA_BRAS_SERVICOS { get; set; }
     }
 }

@@ -17,14 +17,14 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public COLABORADOR()
         {
+            this.CLIENTE = new HashSet<CLIENTE>();
             this.COLABORADOR_ANEXO = new HashSet<COLABORADOR_ANEXO>();
             this.COLABORADOR_FREQUENCIA = new HashSet<COLABORADOR_FREQUENCIA>();
+            this.CONTRATO = new HashSet<CONTRATO>();
             this.DEPENDENTE = new HashSet<DEPENDENTE>();
             this.EXAME_PERIODICO = new HashSet<EXAME_PERIODICO>();
             this.LICENSA_ATESTADO = new HashSet<LICENSA_ATESTADO>();
             this.USUARIO = new HashSet<USUARIO>();
-            this.CLIENTE = new HashSet<CLIENTE>();
-            this.CONTRATO = new HashSet<CONTRATO>();
         }
     
         public int COLA_CD_ID { get; set; }
@@ -75,7 +75,10 @@ namespace EntitiesServices.Model
         public string COLA_NM_PROFISSAO { get; set; }
         public int COLA_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CARGO CARGO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COLABORADOR_ANEXO> COLABORADOR_ANEXO { get; set; }
         public virtual ESCALA_TRABALHO ESCALA_TRABALHO { get; set; }
@@ -88,6 +91,8 @@ namespace EntitiesServices.Model
         public virtual TIPO_SALARIAL TIPO_SALARIAL { get; set; }
         public virtual VINCULO_EMPREGATICIO VINCULO_EMPREGATICIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DEPENDENTE> DEPENDENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EXAME_PERIODICO> EXAME_PERIODICO { get; set; }
@@ -95,10 +100,5 @@ namespace EntitiesServices.Model
         public virtual ICollection<LICENSA_ATESTADO> LICENSA_ATESTADO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USUARIO> USUARIO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }
 }

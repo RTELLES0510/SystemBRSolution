@@ -19,39 +19,39 @@ namespace EntitiesServices.Model
         {
             this.ASSINANTE_PLANO = new HashSet<ASSINANTE_PLANO>();
             this.CARGO = new HashSet<CARGO>();
+            this.CATEGORIA_CONTRATO = new HashSet<CATEGORIA_CONTRATO>();
+            this.CATEGORIA_PRODUTO = new HashSet<CATEGORIA_PRODUTO>();
+            this.CENTRO_CUSTO = new HashSet<CENTRO_CUSTO>();
             this.CLIENTE = new HashSet<CLIENTE>();
+            this.COLABORADOR = new HashSet<COLABORADOR>();
+            this.CONTRATO = new HashSet<CONTRATO>();
             this.EQUIPAMENTO = new HashSet<EQUIPAMENTO>();
+            this.EQUIPAMENTO_MANUTENCAO = new HashSet<EQUIPAMENTO_MANUTENCAO>();
+            this.FICHA_TECNICA = new HashSet<FICHA_TECNICA>();
+            this.FICHA_TECNICA_DETALHE = new HashSet<FICHA_TECNICA_DETALHE>();
+            this.FORMA_PAGAMENTO = new HashSet<FORMA_PAGAMENTO>();
             this.FORNECEDOR = new HashSet<FORNECEDOR>();
             this.LOG = new HashSet<LOG>();
             this.MATERIA_PRIMA = new HashSet<MATERIA_PRIMA>();
             this.MATRIZ = new HashSet<MATRIZ>();
             this.MOVIMENTO_ESTOQUE_PRODUTO = new HashSet<MOVIMENTO_ESTOQUE_PRODUTO>();
             this.PATRIMONIO = new HashSet<PATRIMONIO>();
+            this.PEDIDO_SERVICO = new HashSet<PEDIDO_SERVICO>();
+            this.PEDIDO_VENDA = new HashSet<PEDIDO_VENDA>();
+            this.PERIODICIDADE = new HashSet<PERIODICIDADE>();
+            this.PLANO_CONTA = new HashSet<PLANO_CONTA>();
             this.PRODUTO = new HashSet<PRODUTO>();
+            this.PROPOSTA_VENDA = new HashSet<PROPOSTA_VENDA>();
+            this.SEGMENTO = new HashSet<SEGMENTO>();
             this.SERVICO = new HashSet<SERVICO>();
+            this.SUBCATEGORIA_PRODUTO = new HashSet<SUBCATEGORIA_PRODUTO>();
+            this.TAMANHO = new HashSet<TAMANHO>();
+            this.TEMPLATE = new HashSet<TEMPLATE>();
+            this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
+            this.TIPO_CONTRATO = new HashSet<TIPO_CONTRATO>();
             this.TRANSPORTADORA = new HashSet<TRANSPORTADORA>();
             this.USUARIO = new HashSet<USUARIO>();
             this.VALOR_COMISSAO = new HashSet<VALOR_COMISSAO>();
-            this.EQUIPAMENTO_MANUTENCAO = new HashSet<EQUIPAMENTO_MANUTENCAO>();
-            this.FICHA_TECNICA = new HashSet<FICHA_TECNICA>();
-            this.FICHA_TECNICA_DETALHE = new HashSet<FICHA_TECNICA_DETALHE>();
-            this.FORMA_PAGAMENTO = new HashSet<FORMA_PAGAMENTO>();
-            this.PERIODICIDADE = new HashSet<PERIODICIDADE>();
-            this.SEGMENTO = new HashSet<SEGMENTO>();
-            this.COLABORADOR = new HashSet<COLABORADOR>();
-            this.CATEGORIA_PRODUTO = new HashSet<CATEGORIA_PRODUTO>();
-            this.PEDIDO_SERVICO = new HashSet<PEDIDO_SERVICO>();
-            this.PEDIDO_VENDA = new HashSet<PEDIDO_VENDA>();
-            this.PROPOSTA_VENDA = new HashSet<PROPOSTA_VENDA>();
-            this.SUBCATEGORIA_PRODUTO = new HashSet<SUBCATEGORIA_PRODUTO>();
-            this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
-            this.TAMANHO = new HashSet<TAMANHO>();
-            this.CATEGORIA_CONTRATO = new HashSet<CATEGORIA_CONTRATO>();
-            this.CENTRO_CUSTO = new HashSet<CENTRO_CUSTO>();
-            this.CONTRATO = new HashSet<CONTRATO>();
-            this.PLANO_CONTA = new HashSet<PLANO_CONTA>();
-            this.TEMPLATE = new HashSet<TEMPLATE>();
-            this.TIPO_CONTRATO = new HashSet<TIPO_CONTRATO>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -70,9 +70,27 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CARGO> CARGO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CATEGORIA_CONTRATO> CATEGORIA_CONTRATO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CATEGORIA_PRODUTO> CATEGORIA_PRODUTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CENTRO_CUSTO> CENTRO_CUSTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COLABORADOR> COLABORADOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EQUIPAMENTO> EQUIPAMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FICHA_TECNICA> FICHA_TECNICA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FICHA_TECNICA_DETALHE> FICHA_TECNICA_DETALHE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FORMA_PAGAMENTO> FORMA_PAGAMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FORNECEDOR> FORNECEDOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -86,54 +104,36 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PATRIMONIO> PATRIMONIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PEDIDO_SERVICO> PEDIDO_SERVICO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PEDIDO_VENDA> PEDIDO_VENDA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PERIODICIDADE> PERIODICIDADE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PLANO_CONTA> PLANO_CONTA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO> PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SEGMENTO> SEGMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SERVICO> SERVICO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TAMANHO> TAMANHO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TEMPLATE> TEMPLATE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRANSPORTADORA> TRANSPORTADORA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<USUARIO> USUARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FICHA_TECNICA> FICHA_TECNICA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FICHA_TECNICA_DETALHE> FICHA_TECNICA_DETALHE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FORMA_PAGAMENTO> FORMA_PAGAMENTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PERIODICIDADE> PERIODICIDADE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SEGMENTO> SEGMENTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COLABORADOR> COLABORADOR { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CATEGORIA_PRODUTO> CATEGORIA_PRODUTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PEDIDO_SERVICO> PEDIDO_SERVICO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PEDIDO_VENDA> PEDIDO_VENDA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PROPOSTA_VENDA> PROPOSTA_VENDA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TAMANHO> TAMANHO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CATEGORIA_CONTRATO> CATEGORIA_CONTRATO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CENTRO_CUSTO> CENTRO_CUSTO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PLANO_CONTA> PLANO_CONTA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TEMPLATE> TEMPLATE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
     }
 }

@@ -129,10 +129,6 @@ namespace ApplicationServices.Services
                 {
                     return 1;
                 }
-                if (item.CONTRATO.Count > 0)
-                {
-                    return 1;
-                }
                 if (item.EQUIPAMENTO.Count > 0)
                 {
                     return 1;

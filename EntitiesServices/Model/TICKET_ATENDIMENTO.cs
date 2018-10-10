@@ -36,12 +36,12 @@ namespace EntitiesServices.Model
         public string TIAT_DS_JUSTIFICATIVA { get; set; }
         public int TIAT_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ATENDIMENTO_ACOMPANHAMENTO> ATENDIMENTO_ACOMPANHAMENTO { get; set; }
         public virtual CATEGORIA_ATENDIMENTO CATEGORIA_ATENDIMENTO { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

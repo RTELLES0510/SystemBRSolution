@@ -19,22 +19,22 @@ namespace EntitiesServices.Model
         {
             this.INVENTARIO = new HashSet<INVENTARIO>();
             this.PRODUTO = new HashSet<PRODUTO>();
-            this.VALOR_COMISSAO = new HashSet<VALOR_COMISSAO>();
             this.SUBCATEGORIA_PRODUTO = new HashSet<SUBCATEGORIA_PRODUTO>();
+            this.VALOR_COMISSAO = new HashSet<VALOR_COMISSAO>();
         }
     
         public int CAPR_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
         public string CAPR_NM_NOME { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INVENTARIO> INVENTARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO> PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SUBCATEGORIA_PRODUTO> SUBCATEGORIA_PRODUTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
     }
 }

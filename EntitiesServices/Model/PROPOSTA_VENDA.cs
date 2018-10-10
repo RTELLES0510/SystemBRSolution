@@ -42,6 +42,7 @@ namespace EntitiesServices.Model
         public string PRVE_TX_OBSERVACOES { get; set; }
         public int PRVE_IN_ATIVO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -52,6 +53,5 @@ namespace EntitiesServices.Model
         public virtual PEDIDO_VENDA PEDIDO_VENDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROPOSTA_VENDA_ANEXO> PROPOSTA_VENDA_ANEXO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
     }
 }

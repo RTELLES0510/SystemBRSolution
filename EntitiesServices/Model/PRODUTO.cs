@@ -17,6 +17,7 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PRODUTO()
         {
+            this.FICHA_TECNICA = new HashSet<FICHA_TECNICA>();
             this.INVENTARIO_ITEM = new HashSet<INVENTARIO_ITEM>();
             this.ITEM_PEDIDO_COMPRA = new HashSet<ITEM_PEDIDO_COMPRA>();
             this.ITEM_PEDIDO_VENDA = new HashSet<ITEM_PEDIDO_VENDA>();
@@ -24,7 +25,6 @@ namespace EntitiesServices.Model
             this.MOVIMENTO_ESTOQUE_PRODUTO = new HashSet<MOVIMENTO_ESTOQUE_PRODUTO>();
             this.PRECO_PRODUTO = new HashSet<PRECO_PRODUTO>();
             this.PRODUTO_ANEXO = new HashSet<PRODUTO_ANEXO>();
-            this.FICHA_TECNICA = new HashSet<FICHA_TECNICA>();
             this.PRODUTO_FORNECEDOR = new HashSet<PRODUTO_FORNECEDOR>();
             this.PRODUTO_GRADE = new HashSet<PRODUTO_GRADE>();
         }
@@ -84,6 +84,8 @@ namespace EntitiesServices.Model
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_PRODUTO CATEGORIA_PRODUTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FICHA_TECNICA> FICHA_TECNICA { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INVENTARIO_ITEM> INVENTARIO_ITEM { get; set; }
@@ -100,13 +102,11 @@ namespace EntitiesServices.Model
         public virtual ICollection<PRECO_PRODUTO> PRECO_PRODUTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_ANEXO> PRODUTO_ANEXO { get; set; }
-        public virtual UNIDADE UNIDADE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FICHA_TECNICA> FICHA_TECNICA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_GRADE> PRODUTO_GRADE { get; set; }
         public virtual SUBCATEGORIA_PRODUTO SUBCATEGORIA_PRODUTO { get; set; }
+        public virtual UNIDADE UNIDADE { get; set; }
     }
 }
