@@ -321,6 +321,24 @@
         <EntityTypeShape EntityType="SystemBRDatabaseModel.TAMANHO" Width="1.5" PointX="5.25" PointY="109.625" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_TAMANHO_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_PRODUTO_GRADE_TAMANHO" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CATEGORIA_CONTRATO" Width="1.5" PointX="5.25" PointY="112.5" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTRATO_ANEXO" Width="1.5" PointX="20.25" PointY="147.5" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_CONTRATO" Width="1.5" PointX="5.25" PointY="87.75" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CATEGORIA_CONTRATO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CENTRO_CUSTO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_PLANO_CONTA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TEMPLATE_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TIPO_CONTRATO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_CATEGORIA_CONTRATO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_CENTRO_CUSTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_COLABORADOR" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_ANEXO_CONTRATO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_FORMA_PAGAMENTO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_PERIODICIDADE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_PLANO_CONTA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_TEMPLATE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_TIPO_CONTRATO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -161,6 +161,7 @@ namespace Presentation.Start
             kernel.Bind<ISubcategoriaProdutoRepository>().To<SubcategoriaProdutoRepository>();
             kernel.Bind<IProdutoFornecedorRepository>().To<ProdutoFornecedorRepository>();
             kernel.Bind<IProdutoGradeRepository>().To<ProdutoGradeRepository>();
+            kernel.Bind<ITamanhoRepository>().To<TamanhoRepository>();
         }
     }
 }

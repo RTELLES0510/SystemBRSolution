@@ -20,6 +20,7 @@ namespace EntitiesServices.Model
             this.CONTA_PAGAR = new HashSet<CONTA_PAGAR>();
             this.CONTA_RECEBER = new HashSet<CONTA_RECEBER>();
             this.PLANO_CONTA1 = new HashSet<PLANO_CONTA>();
+            this.CONTRATO = new HashSet<CONTRATO>();
         }
     
         public int PLCO_CD_ID { get; set; }
@@ -38,5 +39,8 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PLANO_CONTA> PLANO_CONTA1 { get; set; }
         public virtual PLANO_CONTA PLANO_CONTA2 { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }
 }

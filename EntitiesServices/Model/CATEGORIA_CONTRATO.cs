@@ -12,17 +12,17 @@ namespace EntitiesServices.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class FORMA_PAGAMENTO
+    public partial class CATEGORIA_CONTRATO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FORMA_PAGAMENTO()
+        public CATEGORIA_CONTRATO()
         {
             this.CONTRATO = new HashSet<CONTRATO>();
         }
     
-        public int FOPA_CD_ID { get; set; }
+        public int CACT_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
-        public string FOPA_NM_NOME { get; set; }
+        public string CACT_NM_NOME { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

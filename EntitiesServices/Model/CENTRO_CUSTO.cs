@@ -18,6 +18,7 @@ namespace EntitiesServices.Model
         public CENTRO_CUSTO()
         {
             this.CENTRO_CUSTO1 = new HashSet<CENTRO_CUSTO>();
+            this.CONTRATO = new HashSet<CONTRATO>();
         }
     
         public int CECU_CD_ID { get; set; }
@@ -30,5 +31,8 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CENTRO_CUSTO> CENTRO_CUSTO1 { get; set; }
         public virtual CENTRO_CUSTO CENTRO_CUSTO2 { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }
 }

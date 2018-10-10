@@ -10,6 +10,7 @@ namespace ApplicationServices.Interfaces
     public interface IProdutoAppService : IAppServiceBase<PRODUTO>
     {
         Int32 ValidateCreate(PRODUTO perfil, USUARIO usuario);
+        Int32 ValidateCreateLeve(PRODUTO item, USUARIO usuario);
         Int32 ValidateEdit(PRODUTO perfil, PRODUTO perfilAntes, USUARIO usuario);
         Int32 ValidateEdit(PRODUTO item, PRODUTO itemAntes);
         Int32 ValidateDelete(PRODUTO perfil, USUARIO usuario);

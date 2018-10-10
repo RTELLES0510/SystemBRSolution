@@ -69,7 +69,8 @@
         <div class="col-lg-12 col-md-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Produto - Edição</h5>
+                    <h5>Produto - Edição</h5> &nbsp;&nbsp;&nbsp;
+                    @Html.ButtonLinkIndex(text: "Duplicar o Produto", action: "ClonarProduto", controller: "Cadastros", buttonClass: "success demo2", routeValues:  new { id = Model.PROD_CD_ID})
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -936,6 +937,7 @@
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
     @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
     @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/sweetAlertStyles")
 }
 @section Scripts {
    
@@ -946,6 +948,7 @@
     @Scripts.Render("~/plugins/switchery")
     @Scripts.Render("~/plugins/touchSpin")
     @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/sweetAlert")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
 
     <script type="text/javascript">
@@ -1080,6 +1083,44 @@
                 $('#altura').hide();
                 $('#diametro').show();
             }
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.demo3').click(function () {
+                swal({
+                    title: "Confirma a duplicação do produto?",
+                    text: "A tela de edição deste produto será aberta logo após a confirmação",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Confirmar",
+                    cancelButtonText: "Cancelar",
+                   closeOnConfirm: false
+                }, function () {
+
+
+                    swal("Duplicado!", "Uma cópia deste produto foi criada", "success");
+                });
+            });
+
+            $('.demo2').click(function () {
+                swal({
+                    title: "Confirma a duplicação do produto?",
+                    text: "A tela de edição deste produto será aberta logo após a confirmação",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Confirmar",
+                    cancelButtonText: "Cancelar",
+                   closeOnConfirm: false
+                }, function () {
+                    swal("Duplicado!", "Uma cópia deste produto foi criada", "success");
+                });
+            });
+
         });
     </script>
 

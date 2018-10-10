@@ -46,6 +46,12 @@ namespace EntitiesServices.Model
             this.SUBCATEGORIA_PRODUTO = new HashSet<SUBCATEGORIA_PRODUTO>();
             this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
             this.TAMANHO = new HashSet<TAMANHO>();
+            this.CATEGORIA_CONTRATO = new HashSet<CATEGORIA_CONTRATO>();
+            this.CENTRO_CUSTO = new HashSet<CENTRO_CUSTO>();
+            this.CONTRATO = new HashSet<CONTRATO>();
+            this.PLANO_CONTA = new HashSet<PLANO_CONTA>();
+            this.TEMPLATE = new HashSet<TEMPLATE>();
+            this.TIPO_CONTRATO = new HashSet<TIPO_CONTRATO>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -117,5 +123,17 @@ namespace EntitiesServices.Model
         public virtual ICollection<TICKET_ATENDIMENTO> TICKET_ATENDIMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAMANHO> TAMANHO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CATEGORIA_CONTRATO> CATEGORIA_CONTRATO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CENTRO_CUSTO> CENTRO_CUSTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PLANO_CONTA> PLANO_CONTA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TEMPLATE> TEMPLATE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
     }
 }

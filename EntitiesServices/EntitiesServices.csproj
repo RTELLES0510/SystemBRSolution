@@ -193,6 +193,9 @@
     <Compile Include="Model\CATEGORIA_CLIENTE.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\CATEGORIA_CONTRATO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\CATEGORIA_EQUIPAMENTO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
@@ -260,6 +263,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CONTRATO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CONTRATO_ANEXO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\DEPENDENTE.cs">
@@ -479,6 +485,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TIPO_CONTA.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TIPO_CONTRATO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TIPO_CONTRIBUINTE.cs">

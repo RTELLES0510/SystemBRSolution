@@ -104,6 +104,14 @@
           <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
           <Property Name="CACL_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="CATEGORIA_CONTRATO">
+          <Key>
+            <PropertyRef Name="CACT_CD_ID" />
+          </Key>
+          <Property Name="CACT_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CACT_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="CATEGORIA_EQUIPAMENTO">
           <Key>
             <PropertyRef Name="CAEQ_CD_ID" />
@@ -448,14 +456,44 @@
           </Key>
           <Property Name="CONT_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
-          <Property Name="MATR_CD_ID" Type="int" />
-          <Property Name="FILI_CD_ID" Type="int" />
           <Property Name="CLIE_CD_ID" Type="int" Nullable="false" />
+          <Property Name="TICT_CD_ID" Type="int" />
+          <Property Name="CACT_CD_ID" Type="int" />
+          <Property Name="TEMP_CD_ID" Type="int" />
+          <Property Name="PERI_CD_ID" Type="int" />
+          <Property Name="FOPA_CD_ID" Type="int" />
+          <Property Name="PLCO_CD_ID" Type="int" />
+          <Property Name="CECU_CD_ID" Type="int" />
+          <Property Name="COLA_CD_ID" Type="int" />
           <Property Name="CONT_NM_NOME" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="CONT_DS_DESCRICAO" Type="varchar" MaxLength="1000" />
           <Property Name="CONT_DT_INICIO" Type="date" Nullable="false" />
           <Property Name="CONT_DT_FINAL" Type="date" Nullable="false" />
           <Property Name="CONT_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="CONT_VL_VALOR" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CONT_IN_STATUS" Type="int" />
+          <Property Name="CONT_NR_CARENCIA" Type="int" />
+          <Property Name="CONT_NR_DIA_PAGAMENTO" Type="int" />
+          <Property Name="CONT_IN_EMITE_NF" Type="int" />
+          <Property Name="CONT_DT_ULTIMO_REAJUSTE" Type="date" />
+          <Property Name="CONT_DT_PROXIMO_REAJUSTE" Type="date" />
+          <Property Name="CONT_DS_DESCRICAO_DETALHADA" Type="varchar" MaxLength="5000" />
+          <Property Name="CONT_IN_SINCRONIZA" Type="int" />
+          <Property Name="CONT_TX_OBSERVACOES" Type="text" />
+          <Property Name="CONT_NR_PARCELAS" Type="int" />
+          <Property Name="CONT_PC_PERCENT_PARCELAS" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="CONTRATO_ANEXO">
+          <Key>
+            <PropertyRef Name="COAN_CD_ID" />
+          </Key>
+          <Property Name="COAN_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CONT_CD_ID" Type="int" Nullable="false" />
+          <Property Name="COAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="COAN_DT_ANEXO" Type="date" Nullable="false" />
+          <Property Name="COAN_IN_TIPO" Type="int" Nullable="false" />
+          <Property Name="COAN_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="COAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DEPENDENTE">
           <Key>
@@ -1436,6 +1474,14 @@
           <Property Name="ASSI_CD_ID" Type="int" />
           <Property Name="TICO_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="TIPO_CONTRATO">
+          <Key>
+            <PropertyRef Name="TICT_CD_ID" />
+          </Key>
+          <Property Name="TICT_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="TICT_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="TIPO_CONTRIBUINTE">
           <Key>
             <PropertyRef Name="TICO_CD_ID" />
@@ -1682,6 +1728,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CATEGORIA_CONTRATO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="CATEGORIA_CONTRATO" Type="Self.CATEGORIA_CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CATEGORIA_CONTRATO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CATEGORIA_PRODUTO_ASSINANTE">
           <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
           <End Role="CATEGORIA_PRODUTO" Type="Self.CATEGORIA_PRODUTO" Multiplicity="*" />
@@ -1690,6 +1748,18 @@
               <PropertyRef Name="ASSI_CD_ID" />
             </Principal>
             <Dependent Role="CATEGORIA_PRODUTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CENTRO_CUSTO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="CENTRO_CUSTO" Type="Self.CENTRO_CUSTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CENTRO_CUSTO">
               <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2210,6 +2280,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CONTRATO_ANEXO_CONTRATO">
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="1" />
+          <End Role="CONTRATO_ANEXO" Type="Self.CONTRATO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO_ANEXO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_CATEGORIA_CONTRATO">
+          <End Role="CATEGORIA_CONTRATO" Type="Self.CATEGORIA_CONTRATO" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA_CONTRATO">
+              <PropertyRef Name="CACT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="CACT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_CENTRO_CUSTO">
+          <End Role="CENTRO_CUSTO" Type="Self.CENTRO_CUSTO" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CENTRO_CUSTO">
+              <PropertyRef Name="CECU_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="CECU_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CONTRATO_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
           <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
@@ -2222,27 +2340,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CONTRATO_FILIAL">
-          <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="0..1" />
+        <Association Name="FK_CONTRATO_COLABORADOR">
+          <End Role="COLABORADOR" Type="Self.COLABORADOR" Multiplicity="0..1" />
           <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="FILIAL">
-              <PropertyRef Name="FILI_CD_ID" />
+            <Principal Role="COLABORADOR">
+              <PropertyRef Name="COLA_CD_ID" />
             </Principal>
             <Dependent Role="CONTRATO">
-              <PropertyRef Name="FILI_CD_ID" />
+              <PropertyRef Name="COLA_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CONTRATO_MATRIZ">
-          <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="0..1" />
+        <Association Name="FK_CONTRATO_FORMA_PAGAMENTO">
+          <End Role="FORMA_PAGAMENTO" Type="Self.FORMA_PAGAMENTO" Multiplicity="0..1" />
           <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MATRIZ">
-              <PropertyRef Name="MATR_CD_ID" />
+            <Principal Role="FORMA_PAGAMENTO">
+              <PropertyRef Name="FOPA_CD_ID" />
             </Principal>
             <Dependent Role="CONTRATO">
-              <PropertyRef Name="MATR_CD_ID" />
+              <PropertyRef Name="FOPA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_PERIODICIDADE">
+          <End Role="PERIODICIDADE" Type="Self.PERIODICIDADE" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERIODICIDADE">
+              <PropertyRef Name="PERI_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="PERI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_PLANO_CONTA">
+          <End Role="PLANO_CONTA" Type="Self.PLANO_CONTA" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLANO_CONTA">
+              <PropertyRef Name="PLCO_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="PLCO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_TEMPLATE">
+          <End Role="TEMPLATE" Type="Self.TEMPLATE" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEMPLATE">
+              <PropertyRef Name="TEMP_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="TEMP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_TIPO_CONTRATO">
+          <End Role="TIPO_CONTRATO" Type="Self.TIPO_CONTRATO" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_CONTRATO">
+              <PropertyRef Name="TICT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="TICT_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3302,6 +3468,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PLANO_CONTA_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="PLANO_CONTA" Type="Self.PLANO_CONTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PLANO_CONTA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PLANO_CONTA_NIVEL_CONTA">
           <End Role="NIVEL_CONTA" Type="Self.NIVEL_CONTA" Multiplicity="1" />
           <End Role="PLANO_CONTA" Type="Self.PLANO_CONTA" Multiplicity="*" />
@@ -3818,6 +3996,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TEMPLATE_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="TEMPLATE" Type="Self.TEMPLATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="TEMPLATE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TICKET_ATENDIMENTO_ASSINANTE">
           <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
           <End Role="TICKET_ATENDIMENTO" Type="Self.TICKET_ATENDIMENTO" Multiplicity="*" />
@@ -3875,6 +4065,18 @@
             </Principal>
             <Dependent Role="TICKET_ATENDIMENTO">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TIPO_CONTRATO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="TIPO_CONTRATO" Type="Self.TIPO_CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="TIPO_CONTRATO">
+              <PropertyRef Name="ASSI_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4032,6 +4234,7 @@
           <EntitySet Name="CARGO" EntityType="Self.CARGO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_ATENDIMENTO" EntityType="Self.CATEGORIA_ATENDIMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_CLIENTE" EntityType="Self.CATEGORIA_CLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIA_CONTRATO" EntityType="Self.CATEGORIA_CONTRATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_EQUIPAMENTO" EntityType="Self.CATEGORIA_EQUIPAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_FORNECEDOR" EntityType="Self.CATEGORIA_FORNECEDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_MATERIA" EntityType="Self.CATEGORIA_MATERIA" Schema="dbo" store:Type="Tables" />
@@ -4055,6 +4258,7 @@
           <EntitySet Name="CONTA_RECEBER" EntityType="Self.CONTA_RECEBER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTA_RECEBER_ANEXO" EntityType="Self.CONTA_RECEBER_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTRATO" EntityType="Self.CONTRATO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTRATO_ANEXO" EntityType="Self.CONTRATO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DEPENDENTE" EntityType="Self.DEPENDENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EQUIPAMENTO" EntityType="Self.EQUIPAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EQUIPAMENTO_ANEXO" EntityType="Self.EQUIPAMENTO_ANEXO" Schema="dbo" store:Type="Tables" />
@@ -4123,6 +4327,7 @@
           <EntitySet Name="TICKET_ATENDIMENTO" EntityType="Self.TICKET_ATENDIMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_COMISSAO" EntityType="Self.TIPO_COMISSAO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CONTA" EntityType="Self.TIPO_CONTA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_CONTRATO" EntityType="Self.TIPO_CONTRATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CONTRIBUINTE" EntityType="Self.TIPO_CONTRIBUINTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_DOCUMENTO" EntityType="Self.TIPO_DOCUMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_FAVORECIDO" EntityType="Self.TIPO_FAVORECIDO" Schema="dbo" store:Type="Tables" />
@@ -4171,9 +4376,17 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
             <End Role="CARGO" EntitySet="CARGO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CATEGORIA_CONTRATO_ASSINANTE" Association="Self.FK_CATEGORIA_CONTRATO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CATEGORIA_CONTRATO" EntitySet="CATEGORIA_CONTRATO" />
+          </AssociationSet>
           <AssociationSet Name="FK_CATEGORIA_PRODUTO_ASSINANTE" Association="Self.FK_CATEGORIA_PRODUTO_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="CATEGORIA_PRODUTO" EntitySet="CATEGORIA_PRODUTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CENTRO_CUSTO_ASSINANTE" Association="Self.FK_CENTRO_CUSTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
           </AssociationSet>
           <AssociationSet Name="FK_CENTRO_CUSTO_CENTRO_CUSTO" Association="Self.FK_CENTRO_CUSTO_CENTRO_CUSTO">
             <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
@@ -4347,16 +4560,48 @@
             <End Role="TIPO_FAVORECIDO" EntitySet="TIPO_FAVORECIDO" />
             <End Role="CONTA_RECEBER" EntitySet="CONTA_RECEBER" />
           </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_ANEXO_CONTRATO" Association="Self.FK_CONTRATO_ANEXO_CONTRATO">
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+            <End Role="CONTRATO_ANEXO" EntitySet="CONTRATO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_ASSINANTE" Association="Self.FK_CONTRATO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_CATEGORIA_CONTRATO" Association="Self.FK_CONTRATO_CATEGORIA_CONTRATO">
+            <End Role="CATEGORIA_CONTRATO" EntitySet="CATEGORIA_CONTRATO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_CENTRO_CUSTO" Association="Self.FK_CONTRATO_CENTRO_CUSTO">
+            <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_CLIENTE" Association="Self.FK_CONTRATO_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
-          <AssociationSet Name="FK_CONTRATO_FILIAL" Association="Self.FK_CONTRATO_FILIAL">
-            <End Role="FILIAL" EntitySet="FILIAL" />
+          <AssociationSet Name="FK_CONTRATO_COLABORADOR" Association="Self.FK_CONTRATO_COLABORADOR">
+            <End Role="COLABORADOR" EntitySet="COLABORADOR" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
-          <AssociationSet Name="FK_CONTRATO_MATRIZ" Association="Self.FK_CONTRATO_MATRIZ">
-            <End Role="MATRIZ" EntitySet="MATRIZ" />
+          <AssociationSet Name="FK_CONTRATO_FORMA_PAGAMENTO" Association="Self.FK_CONTRATO_FORMA_PAGAMENTO">
+            <End Role="FORMA_PAGAMENTO" EntitySet="FORMA_PAGAMENTO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PERIODICIDADE" Association="Self.FK_CONTRATO_PERIODICIDADE">
+            <End Role="PERIODICIDADE" EntitySet="PERIODICIDADE" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PLANO_CONTA" Association="Self.FK_CONTRATO_PLANO_CONTA">
+            <End Role="PLANO_CONTA" EntitySet="PLANO_CONTA" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_TEMPLATE" Association="Self.FK_CONTRATO_TEMPLATE">
+            <End Role="TEMPLATE" EntitySet="TEMPLATE" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_TIPO_CONTRATO" Association="Self.FK_CONTRATO_TIPO_CONTRATO">
+            <End Role="TIPO_CONTRATO" EntitySet="TIPO_CONTRATO" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
           <AssociationSet Name="FK_DEPENDENTE_COLABORADOR" Association="Self.FK_DEPENDENTE_COLABORADOR">
@@ -4711,6 +4956,10 @@
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="PERIODICIDADE" EntitySet="PERIODICIDADE" />
           </AssociationSet>
+          <AssociationSet Name="FK_PLANO_CONTA_ASSINANTE" Association="Self.FK_PLANO_CONTA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PLANO_CONTA" EntitySet="PLANO_CONTA" />
+          </AssociationSet>
           <AssociationSet Name="FK_PLANO_CONTA_NIVEL_CONTA" Association="Self.FK_PLANO_CONTA_NIVEL_CONTA">
             <End Role="NIVEL_CONTA" EntitySet="NIVEL_CONTA" />
             <End Role="PLANO_CONTA" EntitySet="PLANO_CONTA" />
@@ -4883,6 +5132,10 @@
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="TAREFA" EntitySet="TAREFA" />
           </AssociationSet>
+          <AssociationSet Name="FK_TEMPLATE_ASSINANTE" Association="Self.FK_TEMPLATE_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="TEMPLATE" EntitySet="TEMPLATE" />
+          </AssociationSet>
           <AssociationSet Name="FK_TICKET_ATENDIMENTO_ASSINANTE" Association="Self.FK_TICKET_ATENDIMENTO_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
             <End Role="TICKET_ATENDIMENTO" EntitySet="TICKET_ATENDIMENTO" />
@@ -4902,6 +5155,10 @@
           <AssociationSet Name="FK_TICKET_ATENDIMENTO_MATRIZ" Association="Self.FK_TICKET_ATENDIMENTO_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="TICKET_ATENDIMENTO" EntitySet="TICKET_ATENDIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TIPO_CONTRATO_ASSINANTE" Association="Self.FK_TIPO_CONTRATO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="TIPO_CONTRATO" EntitySet="TIPO_CONTRATO" />
           </AssociationSet>
           <AssociationSet Name="FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA" Association="Self.FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA">
             <End Role="TRANSPORTADORA" EntitySet="TRANSPORTADORA" />
@@ -5014,6 +5271,12 @@
           <NavigationProperty Name="SUBCATEGORIA_PRODUTO" Relationship="SystemBRDatabaseModel.FK_SUBCATEGORIA_PRODUTO_ASSINANTE" FromRole="ASSINANTE" ToRole="SUBCATEGORIA_PRODUTO" />
           <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="SystemBRDatabaseModel.FK_TICKET_ATENDIMENTO_ASSINANTE" FromRole="ASSINANTE" ToRole="TICKET_ATENDIMENTO" />
           <NavigationProperty Name="TAMANHO" Relationship="SystemBRDatabaseModel.FK_TAMANHO_ASSINANTE" FromRole="ASSINANTE" ToRole="TAMANHO" />
+          <NavigationProperty Name="CATEGORIA_CONTRATO" Relationship="SystemBRDatabaseModel.FK_CATEGORIA_CONTRATO_ASSINANTE" FromRole="ASSINANTE" ToRole="CATEGORIA_CONTRATO" />
+          <NavigationProperty Name="CENTRO_CUSTO" Relationship="SystemBRDatabaseModel.FK_CENTRO_CUSTO_ASSINANTE" FromRole="ASSINANTE" ToRole="CENTRO_CUSTO" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_ASSINANTE" FromRole="ASSINANTE" ToRole="CONTRATO" />
+          <NavigationProperty Name="PLANO_CONTA" Relationship="SystemBRDatabaseModel.FK_PLANO_CONTA_ASSINANTE" FromRole="ASSINANTE" ToRole="PLANO_CONTA" />
+          <NavigationProperty Name="TEMPLATE" Relationship="SystemBRDatabaseModel.FK_TEMPLATE_ASSINANTE" FromRole="ASSINANTE" ToRole="TEMPLATE" />
+          <NavigationProperty Name="TIPO_CONTRATO" Relationship="SystemBRDatabaseModel.FK_TIPO_CONTRATO_ASSINANTE" FromRole="ASSINANTE" ToRole="TIPO_CONTRATO" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -5170,6 +5433,8 @@
           <Property Name="CECU_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CENTRO_CUSTO1" Relationship="Self.FK_CENTRO_CUSTO_CENTRO_CUSTO" FromRole="CENTRO_CUSTO" ToRole="CENTRO_CUSTO1" />
           <NavigationProperty Name="CENTRO_CUSTO2" Relationship="Self.FK_CENTRO_CUSTO_CENTRO_CUSTO" FromRole="CENTRO_CUSTO1" ToRole="CENTRO_CUSTO" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CENTRO_CUSTO_ASSINANTE" FromRole="CENTRO_CUSTO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_CENTRO_CUSTO" FromRole="CENTRO_CUSTO" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -5318,6 +5583,7 @@
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_COLABORADOR" FromRole="COLABORADOR" ToRole="USUARIO" />
           <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_COLABORADOR_ASSINANTE" FromRole="COLABORADOR" ToRole="ASSINANTE" />
           <NavigationProperty Name="CLIENTE" Relationship="SystemBRDatabaseModel.FK_CLIENTE_COLABORADOR" FromRole="COLABORADOR" ToRole="CLIENTE" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_COLABORADOR" FromRole="COLABORADOR" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="COLABORADOR_ANEXO">
           <Key>
@@ -5496,6 +5762,36 @@
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CONTRATO_CLIENTE" FromRole="CONTRATO" ToRole="CLIENTE" />
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_CONTRATO_FILIAL" FromRole="CONTRATO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_CONTRATO_MATRIZ" FromRole="CONTRATO" ToRole="MATRIZ" />
+          <Property Name="TICT_CD_ID" Type="Int32" />
+          <Property Name="CACT_CD_ID" Type="Int32" />
+          <Property Name="TEMP_CD_ID" Type="Int32" />
+          <Property Name="PERI_CD_ID" Type="Int32" />
+          <Property Name="FOPA_CD_ID" Type="Int32" />
+          <Property Name="PLCO_CD_ID" Type="Int32" />
+          <Property Name="CECU_CD_ID" Type="Int32" />
+          <Property Name="COLA_CD_ID" Type="Int32" />
+          <Property Name="CONT_VL_VALOR" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CONT_IN_STATUS" Type="Int32" />
+          <Property Name="CONT_NR_CARENCIA" Type="Int32" />
+          <Property Name="CONT_NR_DIA_PAGAMENTO" Type="Int32" />
+          <Property Name="CONT_IN_EMITE_NF" Type="Int32" />
+          <Property Name="CONT_DT_ULTIMO_REAJUSTE" Type="DateTime" Precision="0" />
+          <Property Name="CONT_DT_PROXIMO_REAJUSTE" Type="DateTime" Precision="0" />
+          <Property Name="CONT_DS_DESCRICAO_DETALHADA" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_IN_SINCRONIZA" Type="Int32" />
+          <Property Name="CONT_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_NR_PARCELAS" Type="Int32" />
+          <Property Name="CONT_PC_PERCENT_PARCELAS" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CONTRATO_ASSINANTE" FromRole="CONTRATO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CATEGORIA_CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_CATEGORIA_CONTRATO" FromRole="CONTRATO" ToRole="CATEGORIA_CONTRATO" />
+          <NavigationProperty Name="CENTRO_CUSTO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_CENTRO_CUSTO" FromRole="CONTRATO" ToRole="CENTRO_CUSTO" />
+          <NavigationProperty Name="COLABORADOR" Relationship="SystemBRDatabaseModel.FK_CONTRATO_COLABORADOR" FromRole="CONTRATO" ToRole="COLABORADOR" />
+          <NavigationProperty Name="CONTRATO_ANEXO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_ANEXO_CONTRATO" FromRole="CONTRATO" ToRole="CONTRATO_ANEXO" />
+          <NavigationProperty Name="FORMA_PAGAMENTO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_FORMA_PAGAMENTO" FromRole="CONTRATO" ToRole="FORMA_PAGAMENTO" />
+          <NavigationProperty Name="PERIODICIDADE" Relationship="SystemBRDatabaseModel.FK_CONTRATO_PERIODICIDADE" FromRole="CONTRATO" ToRole="PERIODICIDADE" />
+          <NavigationProperty Name="PLANO_CONTA" Relationship="SystemBRDatabaseModel.FK_CONTRATO_PLANO_CONTA" FromRole="CONTRATO" ToRole="PLANO_CONTA" />
+          <NavigationProperty Name="TEMPLATE" Relationship="SystemBRDatabaseModel.FK_CONTRATO_TEMPLATE" FromRole="CONTRATO" ToRole="TEMPLATE" />
+          <NavigationProperty Name="TIPO_CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_TIPO_CONTRATO" FromRole="CONTRATO" ToRole="TIPO_CONTRATO" />
         </EntityType>
         <EntityType Name="DEPENDENTE">
           <Key>
@@ -6270,6 +6566,8 @@
           <NavigationProperty Name="NIVEL_CONTA" Relationship="Self.FK_PLANO_CONTA_NIVEL_CONTA" FromRole="PLANO_CONTA" ToRole="NIVEL_CONTA" />
           <NavigationProperty Name="PLANO_CONTA1" Relationship="Self.FK_PLANO_CONTA_PLANO_CONTA" FromRole="PLANO_CONTA" ToRole="PLANO_CONTA1" />
           <NavigationProperty Name="PLANO_CONTA2" Relationship="Self.FK_PLANO_CONTA_PLANO_CONTA" FromRole="PLANO_CONTA1" ToRole="PLANO_CONTA" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_PLANO_CONTA_ASSINANTE" FromRole="PLANO_CONTA" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_PLANO_CONTA" FromRole="PLANO_CONTA" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="PLANO_PERMISSAO">
           <Key>
@@ -6564,6 +6862,8 @@
           <Property Name="TEMP_TX_CONTEUDO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TEMP_AQ_ARQUIVO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TEMP_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_TEMPLATE_ASSINANTE" FromRole="TEMPLATE" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_TEMPLATE" FromRole="TEMPLATE" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="TICKET_ATENDIMENTO">
           <Key>
@@ -9747,6 +10047,69 @@
             <End Role="TAMANHO" EntitySet="TAMANHO" />
             <End Role="PRODUTO_GRADE" EntitySet="PRODUTO_GRADE" />
           </AssociationSet>
+          <EntitySet Name="CATEGORIA_CONTRATO" EntityType="SystemBRDatabaseModel.CATEGORIA_CONTRATO" />
+          <EntitySet Name="CONTRATO_ANEXO" EntityType="SystemBRDatabaseModel.CONTRATO_ANEXO" />
+          <EntitySet Name="TIPO_CONTRATO" EntityType="SystemBRDatabaseModel.TIPO_CONTRATO" />
+          <AssociationSet Name="FK_CATEGORIA_CONTRATO_ASSINANTE" Association="SystemBRDatabaseModel.FK_CATEGORIA_CONTRATO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CATEGORIA_CONTRATO" EntitySet="CATEGORIA_CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CENTRO_CUSTO_ASSINANTE" Association="SystemBRDatabaseModel.FK_CENTRO_CUSTO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_ASSINANTE" Association="SystemBRDatabaseModel.FK_CONTRATO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLANO_CONTA_ASSINANTE" Association="SystemBRDatabaseModel.FK_PLANO_CONTA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="PLANO_CONTA" EntitySet="PLANO_CONTA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TEMPLATE_ASSINANTE" Association="SystemBRDatabaseModel.FK_TEMPLATE_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="TEMPLATE" EntitySet="TEMPLATE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TIPO_CONTRATO_ASSINANTE" Association="SystemBRDatabaseModel.FK_TIPO_CONTRATO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="TIPO_CONTRATO" EntitySet="TIPO_CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_CATEGORIA_CONTRATO" Association="SystemBRDatabaseModel.FK_CONTRATO_CATEGORIA_CONTRATO">
+            <End Role="CATEGORIA_CONTRATO" EntitySet="CATEGORIA_CONTRATO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_CENTRO_CUSTO" Association="SystemBRDatabaseModel.FK_CONTRATO_CENTRO_CUSTO">
+            <End Role="CENTRO_CUSTO" EntitySet="CENTRO_CUSTO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_COLABORADOR" Association="SystemBRDatabaseModel.FK_CONTRATO_COLABORADOR">
+            <End Role="COLABORADOR" EntitySet="COLABORADOR" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_ANEXO_CONTRATO" Association="SystemBRDatabaseModel.FK_CONTRATO_ANEXO_CONTRATO">
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+            <End Role="CONTRATO_ANEXO" EntitySet="CONTRATO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_FORMA_PAGAMENTO" Association="SystemBRDatabaseModel.FK_CONTRATO_FORMA_PAGAMENTO">
+            <End Role="FORMA_PAGAMENTO" EntitySet="FORMA_PAGAMENTO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PERIODICIDADE" Association="SystemBRDatabaseModel.FK_CONTRATO_PERIODICIDADE">
+            <End Role="PERIODICIDADE" EntitySet="PERIODICIDADE" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PLANO_CONTA" Association="SystemBRDatabaseModel.FK_CONTRATO_PLANO_CONTA">
+            <End Role="PLANO_CONTA" EntitySet="PLANO_CONTA" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_TEMPLATE" Association="SystemBRDatabaseModel.FK_CONTRATO_TEMPLATE">
+            <End Role="TEMPLATE" EntitySet="TEMPLATE" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_TIPO_CONTRATO" Association="SystemBRDatabaseModel.FK_CONTRATO_TIPO_CONTRATO">
+            <End Role="TIPO_CONTRATO" EntitySet="TIPO_CONTRATO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="EQUIPAMENTO_MANUTENCAO">
           <Key>
@@ -9804,6 +10167,7 @@
           <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
           <Property Name="FOPA_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_FORMA_PAGAMENTO_ASSINANTE" FromRole="FORMA_PAGAMENTO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_FORMA_PAGAMENTO" FromRole="FORMA_PAGAMENTO" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="PERIODICIDADE">
           <Key>
@@ -9815,6 +10179,7 @@
           <Property Name="PERI_NR_DIAS" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_PERIODICIDADE_ASSINANTE" FromRole="PERIODICIDADE" ToRole="ASSINANTE" />
           <NavigationProperty Name="EQUIPAMENTO" Relationship="SystemBRDatabaseModel.FK_EQUIPAMENTO_PERIODICIDADE" FromRole="PERIODICIDADE" ToRole="EQUIPAMENTO" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_PERIODICIDADE" FromRole="PERIODICIDADE" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="SEGMENTO">
           <Key>
@@ -10311,6 +10676,219 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CATEGORIA_CONTRATO">
+          <Key>
+            <PropertyRef Name="CACT_CD_ID" />
+          </Key>
+          <Property Name="CACT_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CACT_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CATEGORIA_CONTRATO_ASSINANTE" FromRole="CATEGORIA_CONTRATO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_CATEGORIA_CONTRATO" FromRole="CATEGORIA_CONTRATO" ToRole="CONTRATO" />
+        </EntityType>
+        <EntityType Name="CONTRATO_ANEXO">
+          <Key>
+            <PropertyRef Name="COAN_CD_ID" />
+          </Key>
+          <Property Name="COAN_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CONT_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="COAN_NM_TITULO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="COAN_IN_TIPO" Type="Int32" Nullable="false" />
+          <Property Name="COAN_AQ_ARQUIVO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COAN_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_ANEXO_CONTRATO" FromRole="CONTRATO_ANEXO" ToRole="CONTRATO" />
+        </EntityType>
+        <EntityType Name="TIPO_CONTRATO">
+          <Key>
+            <PropertyRef Name="TICT_CD_ID" />
+          </Key>
+          <Property Name="TICT_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="TICT_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_TIPO_CONTRATO_ASSINANTE" FromRole="TIPO_CONTRATO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_TIPO_CONTRATO" FromRole="TIPO_CONTRATO" ToRole="CONTRATO" />
+        </EntityType>
+        <Association Name="FK_CATEGORIA_CONTRATO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CATEGORIA_CONTRATO" Role="CATEGORIA_CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CATEGORIA_CONTRATO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CENTRO_CUSTO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CENTRO_CUSTO" Role="CENTRO_CUSTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CENTRO_CUSTO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLANO_CONTA_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.PLANO_CONTA" Role="PLANO_CONTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="PLANO_CONTA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TEMPLATE_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.TEMPLATE" Role="TEMPLATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="TEMPLATE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TIPO_CONTRATO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.TIPO_CONTRATO" Role="TIPO_CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="TIPO_CONTRATO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_CATEGORIA_CONTRATO">
+          <End Type="SystemBRDatabaseModel.CATEGORIA_CONTRATO" Role="CATEGORIA_CONTRATO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA_CONTRATO">
+              <PropertyRef Name="CACT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="CACT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_CENTRO_CUSTO">
+          <End Type="SystemBRDatabaseModel.CENTRO_CUSTO" Role="CENTRO_CUSTO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CENTRO_CUSTO">
+              <PropertyRef Name="CECU_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="CECU_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_COLABORADOR">
+          <End Type="SystemBRDatabaseModel.COLABORADOR" Role="COLABORADOR" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COLABORADOR">
+              <PropertyRef Name="COLA_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="COLA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_ANEXO_CONTRATO">
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO_ANEXO" Role="CONTRATO_ANEXO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO_ANEXO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_FORMA_PAGAMENTO">
+          <End Type="SystemBRDatabaseModel.FORMA_PAGAMENTO" Role="FORMA_PAGAMENTO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMA_PAGAMENTO">
+              <PropertyRef Name="FOPA_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="FOPA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_PERIODICIDADE">
+          <End Type="SystemBRDatabaseModel.PERIODICIDADE" Role="PERIODICIDADE" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERIODICIDADE">
+              <PropertyRef Name="PERI_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="PERI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_PLANO_CONTA">
+          <End Type="SystemBRDatabaseModel.PLANO_CONTA" Role="PLANO_CONTA" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLANO_CONTA">
+              <PropertyRef Name="PLCO_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="PLCO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_TEMPLATE">
+          <End Type="SystemBRDatabaseModel.TEMPLATE" Role="TEMPLATE" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEMPLATE">
+              <PropertyRef Name="TEMP_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="TEMP_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_TIPO_CONTRATO">
+          <End Type="SystemBRDatabaseModel.TIPO_CONTRATO" Role="TIPO_CONTRATO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_CONTRATO">
+              <PropertyRef Name="TICT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="TICT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10751,10 +11329,28 @@
           <EntitySetMapping Name="CONTRATO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO">
               <MappingFragment StoreEntitySet="CONTRATO">
+                <ScalarProperty Name="CONT_PC_PERCENT_PARCELAS" ColumnName="CONT_PC_PERCENT_PARCELAS" />
+                <ScalarProperty Name="CONT_NR_PARCELAS" ColumnName="CONT_NR_PARCELAS" />
+                <ScalarProperty Name="CONT_TX_OBSERVACOES" ColumnName="CONT_TX_OBSERVACOES" />
+                <ScalarProperty Name="CONT_IN_SINCRONIZA" ColumnName="CONT_IN_SINCRONIZA" />
+                <ScalarProperty Name="CONT_DS_DESCRICAO_DETALHADA" ColumnName="CONT_DS_DESCRICAO_DETALHADA" />
+                <ScalarProperty Name="CONT_DT_PROXIMO_REAJUSTE" ColumnName="CONT_DT_PROXIMO_REAJUSTE" />
+                <ScalarProperty Name="CONT_DT_ULTIMO_REAJUSTE" ColumnName="CONT_DT_ULTIMO_REAJUSTE" />
+                <ScalarProperty Name="CONT_IN_EMITE_NF" ColumnName="CONT_IN_EMITE_NF" />
+                <ScalarProperty Name="CONT_NR_DIA_PAGAMENTO" ColumnName="CONT_NR_DIA_PAGAMENTO" />
+                <ScalarProperty Name="CONT_NR_CARENCIA" ColumnName="CONT_NR_CARENCIA" />
+                <ScalarProperty Name="CONT_IN_STATUS" ColumnName="CONT_IN_STATUS" />
+                <ScalarProperty Name="CONT_VL_VALOR" ColumnName="CONT_VL_VALOR" />
+                <ScalarProperty Name="COLA_CD_ID" ColumnName="COLA_CD_ID" />
+                <ScalarProperty Name="CECU_CD_ID" ColumnName="CECU_CD_ID" />
+                <ScalarProperty Name="PLCO_CD_ID" ColumnName="PLCO_CD_ID" />
+                <ScalarProperty Name="FOPA_CD_ID" ColumnName="FOPA_CD_ID" />
+                <ScalarProperty Name="PERI_CD_ID" ColumnName="PERI_CD_ID" />
+                <ScalarProperty Name="TEMP_CD_ID" ColumnName="TEMP_CD_ID" />
+                <ScalarProperty Name="CACT_CD_ID" ColumnName="CACT_CD_ID" />
+                <ScalarProperty Name="TICT_CD_ID" ColumnName="TICT_CD_ID" />
                 <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
-                <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
-                <ScalarProperty Name="FILI_CD_ID" ColumnName="FILI_CD_ID" />
                 <ScalarProperty Name="CLIE_CD_ID" ColumnName="CLIE_CD_ID" />
                 <ScalarProperty Name="CONT_NM_NOME" ColumnName="CONT_NM_NOME" />
                 <ScalarProperty Name="CONT_DS_DESCRICAO" ColumnName="CONT_DS_DESCRICAO" />
@@ -11995,6 +12591,37 @@
                 <ScalarProperty Name="TAMA_NM_NOME" ColumnName="TAMA_NM_NOME" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="TAMA_CD_ID" ColumnName="TAMA_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIA_CONTRATO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CATEGORIA_CONTRATO">
+              <MappingFragment StoreEntitySet="CATEGORIA_CONTRATO">
+                <ScalarProperty Name="CACT_NM_NOME" ColumnName="CACT_NM_NOME" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="CACT_CD_ID" ColumnName="CACT_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTRATO_ANEXO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO_ANEXO">
+              <MappingFragment StoreEntitySet="CONTRATO_ANEXO">
+                <ScalarProperty Name="COAN_IN_ATIVO" ColumnName="COAN_IN_ATIVO" />
+                <ScalarProperty Name="COAN_AQ_ARQUIVO" ColumnName="COAN_AQ_ARQUIVO" />
+                <ScalarProperty Name="COAN_IN_TIPO" ColumnName="COAN_IN_TIPO" />
+                <ScalarProperty Name="COAN_DT_ANEXO" ColumnName="COAN_DT_ANEXO" />
+                <ScalarProperty Name="COAN_NM_TITULO" ColumnName="COAN_NM_TITULO" />
+                <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
+                <ScalarProperty Name="COAN_CD_ID" ColumnName="COAN_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_CONTRATO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.TIPO_CONTRATO">
+              <MappingFragment StoreEntitySet="TIPO_CONTRATO">
+                <ScalarProperty Name="TICT_NM_NOME" ColumnName="TICT_NM_NOME" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="TICT_CD_ID" ColumnName="TICT_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

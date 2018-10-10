@@ -1286,6 +1286,7 @@ namespace SystemBRPresentation.Controllers
             // Abre view
             objetoProd = new PRODUTO();
             SessionMocks.voltaProduto = 1;
+            SessionMocks.clonar = 0;
             if (SessionMocks.filtroProduto != null)
             {
                 objetoProd = SessionMocks.filtroProduto;
@@ -1350,8 +1351,12 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult VoltarBaseProduto()
         {
-            //listaMasterProd = new List<PRODUTO>();
-            //SessionMocks.listaProduto = null;
+            if (SessionMocks.clonar == 1)
+            {
+                SessionMocks.clonar = 0;
+                listaMasterProd = new List<PRODUTO>();
+                SessionMocks.listaProduto = null;
+            }
             if (SessionMocks.voltaProduto == 2)
             {
                 return RedirectToAction("VerCardsProduto");
@@ -1451,6 +1456,68 @@ namespace SystemBRPresentation.Controllers
             {
                 return View(vm);
             }
+        }
+
+        public ActionResult ClonarProduto(Int32 id)
+        {
+            // Prepara objeto
+            USUARIO usuario = SessionMocks.UserCredentials;
+            PRODUTO item = prodApp.GetItemById(id);
+            PRODUTO novo = new PRODUTO();
+            novo.ASSI_CD_ID = item.ASSI_CD_ID;
+            novo.CAPR_CD_ID = item.CAPR_CD_ID;
+            novo.FILI_CD_ID = item.FILI_CD_ID;
+            novo.MATR_CD_ID = item.MATR_CD_ID;
+            novo.PROD_AQ_FOTO = item.PROD_AQ_FOTO;
+            novo.PROD_CD_GTIN_EAN = item.PROD_CD_GTIN_EAN;
+            novo.PROD_DS_DESCRICAO = item.PROD_DS_DESCRICAO;
+            novo.PROD_DS_INFORMACAO_NUTRICIONAL = item.PROD_DS_INFORMACAO_NUTRICIONAL;
+            novo.PROD_DS_INFORMACOES = item.PROD_DS_INFORMACOES;
+            novo.PROD_DT_CADASTRO = DateTime.Today;
+            novo.PROD_IN_ATIVO = 1;
+            novo.PROD_IN_AVISA_MINIMO = item.PROD_IN_AVISA_MINIMO;
+            novo.PROD_IN_BALANCA_PDV = item.PROD_IN_BALANCA_PDV;
+            novo.PROD_IN_BALANCA_RETAGUARDA = item.PROD_IN_BALANCA_RETAGUARDA;
+            novo.PROD_IN_COBRAR_MAIOR = item.PROD_IN_COBRAR_MAIOR;
+            novo.PROD_IN_DIVISAO = item.PROD_IN_DIVISAO;
+            novo.PROD_IN_GERAR_ARQUIVO = item.PROD_IN_GERAR_ARQUIVO;
+            novo.PROD_IN_OPCAO_COMBO = item.PROD_IN_OPCAO_COMBO;
+            novo.PROD_IN_TIPO_COMBO = item.PROD_IN_TIPO_COMBO;
+            novo.PROD_IN_TIPO_EMBALAGEM = item.PROD_IN_TIPO_EMBALAGEM;
+            novo.PROD_IN_TIPO_PRODUTO = item.PROD_IN_TIPO_PRODUTO;
+            novo.PROD_NM_LOCALIZACAO_ESTOQUE = item.PROD_NM_LOCALIZACAO_ESTOQUE;
+            novo.PROD_NM_NOME = "====== PRODUTO DUPLICADO ======";
+            novo.PROD_NM_ORIGEM = item.PROD_NM_ORIGEM;
+            novo.PROD_NR_ALTURA = item.PROD_NR_ALTURA;
+            novo.PROD_NR_COMPRIMENTO = item.PROD_NR_COMPRIMENTO;
+            novo.PROD_NR_DIAMETRO = item.PROD_NR_DIAMETRO;
+            novo.PROD_NR_DIAS_VALIDADE = item.PROD_NR_DIAS_VALIDADE;
+            novo.PROD_NR_GARANTIA = item.PROD_NR_GARANTIA;
+            novo.PROD_NR_LARGURA = item.PROD_NR_LARGURA;
+            novo.PROD_NR_NCM = item.PROD_NR_NCM;
+            novo.PROD_NR_REFERENCIA = item.PROD_NR_REFERENCIA;
+            novo.PROD_NR_VALIDADE = item.PROD_NR_VALIDADE;
+            novo.PROD_PC_MARKUP_MININO = item.PROD_PC_MARKUP_MININO;
+            novo.PROD_QN_ESTOQUE = 0;
+            novo.PROD_QN_PESO_BRUTO = item.PROD_QN_PESO_BRUTO;
+            novo.PROD_QN_PESO_LIQUIDO = item.PROD_QN_PESO_LIQUIDO;
+            novo.PROD_QN_QUANTIDADE_INICIAL = 0;
+            novo.PROD_QN_QUANTIDADE_MAXIMA = 0;
+            novo.PROD_QN_QUANTIDADE_MINIMA = 0;
+            novo.PROD_QN_RESERVA_ESTOQUE = 0;
+            novo.PROD_TX_OBSERVACOES = item.PROD_TX_OBSERVACOES;
+            novo.PROD_VL_CUSTO = item.PROD_VL_CUSTO;
+            novo.PROD_VL_MARKUP_PADRAO = item.PROD_VL_MARKUP_PADRAO;
+            novo.PROD_VL_PRECO_MINIMO = item.PROD_VL_PRECO_MINIMO;
+            novo.PROD_VL_PRECO_PROMOCAO = item.PROD_VL_PRECO_PROMOCAO;
+            novo.PROD_VL_PRECO_VENDA = item.PROD_VL_PRECO_VENDA;
+            novo.SCPR_CD_ID = item.SCPR_CD_ID;
+            novo.UNID_CD_ID = item.UNID_CD_ID;
+
+            Int32 volta = prodApp.ValidateCreateLeve(novo, usuario);
+            SessionMocks.idVolta = novo.PROD_CD_ID;
+            SessionMocks.clonar = 1;
+            return RedirectToAction("VoltarAnexoProduto");
         }
 
         [HttpGet]
@@ -3897,6 +3964,7 @@ namespace SystemBRPresentation.Controllers
         public ActionResult IncluirProdutoGrade()
         {
             // Prepara view
+            ViewBag.Tamanhos = new SelectList(prodApp.GetAllTamanhos(), "TAMA_CD_ID", "TAMA_NM_NOME");
             USUARIO usuario = SessionMocks.UserCredentials;
             PRODUTO_GRADE item = new PRODUTO_GRADE();
             ProdutoGradeViewModel vm = Mapper.Map<PRODUTO_GRADE, ProdutoGradeViewModel>(item);
@@ -3909,6 +3977,7 @@ namespace SystemBRPresentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IncluirProdutoGrade(ProdutoGradeViewModel vm)
         {
+            ViewBag.Tamanhos = new SelectList(prodApp.GetAllTamanhos(), "TAMA_CD_ID", "TAMA_NM_NOME");
             if (ModelState.IsValid)
             {
                 try

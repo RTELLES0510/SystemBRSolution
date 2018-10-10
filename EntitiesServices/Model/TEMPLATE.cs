@@ -14,6 +14,12 @@ namespace EntitiesServices.Model
     
     public partial class TEMPLATE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TEMPLATE()
+        {
+            this.CONTRATO = new HashSet<CONTRATO>();
+        }
+    
         public int TEMP_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
         public string TEMP_SG_SIGLA { get; set; }
@@ -21,5 +27,9 @@ namespace EntitiesServices.Model
         public string TEMP_TX_CONTEUDO { get; set; }
         public string TEMP_AQ_ARQUIVO { get; set; }
         public int TEMP_IN_ATIVO { get; set; }
+    
+        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }
 }

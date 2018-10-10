@@ -162,6 +162,7 @@
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />  
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/sweetAlertStyles")
 }
 
 @section Scripts {
@@ -169,6 +170,7 @@
     @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/bundles/inputmask")
     @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/sweetAlert")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
     
     <script type="text/javascript">
@@ -209,6 +211,27 @@
             $("#cnpj").mask("99.999.999/9999-99");
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.demo3').click(function () {
+                swal({
+                    title: "Confirma a duplicação do produto?",
+                    text: "A tela de edição deste produto será aberta logo após a confirmação",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Confirmar",
+                    cancelButtonText: "Cancelar",
+                   closeOnConfirm: false
+                }, function () {
+                    swal("Duplicado!", "Uma cópia deste produto foi criada", "success");
+                });
+            });
+        });
+    </script>
+
 }
 
 @if (ViewBag.Message != null)

@@ -176,6 +176,60 @@ namespace ApplicationServices.Services
             }
         }
 
+        public Int32 ValidateCreateLeve(PRODUTO item, USUARIO usuario)
+        {
+            try
+            {
+                // Verifica existencia prévia
+                if (_baseService.CheckExist(item) != null)
+                {
+                    return 1;
+                }
+
+                // Completa objeto
+                item.PROD_IN_ATIVO = 1;
+                item.ASSI_CD_ID = usuario.ASSI_CD_ID;
+                item.PROD_QN_ESTOQUE = item.PROD_QN_QUANTIDADE_INICIAL;
+                item.PROD_DT_ULTIMA_MOVIMENTACAO = DateTime.Today;
+                MOVIMENTO_ESTOQUE_PRODUTO movto = new MOVIMENTO_ESTOQUE_PRODUTO();
+
+                // Monta Log
+                LOG log = new LOG()
+                {
+                    LOG_DT_DATA = DateTime.Now,
+                    USUA_CD_ID = usuario.USUA_CD_ID,
+                    ASSI_CD_ID = SessionMocks.IdAssinante,
+                    LOG_NM_OPERACAO = "AddPROD",
+                    LOG_IN_ATIVO = 1,
+                    LOG_TX_REGISTRO = null
+                };
+
+                // Persiste produto
+                Int32 volta = _baseService.Create(item, log, movto);
+
+                // Monta movimento estoque
+                movto.ASSI_CD_ID = usuario.ASSI_CD_ID;
+                movto.FILI_CD_ID = item.FILI_CD_ID;
+                movto.MATR_CD_ID = item.MATR_CD_ID;
+                movto.MOEP_DT_MOVIMENTO = DateTime.Today;
+                movto.MOEP_IN_ATIVO = 1;
+                movto.MOEP_IN_CHAVE_ORIGEM = item.PROD_CD_ID;
+                movto.MOEP_IN_ORIGEM = "PROD";
+                movto.MOEP_IN_TIPO_MOVIMENTO = 1;
+                movto.MOEP_QN_QUANTIDADE = item.PROD_QN_QUANTIDADE_INICIAL;
+                movto.PROD_CD_ID = item.PROD_CD_ID;
+                movto.USUA_CD_ID = usuario.USUA_CD_ID;
+
+                // Persiste estoque
+                volta = _movService.Create(movto);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public Int32 ValidateEdit(PRODUTO item, PRODUTO itemAntes, USUARIO usuario)
         {
             try

@@ -70,5 +70,6 @@ namespace EntitiesServices.Work_Classes
         public static List<VALOR_COMISSAO> listaComissao { get; set; }
         public static VALOR_COMISSAO comissao { get; set; }
         public static VALOR_COMISSAO filtroComissao { get; set; }
+        public static Int32 clonar { get; set; }
     }
 }

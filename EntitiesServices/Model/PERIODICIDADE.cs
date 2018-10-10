@@ -18,6 +18,7 @@ namespace EntitiesServices.Model
         public PERIODICIDADE()
         {
             this.EQUIPAMENTO = new HashSet<EQUIPAMENTO>();
+            this.CONTRATO = new HashSet<CONTRATO>();
         }
     
         public int PERI_CD_ID { get; set; }
@@ -28,5 +29,7 @@ namespace EntitiesServices.Model
         public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EQUIPAMENTO> EQUIPAMENTO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }
 }
