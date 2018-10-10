@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IAppServiceBase.cs" />
     <Compile Include="Interfaces\ICargoAppService.cs" />
+    <Compile Include="Interfaces\IContratoAppService.cs" />
     <Compile Include="Interfaces\IValorComissaoAppService.cs" />
     <Compile Include="Interfaces\IEquipamentoAppService.cs" />
     <Compile Include="Interfaces\IPatrimonioAppService.cs" />

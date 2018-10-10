@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AGENDA">
           <Key>
             <PropertyRef Name="AGEN_CD_ID" />
@@ -5239,7 +5239,8 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SystemBRDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -5837,6 +5838,7 @@
           <Property Name="PLCO_CD_ID" Type="Int32" />
           <Property Name="CECU_CD_ID" Type="Int32" />
           <Property Name="COLA_CD_ID" Type="Int32" />
+          <Property Name="NBSE_CD_ID" Type="Int32" />
           <Property Name="CONT_NM_NOME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CONT_DS_DESCRICAO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="CONT_DT_INICIO" Type="DateTime" Nullable="false" Precision="0" />
@@ -5854,6 +5856,11 @@
           <Property Name="CONT_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CONT_NR_PARCELAS" Type="Int32" />
           <Property Name="CONT_PC_PERCENT_PARCELAS" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CONT_NM_NUMERO_CONTRATO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_IN_PERIODO_COBRANCA" Type="Int32" />
+          <Property Name="CONT_IN_ISS_RETIDO" Type="Int32" />
+          <Property Name="CONT_IN_IR_RETIDO" Type="Int32" />
+          <Property Name="CONT_DS_TEXTO_NF" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_CONTRATO_ASSINANTE" FromRole="CONTRATO" ToRole="ASSINANTE" />
           <NavigationProperty Name="CATEGORIA_CONTRATO" Relationship="Self.FK_CONTRATO_CATEGORIA_CONTRATO" FromRole="CONTRATO" ToRole="CATEGORIA_CONTRATO" />
           <NavigationProperty Name="CENTRO_CUSTO" Relationship="Self.FK_CONTRATO_CENTRO_CUSTO" FromRole="CONTRATO" ToRole="CENTRO_CUSTO" />
@@ -5861,18 +5868,11 @@
           <NavigationProperty Name="COLABORADOR" Relationship="Self.FK_CONTRATO_COLABORADOR" FromRole="CONTRATO" ToRole="COLABORADOR" />
           <NavigationProperty Name="CONTRATO_ANEXO" Relationship="Self.FK_CONTRATO_ANEXO_CONTRATO" FromRole="CONTRATO" ToRole="CONTRATO_ANEXO" />
           <NavigationProperty Name="FORMA_PAGAMENTO" Relationship="Self.FK_CONTRATO_FORMA_PAGAMENTO" FromRole="CONTRATO" ToRole="FORMA_PAGAMENTO" />
+          <NavigationProperty Name="NOMENCLATURA_BRAS_SERVICOS" Relationship="Self.FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS" FromRole="CONTRATO" ToRole="NOMENCLATURA_BRAS_SERVICOS" />
           <NavigationProperty Name="PERIODICIDADE" Relationship="Self.FK_CONTRATO_PERIODICIDADE" FromRole="CONTRATO" ToRole="PERIODICIDADE" />
           <NavigationProperty Name="PLANO_CONTA" Relationship="Self.FK_CONTRATO_PLANO_CONTA" FromRole="CONTRATO" ToRole="PLANO_CONTA" />
           <NavigationProperty Name="TEMPLATE" Relationship="Self.FK_CONTRATO_TEMPLATE" FromRole="CONTRATO" ToRole="TEMPLATE" />
           <NavigationProperty Name="TIPO_CONTRATO" Relationship="Self.FK_CONTRATO_TIPO_CONTRATO" FromRole="CONTRATO" ToRole="TIPO_CONTRATO" />
-          <Property Name="NBSE_CD_ID" Type="Int32" />
-          <Property Name="CONT_NM_NUMERO_CONTRATO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CONT_NM_PERIODO_COBRANCA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CONT_IN_ISS_RETIDO" Type="Int32" />
-          <Property Name="CONT_IN_IR_RETIDO" Type="Int32" />
-          <Property Name="CONT_DS_TEXTO_NF" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="NOMENCLATURA_BRAS_SERVICOS" Relationship="SystemBRDatabaseModel.FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS" FromRole="CONTRATO" ToRole="NOMENCLATURA_BRAS_SERVICOS" />
-          <Property Name="CONT_IN_PERIODO_COBRANCA" Type="Int32" />
         </EntityType>
         <EntityType Name="CONTRATO_ANEXO">
           <Key>
@@ -6461,6 +6461,14 @@
           <Property Name="NICO_NR_NOME_NIVEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NICO_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PLANO_CONTA" Relationship="Self.FK_PLANO_CONTA_NIVEL_CONTA" FromRole="NIVEL_CONTA" ToRole="PLANO_CONTA" />
+        </EntityType>
+        <EntityType Name="NOMENCLATURA_BRAS_SERVICOS">
+          <Key>
+            <PropertyRef Name="NBSE_CD_ID" />
+          </Key>
+          <Property Name="NBSE_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NBSE_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CONTRATO" Relationship="Self.FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS" FromRole="NOMENCLATURA_BRAS_SERVICOS" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="OPORTUNIDADE_NEGOCIO">
           <Key>
@@ -8632,6 +8640,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS">
+          <End Role="NOMENCLATURA_BRAS_SERVICOS" Type="Self.NOMENCLATURA_BRAS_SERVICOS" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NOMENCLATURA_BRAS_SERVICOS">
+              <PropertyRef Name="NBSE_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="NBSE_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CONTRATO_PERIODICIDADE">
           <End Role="PERIODICIDADE" Type="Self.PERIODICIDADE" Multiplicity="0..1" />
           <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
@@ -9971,6 +9991,7 @@
           <EntitySet Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA" EntityType="Self.MOVIMENTO_ESTOQUE_MATERIA_PRIMA" />
           <EntitySet Name="MOVIMENTO_ESTOQUE_PRODUTO" EntityType="Self.MOVIMENTO_ESTOQUE_PRODUTO" />
           <EntitySet Name="NIVEL_CONTA" EntityType="Self.NIVEL_CONTA" />
+          <EntitySet Name="NOMENCLATURA_BRAS_SERVICOS" EntityType="Self.NOMENCLATURA_BRAS_SERVICOS" />
           <EntitySet Name="OPORTUNIDADE_NEGOCIO" EntityType="Self.OPORTUNIDADE_NEGOCIO" />
           <EntitySet Name="OPORTUNIDADE_NEGOCIO_ANEXO" EntityType="Self.OPORTUNIDADE_NEGOCIO_ANEXO" />
           <EntitySet Name="PATRIMONIO" EntityType="Self.PATRIMONIO" />
@@ -10464,6 +10485,10 @@
             <End Role="FORMA_PAGAMENTO" EntitySet="FORMA_PAGAMENTO" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS" Association="Self.FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS">
+            <End Role="NOMENCLATURA_BRAS_SERVICOS" EntitySet="NOMENCLATURA_BRAS_SERVICOS" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_PERIODICIDADE" Association="Self.FK_CONTRATO_PERIODICIDADE">
             <End Role="PERIODICIDADE" EntitySet="PERIODICIDADE" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
@@ -10888,32 +10913,7 @@
             <End Role="TRANSPORTADORA" EntitySet="TRANSPORTADORA" />
             <End Role="TRANSPORTADORA_ANEXO" EntitySet="TRANSPORTADORA_ANEXO" />
           </AssociationSet>
-          <EntitySet Name="NOMENCLATURA_BRAS_SERVICOS" EntityType="SystemBRDatabaseModel.NOMENCLATURA_BRAS_SERVICOS" />
-          <AssociationSet Name="FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS" Association="SystemBRDatabaseModel.FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS">
-            <End Role="NOMENCLATURA_BRAS_SERVICOS" EntitySet="NOMENCLATURA_BRAS_SERVICOS" />
-            <End Role="CONTRATO" EntitySet="CONTRATO" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="NOMENCLATURA_BRAS_SERVICOS">
-          <Key>
-            <PropertyRef Name="NBSE_CD_ID" />
-          </Key>
-          <Property Name="NBSE_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NBSE_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS" FromRole="NOMENCLATURA_BRAS_SERVICOS" ToRole="CONTRATO" />
-        </EntityType>
-        <Association Name="FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS">
-          <End Type="SystemBRDatabaseModel.NOMENCLATURA_BRAS_SERVICOS" Role="NOMENCLATURA_BRAS_SERVICOS" Multiplicity="0..1" />
-          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NOMENCLATURA_BRAS_SERVICOS">
-              <PropertyRef Name="NBSE_CD_ID" />
-            </Principal>
-            <Dependent Role="CONTRATO">
-              <PropertyRef Name="NBSE_CD_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11400,12 +11400,6 @@
           <EntitySetMapping Name="CONTRATO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO">
               <MappingFragment StoreEntitySet="CONTRATO">
-                <ScalarProperty Name="CONT_IN_PERIODO_COBRANCA" ColumnName="CONT_IN_PERIODO_COBRANCA" />
-                <ScalarProperty Name="CONT_DS_TEXTO_NF" ColumnName="CONT_DS_TEXTO_NF" />
-                <ScalarProperty Name="CONT_IN_IR_RETIDO" ColumnName="CONT_IN_IR_RETIDO" />
-                <ScalarProperty Name="CONT_IN_ISS_RETIDO" ColumnName="CONT_IN_ISS_RETIDO" />
-                <ScalarProperty Name="CONT_NM_NUMERO_CONTRATO" ColumnName="CONT_NM_NUMERO_CONTRATO" />
-                <ScalarProperty Name="NBSE_CD_ID" ColumnName="NBSE_CD_ID" />
                 <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="CLIE_CD_ID" ColumnName="CLIE_CD_ID" />
@@ -11417,6 +11411,7 @@
                 <ScalarProperty Name="PLCO_CD_ID" ColumnName="PLCO_CD_ID" />
                 <ScalarProperty Name="CECU_CD_ID" ColumnName="CECU_CD_ID" />
                 <ScalarProperty Name="COLA_CD_ID" ColumnName="COLA_CD_ID" />
+                <ScalarProperty Name="NBSE_CD_ID" ColumnName="NBSE_CD_ID" />
                 <ScalarProperty Name="CONT_NM_NOME" ColumnName="CONT_NM_NOME" />
                 <ScalarProperty Name="CONT_DS_DESCRICAO" ColumnName="CONT_DS_DESCRICAO" />
                 <ScalarProperty Name="CONT_DT_INICIO" ColumnName="CONT_DT_INICIO" />
@@ -11434,6 +11429,11 @@
                 <ScalarProperty Name="CONT_TX_OBSERVACOES" ColumnName="CONT_TX_OBSERVACOES" />
                 <ScalarProperty Name="CONT_NR_PARCELAS" ColumnName="CONT_NR_PARCELAS" />
                 <ScalarProperty Name="CONT_PC_PERCENT_PARCELAS" ColumnName="CONT_PC_PERCENT_PARCELAS" />
+                <ScalarProperty Name="CONT_NM_NUMERO_CONTRATO" ColumnName="CONT_NM_NUMERO_CONTRATO" />
+                <ScalarProperty Name="CONT_IN_PERIODO_COBRANCA" ColumnName="CONT_IN_PERIODO_COBRANCA" />
+                <ScalarProperty Name="CONT_IN_ISS_RETIDO" ColumnName="CONT_IN_ISS_RETIDO" />
+                <ScalarProperty Name="CONT_IN_IR_RETIDO" ColumnName="CONT_IN_IR_RETIDO" />
+                <ScalarProperty Name="CONT_DS_TEXTO_NF" ColumnName="CONT_DS_TEXTO_NF" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11917,6 +11917,14 @@
                 <ScalarProperty Name="NICO_NR_NIVEL" ColumnName="NICO_NR_NIVEL" />
                 <ScalarProperty Name="NICO_NR_NOME_NIVEL" ColumnName="NICO_NR_NOME_NIVEL" />
                 <ScalarProperty Name="NICO_IN_ATIVO" ColumnName="NICO_IN_ATIVO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NOMENCLATURA_BRAS_SERVICOS">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.NOMENCLATURA_BRAS_SERVICOS">
+              <MappingFragment StoreEntitySet="NOMENCLATURA_BRAS_SERVICOS">
+                <ScalarProperty Name="NBSE_CD_ID" ColumnName="NBSE_CD_ID" />
+                <ScalarProperty Name="NBSE_NM_NOME" ColumnName="NBSE_NM_NOME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -12653,14 +12661,6 @@
                 <ScalarProperty Name="VIEM_CD_ID" ColumnName="VIEM_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="VIEM_NM_NOME" ColumnName="VIEM_NM_NOME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NOMENCLATURA_BRAS_SERVICOS">
-            <EntityTypeMapping TypeName="SystemBRDatabaseModel.NOMENCLATURA_BRAS_SERVICOS">
-              <MappingFragment StoreEntitySet="NOMENCLATURA_BRAS_SERVICOS">
-                <ScalarProperty Name="NBSE_NM_NOME" ColumnName="NBSE_NM_NOME" />
-                <ScalarProperty Name="NBSE_CD_ID" ColumnName="NBSE_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -91,6 +91,7 @@ namespace EntitiesServices.Model
         public virtual DbSet<MOVIMENTO_ESTOQUE_MATERIA_PRIMA> MOVIMENTO_ESTOQUE_MATERIA_PRIMA { get; set; }
         public virtual DbSet<MOVIMENTO_ESTOQUE_PRODUTO> MOVIMENTO_ESTOQUE_PRODUTO { get; set; }
         public virtual DbSet<NIVEL_CONTA> NIVEL_CONTA { get; set; }
+        public virtual DbSet<NOMENCLATURA_BRAS_SERVICOS> NOMENCLATURA_BRAS_SERVICOS { get; set; }
         public virtual DbSet<OPORTUNIDADE_NEGOCIO> OPORTUNIDADE_NEGOCIO { get; set; }
         public virtual DbSet<OPORTUNIDADE_NEGOCIO_ANEXO> OPORTUNIDADE_NEGOCIO_ANEXO { get; set; }
         public virtual DbSet<PATRIMONIO> PATRIMONIO { get; set; }
@@ -140,6 +141,5 @@ namespace EntitiesServices.Model
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
         public virtual DbSet<VINCULO_EMPREGATICIO> VINCULO_EMPREGATICIO { get; set; }
-        public virtual DbSet<NOMENCLATURA_BRAS_SERVICOS> NOMENCLATURA_BRAS_SERVICOS { get; set; }
     }
 }

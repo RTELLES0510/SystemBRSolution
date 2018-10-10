@@ -60,7 +60,7 @@ namespace SystemBRPresentation.ViewModels
         public Nullable<int> NBSE_CD_ID { get; set; }
         [StringLength(50, ErrorMessage = "A DESCRIÇÃO DETALHADA deve conter no máximo 50.")]
         public string CONT_NM_NUMERO_CONTRATO { get; set; }
-        public string CONT_NM_PERIODO_COBRANCA { get; set; }
+        public Nullable<int> CONT_IN_PERIODO_COBRANCA { get; set; }
         public Nullable<int> CONT_IN_ISS_RETIDO { get; set; }
         public Nullable<int> CONT_IN_IR_RETIDO { get; set; }
         [StringLength(500, ErrorMessage = "A DESCRIÇÃO DETALHADA deve conter no máximo 500.")]

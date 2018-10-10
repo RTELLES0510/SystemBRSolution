@@ -7,10 +7,9 @@ using EntitiesServices.Model;
 
 namespace ModelServices.Interfaces.Repositories
 {
-    public interface ITemplateRepository : IRepositoryBase<TEMPLATE>
+    public interface INomenclaturaRepository : IRepositoryBase<NOMENCLATURA_BRAS_SERVICOS>
     {
-        TEMPLATE GetByCode(String code);
-        List<TEMPLATE> GetAllItens();
-        TEMPLATE GetItemById(Int32 id);
+        List<NOMENCLATURA_BRAS_SERVICOS> GetAllItens();
+        NOMENCLATURA_BRAS_SERVICOS GetItemById(Int32 id);
     }
 }
