@@ -65,6 +65,68 @@ namespace SystemBRPresentation.ViewModels
         public Nullable<int> CONT_IN_IR_RETIDO { get; set; }
         [StringLength(500, ErrorMessage = "A DESCRIÇÃO DETALHADA deve conter no máximo 500.")]
         public string CONT_DS_TEXTO_NF { get; set; }
+        public Nullable<int> STCT_CD_ID { get; set; }
+        public Nullable<int> MATR_CD_ID { get; set; }
+        public bool Sincronizar
+        {
+            get
+            {
+                if (CONT_IN_SINCRONIZA == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                CONT_IN_SINCRONIZA = (value == true) ? 1 : 0;
+            }
+        }
+        public bool NF
+        {
+            get
+            {
+                if (CONT_IN_EMITE_NF == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                CONT_IN_EMITE_NF = (value == true) ? 1 : 0;
+            }
+        }
+        public bool ISS
+        {
+            get
+            {
+                if (CONT_IN_ISS_RETIDO == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                CONT_IN_ISS_RETIDO = (value == true) ? 1 : 0;
+            }
+        }
+        public bool IR
+        {
+            get
+            {
+                if (CONT_IN_IR_RETIDO == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                CONT_IN_IR_RETIDO = (value == true) ? 1 : 0;
+            }
+        }
 
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_CONTRATO CATEGORIA_CONTRATO { get; set; }
@@ -74,10 +136,12 @@ namespace SystemBRPresentation.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTRATO_ANEXO> CONTRATO_ANEXO { get; set; }
         public virtual FORMA_PAGAMENTO FORMA_PAGAMENTO { get; set; }
+        public virtual NOMENCLATURA_BRAS_SERVICOS NOMENCLATURA_BRAS_SERVICOS { get; set; }
         public virtual PERIODICIDADE PERIODICIDADE { get; set; }
         public virtual PLANO_CONTA PLANO_CONTA { get; set; }
         public virtual TEMPLATE TEMPLATE { get; set; }
         public virtual TIPO_CONTRATO TIPO_CONTRATO { get; set; }
-        public virtual NOMENCLATURA_BRAS_SERVICOS NOMENCLATURA_BRAS_SERVICOS { get; set; }
+        public virtual STATUS_CONTRATO STATUS_CONTRATO { get; set; }
+        public virtual MATRIZ MATRIZ { get; set; }
     }
 }

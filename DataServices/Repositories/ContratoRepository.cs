@@ -58,7 +58,7 @@ namespace DataServices.Repositories
             return query.ToList();
         }
 
-        public List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, String nome, String descricao)
+        public List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, Int32? statId, String nome, String descricao)
         {
             Int32? idAss = SessionMocks.IdAssinante;
             List<CONTRATO> lista = new List<CONTRATO>();
@@ -70,6 +70,10 @@ namespace DataServices.Repositories
             if (tipoId != null)
             {
                 query = query.Where(p => p.TIPO_CONTRATO.TICT_CD_ID == tipoId);
+            }
+            if (statId != null)
+            {
+                query = query.Where(p => p.STATUS_CONTRATO.STCT_CD_ID == statId);
             }
             if (!String.IsNullOrEmpty(nome))
             {

@@ -10,9 +10,8 @@ namespace ApplicationServices.Interfaces
     public interface IContratoAppService : IAppServiceBase<CONTRATO>
     {
         Int32 ValidateCreate(CONTRATO item, USUARIO usuario);
-        Int32 ValidateCreateLeve(CONTRATO item, USUARIO usuario);
         Int32 ValidateEdit(CONTRATO item, CONTRATO perfilAntes, USUARIO usuario);
-        Int32 ValidateEdit(CONTRATO item, PRODUTO itemAntes);
+        Int32 ValidateEdit(CONTRATO item, CONTRATO itemAntes);
         Int32 ValidateDelete(CONTRATO item, USUARIO usuario);
         Int32 ValidateReativar(CONTRATO item, USUARIO usuario);
         List<CONTRATO> GetAllItens();
@@ -30,7 +29,8 @@ namespace ApplicationServices.Interfaces
         List<CENTRO_CUSTO> GetAllCentros();
         List<COLABORADOR> GetAllVendedores();
         List<NOMENCLATURA_BRAS_SERVICOS> GetAllNomenclatura();
+        List<STATUS_CONTRATO> GetAllStatus();
         List<CLIENTE> GetAllClientes();
-        Int32 ExecuteFilter(Int32? catId, Int32? tipoId, String nome, String descricao, out List<CONTRATO> objeto);
+        Int32 ExecuteFilter(Int32? catId, Int32? tipoId, Int32? statId, String nome, String descricao, out List<CONTRATO> objeto);
     }
 }

@@ -94,6 +94,7 @@
     <Compile Include="Attributes\DataAnteriorAttribute.cs" />
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IStatusContratoRepository.cs" />
     <Compile Include="Interfaces\Repositories\INomenclaturaRepository.cs" />
     <Compile Include="Interfaces\Repositories\IFormaPagamentoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaContratoRepository.cs" />
@@ -461,6 +462,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\SERVICO_ANEXO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\STATUS_CONTRATO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\SUBCATEGORIA_PRODUTO.cs">

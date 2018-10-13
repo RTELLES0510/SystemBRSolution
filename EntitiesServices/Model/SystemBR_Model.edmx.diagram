@@ -339,6 +339,9 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_SERVICO_ANEXO_SERVICO" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_VALOR_COMISSAO_TIPO_COMISSAO" ManuallyRouted="false" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.STATUS_CONTRATO" Width="1.5" PointX="3.375" PointY="3.875" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_STATUS_CONTRATO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

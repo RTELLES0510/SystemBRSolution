@@ -31,10 +31,11 @@ namespace ModelServices.EntitiesServices
         private readonly IColaboradorRepository _colRepository;
         private readonly INomenclaturaRepository _nomRepository;
         private readonly IClienteRepository _cliRepository;
+        private readonly IStatusContratoRepository _staRepository;
 
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public ContratoService(IContratoRepository baseRepository, ILogRepository logRepository, ICategoriaContratoRepository catRepository, IContratoAnexoRepository anexoRepository, ITipoContratoRepository tipoRepository, ITemplateRepository tempRepository, IPeriodicidadeRepository perRepository, IFormaPagamentoRepository forRepository, IPlanoContaRepository planRepository, ICentroCustoRepository ccRepository, IColaboradorRepository colRepository, INomenclaturaRepository nomRepository, IClienteRepository cliRepository) : base(baseRepository)
+        public ContratoService(IContratoRepository baseRepository, ILogRepository logRepository, ICategoriaContratoRepository catRepository, IContratoAnexoRepository anexoRepository, ITipoContratoRepository tipoRepository, ITemplateRepository tempRepository, IPeriodicidadeRepository perRepository, IFormaPagamentoRepository forRepository, IPlanoContaRepository planRepository, ICentroCustoRepository ccRepository, IColaboradorRepository colRepository, INomenclaturaRepository nomRepository, IClienteRepository cliRepository, IStatusContratoRepository staRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
@@ -49,6 +50,7 @@ namespace ModelServices.EntitiesServices
             _colRepository = colRepository;
             _nomRepository = nomRepository;
             _cliRepository = cliRepository;
+            _staRepository = staRepository;
         }
 
         public CONTRATO CheckExist(CONTRATO conta)
@@ -94,6 +96,11 @@ namespace ModelServices.EntitiesServices
             return _tempRepository.GetAllItens();
         }
 
+        public List<STATUS_CONTRATO> GetAllStatus()
+        {
+            return _staRepository.GetAllItens();
+        }
+
         public List<PERIODICIDADE> GetAllPeriodicidades()
         {
             return _perRepository.GetAllItens();
@@ -134,9 +141,9 @@ namespace ModelServices.EntitiesServices
             return _anexoRepository.GetItemById(id);
         }
 
-        public List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, String nome, String descricao)
+        public List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, Int32? statId, String nome, String descricao)
         {
-            return _baseRepository.ExecuteFilter(catId, tipoId, nome, descricao);
+            return _baseRepository.ExecuteFilter(catId, tipoId, statId, nome, descricao);
 
         }
 

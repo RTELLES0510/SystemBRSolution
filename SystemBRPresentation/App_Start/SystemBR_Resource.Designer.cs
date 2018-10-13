@@ -383,5 +383,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0036", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Contrato ja cadastrado.
+        /// </summary>
+        internal static string M0037 {
+            get {
+                return ResourceManager.GetString("M0037", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Impossivel excluir esse contrato. Existem registros vinculados a ele..
+        /// </summary>
+        internal static string M0038 {
+            get {
+                return ResourceManager.GetString("M0038", resourceCulture);
+            }
+        }
     }
 }

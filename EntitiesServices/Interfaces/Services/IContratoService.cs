@@ -30,7 +30,8 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<COLABORADOR> GetAllVendedores();
         List<NOMENCLATURA_BRAS_SERVICOS> GetAllNomenclatura();
         List<CLIENTE> GetAllClientes();
+        List<STATUS_CONTRATO> GetAllStatus();
         CONTRATO_ANEXO GetAnexoById(Int32 id);
-        List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, String nome, String descricao);
+        List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, Int32? statId, String nome, String descricao);
     }
 }

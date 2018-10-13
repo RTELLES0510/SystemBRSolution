@@ -87,6 +87,7 @@ namespace Presentation.Start
             kernel.Bind<IEquipamentoAppService>().To<EquipamentoAppService>();
             kernel.Bind<ICargoAppService>().To<CargoAppService>();
             kernel.Bind<IValorComissaoAppService>().To<ValorComissaoAppService>();
+            kernel.Bind<IContratoAppService>().To<ContratoAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
@@ -109,6 +110,7 @@ namespace Presentation.Start
             kernel.Bind<IEquipamentoService>().To<EquipamentoService>();
             kernel.Bind<ICargoService>().To<CargoService>();
             kernel.Bind<IValorComissaoService>().To<ValorComissaoService>();
+            kernel.Bind<IContratoService>().To<ContratoService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -162,6 +164,15 @@ namespace Presentation.Start
             kernel.Bind<IProdutoFornecedorRepository>().To<ProdutoFornecedorRepository>();
             kernel.Bind<IProdutoGradeRepository>().To<ProdutoGradeRepository>();
             kernel.Bind<ITamanhoRepository>().To<TamanhoRepository>();
+            kernel.Bind<IContratoRepository>().To<ContratoRepository>();
+            kernel.Bind<IContratoAnexoRepository>().To<ContratoAnexoRepository>();
+            kernel.Bind<ITipoContratoRepository>().To<TipoContratoRepository>();
+            kernel.Bind<ICategoriaContratoRepository>().To<CategoriaContratoRepository>();
+            kernel.Bind<IFormaPagamentoRepository>().To<FormaPagamentoRepository>();
+            kernel.Bind<IPlanoContaRepository>().To<PlanoContaRepository>();
+            kernel.Bind<ICentroCustoRepository>().To<CentroCustoRepository>();
+            kernel.Bind<INomenclaturaRepository>().To<NomenclaturaRepository>();
+            kernel.Bind<IStatusContratoRepository>().To<StatusContratoRepository>();
         }
     }
 }

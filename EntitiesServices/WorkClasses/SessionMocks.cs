@@ -71,5 +71,9 @@ namespace EntitiesServices.Work_Classes
         public static VALOR_COMISSAO comissao { get; set; }
         public static VALOR_COMISSAO filtroComissao { get; set; }
         public static Int32 clonar { get; set; }
+        public static List<CONTRATO> listaContrato { get; set; }
+        public static CONTRATO filtroContrato { get; set; }
+        public static Int32 voltaContrato { get; set; }
+        public static CONTRATO contrato { get; set; }
     }
 }

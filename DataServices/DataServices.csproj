@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CargoRepository.cs" />
+    <Compile Include="Repositories\StatusContratoRepository.cs" />
     <Compile Include="Repositories\NomenclaturaRepository.cs" />
     <Compile Include="Repositories\CategoriaContratoRepository.cs" />
     <Compile Include="Repositories\FormaPagamentoRepository.cs" />

@@ -25,5 +25,16 @@ namespace DataServices.Repositories
             query = query.Where(p => p.CARGO.CARG_NM_NOME.Contains("endedor"));
             return query.ToList();
         }
+
+        public List<COLABORADOR> GetAllVendedores()
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<COLABORADOR> query = Db.COLABORADOR;
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.CARGO.CARG_NM_NOME.Contains("endedor"));
+            return query.ToList();
+        }
+
     }
 }

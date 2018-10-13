@@ -14,6 +14,6 @@ namespace ModelServices.Interfaces.Repositories
         CONTRATO GetItemById(Int32 id);
         List<CONTRATO> GetAllItens();
         List<CONTRATO> GetAllItensAdm();
-        List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, String nome, String descricao);
+        List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, Int32? statId, String nome, String descricao);
     }
 }

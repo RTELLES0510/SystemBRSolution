@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SystemBRDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AGENDA">
           <Key>
             <PropertyRef Name="AGEN_CD_ID" />
@@ -488,6 +488,8 @@
           <Property Name="CONT_IN_ISS_RETIDO" Type="int" />
           <Property Name="CONT_IN_IR_RETIDO" Type="int" />
           <Property Name="CONT_DS_TEXTO_NF" Type="varchar" MaxLength="500" />
+          <Property Name="STCT_CD_ID" Type="int" />
+          <Property Name="MATR_CD_ID" Type="int" />
         </EntityType>
         <EntityType Name="CONTRATO_ANEXO">
           <Key>
@@ -1404,6 +1406,14 @@
           <Property Name="SEAN_IN_TIPO" Type="int" Nullable="false" />
           <Property Name="SEAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="SEAN_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STATUS_CONTRATO">
+          <Key>
+            <PropertyRef Name="STCT_CD_ID" />
+          </Key>
+          <Property Name="STCT_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="STCT_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SUBCATEGORIA_PRODUTO">
           <Key>
@@ -2377,6 +2387,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CONTRATO_MATRIZ">
+          <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATRIZ">
+              <PropertyRef Name="MATR_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS">
           <End Role="NOMENCLATURA_BRAS_SERVICOS" Type="Self.NOMENCLATURA_BRAS_SERVICOS" Multiplicity="0..1" />
           <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
@@ -2410,6 +2432,18 @@
             </Principal>
             <Dependent Role="CONTRATO">
               <PropertyRef Name="PLCO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_STATUS_CONTRATO">
+          <End Role="STATUS_CONTRATO" Type="Self.STATUS_CONTRATO" Multiplicity="0..1" />
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATUS_CONTRATO">
+              <PropertyRef Name="STCT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="STCT_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4346,6 +4380,7 @@
           <EntitySet Name="SEGMENTO" EntityType="Self.SEGMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERVICO" EntityType="Self.SERVICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERVICO_ANEXO" EntityType="Self.SERVICO_ANEXO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STATUS_CONTRATO" EntityType="Self.STATUS_CONTRATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SUBCATEGORIA_PRODUTO" EntityType="Self.SUBCATEGORIA_PRODUTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAMANHO" EntityType="Self.TAMANHO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAREFA" EntityType="Self.TAREFA" Schema="dbo" store:Type="Tables" />
@@ -4614,6 +4649,10 @@
             <End Role="FORMA_PAGAMENTO" EntitySet="FORMA_PAGAMENTO" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_MATRIZ" Association="Self.FK_CONTRATO_MATRIZ">
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS" Association="Self.FK_CONTRATO_NOMENCLATURA_BRAS_SERVICOS">
             <End Role="NOMENCLATURA_BRAS_SERVICOS" EntitySet="NOMENCLATURA_BRAS_SERVICOS" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
@@ -4624,6 +4663,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_PLANO_CONTA" Association="Self.FK_CONTRATO_PLANO_CONTA">
             <End Role="PLANO_CONTA" EntitySet="PLANO_CONTA" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_STATUS_CONTRATO" Association="Self.FK_CONTRATO_STATUS_CONTRATO">
+            <End Role="STATUS_CONTRATO" EntitySet="STATUS_CONTRATO" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_TEMPLATE" Association="Self.FK_CONTRATO_TEMPLATE">
@@ -5239,8 +5282,7 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SystemBRDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -5873,6 +5915,10 @@
           <NavigationProperty Name="PLANO_CONTA" Relationship="Self.FK_CONTRATO_PLANO_CONTA" FromRole="CONTRATO" ToRole="PLANO_CONTA" />
           <NavigationProperty Name="TEMPLATE" Relationship="Self.FK_CONTRATO_TEMPLATE" FromRole="CONTRATO" ToRole="TEMPLATE" />
           <NavigationProperty Name="TIPO_CONTRATO" Relationship="Self.FK_CONTRATO_TIPO_CONTRATO" FromRole="CONTRATO" ToRole="TIPO_CONTRATO" />
+          <Property Name="STCT_CD_ID" Type="Int32" />
+          <NavigationProperty Name="STATUS_CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_STATUS_CONTRATO" FromRole="CONTRATO" ToRole="STATUS_CONTRATO" />
+          <Property Name="MATR_CD_ID" Type="Int32" />
+          <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ" FromRole="CONTRATO" ToRole="MATRIZ" />
         </EntityType>
         <EntityType Name="CONTRATO_ANEXO">
           <Key>
@@ -6409,6 +6455,7 @@
           <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="Self.FK_TICKET_ATENDIMENTO_MATRIZ" FromRole="MATRIZ" ToRole="TICKET_ATENDIMENTO" />
           <NavigationProperty Name="TRANSPORTADORA" Relationship="Self.FK_TRANSPORTADORA_MATRIZ" FromRole="MATRIZ" ToRole="TRANSPORTADORA" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_MATRIZ" FromRole="MATRIZ" ToRole="VALOR_COMISSAO" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ" FromRole="MATRIZ" ToRole="CONTRATO" />
         </EntityType>
         <EntityType Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA">
           <Key>
@@ -10913,7 +10960,49 @@
             <End Role="TRANSPORTADORA" EntitySet="TRANSPORTADORA" />
             <End Role="TRANSPORTADORA_ANEXO" EntitySet="TRANSPORTADORA_ANEXO" />
           </AssociationSet>
+          <EntitySet Name="STATUS_CONTRATO" EntityType="SystemBRDatabaseModel.STATUS_CONTRATO" />
+          <AssociationSet Name="FK_CONTRATO_STATUS_CONTRATO" Association="SystemBRDatabaseModel.FK_CONTRATO_STATUS_CONTRATO">
+            <End Role="STATUS_CONTRATO" EntitySet="STATUS_CONTRATO" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_MATRIZ" Association="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ">
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="STATUS_CONTRATO">
+          <Key>
+            <PropertyRef Name="STCT_CD_ID" />
+          </Key>
+          <Property Name="STCT_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="STCT_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_STATUS_CONTRATO" FromRole="STATUS_CONTRATO" ToRole="CONTRATO" />
+        </EntityType>
+        <Association Name="FK_CONTRATO_STATUS_CONTRATO">
+          <End Type="SystemBRDatabaseModel.STATUS_CONTRATO" Role="STATUS_CONTRATO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATUS_CONTRATO">
+              <PropertyRef Name="STCT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="STCT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_MATRIZ">
+          <End Type="SystemBRDatabaseModel.MATRIZ" Role="MATRIZ" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MATRIZ">
+              <PropertyRef Name="MATR_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO">
+              <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11400,6 +11489,8 @@
           <EntitySetMapping Name="CONTRATO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO">
               <MappingFragment StoreEntitySet="CONTRATO">
+                <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
+                <ScalarProperty Name="STCT_CD_ID" ColumnName="STCT_CD_ID" />
                 <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="CLIE_CD_ID" ColumnName="CLIE_CD_ID" />
@@ -12661,6 +12752,15 @@
                 <ScalarProperty Name="VIEM_CD_ID" ColumnName="VIEM_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="VIEM_NM_NOME" ColumnName="VIEM_NM_NOME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATUS_CONTRATO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.STATUS_CONTRATO">
+              <MappingFragment StoreEntitySet="STATUS_CONTRATO">
+                <ScalarProperty Name="STCT_NM_NOME" ColumnName="STCT_NM_NOME" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="STCT_CD_ID" ColumnName="STCT_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

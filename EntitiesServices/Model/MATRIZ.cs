@@ -44,6 +44,7 @@ namespace EntitiesServices.Model
             this.TICKET_ATENDIMENTO = new HashSet<TICKET_ATENDIMENTO>();
             this.TRANSPORTADORA = new HashSet<TRANSPORTADORA>();
             this.VALOR_COMISSAO = new HashSet<VALOR_COMISSAO>();
+            this.CONTRATO = new HashSet<CONTRATO>();
         }
     
         public int MATR_CD_ID { get; set; }
@@ -117,5 +118,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<TRANSPORTADORA> TRANSPORTADORA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
     }
 }

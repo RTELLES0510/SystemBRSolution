@@ -7,10 +7,9 @@ using EntitiesServices.Model;
 
 namespace ModelServices.Interfaces.Repositories
 {
-    public interface IColaboradorRepository : IRepositoryBase<COLABORADOR>
+    public interface IStatusContratoRepository : IRepositoryBase<STATUS_CONTRATO>
     {
-        List<COLABORADOR> GetAllItens();
-        List<COLABORADOR> GetAllVendedores();
-        COLABORADOR GetItemById(Int32 id);
+        List<STATUS_CONTRATO> GetAllItens();
+        STATUS_CONTRATO GetItemById(Int32 id);
     }
 }

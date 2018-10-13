@@ -54,6 +54,8 @@ namespace EntitiesServices.Model
         public Nullable<int> CONT_IN_ISS_RETIDO { get; set; }
         public Nullable<int> CONT_IN_IR_RETIDO { get; set; }
         public string CONT_DS_TEXTO_NF { get; set; }
+        public Nullable<int> STCT_CD_ID { get; set; }
+        public Nullable<int> MATR_CD_ID { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_CONTRATO CATEGORIA_CONTRATO { get; set; }
@@ -68,5 +70,7 @@ namespace EntitiesServices.Model
         public virtual PLANO_CONTA PLANO_CONTA { get; set; }
         public virtual TEMPLATE TEMPLATE { get; set; }
         public virtual TIPO_CONTRATO TIPO_CONTRATO { get; set; }
+        public virtual STATUS_CONTRATO STATUS_CONTRATO { get; set; }
+        public virtual MATRIZ MATRIZ { get; set; }
     }
 }

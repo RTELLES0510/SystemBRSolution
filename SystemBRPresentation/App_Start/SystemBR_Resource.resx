@@ -225,4 +225,10 @@
   <data name="M0036" xml:space="preserve">
     <value>Formato invalido para foto, Deve ser JPG, GIF ou PNG</value>
   </data>
+  <data name="M0037" xml:space="preserve">
+    <value>Contrato ja cadastrado</value>
+  </data>
+  <data name="M0038" xml:space="preserve">
+    <value>Impossivel excluir esse contrato. Existem registros vinculados a ele.</value>
+  </data>
 </root>
