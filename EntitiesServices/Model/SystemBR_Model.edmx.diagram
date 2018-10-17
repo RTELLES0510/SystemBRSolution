@@ -342,6 +342,10 @@
         <EntityTypeShape EntityType="SystemBRDatabaseModel.STATUS_CONTRATO" Width="1.5" PointX="3.375" PointY="3.875" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_STATUS_CONTRATO" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTRATO_PARCELAS" Width="1.5" PointX="36.25" PointY="154.75" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTRATO_SOLICITACAO_APROVACAO" Width="1.5" PointX="36.25" PointY="158.5" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_PARCELAS_CONTRATO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

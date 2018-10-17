@@ -82,6 +82,7 @@ namespace SystemBRPresentation.Controllers
             SessionMocks.Matriz = matrizApp.GetAllItens().FirstOrDefault();
             ViewBag.Tipos = new SelectList(baseApp.GetAllTipos(), "TICT_CD_ID", "TICT_NM_NOME");
             ViewBag.Categorias = new SelectList(baseApp.GetAllCategorias(), "CACT_CD_ID", "CACT_NM_NOME");
+            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_NOME");
 
             // Indicadores
             ViewBag.Contratos = baseApp.GetAllItens().Count;
@@ -157,8 +158,8 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Periodicidades = new SelectList(baseApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
             ViewBag.Planos = new SelectList(baseApp.GetAllPlanoConta(), "PLCO_CD_ID", "PLCO_NM_CONTA");
             ViewBag.Templates = new SelectList(baseApp.GetAllTemplates(), "TEMP_CD_ID", "TEMP_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_CONTA");
-            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_CONTA");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_NOME");
 
             List<SelectListItem> periodoCobranca = new List<SelectListItem>();
             periodoCobranca.Add(new SelectListItem() { Text = "Nenhum", Value = "1" });
@@ -192,8 +193,8 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Periodicidades = new SelectList(baseApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
             ViewBag.Planos = new SelectList(baseApp.GetAllPlanoConta(), "PLCO_CD_ID", "PLCO_NM_CONTA");
             ViewBag.Templates = new SelectList(baseApp.GetAllTemplates(), "TEMP_CD_ID", "TEMP_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_CONTA");
-            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_CONTA");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_NOME");
             List<SelectListItem> periodoCobranca = new List<SelectListItem>();
             periodoCobranca.Add(new SelectListItem() { Text = "Nenhum", Value = "1" });
             periodoCobranca.Add(new SelectListItem() { Text = "Mês Atual", Value = "2" });
@@ -249,8 +250,8 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Periodicidades = new SelectList(baseApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
             ViewBag.Planos = new SelectList(baseApp.GetAllPlanoConta(), "PLCO_CD_ID", "PLCO_NM_CONTA");
             ViewBag.Templates = new SelectList(baseApp.GetAllTemplates(), "TEMP_CD_ID", "TEMP_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_CONTA");
-            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_CONTA");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_NOME");
 
             List<SelectListItem> periodoCobranca = new List<SelectListItem>();
             periodoCobranca.Add(new SelectListItem() { Text = "Nenhum", Value = "1" });
@@ -279,8 +280,8 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Periodicidades = new SelectList(baseApp.GetAllPeriodicidades(), "PERI_CD_ID", "PERI_NM_NOME");
             ViewBag.Planos = new SelectList(baseApp.GetAllPlanoConta(), "PLCO_CD_ID", "PLCO_NM_CONTA");
             ViewBag.Templates = new SelectList(baseApp.GetAllTemplates(), "TEMP_CD_ID", "TEMP_NM_NOME");
-            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_CONTA");
-            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_CONTA");
+            ViewBag.Vendedores = new SelectList(baseApp.GetAllVendedores(), "COLA_CD_ID", "COLA_NM_NOME");
+            ViewBag.Status = new SelectList(baseApp.GetAllStatus(), "STCT_CD_ID", "STCT_NM_NOME");
             List<SelectListItem> periodoCobranca = new List<SelectListItem>();
             periodoCobranca.Add(new SelectListItem() { Text = "Nenhum", Value = "1" });
             periodoCobranca.Add(new SelectListItem() { Text = "Mês Atual", Value = "2" });

@@ -30,6 +30,7 @@ namespace EntitiesServices.Model
         public string PLCO_NM_CONTA { get; set; }
         public Nullable<int> PLCO_ID_PAI { get; set; }
         public int PLCO_IN_ATIVO { get; set; }
+        public Nullable<int> PLCO_IN_CLASSE { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

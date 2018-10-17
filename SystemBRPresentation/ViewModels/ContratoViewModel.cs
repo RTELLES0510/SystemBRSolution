@@ -67,6 +67,32 @@ namespace SystemBRPresentation.ViewModels
         public string CONT_DS_TEXTO_NF { get; set; }
         public Nullable<int> STCT_CD_ID { get; set; }
         public Nullable<int> MATR_CD_ID { get; set; }
+        public string CONT_DS_PERIODO_COBRANCA { get; set; }
+        public Nullable<int> CONT_IN_WORKFLOW { get; set; }
+        public Nullable<int> CONT_IN_APROVADO { get; set; }
+        public Nullable<int> CONT_CD_RESPONSAVEL { get; set; }
+        public Nullable<System.DateTime> CONT_DT_SOLICITACAO_APROVACAO { get; set; }
+        public Nullable<int> CONT_CD_APROVADOR { get; set; }
+        public string CONT_DS_APROVACAO { get; set; }
+        public Nullable<int> CONT_IN_ENVIO_APROVACAO { get; set; }
+        public Nullable<System.DateTime> CONT_DT_CANCELAMENTO { get; set; }
+        public string CONT_DS_JUSTIFICATIVA { get; set; }
+        public Nullable<int> CONT_CD_RESP_CANCELAMENTO { get; set; }
+        public Nullable<System.DateTime> CONT_DT_APROVACAO { get; set; }
+        public string CONT_DS_INFO_APROVACAO { get; set; }
+        public Nullable<int> CONT_NR_PARCELAS_CONTRATO { get; set; }
+        public Nullable<int> CONT_IN_PREPARADO { get; set; }
+        public Nullable<int> CONT_IN_FINANCEIRO { get; set; }
+        public Nullable<int> CONT_IN_MENSAGEM_PARCELA { get; set; }
+        public Nullable<int> CONT_IN_DIAS_MENS_PARCELA { get; set; }
+        public Nullable<int> CONT_IN_MENSAGEM_RENOVACAO { get; set; }
+        public Nullable<int> CONT_IN_DIAS_MENS_RENOVACAO { get; set; }
+        public Nullable<System.DateTime> CONT_DT_ENCERRAMENTO { get; set; }
+        public string CONT_NM_MOTIVO { get; set; }
+        public Nullable<int> CONT_IN_ENCERRADO { get; set; }
+        public Nullable<int> CONT_IN_AVALIACAO { get; set; }
+        public string CONT_DS_TEXT_AVALIACAO { get; set; }
+
         public bool Sincronizar
         {
             get
@@ -143,5 +169,9 @@ namespace SystemBRPresentation.ViewModels
         public virtual TIPO_CONTRATO TIPO_CONTRATO { get; set; }
         public virtual STATUS_CONTRATO STATUS_CONTRATO { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO_PARCELAS> CONTRATO_PARCELAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO_SOLICITACAO_APROVACAO> CONTRATO_SOLICITACAO_APROVACAO { get; set; }
     }
 }

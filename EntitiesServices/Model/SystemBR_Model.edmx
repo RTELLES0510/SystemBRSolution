@@ -469,7 +469,7 @@
           <Property Name="CONT_NM_NOME" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="CONT_DS_DESCRICAO" Type="varchar" MaxLength="1000" />
           <Property Name="CONT_DT_INICIO" Type="date" Nullable="false" />
-          <Property Name="CONT_DT_FINAL" Type="date" Nullable="false" />
+          <Property Name="CONT_DT_FINAL" Type="date" />
           <Property Name="CONT_IN_ATIVO" Type="int" Nullable="false" />
           <Property Name="CONT_VL_VALOR" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CONT_IN_STATUS" Type="int" />
@@ -490,6 +490,31 @@
           <Property Name="CONT_DS_TEXTO_NF" Type="varchar" MaxLength="500" />
           <Property Name="STCT_CD_ID" Type="int" />
           <Property Name="MATR_CD_ID" Type="int" />
+          <Property Name="CONT_DS_PERIODO_COBRANCA" Type="varchar" MaxLength="200" />
+          <Property Name="CONT_IN_WORKFLOW" Type="int" />
+          <Property Name="CONT_IN_APROVADO" Type="int" />
+          <Property Name="CONT_CD_RESPONSAVEL" Type="int" />
+          <Property Name="CONT_DT_SOLICITACAO_APROVACAO" Type="date" />
+          <Property Name="CONT_CD_APROVADOR" Type="int" />
+          <Property Name="CONT_DS_APROVACAO" Type="varchar" MaxLength="5000" />
+          <Property Name="CONT_IN_ENVIO_APROVACAO" Type="int" />
+          <Property Name="CONT_DT_CANCELAMENTO" Type="date" />
+          <Property Name="CONT_DS_JUSTIFICATIVA" Type="varchar" MaxLength="5000" />
+          <Property Name="CONT_CD_RESP_CANCELAMENTO" Type="int" />
+          <Property Name="CONT_DT_APROVACAO" Type="date" />
+          <Property Name="CONT_DS_INFO_APROVACAO" Type="varchar" MaxLength="1000" />
+          <Property Name="CONT_NR_PARCELAS_CONTRATO" Type="int" />
+          <Property Name="CONT_IN_PREPARADO" Type="int" />
+          <Property Name="CONT_IN_FINANCEIRO" Type="int" />
+          <Property Name="CONT_IN_MENSAGEM_PARCELA" Type="int" />
+          <Property Name="CONT_IN_DIAS_MENS_PARCELA" Type="int" />
+          <Property Name="CONT_IN_MENSAGEM_RENOVACAO" Type="int" />
+          <Property Name="CONT_IN_DIAS_MENS_RENOVACAO" Type="int" />
+          <Property Name="CONT_DT_ENCERRAMENTO" Type="date" />
+          <Property Name="CONT_NM_MOTIVO" Type="varchar" MaxLength="500" />
+          <Property Name="CONT_IN_ENCERRADO" Type="int" />
+          <Property Name="CONT_IN_AVALIACAO" Type="int" />
+          <Property Name="CONT_DS_TEXT_AVALIACAO" Type="varchar" MaxLength="5000" />
         </EntityType>
         <EntityType Name="CONTRATO_ANEXO">
           <Key>
@@ -500,8 +525,34 @@
           <Property Name="COAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="COAN_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="COAN_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="COAN_AQ_ARQUIVO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="COAN_AQ_ARQUIVO" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="COAN_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTRATO_PARCELAS">
+          <Key>
+            <PropertyRef Name="CTPA_CD_ID" />
+          </Key>
+          <Property Name="CTPA_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CONT_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CTPA_NR_NUMERO" Type="varchar" MaxLength="20" />
+          <Property Name="CTPA_DT_VENCIMENTO" Type="date" Nullable="false" />
+          <Property Name="CTPA_VL_VALOR" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CTPA_IN_QUITADA" Type="int" Nullable="false" />
+          <Property Name="CTPA_VL_RECEBIDO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CTPA_DT_RECEBIDO" Type="date" />
+          <Property Name="CTPA_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTRATO_SOLICITACAO_APROVACAO">
+          <Key>
+            <PropertyRef Name="CTSA_CD_ID" />
+          </Key>
+          <Property Name="CTSA_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CONT_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CTSA_DT_DATA" Type="date" Nullable="false" />
+          <Property Name="COLA_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CTSA_DS_RESPOSTA" Type="varchar" MaxLength="5000" />
+          <Property Name="CTSA_IN_STATUS" Type="int" />
+          <Property Name="CTSA_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DEPENDENTE">
           <Key>
@@ -1165,6 +1216,7 @@
           <Property Name="PLCO_NM_CONTA" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PLCO_ID_PAI" Type="int" />
           <Property Name="PLCO_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="PLCO_IN_CLASSE" Type="int" />
         </EntityType>
         <EntityType Name="PLANO_PERMISSAO">
           <Key>
@@ -1404,7 +1456,7 @@
           <Property Name="SEAN_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SEAN_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="SEAN_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="SEAN_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SEAN_AQ_ARQUIVO" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="SEAN_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="STATUS_CONTRATO">
@@ -1576,7 +1628,7 @@
           <Property Name="TRAX_NM_TITULO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TRAX_DT_ANEXO" Type="date" Nullable="false" />
           <Property Name="TRAX_IN_TIPO" Type="int" Nullable="false" />
-          <Property Name="TRAX_AQ_ARQUIVO" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="TRAX_AQ_ARQUIVO" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="TRAX_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TURNO_TRABALHO">
@@ -2411,6 +2463,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CONTRATO_PARCELAS_CONTRATO">
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="1" />
+          <End Role="CONTRATO_PARCELAS" Type="Self.CONTRATO_PARCELAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO_PARCELAS">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CONTRATO_PERIODICIDADE">
           <End Role="PERIODICIDADE" Type="Self.PERIODICIDADE" Multiplicity="0..1" />
           <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="*" />
@@ -2432,6 +2496,18 @@
             </Principal>
             <Dependent Role="CONTRATO">
               <PropertyRef Name="PLCO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO">
+          <End Role="CONTRATO" Type="Self.CONTRATO" Multiplicity="1" />
+          <End Role="CONTRATO_SOLICITACAO_APROVACAO" Type="Self.CONTRATO_SOLICITACAO_APROVACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO_SOLICITACAO_APROVACAO">
+              <PropertyRef Name="CONT_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4318,6 +4394,8 @@
           <EntitySet Name="CONTA_RECEBER_ANEXO" EntityType="Self.CONTA_RECEBER_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTRATO" EntityType="Self.CONTRATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTRATO_ANEXO" EntityType="Self.CONTRATO_ANEXO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTRATO_PARCELAS" EntityType="Self.CONTRATO_PARCELAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTRATO_SOLICITACAO_APROVACAO" EntityType="Self.CONTRATO_SOLICITACAO_APROVACAO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DEPENDENTE" EntityType="Self.DEPENDENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EQUIPAMENTO" EntityType="Self.EQUIPAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EQUIPAMENTO_ANEXO" EntityType="Self.EQUIPAMENTO_ANEXO" Schema="dbo" store:Type="Tables" />
@@ -4657,6 +4735,10 @@
             <End Role="NOMENCLATURA_BRAS_SERVICOS" EntitySet="NOMENCLATURA_BRAS_SERVICOS" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PARCELAS_CONTRATO" Association="Self.FK_CONTRATO_PARCELAS_CONTRATO">
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+            <End Role="CONTRATO_PARCELAS" EntitySet="CONTRATO_PARCELAS" />
+          </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_PERIODICIDADE" Association="Self.FK_CONTRATO_PERIODICIDADE">
             <End Role="PERIODICIDADE" EntitySet="PERIODICIDADE" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
@@ -4664,6 +4746,10 @@
           <AssociationSet Name="FK_CONTRATO_PLANO_CONTA" Association="Self.FK_CONTRATO_PLANO_CONTA">
             <End Role="PLANO_CONTA" EntitySet="PLANO_CONTA" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO" Association="Self.FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO">
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+            <End Role="CONTRATO_SOLICITACAO_APROVACAO" EntitySet="CONTRATO_SOLICITACAO_APROVACAO" />
           </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_STATUS_CONTRATO" Association="Self.FK_CONTRATO_STATUS_CONTRATO">
             <End Role="STATUS_CONTRATO" EntitySet="STATUS_CONTRATO" />
@@ -5884,7 +5970,7 @@
           <Property Name="CONT_NM_NOME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CONT_DS_DESCRICAO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="CONT_DT_INICIO" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CONT_DT_FINAL" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CONT_DT_FINAL" Type="DateTime" Precision="0" />
           <Property Name="CONT_IN_ATIVO" Type="Int32" Nullable="false" />
           <Property Name="CONT_VL_VALOR" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="CONT_IN_STATUS" Type="Int32" />
@@ -5919,6 +6005,33 @@
           <NavigationProperty Name="STATUS_CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_STATUS_CONTRATO" FromRole="CONTRATO" ToRole="STATUS_CONTRATO" />
           <Property Name="MATR_CD_ID" Type="Int32" />
           <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ" FromRole="CONTRATO" ToRole="MATRIZ" />
+          <Property Name="CONT_DS_PERIODO_COBRANCA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_IN_WORKFLOW" Type="Int32" />
+          <Property Name="CONT_IN_APROVADO" Type="Int32" />
+          <Property Name="CONT_CD_RESPONSAVEL" Type="Int32" />
+          <Property Name="CONT_DT_SOLICITACAO_APROVACAO" Type="DateTime" Precision="0" />
+          <Property Name="CONT_CD_APROVADOR" Type="Int32" />
+          <Property Name="CONT_DS_APROVACAO" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_IN_ENVIO_APROVACAO" Type="Int32" />
+          <Property Name="CONT_DT_CANCELAMENTO" Type="DateTime" Precision="0" />
+          <Property Name="CONT_DS_JUSTIFICATIVA" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_CD_RESP_CANCELAMENTO" Type="Int32" />
+          <Property Name="CONT_DT_APROVACAO" Type="DateTime" Precision="0" />
+          <Property Name="CONT_DS_INFO_APROVACAO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_NR_PARCELAS_CONTRATO" Type="Int32" />
+          <Property Name="CONT_IN_PREPARADO" Type="Int32" />
+          <Property Name="CONT_IN_FINANCEIRO" Type="Int32" />
+          <Property Name="CONT_IN_MENSAGEM_PARCELA" Type="Int32" />
+          <Property Name="CONT_IN_DIAS_MENS_PARCELA" Type="Int32" />
+          <Property Name="CONT_IN_MENSAGEM_RENOVACAO" Type="Int32" />
+          <Property Name="CONT_IN_DIAS_MENS_RENOVACAO" Type="Int32" />
+          <Property Name="CONT_DT_ENCERRAMENTO" Type="DateTime" Precision="0" />
+          <Property Name="CONT_NM_MOTIVO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_IN_ENCERRADO" Type="Int32" />
+          <Property Name="CONT_IN_AVALIACAO" Type="Int32" />
+          <Property Name="CONT_DS_TEXT_AVALIACAO" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRATO_PARCELAS" Relationship="SystemBRDatabaseModel.FK_CONTRATO_PARCELAS_CONTRATO" FromRole="CONTRATO" ToRole="CONTRATO_PARCELAS" />
+          <NavigationProperty Name="CONTRATO_SOLICITACAO_APROVACAO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO" FromRole="CONTRATO" ToRole="CONTRATO_SOLICITACAO_APROVACAO" />
         </EntityType>
         <EntityType Name="CONTRATO_ANEXO">
           <Key>
@@ -5929,7 +6042,7 @@
           <Property Name="COAN_NM_TITULO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="COAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="COAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="COAN_AQ_ARQUIVO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COAN_AQ_ARQUIVO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="COAN_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CONTRATO" Relationship="Self.FK_CONTRATO_ANEXO_CONTRATO" FromRole="CONTRATO_ANEXO" ToRole="CONTRATO" />
         </EntityType>
@@ -6785,6 +6898,7 @@
           <NavigationProperty Name="NIVEL_CONTA" Relationship="Self.FK_PLANO_CONTA_NIVEL_CONTA" FromRole="PLANO_CONTA" ToRole="NIVEL_CONTA" />
           <NavigationProperty Name="PLANO_CONTA1" Relationship="Self.FK_PLANO_CONTA_PLANO_CONTA" FromRole="PLANO_CONTA" ToRole="PLANO_CONTA1" />
           <NavigationProperty Name="PLANO_CONTA2" Relationship="Self.FK_PLANO_CONTA_PLANO_CONTA" FromRole="PLANO_CONTA1" ToRole="PLANO_CONTA" />
+          <Property Name="PLCO_IN_CLASSE" Type="Int32" />
         </EntityType>
         <EntityType Name="PLANO_PERMISSAO">
           <Key>
@@ -7079,7 +7193,7 @@
           <Property Name="SEAN_NM_TITULO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SEAN_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="SEAN_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="SEAN_AQ_ARQUIVO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SEAN_AQ_ARQUIVO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SEAN_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SERVICO" Relationship="Self.FK_SERVICO_ANEXO_SERVICO" FromRole="SERVICO_ANEXO" ToRole="SERVICO" />
         </EntityType>
@@ -7272,7 +7386,7 @@
           <Property Name="TRAX_NM_TITULO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TRAX_DT_ANEXO" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="TRAX_IN_TIPO" Type="Int32" Nullable="false" />
-          <Property Name="TRAX_AQ_ARQUIVO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TRAX_AQ_ARQUIVO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TRAX_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TRANSPORTADORA" Relationship="Self.FK_TRANSPORTADORA_ANEXO_TRANSPORTADORA" FromRole="TRANSPORTADORA_ANEXO" ToRole="TRANSPORTADORA" />
         </EntityType>
@@ -10969,6 +11083,16 @@
             <End Role="MATRIZ" EntitySet="MATRIZ" />
             <End Role="CONTRATO" EntitySet="CONTRATO" />
           </AssociationSet>
+          <EntitySet Name="CONTRATO_PARCELAS" EntityType="SystemBRDatabaseModel.CONTRATO_PARCELAS" />
+          <EntitySet Name="CONTRATO_SOLICITACAO_APROVACAO" EntityType="SystemBRDatabaseModel.CONTRATO_SOLICITACAO_APROVACAO" />
+          <AssociationSet Name="FK_CONTRATO_PARCELAS_CONTRATO" Association="SystemBRDatabaseModel.FK_CONTRATO_PARCELAS_CONTRATO">
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+            <End Role="CONTRATO_PARCELAS" EntitySet="CONTRATO_PARCELAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO" Association="SystemBRDatabaseModel.FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO">
+            <End Role="CONTRATO" EntitySet="CONTRATO" />
+            <End Role="CONTRATO_SOLICITACAO_APROVACAO" EntitySet="CONTRATO_SOLICITACAO_APROVACAO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="STATUS_CONTRATO">
           <Key>
@@ -11000,6 +11124,58 @@
             </Principal>
             <Dependent Role="CONTRATO">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CONTRATO_PARCELAS">
+          <Key>
+            <PropertyRef Name="CTPA_CD_ID" />
+          </Key>
+          <Property Name="CTPA_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CONT_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CTPA_NR_NUMERO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CTPA_DT_VENCIMENTO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CTPA_VL_VALOR" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CTPA_IN_QUITADA" Type="Int32" Nullable="false" />
+          <Property Name="CTPA_VL_RECEBIDO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CTPA_DT_RECEBIDO" Type="DateTime" Precision="0" />
+          <Property Name="CTPA_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_PARCELAS_CONTRATO" FromRole="CONTRATO_PARCELAS" ToRole="CONTRATO" />
+        </EntityType>
+        <EntityType Name="CONTRATO_SOLICITACAO_APROVACAO">
+          <Key>
+            <PropertyRef Name="CTSA_CD_ID" />
+          </Key>
+          <Property Name="CTSA_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CONT_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CTSA_DT_DATA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="COLA_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CTSA_DS_RESPOSTA" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="CTSA_IN_STATUS" Type="Int32" />
+          <Property Name="CTSA_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO" FromRole="CONTRATO_SOLICITACAO_APROVACAO" ToRole="CONTRATO" />
+        </EntityType>
+        <Association Name="FK_CONTRATO_PARCELAS_CONTRATO">
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO_PARCELAS" Role="CONTRATO_PARCELAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO_PARCELAS">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO">
+          <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CONTRATO_SOLICITACAO_APROVACAO" Role="CONTRATO_SOLICITACAO_APROVACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO">
+              <PropertyRef Name="CONT_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTRATO_SOLICITACAO_APROVACAO">
+              <PropertyRef Name="CONT_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11489,6 +11665,31 @@
           <EntitySetMapping Name="CONTRATO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO">
               <MappingFragment StoreEntitySet="CONTRATO">
+                <ScalarProperty Name="CONT_DS_TEXT_AVALIACAO" ColumnName="CONT_DS_TEXT_AVALIACAO" />
+                <ScalarProperty Name="CONT_IN_AVALIACAO" ColumnName="CONT_IN_AVALIACAO" />
+                <ScalarProperty Name="CONT_IN_ENCERRADO" ColumnName="CONT_IN_ENCERRADO" />
+                <ScalarProperty Name="CONT_NM_MOTIVO" ColumnName="CONT_NM_MOTIVO" />
+                <ScalarProperty Name="CONT_DT_ENCERRAMENTO" ColumnName="CONT_DT_ENCERRAMENTO" />
+                <ScalarProperty Name="CONT_IN_DIAS_MENS_RENOVACAO" ColumnName="CONT_IN_DIAS_MENS_RENOVACAO" />
+                <ScalarProperty Name="CONT_IN_MENSAGEM_RENOVACAO" ColumnName="CONT_IN_MENSAGEM_RENOVACAO" />
+                <ScalarProperty Name="CONT_IN_DIAS_MENS_PARCELA" ColumnName="CONT_IN_DIAS_MENS_PARCELA" />
+                <ScalarProperty Name="CONT_IN_MENSAGEM_PARCELA" ColumnName="CONT_IN_MENSAGEM_PARCELA" />
+                <ScalarProperty Name="CONT_IN_FINANCEIRO" ColumnName="CONT_IN_FINANCEIRO" />
+                <ScalarProperty Name="CONT_IN_PREPARADO" ColumnName="CONT_IN_PREPARADO" />
+                <ScalarProperty Name="CONT_NR_PARCELAS_CONTRATO" ColumnName="CONT_NR_PARCELAS_CONTRATO" />
+                <ScalarProperty Name="CONT_DS_INFO_APROVACAO" ColumnName="CONT_DS_INFO_APROVACAO" />
+                <ScalarProperty Name="CONT_DT_APROVACAO" ColumnName="CONT_DT_APROVACAO" />
+                <ScalarProperty Name="CONT_CD_RESP_CANCELAMENTO" ColumnName="CONT_CD_RESP_CANCELAMENTO" />
+                <ScalarProperty Name="CONT_DS_JUSTIFICATIVA" ColumnName="CONT_DS_JUSTIFICATIVA" />
+                <ScalarProperty Name="CONT_DT_CANCELAMENTO" ColumnName="CONT_DT_CANCELAMENTO" />
+                <ScalarProperty Name="CONT_IN_ENVIO_APROVACAO" ColumnName="CONT_IN_ENVIO_APROVACAO" />
+                <ScalarProperty Name="CONT_DS_APROVACAO" ColumnName="CONT_DS_APROVACAO" />
+                <ScalarProperty Name="CONT_CD_APROVADOR" ColumnName="CONT_CD_APROVADOR" />
+                <ScalarProperty Name="CONT_DT_SOLICITACAO_APROVACAO" ColumnName="CONT_DT_SOLICITACAO_APROVACAO" />
+                <ScalarProperty Name="CONT_CD_RESPONSAVEL" ColumnName="CONT_CD_RESPONSAVEL" />
+                <ScalarProperty Name="CONT_IN_APROVADO" ColumnName="CONT_IN_APROVADO" />
+                <ScalarProperty Name="CONT_IN_WORKFLOW" ColumnName="CONT_IN_WORKFLOW" />
+                <ScalarProperty Name="CONT_DS_PERIODO_COBRANCA" ColumnName="CONT_DS_PERIODO_COBRANCA" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
                 <ScalarProperty Name="STCT_CD_ID" ColumnName="STCT_CD_ID" />
                 <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
@@ -12241,6 +12442,7 @@
           <EntitySetMapping Name="PLANO_CONTA">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.PLANO_CONTA">
               <MappingFragment StoreEntitySet="PLANO_CONTA">
+                <ScalarProperty Name="PLCO_IN_CLASSE" ColumnName="PLCO_IN_CLASSE" />
                 <ScalarProperty Name="PLCO_CD_ID" ColumnName="PLCO_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="NICO_CD_ID" ColumnName="NICO_CD_ID" />
@@ -12761,6 +12963,34 @@
                 <ScalarProperty Name="STCT_NM_NOME" ColumnName="STCT_NM_NOME" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="STCT_CD_ID" ColumnName="STCT_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTRATO_PARCELAS">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO_PARCELAS">
+              <MappingFragment StoreEntitySet="CONTRATO_PARCELAS">
+                <ScalarProperty Name="CTPA_IN_ATIVO" ColumnName="CTPA_IN_ATIVO" />
+                <ScalarProperty Name="CTPA_DT_RECEBIDO" ColumnName="CTPA_DT_RECEBIDO" />
+                <ScalarProperty Name="CTPA_VL_RECEBIDO" ColumnName="CTPA_VL_RECEBIDO" />
+                <ScalarProperty Name="CTPA_IN_QUITADA" ColumnName="CTPA_IN_QUITADA" />
+                <ScalarProperty Name="CTPA_VL_VALOR" ColumnName="CTPA_VL_VALOR" />
+                <ScalarProperty Name="CTPA_DT_VENCIMENTO" ColumnName="CTPA_DT_VENCIMENTO" />
+                <ScalarProperty Name="CTPA_NR_NUMERO" ColumnName="CTPA_NR_NUMERO" />
+                <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
+                <ScalarProperty Name="CTPA_CD_ID" ColumnName="CTPA_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTRATO_SOLICITACAO_APROVACAO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO_SOLICITACAO_APROVACAO">
+              <MappingFragment StoreEntitySet="CONTRATO_SOLICITACAO_APROVACAO">
+                <ScalarProperty Name="CTSA_IN_ATIVO" ColumnName="CTSA_IN_ATIVO" />
+                <ScalarProperty Name="CTSA_IN_STATUS" ColumnName="CTSA_IN_STATUS" />
+                <ScalarProperty Name="CTSA_DS_RESPOSTA" ColumnName="CTSA_DS_RESPOSTA" />
+                <ScalarProperty Name="COLA_CD_ID" ColumnName="COLA_CD_ID" />
+                <ScalarProperty Name="CTSA_DT_DATA" ColumnName="CTSA_DT_DATA" />
+                <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
+                <ScalarProperty Name="CTSA_CD_ID" ColumnName="CTSA_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

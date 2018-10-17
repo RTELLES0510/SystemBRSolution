@@ -42,6 +42,8 @@ namespace DataServices.Repositories
             Int32? idAss = SessionMocks.IdAssinante;
             IQueryable<PLANO_CONTA> query = Db.PLANO_CONTA.Where(p => p.PLCO_IN_ATIVO == 1);
             query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.NICO_CD_ID == 3);
+            query = query.Where(p => p.PLCO_IN_CLASSE == 1);
             query = query.Include(p => p.ASSINANTE);
             return query.ToList();
         }

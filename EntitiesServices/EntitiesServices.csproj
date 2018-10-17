@@ -278,6 +278,12 @@
     <Compile Include="Model\CONTRATO_ANEXO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\CONTRATO_PARCELAS.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CONTRATO_SOLICITACAO_APROVACAO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\DEPENDENTE.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
