@@ -217,6 +217,7 @@
     <Compile Include="ViewModels\ClienteViewModel.cs" />
     <Compile Include="ViewModels\ConfiguracaoViewModel.cs" />
     <Compile Include="ViewModels\ContaBancariaViewModel.cs" />
+    <Compile Include="ViewModels\ContratoSolicitacaoAprovacaoViewModel.cs" />
     <Compile Include="ViewModels\ContratoViewModel.cs" />
     <Compile Include="ViewModels\EquipamentoViewModel.cs" />
     <Compile Include="ViewModels\FilialViewModel.cs" />
@@ -2129,6 +2130,12 @@
     <Content Include="Views\GestaoComercial\ReativarContrato.cshtml" />
     <Content Include="Views\GestaoComercial\VerAnexoContrato.cshtml" />
     <Content Include="Views\GestaoComercial\VisualizarContrato.cshtml" />
+    <Content Include="Views\GestaoComercial\MontarTelaContrato - Cópia .cshtml" />
+    <Content Include="Views\GestaoComercial\WorkflowContrato.cshtml" />
+    <Content Include="Views\GestaoComercial\SolicitarAprovacaoContrato.cshtml" />
+    <Content Include="Views\GestaoComercial\CancelarContrato.cshtml" />
+    <Content Include="Views\GestaoComercial\GerarRetornoAprovacaoContrato.cshtml" />
+    <Content Include="Views\GestaoComercial\VerRetornoAprovacaoContrato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

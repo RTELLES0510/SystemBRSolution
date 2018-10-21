@@ -401,5 +401,23 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0038", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Solicitacao de aprovacao enviada.
+        /// </summary>
+        internal static string M0039 {
+            get {
+                return ResourceManager.GetString("M0039", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Contrato cancelado.
+        /// </summary>
+        internal static string M0040 {
+            get {
+                return ResourceManager.GetString("M0040", resourceCulture);
+            }
+        }
     }
 }

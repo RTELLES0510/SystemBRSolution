@@ -74,6 +74,9 @@ namespace EntitiesServices.Model
         public string COLA_NM_NACIONALDADE { get; set; }
         public string COLA_NM_PROFISSAO { get; set; }
         public int COLA_IN_ATIVO { get; set; }
+        public Nullable<int> COLA_IN_GERENTE { get; set; }
+        public Nullable<int> COLA_IN_APROVADOR_CONTRATO { get; set; }
+        public Nullable<int> COLA_IN_VENDEDOR { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CARGO CARGO { get; set; }

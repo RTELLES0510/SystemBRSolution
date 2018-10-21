@@ -13,6 +13,7 @@ namespace ModelServices.Interfaces.Repositories
         CONTRATO GetByNome(String nome);
         CONTRATO GetItemById(Int32 id);
         List<CONTRATO> GetAllItens();
+        List<CONTRATO> GetAllItensOperacao();
         List<CONTRATO> GetAllItensAdm();
         List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, Int32? statId, String nome, String descricao);
     }

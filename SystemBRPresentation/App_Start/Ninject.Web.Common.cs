@@ -88,6 +88,7 @@ namespace Presentation.Start
             kernel.Bind<ICargoAppService>().To<CargoAppService>();
             kernel.Bind<IValorComissaoAppService>().To<ValorComissaoAppService>();
             kernel.Bind<IContratoAppService>().To<ContratoAppService>();
+            kernel.Bind<IContratoSolicitacaoAprovacaoAppService>().To<ContratoSolicitacaoAprovacaoAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
@@ -111,6 +112,8 @@ namespace Presentation.Start
             kernel.Bind<ICargoService>().To<CargoService>();
             kernel.Bind<IValorComissaoService>().To<ValorComissaoService>();
             kernel.Bind<IContratoService>().To<ContratoService>();
+            kernel.Bind<INotificacaoService>().To<NotificacaoService>();
+            kernel.Bind<IContratoSolicitacaoAprovacaoService>().To<ContratoSolicitacaoAprovacaoService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IConfiguracaoRepository>().To<ConfiguracaoRepository>();
@@ -173,6 +176,9 @@ namespace Presentation.Start
             kernel.Bind<ICentroCustoRepository>().To<CentroCustoRepository>();
             kernel.Bind<INomenclaturaRepository>().To<NomenclaturaRepository>();
             kernel.Bind<IStatusContratoRepository>().To<StatusContratoRepository>();
+            kernel.Bind<ICategoriaNotificacaoRepository>().To<CategoriaNotificacaoRepository>();
+            kernel.Bind<INotificacaoRepository>().To<NotificacaoRepository>();
+            kernel.Bind<IContratoSolicitacaoAprovacaoRepository>().To<ContratoSolicitacaoAprovacaoRepository>();
         }
     }
 }

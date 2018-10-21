@@ -9,36 +9,55 @@
     </div>
     <div class="row">
         <div class="col-lg-2">
-            <div class="widget style1 navy-bg">
-                <div class="row vertical-align">
-                    <div class="col-xs-3">
-                        <i class="fa fa-user fa-3x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        @if (Model.CONT_IN_ATIVO == 1)
-	                    {
-                            <h3 class="font-normal">Ativo</h3>
-                        }
-                        else
-                        {
-                            <h3 class="font-normal">Inativo</h3>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
             <div class="widget style1 yellow-bg">
                 <div class="row vertical-align">
                     <div class="col-xs-3">
                         <i class="fa fa-thumbs-o-up fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <h3 class="font-normal">@Model.STATUS_CONTRATO.STCT_NM_NOME</h3>
+                        @if (Model.CONT_IN_CANCELADO == 1)
+	                    {
+                            <h3 class="font-normal">Cancelado</h3>
+                        }
+                        else
+                        {
+                            <h3 class="font-normal">Ativo</h3>
+                        }
                     </div>
                 </div>
             </div>
         </div>
+        @if (Model.CONT_IN_CANCELADO == 0)
+        {
+            <div class="col-lg-2">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            @if (Model.CONT_IN_WORKFLOW == 1)
+	                        {
+                                <h3 class="font-normal">Aprovação</h3>
+                            }
+                            else if (Model.CONT_IN_WORKFLOW == 2)
+                            {
+                                <h3 class="font-normal">Preparação</h3>
+                            }
+                            else if (Model.CONT_IN_WORKFLOW == 3)
+                            {
+                                <h3 class="font-normal">Operação</h3>
+                            }
+                            else if (Model.CONT_IN_WORKFLOW == 4)
+                            {
+                                <h3 class="font-normal">Encerramento</h3>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
@@ -100,10 +119,6 @@
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     Tipo de Contrato
                                                     @Html.TextBoxFor(m => m.TIPO_CONTRATO.TICT_NM_NOME, new { @class = "form-control", autofocus = true, @readonly="readonly" })
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    Status*
-                                                    @Html.TextBoxFor(m => m.STATUS_CONTRATO.STCT_NM_NOME, new { @class = "form-control", autofocus = true, @readonly="readonly" })
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     Template 

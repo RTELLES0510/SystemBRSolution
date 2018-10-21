@@ -35,6 +35,7 @@ namespace MvcMapping.Mappers
             CreateMap<ProdutoFornecedorViewModel, PRODUTO_FORNECEDOR>();
             CreateMap<ProdutoGradeViewModel, PRODUTO_GRADE>();
             CreateMap<ContratoViewModel, CONTRATO>();
+            CreateMap<ContratoSolicitacaoAprovacaoViewModel, CONTRATO_SOLICITACAO_APROVACAO>();
         }
     }
 }

@@ -7,9 +7,9 @@ using EntitiesServices.Model;
 
 namespace ModelServices.Interfaces.Repositories
 {
-    public interface IConfiguracaoRepository : IRepositoryBase<CONFIGURACAO>
+    public interface ICategoriaNotificacaoRepository : IRepositoryBase<CATEGORIA_NOTIFICACAO>
     {
-        CONFIGURACAO GetItemById(Int32 id);
-        CONFIGURACAO GetItemByAssinante(Int32 id);
+        List<CATEGORIA_NOTIFICACAO> GetAllItens();
+        CATEGORIA_NOTIFICACAO GetItemById(Int32 id);
     }
 }

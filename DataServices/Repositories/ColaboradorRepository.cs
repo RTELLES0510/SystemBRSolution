@@ -31,10 +31,17 @@ namespace DataServices.Repositories
             Int32? idAss = SessionMocks.IdAssinante;
             IQueryable<COLABORADOR> query = Db.COLABORADOR;
             query = query.Where(p => p.ASSI_CD_ID == idAss);
-            query = query.Where(p => p.ASSI_CD_ID == idAss);
-            query = query.Where(p => p.CARGO.CARG_NM_NOME.Contains("endedor"));
+            query = query.Where(p => p.COLA_IN_VENDEDOR == 1);
             return query.ToList();
         }
 
+        public List<COLABORADOR> GetAllResponsaveis()
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<COLABORADOR> query = Db.COLABORADOR;
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.COLA_IN_APROVADOR_CONTRATO == 1);
+            return query.ToList();
+        }
     }
 }

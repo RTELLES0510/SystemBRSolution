@@ -71,11 +71,15 @@ namespace SystemBRPresentation.ViewModels
         public Nullable<int> CONT_IN_WORKFLOW { get; set; }
         public Nullable<int> CONT_IN_APROVADO { get; set; }
         public Nullable<int> CONT_CD_RESPONSAVEL { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Deve ser uma data válida")]
         public Nullable<System.DateTime> CONT_DT_SOLICITACAO_APROVACAO { get; set; }
         public Nullable<int> CONT_CD_APROVADOR { get; set; }
+        [StringLength(5000, ErrorMessage = "A SOLICITAÇÃO DE APROVAÇÃO deve conter no máximo 5000.")]
         public string CONT_DS_APROVACAO { get; set; }
         public Nullable<int> CONT_IN_ENVIO_APROVACAO { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Deve ser uma data válida")]
         public Nullable<System.DateTime> CONT_DT_CANCELAMENTO { get; set; }
+        [StringLength(5000, ErrorMessage = "A JUSTIFICATIVA deve conter no máximo 5000.")]
         public string CONT_DS_JUSTIFICATIVA { get; set; }
         public Nullable<int> CONT_CD_RESP_CANCELAMENTO { get; set; }
         public Nullable<System.DateTime> CONT_DT_APROVACAO { get; set; }
@@ -87,11 +91,14 @@ namespace SystemBRPresentation.ViewModels
         public Nullable<int> CONT_IN_DIAS_MENS_PARCELA { get; set; }
         public Nullable<int> CONT_IN_MENSAGEM_RENOVACAO { get; set; }
         public Nullable<int> CONT_IN_DIAS_MENS_RENOVACAO { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Deve ser uma data válida")]
         public Nullable<System.DateTime> CONT_DT_ENCERRAMENTO { get; set; }
         public string CONT_NM_MOTIVO { get; set; }
         public Nullable<int> CONT_IN_ENCERRADO { get; set; }
         public Nullable<int> CONT_IN_AVALIACAO { get; set; }
         public string CONT_DS_TEXT_AVALIACAO { get; set; }
+        public string CONT_NM_RESPONSAVEL { get; set; }
+        public Nullable<int> CONT_IN_CANCELADO { get; set; }
 
         public bool Sincronizar
         {
@@ -151,6 +158,21 @@ namespace SystemBRPresentation.ViewModels
             set
             {
                 CONT_IN_IR_RETIDO = (value == true) ? 1 : 0;
+            }
+        }
+        public bool EnvioAprovacao
+        {
+            get
+            {
+                if (CONT_IN_ENVIO_APROVACAO == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                CONT_IN_ENVIO_APROVACAO = (value == true) ? 1 : 0;
             }
         }
 

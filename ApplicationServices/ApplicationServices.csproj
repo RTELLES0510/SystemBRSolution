@@ -90,6 +90,7 @@
     <Compile Include="Interfaces\IAppServiceBase.cs" />
     <Compile Include="Interfaces\ICargoAppService.cs" />
     <Compile Include="Interfaces\IContratoAppService.cs" />
+    <Compile Include="Interfaces\IContratoSolicitacaoAprovacaoAppService.cs" />
     <Compile Include="Interfaces\IValorComissaoAppService.cs" />
     <Compile Include="Interfaces\IEquipamentoAppService.cs" />
     <Compile Include="Interfaces\IPatrimonioAppService.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Services\AppServiceBase.cs" />
     <Compile Include="Services\CargoAppService.cs" />
     <Compile Include="Services\ContatoAppService.cs" />
+    <Compile Include="Services\ContratoSolicitacaoAprovacaoAppService.cs" />
     <Compile Include="Services\ValorComissaoAppService.cs" />
     <Compile Include="Services\EquipamentoAppService.cs" />
     <Compile Include="Services\PatrimonioAppService.cs" />

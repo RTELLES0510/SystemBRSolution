@@ -19,6 +19,7 @@ namespace ModelServices.Interfaces.EntitiesServices
         CONTRATO GetItemById(Int32 id);
         CONTRATO GetByNome(String nome);
         List<CONTRATO> GetAllItens();
+        List<CONTRATO> GetAllItensOperacao();
         List<CONTRATO> GetAllItensAdm();
         List<CATEGORIA_CONTRATO> GetAllCategorias();
         List<TIPO_CONTRATO> GetAllTipos();
@@ -28,10 +29,15 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<PLANO_CONTA> GetAllPlanoConta();
         List<CENTRO_CUSTO> GetAllCentros();
         List<COLABORADOR> GetAllVendedores();
+        List<COLABORADOR> GetAllResponsaveis();
         List<NOMENCLATURA_BRAS_SERVICOS> GetAllNomenclatura();
         List<CLIENTE> GetAllClientes();
         List<STATUS_CONTRATO> GetAllStatus();
         CONTRATO_ANEXO GetAnexoById(Int32 id);
         List<CONTRATO> ExecuteFilter(Int32? catId, Int32? tipoId, Int32? statId, String nome, String descricao);
+        CONFIGURACAO CarregaConfiguracao(Int32 assinante);
+
+        String GetTextoAprovacao();
+        COLABORADOR GetResponsavelById(Int32 id);
     }
 }

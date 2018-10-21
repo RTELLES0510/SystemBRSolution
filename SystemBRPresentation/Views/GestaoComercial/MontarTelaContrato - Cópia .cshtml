@@ -21,32 +21,7 @@
                     <small>Contratos Cadastrados</small>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-primary pull-right">Hoje</span>
-                    <h5>Contratos</h5>
-                </div>
-                <div class="ibox-content">
-                    <h1 class="no-margins">@ViewBag.ContratosOperacao</h1>
-                    <div class="stat-percent font-bold text-navy">32% <i class="fa fa-level-up"></i></div>
-                    <small>Contratos em Operação</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox">
-                <div class="ibox-title">
-                    <span class="label label-primary pull-right">Hoje</span>
-                    <h5>Evolução de Contratos</h5>
-                </div>
-                <div class="ibox-content">
-                    <h5>Contratos</h5>
-                    <h2>@ViewBag.Contratos</h2>
-                    <div id="sparkline1"></div>
-                </div>
-            </div>
+
         </div>
     </div>
 
@@ -154,8 +129,6 @@
                                             <th>Nome</th>
                                             <th>Data Inicial</th>   
                                             <th>Status</th>
-                                            <th>Workflow</th>
-                                            <th>Cancelado</th>
                                             <th class="td-one-action">Ações</th>
                                         </tr>
                                     </thead>
@@ -169,32 +142,17 @@
                                                 <td>@cond.CONT_NM_NOME</td>
                                                 <td>@cond.CONT_DT_INICIO.ToShortDateString()</td>
                                                 <td>@cond.STATUS_CONTRATO.STCT_NM_NOME</td>
-                                                @if (cond.CONT_IN_WORKFLOW == 1)
-	                                            {
-                                                    <td>Aprovação</td>
-                                                }
-                                                else if (cond.CONT_IN_WORKFLOW == 2)
-                                                {
-                                                    <td>Preparação</td>
-                                                }
-                                                else if (cond.CONT_IN_WORKFLOW == 3)
-                                                {
-                                                    <td>Operação</td>
-                                                }
-                                                else if (cond.CONT_IN_WORKFLOW == 4)
-                                                {
-                                                    <td>Encerramento</td>
-                                                }
-                                                @if (cond.CONT_IN_CANCELADO == 1)
-	                                            {
-                                                    <td>Sim</td>
-                                                }
-                                                else 
-                                                {
-                                                    <td>Não</td>
-                                                }
                                                 <td class="td-one-action">
-                                                    @Html.TableLinkDetails(cond.CONT_CD_ID, "WorkflowContrato","fa-stack-overflow", "Entrar no Workflow")
+                                                    @Html.TableLinkDetails(cond.CONT_CD_ID, "EditarContrato","fa-edit", "Editar/Consultar Contrato")
+                                                    @Html.TableLinkDetails(cond.CONT_CD_ID, "VisualizarContrato","fa-search", "Visualizar Contrato")
+                                                    @if (cond.CONT_IN_ATIVO == 1)
+	                                                {
+                                                        @Html.TableLinkDetails(cond.CONT_CD_ID, "ExcluirContrato","fa-trash-o", "Desativar Contrato")
+                                                    }
+                                                    else
+                                                    {   
+                                                        @Html.TableLinkDetails(cond.CONT_CD_ID, "ReativarContrato","fa-refresh", "Reativar Contrato")
+                                                    }
                                                 </td>
                                             </tr>
                                         }

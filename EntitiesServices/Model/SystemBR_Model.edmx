@@ -136,6 +136,14 @@
           <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
           <Property Name="CAMA_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="CATEGORIA_NOTIFICACAO">
+          <Key>
+            <PropertyRef Name="CANO_CD_ID" />
+          </Key>
+          <Property Name="CANO_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CANO_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="CATEGORIA_PATRIMONIO">
           <Key>
             <PropertyRef Name="CAPR_CD_ID" />
@@ -316,6 +324,9 @@
           <Property Name="COLA_NM_NACIONALDADE" Type="varchar" MaxLength="50" />
           <Property Name="COLA_NM_PROFISSAO" Type="varchar" MaxLength="50" />
           <Property Name="COLA_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="COLA_IN_GERENTE" Type="int" />
+          <Property Name="COLA_IN_APROVADOR_CONTRATO" Type="int" />
+          <Property Name="COLA_IN_VENDEDOR" Type="int" />
         </EntityType>
         <EntityType Name="COLABORADOR_ANEXO">
           <Key>
@@ -362,6 +373,7 @@
           <Property Name="CONF_TM_INICIO_AGENDA" Type="time" Precision="7" />
           <Property Name="CONF_TM_FINAL_AGENDA" Type="time" Precision="7" />
           <Property Name="ASSI_CD_ID" Type="int" />
+          <Property Name="CONF_SG_TEMPLATE_APROVACAO_CONTRATO" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="CONTA_BANCARIA">
           <Key>
@@ -515,6 +527,8 @@
           <Property Name="CONT_IN_ENCERRADO" Type="int" />
           <Property Name="CONT_IN_AVALIACAO" Type="int" />
           <Property Name="CONT_DS_TEXT_AVALIACAO" Type="varchar" MaxLength="5000" />
+          <Property Name="CONT_NM_RESPONSAVEL" Type="varchar" MaxLength="50" />
+          <Property Name="CONT_IN_CANCELADO" Type="int" />
         </EntityType>
         <EntityType Name="CONTRATO_ANEXO">
           <Key>
@@ -553,6 +567,7 @@
           <Property Name="CTSA_DS_RESPOSTA" Type="varchar" MaxLength="5000" />
           <Property Name="CTSA_IN_STATUS" Type="int" />
           <Property Name="CTSA_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="CTSA_NM_STATUS" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DEPENDENTE">
           <Key>
@@ -998,6 +1013,20 @@
           </Key>
           <Property Name="NBSE_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NBSE_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NOTIFICACAO">
+          <Key>
+            <PropertyRef Name="NOTI_CD_ID" />
+          </Key>
+          <Property Name="NOTI_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="USUA_CD_ID" Type="int" />
+          <Property Name="CANO_CD_ID" Type="int" />
+          <Property Name="NOTI_DT_DATA" Type="date" />
+          <Property Name="NOTI_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="NOTI_IN_ENVIADA" Type="int" />
+          <Property Name="NOTI_IN_STATUS" Type="int" />
+          <Property Name="NOTI_IN_TEXTO" Type="varchar" MaxLength="5000" />
         </EntityType>
         <EntityType Name="OPORTUNIDADE_NEGOCIO">
           <Key>
@@ -3291,6 +3320,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NOTIFICACAO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="NOTIFICACAO" Type="Self.NOTIFICACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="NOTIFICACAO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO">
+          <End Role="CATEGORIA_NOTIFICACAO" Type="Self.CATEGORIA_NOTIFICACAO" Multiplicity="0..1" />
+          <End Role="NOTIFICACAO" Type="Self.NOTIFICACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA_NOTIFICACAO">
+              <PropertyRef Name="CANO_CD_ID" />
+            </Principal>
+            <Dependent Role="NOTIFICACAO">
+              <PropertyRef Name="CANO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICACAO_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="NOTIFICACAO" Type="Self.NOTIFICACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Principal>
+            <Dependent Role="NOTIFICACAO">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OPORTUNIDADE_NEGOCIO_ANEXO_OPORTUNIDADE_NEGOCIO">
           <End Role="OPORTUNIDADE_NEGOCIO" Type="Self.OPORTUNIDADE_NEGOCIO" Multiplicity="1" />
           <End Role="OPORTUNIDADE_NEGOCIO_ANEXO" Type="Self.OPORTUNIDADE_NEGOCIO_ANEXO" Multiplicity="*" />
@@ -4373,6 +4438,7 @@
           <EntitySet Name="CATEGORIA_EQUIPAMENTO" EntityType="Self.CATEGORIA_EQUIPAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_FORNECEDOR" EntityType="Self.CATEGORIA_FORNECEDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_MATERIA" EntityType="Self.CATEGORIA_MATERIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIA_NOTIFICACAO" EntityType="Self.CATEGORIA_NOTIFICACAO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_PATRIMONIO" EntityType="Self.CATEGORIA_PATRIMONIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_PRODUTO" EntityType="Self.CATEGORIA_PRODUTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORIA_SERVICO" EntityType="Self.CATEGORIA_SERVICO" Schema="dbo" store:Type="Tables" />
@@ -4429,6 +4495,7 @@
           <EntitySet Name="MOVIMENTO_ESTOQUE_PRODUTO" EntityType="Self.MOVIMENTO_ESTOQUE_PRODUTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NIVEL_CONTA" EntityType="Self.NIVEL_CONTA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NOMENCLATURA_BRAS_SERVICOS" EntityType="Self.NOMENCLATURA_BRAS_SERVICOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NOTIFICACAO" EntityType="Self.NOTIFICACAO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPORTUNIDADE_NEGOCIO" EntityType="Self.OPORTUNIDADE_NEGOCIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPORTUNIDADE_NEGOCIO_ANEXO" EntityType="Self.OPORTUNIDADE_NEGOCIO_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PATRIMONIO" EntityType="Self.PATRIMONIO" Schema="dbo" store:Type="Tables" />
@@ -5011,6 +5078,18 @@
             <End Role="PRODUTO" EntitySet="PRODUTO" />
             <End Role="MOVIMENTO_ESTOQUE_PRODUTO" EntitySet="MOVIMENTO_ESTOQUE_PRODUTO" />
           </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICACAO_ASSINANTE" Association="Self.FK_NOTIFICACAO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="NOTIFICACAO" EntitySet="NOTIFICACAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO" Association="Self.FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO">
+            <End Role="CATEGORIA_NOTIFICACAO" EntitySet="CATEGORIA_NOTIFICACAO" />
+            <End Role="NOTIFICACAO" EntitySet="NOTIFICACAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICACAO_USUARIO" Association="Self.FK_NOTIFICACAO_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NOTIFICACAO" EntitySet="NOTIFICACAO" />
+          </AssociationSet>
           <AssociationSet Name="FK_OPORTUNIDADE_NEGOCIO_ANEXO_OPORTUNIDADE_NEGOCIO" Association="Self.FK_OPORTUNIDADE_NEGOCIO_ANEXO_OPORTUNIDADE_NEGOCIO">
             <End Role="OPORTUNIDADE_NEGOCIO" EntitySet="OPORTUNIDADE_NEGOCIO" />
             <End Role="OPORTUNIDADE_NEGOCIO_ANEXO" EntitySet="OPORTUNIDADE_NEGOCIO_ANEXO" />
@@ -5436,6 +5515,7 @@
           <NavigationProperty Name="TRANSPORTADORA" Relationship="Self.FK_TRANSPORTADORA_ASSINANTE" FromRole="ASSINANTE" ToRole="TRANSPORTADORA" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="ASSINANTE" ToRole="USUARIO" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_ASSINANTE" FromRole="ASSINANTE" ToRole="VALOR_COMISSAO" />
+          <NavigationProperty Name="NOTIFICACAO" Relationship="SystemBRDatabaseModel.FK_NOTIFICACAO_ASSINANTE" FromRole="ASSINANTE" ToRole="NOTIFICACAO" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -5790,6 +5870,9 @@
           <NavigationProperty Name="EXAME_PERIODICO" Relationship="Self.FK_EXAME_PERIODICO_COLABORADOR" FromRole="COLABORADOR" ToRole="EXAME_PERIODICO" />
           <NavigationProperty Name="LICENSA_ATESTADO" Relationship="Self.FK_LICENSA_ATESTADO_COLABORADOR" FromRole="COLABORADOR" ToRole="LICENSA_ATESTADO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_COLABORADOR" FromRole="COLABORADOR" ToRole="USUARIO" />
+          <Property Name="COLA_IN_GERENTE" Type="Int32" />
+          <Property Name="COLA_IN_APROVADOR_CONTRATO" Type="Int32" />
+          <Property Name="COLA_IN_VENDEDOR" Type="Int32" />
         </EntityType>
         <EntityType Name="COLABORADOR_ANEXO">
           <Key>
@@ -5841,6 +5924,7 @@
           <Property Name="CONF_TM_FINAL_AGENDA" Type="Time" Precision="7" />
           <Property Name="ASSI_CD_ID" Type="Int32" />
           <NavigationProperty Name="ASSINANTE" Relationship="Self.FK_ASSINANTE_CONFIGURACAO" FromRole="CONFIGURACAO" ToRole="ASSINANTE" />
+          <Property Name="CONF_SG_TEMPLATE_APROVACAO_CONTRATO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CONTA_BANCARIA">
           <Key>
@@ -6032,6 +6116,8 @@
           <Property Name="CONT_DS_TEXT_AVALIACAO" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CONTRATO_PARCELAS" Relationship="SystemBRDatabaseModel.FK_CONTRATO_PARCELAS_CONTRATO" FromRole="CONTRATO" ToRole="CONTRATO_PARCELAS" />
           <NavigationProperty Name="CONTRATO_SOLICITACAO_APROVACAO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO" FromRole="CONTRATO" ToRole="CONTRATO_SOLICITACAO_APROVACAO" />
+          <Property Name="CONT_NM_RESPONSAVEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONT_IN_CANCELADO" Type="Int32" />
         </EntityType>
         <EntityType Name="CONTRATO_ANEXO">
           <Key>
@@ -7438,6 +7524,7 @@
           <NavigationProperty Name="COLABORADOR" Relationship="Self.FK_USUARIO_COLABORADOR" FromRole="USUARIO" ToRole="COLABORADOR" />
           <NavigationProperty Name="LOG" Relationship="Self.FK_LOG_USUARIO" FromRole="USUARIO" ToRole="LOG" />
           <NavigationProperty Name="PERFIL" Relationship="Self.FK_USUARIO_PERFIL" FromRole="USUARIO" ToRole="PERFIL" />
+          <NavigationProperty Name="NOTIFICACAO" Relationship="SystemBRDatabaseModel.FK_NOTIFICACAO_USUARIO" FromRole="USUARIO" ToRole="NOTIFICACAO" />
         </EntityType>
         <EntityType Name="VALOR_COMISSAO">
           <Key>
@@ -11093,6 +11180,20 @@
             <End Role="CONTRATO" EntitySet="CONTRATO" />
             <End Role="CONTRATO_SOLICITACAO_APROVACAO" EntitySet="CONTRATO_SOLICITACAO_APROVACAO" />
           </AssociationSet>
+          <EntitySet Name="CATEGORIA_NOTIFICACAO" EntityType="SystemBRDatabaseModel.CATEGORIA_NOTIFICACAO" />
+          <EntitySet Name="NOTIFICACAO" EntityType="SystemBRDatabaseModel.NOTIFICACAO" />
+          <AssociationSet Name="FK_NOTIFICACAO_ASSINANTE" Association="SystemBRDatabaseModel.FK_NOTIFICACAO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="NOTIFICACAO" EntitySet="NOTIFICACAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO" Association="SystemBRDatabaseModel.FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO">
+            <End Role="CATEGORIA_NOTIFICACAO" EntitySet="CATEGORIA_NOTIFICACAO" />
+            <End Role="NOTIFICACAO" EntitySet="NOTIFICACAO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTIFICACAO_USUARIO" Association="SystemBRDatabaseModel.FK_NOTIFICACAO_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NOTIFICACAO" EntitySet="NOTIFICACAO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="STATUS_CONTRATO">
           <Key>
@@ -11154,6 +11255,7 @@
           <Property Name="CTSA_IN_STATUS" Type="Int32" />
           <Property Name="CTSA_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_SOLICITACAO_APROVACAO_CONTRATO" FromRole="CONTRATO_SOLICITACAO_APROVACAO" ToRole="CONTRATO" />
+          <Property Name="CTSA_NM_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_CONTRATO_PARCELAS_CONTRATO">
           <End Type="SystemBRDatabaseModel.CONTRATO" Role="CONTRATO" Multiplicity="1" />
@@ -11176,6 +11278,68 @@
             </Principal>
             <Dependent Role="CONTRATO_SOLICITACAO_APROVACAO">
               <PropertyRef Name="CONT_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CATEGORIA_NOTIFICACAO">
+          <Key>
+            <PropertyRef Name="CANO_CD_ID" />
+          </Key>
+          <Property Name="CANO_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CANO_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NOTIFICACAO" Relationship="SystemBRDatabaseModel.FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO" FromRole="CATEGORIA_NOTIFICACAO" ToRole="NOTIFICACAO" />
+        </EntityType>
+        <EntityType Name="NOTIFICACAO">
+          <Key>
+            <PropertyRef Name="NOTI_CD_ID" />
+          </Key>
+          <Property Name="NOTI_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="USUA_CD_ID" Type="Int32" />
+          <Property Name="CANO_CD_ID" Type="Int32" />
+          <Property Name="NOTI_DT_DATA" Type="DateTime" Precision="0" />
+          <Property Name="NOTI_IN_ATIVO" Type="Int32" Nullable="false" />
+          <Property Name="NOTI_IN_ENVIADA" Type="Int32" />
+          <Property Name="NOTI_IN_STATUS" Type="Int32" />
+          <Property Name="NOTI_IN_TEXTO" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_NOTIFICACAO_ASSINANTE" FromRole="NOTIFICACAO" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CATEGORIA_NOTIFICACAO" Relationship="SystemBRDatabaseModel.FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO" FromRole="NOTIFICACAO" ToRole="CATEGORIA_NOTIFICACAO" />
+          <NavigationProperty Name="USUARIO" Relationship="SystemBRDatabaseModel.FK_NOTIFICACAO_USUARIO" FromRole="NOTIFICACAO" ToRole="USUARIO" />
+        </EntityType>
+        <Association Name="FK_NOTIFICACAO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.NOTIFICACAO" Role="NOTIFICACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="NOTIFICACAO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO">
+          <End Type="SystemBRDatabaseModel.CATEGORIA_NOTIFICACAO" Role="CATEGORIA_NOTIFICACAO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.NOTIFICACAO" Role="NOTIFICACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA_NOTIFICACAO">
+              <PropertyRef Name="CANO_CD_ID" />
+            </Principal>
+            <Dependent Role="NOTIFICACAO">
+              <PropertyRef Name="CANO_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTIFICACAO_USUARIO">
+          <End Type="SystemBRDatabaseModel.USUARIO" Role="USUARIO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.NOTIFICACAO" Role="NOTIFICACAO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="USUA_CD_ID" />
+            </Principal>
+            <Dependent Role="NOTIFICACAO">
+              <PropertyRef Name="USUA_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11470,6 +11634,9 @@
           <EntitySetMapping Name="COLABORADOR">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.COLABORADOR">
               <MappingFragment StoreEntitySet="COLABORADOR">
+                <ScalarProperty Name="COLA_IN_VENDEDOR" ColumnName="COLA_IN_VENDEDOR" />
+                <ScalarProperty Name="COLA_IN_APROVADOR_CONTRATO" ColumnName="COLA_IN_APROVADOR_CONTRATO" />
+                <ScalarProperty Name="COLA_IN_GERENTE" ColumnName="COLA_IN_GERENTE" />
                 <ScalarProperty Name="COLA_CD_ID" ColumnName="COLA_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -11558,6 +11725,7 @@
           <EntitySetMapping Name="CONFIGURACAO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONFIGURACAO">
               <MappingFragment StoreEntitySet="CONFIGURACAO">
+                <ScalarProperty Name="CONF_SG_TEMPLATE_APROVACAO_CONTRATO" ColumnName="CONF_SG_TEMPLATE_APROVACAO_CONTRATO" />
                 <ScalarProperty Name="CONF_CD_ID" ColumnName="CONF_CD_ID" />
                 <ScalarProperty Name="CONF_NR_FALHAS_DIA" ColumnName="CONF_NR_FALHAS_DIA" />
                 <ScalarProperty Name="CONF_NM_HOST_SMTP" ColumnName="CONF_NM_HOST_SMTP" />
@@ -11665,6 +11833,8 @@
           <EntitySetMapping Name="CONTRATO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO">
               <MappingFragment StoreEntitySet="CONTRATO">
+                <ScalarProperty Name="CONT_IN_CANCELADO" ColumnName="CONT_IN_CANCELADO" />
+                <ScalarProperty Name="CONT_NM_RESPONSAVEL" ColumnName="CONT_NM_RESPONSAVEL" />
                 <ScalarProperty Name="CONT_DS_TEXT_AVALIACAO" ColumnName="CONT_DS_TEXT_AVALIACAO" />
                 <ScalarProperty Name="CONT_IN_AVALIACAO" ColumnName="CONT_IN_AVALIACAO" />
                 <ScalarProperty Name="CONT_IN_ENCERRADO" ColumnName="CONT_IN_ENCERRADO" />
@@ -12984,6 +13154,7 @@
           <EntitySetMapping Name="CONTRATO_SOLICITACAO_APROVACAO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTRATO_SOLICITACAO_APROVACAO">
               <MappingFragment StoreEntitySet="CONTRATO_SOLICITACAO_APROVACAO">
+                <ScalarProperty Name="CTSA_NM_STATUS" ColumnName="CTSA_NM_STATUS" />
                 <ScalarProperty Name="CTSA_IN_ATIVO" ColumnName="CTSA_IN_ATIVO" />
                 <ScalarProperty Name="CTSA_IN_STATUS" ColumnName="CTSA_IN_STATUS" />
                 <ScalarProperty Name="CTSA_DS_RESPOSTA" ColumnName="CTSA_DS_RESPOSTA" />
@@ -12991,6 +13162,30 @@
                 <ScalarProperty Name="CTSA_DT_DATA" ColumnName="CTSA_DT_DATA" />
                 <ScalarProperty Name="CONT_CD_ID" ColumnName="CONT_CD_ID" />
                 <ScalarProperty Name="CTSA_CD_ID" ColumnName="CTSA_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIA_NOTIFICACAO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CATEGORIA_NOTIFICACAO">
+              <MappingFragment StoreEntitySet="CATEGORIA_NOTIFICACAO">
+                <ScalarProperty Name="CANO_NM_NOME" ColumnName="CANO_NM_NOME" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="CANO_CD_ID" ColumnName="CANO_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NOTIFICACAO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.NOTIFICACAO">
+              <MappingFragment StoreEntitySet="NOTIFICACAO">
+                <ScalarProperty Name="NOTI_IN_TEXTO" ColumnName="NOTI_IN_TEXTO" />
+                <ScalarProperty Name="NOTI_IN_STATUS" ColumnName="NOTI_IN_STATUS" />
+                <ScalarProperty Name="NOTI_IN_ENVIADA" ColumnName="NOTI_IN_ENVIADA" />
+                <ScalarProperty Name="NOTI_IN_ATIVO" ColumnName="NOTI_IN_ATIVO" />
+                <ScalarProperty Name="NOTI_DT_DATA" ColumnName="NOTI_DT_DATA" />
+                <ScalarProperty Name="CANO_CD_ID" ColumnName="CANO_CD_ID" />
+                <ScalarProperty Name="USUA_CD_ID" ColumnName="USUA_CD_ID" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="NOTI_CD_ID" ColumnName="NOTI_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

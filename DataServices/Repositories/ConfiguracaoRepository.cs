@@ -19,6 +19,14 @@ namespace DataServices.Repositories
             query = query.Where(p => p.CONF_CD_ID == id);
             return query.FirstOrDefault();
         }
+
+        public CONFIGURACAO GetItemByAssinante(Int32 id)
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<CONFIGURACAO> query = Db.CONFIGURACAO;
+            query = query.Where(p => p.ASSI_CD_ID == id);
+            return query.FirstOrDefault();
+        }
     }
 }
  

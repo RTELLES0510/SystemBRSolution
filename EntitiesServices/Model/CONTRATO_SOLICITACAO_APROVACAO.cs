@@ -21,6 +21,7 @@ namespace EntitiesServices.Model
         public string CTSA_DS_RESPOSTA { get; set; }
         public Nullable<int> CTSA_IN_STATUS { get; set; }
         public int CTSA_IN_ATIVO { get; set; }
+        public string CTSA_NM_STATUS { get; set; }
     
         public virtual CONTRATO CONTRATO { get; set; }
     }

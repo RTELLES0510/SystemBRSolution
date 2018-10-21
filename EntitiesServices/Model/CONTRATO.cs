@@ -83,6 +83,8 @@ namespace EntitiesServices.Model
         public Nullable<int> CONT_IN_ENCERRADO { get; set; }
         public Nullable<int> CONT_IN_AVALIACAO { get; set; }
         public string CONT_DS_TEXT_AVALIACAO { get; set; }
+        public string CONT_NM_RESPONSAVEL { get; set; }
+        public Nullable<int> CONT_IN_CANCELADO { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_CONTRATO CATEGORIA_CONTRATO { get; set; }

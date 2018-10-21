@@ -49,6 +49,16 @@ namespace DataServices.Repositories
             return query.ToList();
         }
 
+        public List<CONTRATO> GetAllItensOperacao()
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<CONTRATO> query = Db.CONTRATO.Where(p => p.CONT_IN_ATIVO == 1);
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.CONT_IN_WORKFLOW == 3);
+            query = query.Include(p => p.ASSINANTE);
+            return query.ToList();
+        }
+
         public List<CONTRATO> GetAllItensAdm()
         {
             Int32? idAss = SessionMocks.IdAssinante;

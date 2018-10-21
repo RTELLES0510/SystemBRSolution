@@ -32,10 +32,11 @@ namespace ModelServices.EntitiesServices
         private readonly INomenclaturaRepository _nomRepository;
         private readonly IClienteRepository _cliRepository;
         private readonly IStatusContratoRepository _staRepository;
+        private readonly IConfiguracaoRepository _confRepository;
 
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public ContratoService(IContratoRepository baseRepository, ILogRepository logRepository, ICategoriaContratoRepository catRepository, IContratoAnexoRepository anexoRepository, ITipoContratoRepository tipoRepository, ITemplateRepository tempRepository, IPeriodicidadeRepository perRepository, IFormaPagamentoRepository forRepository, IPlanoContaRepository planRepository, ICentroCustoRepository ccRepository, IColaboradorRepository colRepository, INomenclaturaRepository nomRepository, IClienteRepository cliRepository, IStatusContratoRepository staRepository) : base(baseRepository)
+        public ContratoService(IContratoRepository baseRepository, ILogRepository logRepository, ICategoriaContratoRepository catRepository, IContratoAnexoRepository anexoRepository, ITipoContratoRepository tipoRepository, ITemplateRepository tempRepository, IPeriodicidadeRepository perRepository, IFormaPagamentoRepository forRepository, IPlanoContaRepository planRepository, ICentroCustoRepository ccRepository, IColaboradorRepository colRepository, INomenclaturaRepository nomRepository, IClienteRepository cliRepository, IStatusContratoRepository staRepository, IConfiguracaoRepository confRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
@@ -51,6 +52,7 @@ namespace ModelServices.EntitiesServices
             _nomRepository = nomRepository;
             _cliRepository = cliRepository;
             _staRepository = staRepository;
+            _confRepository = confRepository;
         }
 
         public CONTRATO CheckExist(CONTRATO conta)
@@ -71,9 +73,34 @@ namespace ModelServices.EntitiesServices
             return item;
         }
 
+        public COLABORADOR GetResponsavelById(Int32 id)
+        {
+            COLABORADOR item = _colRepository.GetItemById(id);
+            return item;
+        }
+
+        public CONFIGURACAO CarregaConfiguracao(Int32 assinante)
+        {
+            CONFIGURACAO item = _confRepository.GetItemByAssinante(assinante);
+            return item;
+        }
+
+        public String GetTextoAprovacao()
+        {         
+            CONFIGURACAO item = _confRepository.GetItemByAssinante(SessionMocks.IdAssinante.Value);
+            TEMPLATE temp = _tempRepository.GetByCode(item.CONF_SG_TEMPLATE_APROVACAO_CONTRATO);
+            String texto = temp.TEMP_TX_CONTEUDO;
+            return texto;
+        }
+
         public List<CONTRATO> GetAllItens()
         {
             return _baseRepository.GetAllItens();
+        }
+
+        public List<CONTRATO> GetAllItensOperacao()
+        {
+            return _baseRepository.GetAllItensOperacao();
         }
 
         public List<CONTRATO> GetAllItensAdm()
@@ -123,7 +150,12 @@ namespace ModelServices.EntitiesServices
 
         public List<COLABORADOR> GetAllVendedores()
         {
-            return _colRepository.GetAllItens();
+            return _colRepository.GetAllVendedores();
+        }
+
+        public List<COLABORADOR> GetAllResponsaveis()
+        {
+            return _colRepository.GetAllResponsaveis();
         }
 
         public List<NOMENCLATURA_BRAS_SERVICOS> GetAllNomenclatura()

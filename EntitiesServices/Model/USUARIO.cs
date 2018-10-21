@@ -18,6 +18,7 @@ namespace EntitiesServices.Model
         public USUARIO()
         {
             this.LOG = new HashSet<LOG>();
+            this.NOTIFICACAO = new HashSet<NOTIFICACAO>();
         }
     
         public int USUA_CD_ID { get; set; }
@@ -47,5 +48,7 @@ namespace EntitiesServices.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOG> LOG { get; set; }
         public virtual PERFIL PERFIL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTIFICACAO> NOTIFICACAO { get; set; }
     }
 }

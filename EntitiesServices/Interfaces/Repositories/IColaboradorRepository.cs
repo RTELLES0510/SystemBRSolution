@@ -11,6 +11,7 @@ namespace ModelServices.Interfaces.Repositories
     {
         List<COLABORADOR> GetAllItens();
         List<COLABORADOR> GetAllVendedores();
+        List<COLABORADOR> GetAllResponsaveis();
         COLABORADOR GetItemById(Int32 id);
     }
 }
