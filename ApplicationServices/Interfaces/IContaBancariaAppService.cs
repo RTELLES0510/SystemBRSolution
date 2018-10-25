@@ -18,5 +18,8 @@ namespace ApplicationServices.Interfaces
         CONTA_BANCARIA GetItemById(Int32 id);
         CONTA_BANCARIA CheckExist(CONTA_BANCARIA conta);
         List<TIPO_CONTA> GetAllTipos();
+        CONTA_BANCARIA_CONTATO GetContatoById(Int32 id);
+        Int32 ValidateEditContato(CONTA_BANCARIA_CONTATO item);
+        Int32 ValidateCreateContato(CONTA_BANCARIA_CONTATO item);
     }
 }

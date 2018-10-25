@@ -95,6 +95,7 @@
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaNotificacaoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IContaBancariaContatoRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificacaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContratoSolicitacaoAprovacaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IStatusContratoRepository.cs" />
@@ -250,6 +251,9 @@
     <Compile Include="Model\CLIENTE_TAG.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\CODIGO_REGIME_TRIBUTARIO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\COLABORADOR.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
@@ -266,6 +270,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CONTA_BANCARIA.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CONTA_BANCARIA_CONTATO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\CONTA_PAGAR.cs">

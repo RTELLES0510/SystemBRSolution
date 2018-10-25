@@ -27,6 +27,12 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public CONTA_BANCARIA_CONTATO GetContatoById(Int32 id)
+        {
+            CONTA_BANCARIA_CONTATO lista = _baseService.GetContatoById(id);
+            return lista;
+        }
+
         public List<CONTA_BANCARIA> GetAllItensAdm()
         {
             List<CONTA_BANCARIA> lista = _baseService.GetAllItensAdm();
@@ -176,6 +182,33 @@ namespace ApplicationServices.Services
 
                 // Persiste
                 return _baseService.Edit(item, log);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateEditContato(CONTA_BANCARIA_CONTATO item)
+        {
+            try
+            {
+                // Persiste
+                return _baseService.EditContato(item);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateCreateContato(CONTA_BANCARIA_CONTATO item)
+        {
+            try
+            {
+                // Persiste
+                Int32 volta = _baseService.CreateContato(item);
+                return volta;
             }
             catch (Exception ex)
             {

@@ -28,6 +28,7 @@ namespace DataServices.Repositories
             query = query.Include(p => p.CONTA_RECEBER);
             query = query.Include(p => p.BANCO);
             query = query.Include(p => p.TIPO_CONTA);
+            query = query.Include(p => p.CONTA_BANCARIA_CONTATO);
             return query.FirstOrDefault();
         }
 

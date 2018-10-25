@@ -469,5 +469,48 @@ namespace ApplicationServices.Services
                 throw;
             }
         }
+
+        public Int32 LembrarAprovacaoContrato(CONTRATO item, USUARIO usuario)
+        {
+            try
+            {
+                // Gera Notificação
+                NOTIFICACAO noti = new NOTIFICACAO();
+                noti.CANO_CD_ID = 1;
+                noti.ASSI_CD_ID = usuario.ASSI_CD_ID;
+                noti.NOTI_DT_DATA = DateTime.Today;
+                noti.NOTI_IN_ATIVO = 1;
+                noti.NOTI_IN_ENVIADA = 1;
+                noti.NOTI_IN_STATUS = 1;
+                noti.NOTI_IN_TEXTO = "-";
+                noti.USUA_CD_ID = _baseService.GetResponsavelById(item.CONT_CD_RESPONSAVEL.Value).USUA_CD_ID;
+
+                // Monta e-mail
+                Email mensagem = new Email();
+                CONFIGURACAO conf = _baseService.CarregaConfiguracao(SessionMocks.IdAssinante.Value);
+                mensagem.ASSUNTO = "Aprovação de Contrato - Solicitação";
+                mensagem.CORPO = item.CONT_DS_APROVACAO;
+                mensagem.DEFAULT_CREDENTIALS = false;
+                mensagem.EMAIL_DESTINO = _baseService.GetResponsavelById(item.CONT_CD_RESPONSAVEL.Value).COLA_NM_NOME;
+                mensagem.EMAIL_EMISSOR = conf.CONF_NM_EMAIL_EMISSOR;
+                mensagem.ENABLE_SSL = false;
+                mensagem.NOME_EMISSOR = usuario.COLABORADOR.COLA_NM_NOME;
+                mensagem.PORTA = conf.CONF_NM_PORTA_SMTP;
+                mensagem.PRIORIDADE = System.Net.Mail.MailPriority.High;
+                mensagem.SENHA_EMISSOR = conf.CONF_NM_SENHA_EMISSOR;
+                mensagem.SMTP = conf.CONF_NM_HOST_SMTP;
+
+                // Envia mensagem
+                //Int32 voltaMail = CommunicationPackage.SendEmail(mensagem);     
+
+                // Persiste notificação
+                Int32 volta = _notiService.Create(noti);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

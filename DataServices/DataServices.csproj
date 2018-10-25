@@ -90,6 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CargoRepository.cs" />
     <Compile Include="Repositories\CategoriaNotificacaoRepository.cs" />
+    <Compile Include="Repositories\ContaBancariaContatoRepository.cs" />
     <Compile Include="Repositories\NotificacaoRepository.cs" />
     <Compile Include="Repositories\ContratoSolicitacaoAprovacaoRepository.cs" />
     <Compile Include="Repositories\StatusContratoRepository.cs" />

@@ -273,6 +273,14 @@
           <Property Name="CLTA_IN_ATIVO" Type="int" />
           <Property Name="CLTA_IN_TIPO" Type="int" />
         </EntityType>
+        <EntityType Name="CODIGO_REGIME_TRIBUTARIO">
+          <Key>
+            <PropertyRef Name="CRTR_CD_ID" />
+          </Key>
+          <Property Name="CRTR_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CRTR_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="COLABORADOR">
           <Key>
             <PropertyRef Name="COLA_CD_ID" />
@@ -391,6 +399,18 @@
           <Property Name="COBA_VL_SALDO_INICIAL" Type="decimal" Precision="18" Scale="2" />
           <Property Name="COBA_DT_ABERTURA" Type="date" />
           <Property Name="COBA_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTA_BANCARIA_CONTATO">
+          <Key>
+            <PropertyRef Name="CBCT_CD_ID" />
+          </Key>
+          <Property Name="CBCT_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COBA_CD_ID" Type="int" Nullable="false" />
+          <Property Name="CBCT_NM_NOME" Type="varchar" MaxLength="50" />
+          <Property Name="CBCT_NM_EMAIL" Type="varchar" MaxLength="150" />
+          <Property Name="CBCT_NM_CARGO" Type="varchar" MaxLength="50" />
+          <Property Name="CBCT_NR_TELEFONES" Type="varchar" MaxLength="50" />
+          <Property Name="CBCT_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CONTA_PAGAR">
           <Key>
@@ -696,6 +716,8 @@
           </Key>
           <Property Name="FILI_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MATR_CD_ID" Type="int" Nullable="false" />
+          <Property Name="TIPE_CD_ID" Type="int" />
+          <Property Name="CRTR_CD_ID" Type="int" />
           <Property Name="FILI_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FILI_NM_RAZAO" Type="varchar" MaxLength="100" />
           <Property Name="FILI_NR_CNPJ" Type="varchar" MaxLength="20" />
@@ -709,6 +731,13 @@
           <Property Name="FILI_NR_CEP" Type="varchar" MaxLength="10" />
           <Property Name="FILI_DT_CADASTRO" Type="date" Nullable="false" />
           <Property Name="FILI_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="FILI_NR_INSCRICAO_ESTADUAL" Type="varchar" MaxLength="50" />
+          <Property Name="FILI_NR_INSCRICAO_MUNICIPAL" Type="varchar" MaxLength="50" />
+          <Property Name="FILI_IN_IE_ISENTO" Type="int" />
+          <Property Name="FILI_NR_CNAE" Type="varchar" MaxLength="50" />
+          <Property Name="FILI_NM_WEBSITE" Type="varchar" MaxLength="100" />
+          <Property Name="FILI_NR_CELULAR" Type="varchar" MaxLength="50" />
+          <Property Name="FILI_AQ_LOGOTIPO" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="FORMA_PAGAMENTO">
           <Key>
@@ -949,6 +978,8 @@
           </Key>
           <Property Name="MATR_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
+          <Property Name="TIPE_CD_ID" Type="int" />
+          <Property Name="CRTR_CD_ID" Type="int" />
           <Property Name="MATR_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MATR_NM_RAZAO" Type="varchar" MaxLength="100" />
           <Property Name="MATR_NR_CNPJ" Type="varchar" MaxLength="20" />
@@ -962,6 +993,13 @@
           <Property Name="MATR_NR_CEP" Type="varchar" MaxLength="10" />
           <Property Name="MATR_DT_CADASTRO" Type="datetime" Nullable="false" />
           <Property Name="MATR_IN_ATIVO" Type="int" Nullable="false" />
+          <Property Name="MATR_NR_INSCRICAO_ESTADUAL" Type="varchar" MaxLength="50" />
+          <Property Name="MATR_NR_INSCRICAO_MUNICIPAL" Type="varchar" MaxLength="50" />
+          <Property Name="MATR_IN_IE_ISENTO" Type="int" />
+          <Property Name="MATR_NR_CNAE" Type="varchar" MaxLength="50" />
+          <Property Name="MATR_NM_WEBSITE" Type="varchar" MaxLength="100" />
+          <Property Name="MATR_NR_CELULAR" Type="varchar" MaxLength="50" />
+          <Property Name="MATR_AQ_LOGOTIPO" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA">
           <Key>
@@ -1808,6 +1846,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BANCO_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="BANCO" Type="Self.BANCO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="BANCO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CARGO_ASSINANTE">
           <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
           <End Role="CARGO" Type="Self.CARGO" Multiplicity="*" />
@@ -2168,6 +2218,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CONTA_BANCARIA_ASSINANTE">
+          <End Role="ASSINANTE" Type="Self.ASSINANTE" Multiplicity="1" />
+          <End Role="CONTA_BANCARIA" Type="Self.CONTA_BANCARIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTA_BANCARIA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CONTA_BANCARIA_BANCO">
           <End Role="BANCO" Type="Self.BANCO" Multiplicity="1" />
           <End Role="CONTA_BANCARIA" Type="Self.CONTA_BANCARIA" Multiplicity="*" />
@@ -2177,6 +2239,18 @@
             </Principal>
             <Dependent Role="CONTA_BANCARIA">
               <PropertyRef Name="BANC_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA">
+          <End Role="CONTA_BANCARIA" Type="Self.CONTA_BANCARIA" Multiplicity="1" />
+          <End Role="CONTA_BANCARIA_CONTATO" Type="Self.CONTA_BANCARIA_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTA_BANCARIA">
+              <PropertyRef Name="COBA_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTA_BANCARIA_CONTATO">
+              <PropertyRef Name="COBA_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2768,6 +2842,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FILIAL_CODIGO_REGIME_TRIBUTARIO">
+          <End Role="CODIGO_REGIME_TRIBUTARIO" Type="Self.CODIGO_REGIME_TRIBUTARIO" Multiplicity="0..1" />
+          <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CODIGO_REGIME_TRIBUTARIO">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Principal>
+            <Dependent Role="FILIAL">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FILIAL_MATRIZ">
           <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="1" />
           <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="*" />
@@ -2777,6 +2863,18 @@
             </Principal>
             <Dependent Role="FILIAL">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FILIAL_TIPO_PESSOA">
+          <End Role="TIPO_PESSOA" Type="Self.TIPO_PESSOA" Multiplicity="0..1" />
+          <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PESSOA">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Principal>
+            <Dependent Role="FILIAL">
+              <PropertyRef Name="TIPE_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3233,6 +3331,30 @@
             </Principal>
             <Dependent Role="MATRIZ">
               <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO">
+          <End Role="CODIGO_REGIME_TRIBUTARIO" Type="Self.CODIGO_REGIME_TRIBUTARIO" Multiplicity="0..1" />
+          <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CODIGO_REGIME_TRIBUTARIO">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Principal>
+            <Dependent Role="MATRIZ">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATRIZ_TIPO_PESSOA">
+          <End Role="TIPO_PESSOA" Type="Self.TIPO_PESSOA" Multiplicity="0..1" />
+          <End Role="MATRIZ" Type="Self.MATRIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PESSOA">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Principal>
+            <Dependent Role="MATRIZ">
+              <PropertyRef Name="TIPE_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4448,12 +4570,14 @@
           <EntitySet Name="CLIENTE_CONTATO" EntityType="Self.CLIENTE_CONTATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLIENTE_REFERENCIA" EntityType="Self.CLIENTE_REFERENCIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLIENTE_TAG" EntityType="Self.CLIENTE_TAG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CODIGO_REGIME_TRIBUTARIO" EntityType="Self.CODIGO_REGIME_TRIBUTARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COLABORADOR" EntityType="Self.COLABORADOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COLABORADOR_ANEXO" EntityType="Self.COLABORADOR_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COLABORADOR_FREQUENCIA" EntityType="Self.COLABORADOR_FREQUENCIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMISSAO_VENDA" EntityType="Self.COMISSAO_VENDA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONFIGURACAO" EntityType="Self.CONFIGURACAO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTA_BANCARIA" EntityType="Self.CONTA_BANCARIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTA_BANCARIA_CONTATO" EntityType="Self.CONTA_BANCARIA_CONTATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTA_PAGAR" EntityType="Self.CONTA_PAGAR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTA_PAGAR_ANEXO" EntityType="Self.CONTA_PAGAR_ANEXO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTA_RECEBER" EntityType="Self.CONTA_RECEBER" Schema="dbo" store:Type="Tables" />
@@ -4573,6 +4697,10 @@
           <AssociationSet Name="FK_ATENDIMENTO_ANEXO_ATENDIMENTO_ACOMPANHAMENTO" Association="Self.FK_ATENDIMENTO_ANEXO_ATENDIMENTO_ACOMPANHAMENTO">
             <End Role="ATENDIMENTO_ACOMPANHAMENTO" EntitySet="ATENDIMENTO_ACOMPANHAMENTO" />
             <End Role="ATENDIMENTO_ANEXO" EntitySet="ATENDIMENTO_ANEXO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BANCO_ASSINANTE" Association="Self.FK_BANCO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="BANCO" EntitySet="BANCO" />
           </AssociationSet>
           <AssociationSet Name="FK_CARGO_ASSINANTE" Association="Self.FK_CARGO_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
@@ -4694,9 +4822,17 @@
             <End Role="VALOR_COMISSAO" EntitySet="VALOR_COMISSAO" />
             <End Role="COMISSAO_VENDA" EntitySet="COMISSAO_VENDA" />
           </AssociationSet>
+          <AssociationSet Name="FK_CONTA_BANCARIA_ASSINANTE" Association="Self.FK_CONTA_BANCARIA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CONTA_BANCARIA" EntitySet="CONTA_BANCARIA" />
+          </AssociationSet>
           <AssociationSet Name="FK_CONTA_BANCARIA_BANCO" Association="Self.FK_CONTA_BANCARIA_BANCO">
             <End Role="BANCO" EntitySet="BANCO" />
             <End Role="CONTA_BANCARIA" EntitySet="CONTA_BANCARIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA" Association="Self.FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA">
+            <End Role="CONTA_BANCARIA" EntitySet="CONTA_BANCARIA" />
+            <End Role="CONTA_BANCARIA_CONTATO" EntitySet="CONTA_BANCARIA_CONTATO" />
           </AssociationSet>
           <AssociationSet Name="FK_CONTA_BANCARIA_TIPO_CONTA" Association="Self.FK_CONTA_BANCARIA_TIPO_CONTA">
             <End Role="TIPO_CONTA" EntitySet="TIPO_CONTA" />
@@ -4894,8 +5030,16 @@
             <End Role="PRODUTO" EntitySet="PRODUTO" />
             <End Role="FICHA_TECNICA" EntitySet="FICHA_TECNICA" />
           </AssociationSet>
+          <AssociationSet Name="FK_FILIAL_CODIGO_REGIME_TRIBUTARIO" Association="Self.FK_FILIAL_CODIGO_REGIME_TRIBUTARIO">
+            <End Role="CODIGO_REGIME_TRIBUTARIO" EntitySet="CODIGO_REGIME_TRIBUTARIO" />
+            <End Role="FILIAL" EntitySet="FILIAL" />
+          </AssociationSet>
           <AssociationSet Name="FK_FILIAL_MATRIZ" Association="Self.FK_FILIAL_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
+            <End Role="FILIAL" EntitySet="FILIAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FILIAL_TIPO_PESSOA" Association="Self.FK_FILIAL_TIPO_PESSOA">
+            <End Role="TIPO_PESSOA" EntitySet="TIPO_PESSOA" />
             <End Role="FILIAL" EntitySet="FILIAL" />
           </AssociationSet>
           <AssociationSet Name="FK_FORMA_PAGAMENTO_ASSINANTE" Association="Self.FK_FORMA_PAGAMENTO_ASSINANTE">
@@ -5048,6 +5192,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_MATRIZ_ASSINANTE" Association="Self.FK_MATRIZ_ASSINANTE">
             <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO" Association="Self.FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO">
+            <End Role="CODIGO_REGIME_TRIBUTARIO" EntitySet="CODIGO_REGIME_TRIBUTARIO" />
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATRIZ_TIPO_PESSOA" Association="Self.FK_MATRIZ_TIPO_PESSOA">
+            <End Role="TIPO_PESSOA" EntitySet="TIPO_PESSOA" />
             <End Role="MATRIZ" EntitySet="MATRIZ" />
           </AssociationSet>
           <AssociationSet Name="FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_FILIAL" Association="Self.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_FILIAL">
@@ -5516,6 +5668,8 @@
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ASSINANTE" FromRole="ASSINANTE" ToRole="USUARIO" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_ASSINANTE" FromRole="ASSINANTE" ToRole="VALOR_COMISSAO" />
           <NavigationProperty Name="NOTIFICACAO" Relationship="SystemBRDatabaseModel.FK_NOTIFICACAO_ASSINANTE" FromRole="ASSINANTE" ToRole="NOTIFICACAO" />
+          <NavigationProperty Name="BANCO" Relationship="SystemBRDatabaseModel.FK_BANCO_ASSINANTE" FromRole="ASSINANTE" ToRole="BANCO" />
+          <NavigationProperty Name="CONTA_BANCARIA" Relationship="SystemBRDatabaseModel.FK_CONTA_BANCARIA_ASSINANTE" FromRole="ASSINANTE" ToRole="CONTA_BANCARIA" />
         </EntityType>
         <EntityType Name="ASSINANTE_PLANO">
           <Key>
@@ -5568,6 +5722,7 @@
           <Property Name="BANC_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BANCO_IN_ATIVO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CONTA_BANCARIA" Relationship="Self.FK_CONTA_BANCARIA_BANCO" FromRole="BANCO" ToRole="CONTA_BANCARIA" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_BANCO_ASSINANTE" FromRole="BANCO" ToRole="ASSINANTE" />
         </EntityType>
         <EntityType Name="CARGO">
           <Key>
@@ -5946,6 +6101,8 @@
           <NavigationProperty Name="TIPO_CONTA" Relationship="Self.FK_CONTA_BANCARIA_TIPO_CONTA" FromRole="CONTA_BANCARIA" ToRole="TIPO_CONTA" />
           <NavigationProperty Name="CONTA_PAGAR" Relationship="Self.FK_CONTA_PAGAR_CONTA_BANCARIA" FromRole="CONTA_BANCARIA" ToRole="CONTA_PAGAR" />
           <NavigationProperty Name="CONTA_RECEBER" Relationship="Self.FK_CONTA_RECEBER_CONTA_BANCARIA" FromRole="CONTA_BANCARIA" ToRole="CONTA_RECEBER" />
+          <NavigationProperty Name="ASSINANTE" Relationship="SystemBRDatabaseModel.FK_CONTA_BANCARIA_ASSINANTE" FromRole="CONTA_BANCARIA" ToRole="ASSINANTE" />
+          <NavigationProperty Name="CONTA_BANCARIA_CONTATO" Relationship="SystemBRDatabaseModel.FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA" FromRole="CONTA_BANCARIA" ToRole="CONTA_BANCARIA_CONTATO" />
         </EntityType>
         <EntityType Name="CONTA_PAGAR">
           <Key>
@@ -6321,6 +6478,17 @@
           <NavigationProperty Name="TICKET_ATENDIMENTO" Relationship="Self.FK_TICKET_ATENDIMENTO_FILIAL" FromRole="FILIAL" ToRole="TICKET_ATENDIMENTO" />
           <NavigationProperty Name="TRANSPORTADORA" Relationship="Self.FK_TRANSPORTADORA_FILIAL" FromRole="FILIAL" ToRole="TRANSPORTADORA" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_FILIAL" FromRole="FILIAL" ToRole="VALOR_COMISSAO" />
+          <Property Name="TIPE_CD_ID" Type="Int32" />
+          <Property Name="CRTR_CD_ID" Type="Int32" />
+          <Property Name="FILI_NR_INSCRICAO_ESTADUAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FILI_NR_INSCRICAO_MUNICIPAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FILI_IN_IE_ISENTO" Type="Int32" />
+          <Property Name="FILI_NR_CNAE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FILI_NM_WEBSITE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FILI_NR_CELULAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FILI_AQ_LOGOTIPO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CODIGO_REGIME_TRIBUTARIO" Relationship="SystemBRDatabaseModel.FK_FILIAL_CODIGO_REGIME_TRIBUTARIO" FromRole="FILIAL" ToRole="CODIGO_REGIME_TRIBUTARIO" />
+          <NavigationProperty Name="TIPO_PESSOA" Relationship="SystemBRDatabaseModel.FK_FILIAL_TIPO_PESSOA" FromRole="FILIAL" ToRole="TIPO_PESSOA" />
         </EntityType>
         <EntityType Name="FORMA_PAGAMENTO">
           <Key>
@@ -6655,6 +6823,17 @@
           <NavigationProperty Name="TRANSPORTADORA" Relationship="Self.FK_TRANSPORTADORA_MATRIZ" FromRole="MATRIZ" ToRole="TRANSPORTADORA" />
           <NavigationProperty Name="VALOR_COMISSAO" Relationship="Self.FK_VALOR_COMISSAO_MATRIZ" FromRole="MATRIZ" ToRole="VALOR_COMISSAO" />
           <NavigationProperty Name="CONTRATO" Relationship="SystemBRDatabaseModel.FK_CONTRATO_MATRIZ" FromRole="MATRIZ" ToRole="CONTRATO" />
+          <Property Name="TIPE_CD_ID" Type="Int32" />
+          <Property Name="CRTR_CD_ID" Type="Int32" />
+          <Property Name="MATR_NR_INSCRICAO_ESTADUAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATR_NR_INSCRICAO_MUNICIPAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATR_IN_IE_ISENTO" Type="Int32" />
+          <Property Name="MATR_NR_CNAE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATR_NM_WEBSITE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MATR_NR_CELULAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATR_AQ_LOGOTIPO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CODIGO_REGIME_TRIBUTARIO" Relationship="SystemBRDatabaseModel.FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO" FromRole="MATRIZ" ToRole="CODIGO_REGIME_TRIBUTARIO" />
+          <NavigationProperty Name="TIPO_PESSOA" Relationship="SystemBRDatabaseModel.FK_MATRIZ_TIPO_PESSOA" FromRole="MATRIZ" ToRole="TIPO_PESSOA" />
         </EntityType>
         <EntityType Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA">
           <Key>
@@ -7427,6 +7606,8 @@
           <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
           <Property Name="TIPE_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_TIPO_PESSOA" FromRole="TIPO_PESSOA" ToRole="CLIENTE" />
+          <NavigationProperty Name="FILIAL" Relationship="SystemBRDatabaseModel.FK_FILIAL_TIPO_PESSOA" FromRole="TIPO_PESSOA" ToRole="FILIAL" />
+          <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_MATRIZ_TIPO_PESSOA" FromRole="TIPO_PESSOA" ToRole="MATRIZ" />
         </EntityType>
         <EntityType Name="TIPO_SALARIAL">
           <Key>
@@ -11194,6 +11375,36 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="NOTIFICACAO" EntitySet="NOTIFICACAO" />
           </AssociationSet>
+          <EntitySet Name="CODIGO_REGIME_TRIBUTARIO" EntityType="SystemBRDatabaseModel.CODIGO_REGIME_TRIBUTARIO" />
+          <AssociationSet Name="FK_FILIAL_CODIGO_REGIME_TRIBUTARIO" Association="SystemBRDatabaseModel.FK_FILIAL_CODIGO_REGIME_TRIBUTARIO">
+            <End Role="CODIGO_REGIME_TRIBUTARIO" EntitySet="CODIGO_REGIME_TRIBUTARIO" />
+            <End Role="FILIAL" EntitySet="FILIAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO" Association="SystemBRDatabaseModel.FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO">
+            <End Role="CODIGO_REGIME_TRIBUTARIO" EntitySet="CODIGO_REGIME_TRIBUTARIO" />
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FILIAL_TIPO_PESSOA" Association="SystemBRDatabaseModel.FK_FILIAL_TIPO_PESSOA">
+            <End Role="TIPO_PESSOA" EntitySet="TIPO_PESSOA" />
+            <End Role="FILIAL" EntitySet="FILIAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATRIZ_TIPO_PESSOA" Association="SystemBRDatabaseModel.FK_MATRIZ_TIPO_PESSOA">
+            <End Role="TIPO_PESSOA" EntitySet="TIPO_PESSOA" />
+            <End Role="MATRIZ" EntitySet="MATRIZ" />
+          </AssociationSet>
+          <EntitySet Name="CONTA_BANCARIA_CONTATO" EntityType="SystemBRDatabaseModel.CONTA_BANCARIA_CONTATO" />
+          <AssociationSet Name="FK_BANCO_ASSINANTE" Association="SystemBRDatabaseModel.FK_BANCO_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="BANCO" EntitySet="BANCO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTA_BANCARIA_ASSINANTE" Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_ASSINANTE">
+            <End Role="ASSINANTE" EntitySet="ASSINANTE" />
+            <End Role="CONTA_BANCARIA" EntitySet="CONTA_BANCARIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA" Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA">
+            <End Role="CONTA_BANCARIA" EntitySet="CONTA_BANCARIA" />
+            <End Role="CONTA_BANCARIA_CONTATO" EntitySet="CONTA_BANCARIA_CONTATO" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="STATUS_CONTRATO">
           <Key>
@@ -11340,6 +11551,113 @@
             </Principal>
             <Dependent Role="NOTIFICACAO">
               <PropertyRef Name="USUA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CODIGO_REGIME_TRIBUTARIO">
+          <Key>
+            <PropertyRef Name="CRTR_CD_ID" />
+          </Key>
+          <Property Name="CRTR_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CRTR_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FILIAL" Relationship="SystemBRDatabaseModel.FK_FILIAL_CODIGO_REGIME_TRIBUTARIO" FromRole="CODIGO_REGIME_TRIBUTARIO" ToRole="FILIAL" />
+          <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO" FromRole="CODIGO_REGIME_TRIBUTARIO" ToRole="MATRIZ" />
+        </EntityType>
+        <Association Name="FK_FILIAL_CODIGO_REGIME_TRIBUTARIO">
+          <End Type="SystemBRDatabaseModel.CODIGO_REGIME_TRIBUTARIO" Role="CODIGO_REGIME_TRIBUTARIO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.FILIAL" Role="FILIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CODIGO_REGIME_TRIBUTARIO">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Principal>
+            <Dependent Role="FILIAL">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO">
+          <End Type="SystemBRDatabaseModel.CODIGO_REGIME_TRIBUTARIO" Role="CODIGO_REGIME_TRIBUTARIO" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.MATRIZ" Role="MATRIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CODIGO_REGIME_TRIBUTARIO">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Principal>
+            <Dependent Role="MATRIZ">
+              <PropertyRef Name="CRTR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FILIAL_TIPO_PESSOA">
+          <End Type="SystemBRDatabaseModel.TIPO_PESSOA" Role="TIPO_PESSOA" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.FILIAL" Role="FILIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PESSOA">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Principal>
+            <Dependent Role="FILIAL">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATRIZ_TIPO_PESSOA">
+          <End Type="SystemBRDatabaseModel.TIPO_PESSOA" Role="TIPO_PESSOA" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.MATRIZ" Role="MATRIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PESSOA">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Principal>
+            <Dependent Role="MATRIZ">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CONTA_BANCARIA_CONTATO">
+          <Key>
+            <PropertyRef Name="CBCT_CD_ID" />
+          </Key>
+          <Property Name="CBCT_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COBA_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="CBCT_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CBCT_NM_EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CBCT_NM_CARGO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CBCT_NR_TELEFONES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CBCT_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONTA_BANCARIA" Relationship="SystemBRDatabaseModel.FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA" FromRole="CONTA_BANCARIA_CONTATO" ToRole="CONTA_BANCARIA" />
+        </EntityType>
+        <Association Name="FK_BANCO_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.BANCO" Role="BANCO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="BANCO">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTA_BANCARIA_ASSINANTE">
+          <End Type="SystemBRDatabaseModel.ASSINANTE" Role="ASSINANTE" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CONTA_BANCARIA" Role="CONTA_BANCARIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ASSINANTE">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTA_BANCARIA">
+              <PropertyRef Name="ASSI_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA">
+          <End Type="SystemBRDatabaseModel.CONTA_BANCARIA" Role="CONTA_BANCARIA" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.CONTA_BANCARIA_CONTATO" Role="CONTA_BANCARIA_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTA_BANCARIA">
+              <PropertyRef Name="COBA_CD_ID" />
+            </Principal>
+            <Dependent Role="CONTA_BANCARIA_CONTATO">
+              <PropertyRef Name="COBA_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12046,6 +12364,15 @@
           <EntitySetMapping Name="FILIAL">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.FILIAL">
               <MappingFragment StoreEntitySet="FILIAL">
+                <ScalarProperty Name="FILI_AQ_LOGOTIPO" ColumnName="FILI_AQ_LOGOTIPO" />
+                <ScalarProperty Name="FILI_NR_CELULAR" ColumnName="FILI_NR_CELULAR" />
+                <ScalarProperty Name="FILI_NM_WEBSITE" ColumnName="FILI_NM_WEBSITE" />
+                <ScalarProperty Name="FILI_NR_CNAE" ColumnName="FILI_NR_CNAE" />
+                <ScalarProperty Name="FILI_IN_IE_ISENTO" ColumnName="FILI_IN_IE_ISENTO" />
+                <ScalarProperty Name="FILI_NR_INSCRICAO_MUNICIPAL" ColumnName="FILI_NR_INSCRICAO_MUNICIPAL" />
+                <ScalarProperty Name="FILI_NR_INSCRICAO_ESTADUAL" ColumnName="FILI_NR_INSCRICAO_ESTADUAL" />
+                <ScalarProperty Name="CRTR_CD_ID" ColumnName="CRTR_CD_ID" />
+                <ScalarProperty Name="TIPE_CD_ID" ColumnName="TIPE_CD_ID" />
                 <ScalarProperty Name="FILI_CD_ID" ColumnName="FILI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
                 <ScalarProperty Name="FILI_NM_NOME" ColumnName="FILI_NM_NOME" />
@@ -12317,6 +12644,15 @@
           <EntitySetMapping Name="MATRIZ">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.MATRIZ">
               <MappingFragment StoreEntitySet="MATRIZ">
+                <ScalarProperty Name="MATR_AQ_LOGOTIPO" ColumnName="MATR_AQ_LOGOTIPO" />
+                <ScalarProperty Name="MATR_NR_CELULAR" ColumnName="MATR_NR_CELULAR" />
+                <ScalarProperty Name="MATR_NM_WEBSITE" ColumnName="MATR_NM_WEBSITE" />
+                <ScalarProperty Name="MATR_NR_CNAE" ColumnName="MATR_NR_CNAE" />
+                <ScalarProperty Name="MATR_IN_IE_ISENTO" ColumnName="MATR_IN_IE_ISENTO" />
+                <ScalarProperty Name="MATR_NR_INSCRICAO_MUNICIPAL" ColumnName="MATR_NR_INSCRICAO_MUNICIPAL" />
+                <ScalarProperty Name="MATR_NR_INSCRICAO_ESTADUAL" ColumnName="MATR_NR_INSCRICAO_ESTADUAL" />
+                <ScalarProperty Name="CRTR_CD_ID" ColumnName="CRTR_CD_ID" />
+                <ScalarProperty Name="TIPE_CD_ID" ColumnName="TIPE_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_NM_NOME" ColumnName="MATR_NM_NOME" />
@@ -13186,6 +13522,28 @@
                 <ScalarProperty Name="USUA_CD_ID" ColumnName="USUA_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="NOTI_CD_ID" ColumnName="NOTI_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CODIGO_REGIME_TRIBUTARIO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CODIGO_REGIME_TRIBUTARIO">
+              <MappingFragment StoreEntitySet="CODIGO_REGIME_TRIBUTARIO">
+                <ScalarProperty Name="CRTR_NM_NOME" ColumnName="CRTR_NM_NOME" />
+                <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
+                <ScalarProperty Name="CRTR_CD_ID" ColumnName="CRTR_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTA_BANCARIA_CONTATO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.CONTA_BANCARIA_CONTATO">
+              <MappingFragment StoreEntitySet="CONTA_BANCARIA_CONTATO">
+                <ScalarProperty Name="CBCT_IN_ATIVO" ColumnName="CBCT_IN_ATIVO" />
+                <ScalarProperty Name="CBCT_NR_TELEFONES" ColumnName="CBCT_NR_TELEFONES" />
+                <ScalarProperty Name="CBCT_NM_CARGO" ColumnName="CBCT_NM_CARGO" />
+                <ScalarProperty Name="CBCT_NM_EMAIL" ColumnName="CBCT_NM_EMAIL" />
+                <ScalarProperty Name="CBCT_NM_NOME" ColumnName="CBCT_NM_NOME" />
+                <ScalarProperty Name="COBA_CD_ID" ColumnName="COBA_CD_ID" />
+                <ScalarProperty Name="CBCT_CD_ID" ColumnName="CBCT_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

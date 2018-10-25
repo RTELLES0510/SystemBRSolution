@@ -12,22 +12,19 @@ namespace EntitiesServices.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class TIPO_PESSOA
+    public partial class CODIGO_REGIME_TRIBUTARIO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TIPO_PESSOA()
+        public CODIGO_REGIME_TRIBUTARIO()
         {
-            this.CLIENTE = new HashSet<CLIENTE>();
             this.FILIAL = new HashSet<FILIAL>();
             this.MATRIZ = new HashSet<MATRIZ>();
         }
     
-        public int TIPE_CD_ID { get; set; }
+        public int CRTR_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
-        public string TIPE_NM_NOME { get; set; }
+        public string CRTR_NM_NOME { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FILIAL> FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

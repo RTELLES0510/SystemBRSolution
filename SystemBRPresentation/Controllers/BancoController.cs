@@ -392,6 +392,7 @@ namespace SystemBRPresentation.Controllers
             // Prepara view
             CONTA_BANCARIA item = contaApp.GetItemById(id);
             objContaAntes = item;
+            SessionMocks.idVolta = id;
             ContaBancariaViewModel vm = Mapper.Map<CONTA_BANCARIA, ContaBancariaViewModel>(item);
             return View(vm); 
         }
@@ -515,6 +516,105 @@ namespace SystemBRPresentation.Controllers
             listaMasterConta = new List<CONTA_BANCARIA>();
             SessionMocks.listaContaBancaria = null;
             return RedirectToAction("Editar", new { id = SessionMocks.banco.BANC_CD_ID });
+        }
+
+        [HttpGet]
+        public ActionResult EditarContato(Int32 id)
+        {
+            // Prepara view
+            CONTA_BANCARIA_CONTATO item = contaApp.GetContatoById(id);
+            ContaBancariaContatoViewModel vm = Mapper.Map<CONTA_BANCARIA_CONTATO, ContaBancariaContatoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarContato(ContaBancariaContatoViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    CONTA_BANCARIA_CONTATO item = Mapper.Map<ContaBancariaContatoViewModel, CONTA_BANCARIA_CONTATO>(vm);
+                    Int32 volta = contaApp.ValidateEditContato(item);
+
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoConta");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirContato(Int32 id)
+        {
+            CONTA_BANCARIA_CONTATO item = contaApp.GetContatoById(id);
+            item.CBCT_IN_ATIVO = 0;
+            Int32 volta = contaApp.ValidateEditContato(item);
+            return RedirectToAction("VoltarAnexoConta");
+        }
+
+        [HttpGet]
+        public ActionResult ReativarContato(Int32 id)
+        {
+            CONTA_BANCARIA_CONTATO item = contaApp.GetContatoById(id);
+            item.CBCT_IN_ATIVO = 1;
+            Int32 volta = contaApp.ValidateEditContato(item);
+            return RedirectToAction("VoltarAnexoConta");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirContato()
+        {
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            CONTA_BANCARIA_CONTATO item = new CONTA_BANCARIA_CONTATO();
+            ContaBancariaContatoViewModel vm = Mapper.Map<CONTA_BANCARIA_CONTATO, ContaBancariaContatoViewModel>(item);
+            vm.COBA_CD_ID = SessionMocks.idVolta;
+            vm.CBCT_IN_ATIVO = 1;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirContato(ContaBancariaContatoViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    CONTA_BANCARIA_CONTATO item = Mapper.Map<ContaBancariaContatoViewModel, CONTA_BANCARIA_CONTATO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = contaApp.ValidateCreateContato(item);
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoConta");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        public ActionResult VoltarAnexoConta()
+        {
+            return RedirectToAction("EditarConta", new { id = SessionMocks.idVolta });
         }
 
         [HttpGet]

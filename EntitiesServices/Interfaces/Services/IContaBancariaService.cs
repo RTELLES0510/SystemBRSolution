@@ -20,5 +20,8 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<CONTA_BANCARIA> GetAllItens();
         List<CONTA_BANCARIA> GetAllItensAdm();
         List<TIPO_CONTA> GetAllTipos();
+        CONTA_BANCARIA_CONTATO GetContatoById(Int32 id);
+        Int32 EditContato(CONTA_BANCARIA_CONTATO item);
+        Int32 CreateContato(CONTA_BANCARIA_CONTATO item);
     }
 }

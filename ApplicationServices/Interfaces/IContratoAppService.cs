@@ -39,5 +39,6 @@ namespace ApplicationServices.Interfaces
         Int32 EmitirAprovacaoContrato(CONTRATO item, USUARIO usuario);
         Int32 CancelarContrato(CONTRATO item, USUARIO usuario);
         Int32 ValidateRespostaAprovacao(CONTRATO item, CONTRATO itemAntes, CONTRATO_SOLICITACAO_APROVACAO resposta, USUARIO usuario);
+        Int32 LembrarAprovacaoContrato(CONTRATO item, USUARIO usuario);
     }
 }

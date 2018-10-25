@@ -43,9 +43,25 @@ namespace SystemBRPresentation.ViewModels
         public string MATR_NR_CEP { get; set; }
         public System.DateTime MATR_DT_CADASTRO { get; set; }
         public int MATR_IN_ATIVO { get; set; }
-    
+        public Nullable<int> TIPE_CD_ID { get; set; }
+        public Nullable<int> CRTR_CD_ID { get; set; }
+        [StringLength(50, ErrorMessage = "A INSCRIÇÃO ESTADUAL deve conter no máximo 50.")]
+        public string MATR_NR_INSCRICAO_ESTADUAL { get; set; }
+        [StringLength(50, ErrorMessage = "A INSCRIÇÃO MUNICIAPAL deve conter no máximo 50.")]
+        public string MATR_NR_INSCRICAO_MUNICIPAL { get; set; }
+        public Nullable<int> MATR_IN_IE_ISENTO { get; set; }
+        [StringLength(50, ErrorMessage = "O CNAE deve conter no máximo 50.")]
+        public string MATR_NR_CNAE { get; set; }
+        [StringLength(100, ErrorMessage = "O WEBSITE deve conter no máximo 100.")]
+        public string MATR_NM_WEBSITE { get; set; }
+        [StringLength(50, ErrorMessage = "O CELURAR deve conter no máximo 50.")]
+        public string MATR_NR_CELULAR { get; set; }
+        [StringLength(250, ErrorMessage = "O LOGOTIPO deve conter no máximo 250.")]
+        public string MATR_AQ_LOGOTIPO { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AGENDA> AGENDA { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -54,8 +70,6 @@ namespace SystemBRPresentation.ViewModels
         public virtual ICollection<CONTA_PAGAR> CONTA_PAGAR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_RECEBER> CONTA_RECEBER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EQUIPAMENTO> EQUIPAMENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -100,6 +114,9 @@ namespace SystemBRPresentation.ViewModels
         public virtual ICollection<TRANSPORTADORA> TRANSPORTADORA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CONTRATO> CONTRATO { get; set; }
+        public virtual CODIGO_REGIME_TRIBUTARIO CODIGO_REGIME_TRIBUTARIO { get; set; }
+        public virtual TIPO_PESSOA TIPO_PESSOA { get; set; }
     }
 }

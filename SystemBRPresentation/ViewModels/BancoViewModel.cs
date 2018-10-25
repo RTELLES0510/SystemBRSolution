@@ -22,6 +22,7 @@ namespace SystemBRPresentation.ViewModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_BANCARIA> CONTA_BANCARIA { get; set; }
+        public virtual ASSINANTE ASSINANTE { get; set; }
 
     }
 }

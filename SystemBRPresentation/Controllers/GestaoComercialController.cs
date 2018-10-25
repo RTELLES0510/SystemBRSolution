@@ -679,5 +679,16 @@ namespace SystemBRPresentation.Controllers
             vm.CTSA_NM_STATUS = vm.CTSA_IN_STATUS == 1 ? "Aprovado" : "Não Aprovado";
             return View(vm);
         }
+
+        public ActionResult LembrarAprovacaoContrato()
+        {
+            // Prepara view
+            CONTRATO item = baseApp.GetItemById(SessionMocks.idVolta);
+            objetoContratoAntes = item;
+            USUARIO usuarioLogado = SessionMocks.UserCredentials;
+            Int32 volta = baseApp.LembrarAprovacaoContrato(item, usuarioLogado);
+            return RedirectToAction("VoltarWorkflowContrato");
+        }
+
     }
 }

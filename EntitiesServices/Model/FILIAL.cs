@@ -60,6 +60,15 @@ namespace EntitiesServices.Model
         public string FILI_NR_CEP { get; set; }
         public System.DateTime FILI_DT_CADASTRO { get; set; }
         public int FILI_IN_ATIVO { get; set; }
+        public Nullable<int> TIPE_CD_ID { get; set; }
+        public Nullable<int> CRTR_CD_ID { get; set; }
+        public string FILI_NR_INSCRICAO_ESTADUAL { get; set; }
+        public string FILI_NR_INSCRICAO_MUNICIPAL { get; set; }
+        public Nullable<int> FILI_IN_IE_ISENTO { get; set; }
+        public string FILI_NR_CNAE { get; set; }
+        public string FILI_NM_WEBSITE { get; set; }
+        public string FILI_NR_CELULAR { get; set; }
+        public string FILI_AQ_LOGOTIPO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AGENDA> AGENDA { get; set; }
@@ -114,5 +123,7 @@ namespace EntitiesServices.Model
         public virtual ICollection<TRANSPORTADORA> TRANSPORTADORA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VALOR_COMISSAO> VALOR_COMISSAO { get; set; }
+        public virtual CODIGO_REGIME_TRIBUTARIO CODIGO_REGIME_TRIBUTARIO { get; set; }
+        public virtual TIPO_PESSOA TIPO_PESSOA { get; set; }
     }
 }

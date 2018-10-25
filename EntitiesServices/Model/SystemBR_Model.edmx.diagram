@@ -351,6 +351,15 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTIFICACAO_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTIFICACAO_CATEGORIA_NOTIFICACAO" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTIFICACAO_USUARIO" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CODIGO_REGIME_TRIBUTARIO" Width="1.5" PointX="5.375" PointY="0.875" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FILIAL_CODIGO_REGIME_TRIBUTARIO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FILIAL_TIPO_PESSOA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATRIZ_TIPO_PESSOA" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.CONTA_BANCARIA_CONTATO" Width="1.5" PointX="34" PointY="121.375" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_BANCO_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

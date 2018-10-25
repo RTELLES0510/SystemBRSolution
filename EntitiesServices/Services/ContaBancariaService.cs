@@ -21,14 +21,15 @@ namespace ModelServices.EntitiesServices
         private readonly IContaBancariaRepository _baseRepository;
         private readonly ILogRepository _logRepository;
         private readonly ITipoContaRepository _tipoRepository;
+        private readonly IContaBancariaContatoRepository _contRepository;
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public ContaBancariaService(IContaBancariaRepository baseRepository, ILogRepository logRepository, ITipoContaRepository tipoRepository) : base(baseRepository)
+        public ContaBancariaService(IContaBancariaRepository baseRepository, ILogRepository logRepository, ITipoContaRepository tipoRepository, IContaBancariaContatoRepository contRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
             _tipoRepository = tipoRepository;
-
+            _contRepository = contRepository;
         }
 
         public CONTA_BANCARIA CheckExist(CONTA_BANCARIA conta)
@@ -52,6 +53,12 @@ namespace ModelServices.EntitiesServices
         {
             return _baseRepository.GetAllItensAdm();
         }
+
+        public CONTA_BANCARIA_CONTATO GetContatoById(Int32 id)
+        {
+            return _contRepository.GetItemById(id);
+        }
+
 
         public List<TIPO_CONTA> GetAllTipos()
         {
@@ -145,6 +152,44 @@ namespace ModelServices.EntitiesServices
                 {
                     _logRepository.Add(log);
                     _baseRepository.Remove(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 EditContato(CONTA_BANCARIA_CONTATO item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    CONTA_BANCARIA_CONTATO obj = _contRepository.GetById(item.CBCT_CD_ID);
+                    _contRepository.Detach(obj);
+                    _contRepository.Update(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 CreateContato(CONTA_BANCARIA_CONTATO item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    _contRepository.Add(item);
                     transaction.Commit();
                     return 0;
                 }
