@@ -24,8 +24,6 @@ namespace SystemBRPresentation.ViewModels
         public string CBCT_NM_EMAIL { get; set; }
         [StringLength(50, ErrorMessage = "O TELEFONE deve conter no máximo 50.")]
         public string CBCT_NR_TELEFONES { get; set; }
-        [StringLength(50, ErrorMessage = "AS OBSERVAÇÕES deve conter no máximo 500.")]
-        public string CLCO_DS_OBSERVACOES { get; set; }
         public int CBCT_IN_ATIVO { get; set; }
 
         public virtual CONTA_BANCARIA CONTA_BANCARIA { get; set; }

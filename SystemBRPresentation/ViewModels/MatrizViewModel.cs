@@ -19,7 +19,6 @@ namespace SystemBRPresentation.ViewModels
         public string MATR_NM_NOME { get; set; }
         [StringLength(50, ErrorMessage = "A RAZÃO SOCIAL deve conter no máximo 50.")]
         public string MATR_NM_RAZAO { get; set; }
-        [Required(ErrorMessage = "Campo CNPJ obrigatorio")]
         [StringLength(20, MinimumLength = 14, ErrorMessage = "O CNPJ deve conter no minimo 14 caracteres e no máximo 20.")]
         [CustomValidationCNPJ(ErrorMessage = "CNPJ inválido")]
         public string MATR_NR_CNPJ { get; set; }
@@ -58,6 +57,11 @@ namespace SystemBRPresentation.ViewModels
         public string MATR_NR_CELULAR { get; set; }
         [StringLength(250, ErrorMessage = "O LOGOTIPO deve conter no máximo 250.")]
         public string MATR_AQ_LOGOTIPO { get; set; }
+        [StringLength(50, ErrorMessage = "O RG deve conter no máximo 50.")]
+        public string MATR_NR_RG { get; set; }
+        [StringLength(20, MinimumLength = 14, ErrorMessage = "O CPF deve conter no minimo 14 caracteres e no máximo 20.")]
+        [CustomValidationCPF(ErrorMessage = "CPF inválido")]
+        public string MATR_NR_CPF { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AGENDA> AGENDA { get; set; }

@@ -25,6 +25,7 @@ namespace SystemBRPresentation.Controllers
         private readonly IValorComissaoAppService comissaoApp;
         private String msg;
         private Exception exception;
+        String extensao = String.Empty;
         BANCO objeto = new BANCO();
         BANCO objetoAntes = new BANCO();
         List<BANCO> listaMaster = new List<BANCO>();
@@ -191,9 +192,11 @@ namespace SystemBRPresentation.Controllers
                     }
 
                     // Sucesso
+                    SessionMocks.banco = item;
                     listaMaster = new List<BANCO>();
                     SessionMocks.listaBanco = null;
-                    return RedirectToAction("MontarTelaBanco");
+                    SessionMocks.voltaConta = 1;
+                    return RedirectToAction("IncluirConta");
                 }
                 catch (Exception ex)
                 {
@@ -213,6 +216,7 @@ namespace SystemBRPresentation.Controllers
             // Prepara view
             BANCO item = baseApp.GetItemById(id);
             objetoAntes = item;
+            SessionMocks.idBanco = id;
             SessionMocks.banco = item;
             BancoViewModel vm = Mapper.Map<BANCO, BancoViewModel>(item);
             return View(vm);
@@ -337,7 +341,6 @@ namespace SystemBRPresentation.Controllers
             CONTA_BANCARIA item = new CONTA_BANCARIA();
             ContaBancariaViewModel vm = Mapper.Map<CONTA_BANCARIA, ContaBancariaViewModel>(item);
             vm.ASSI_CD_ID = usuario.ASSI_CD_ID;
-            //vm.ASSI_CD_ID = 2;
             vm.BANC_CD_ID = SessionMocks.banco.BANC_CD_ID;
             vm.COBA_DT_ABERTURA = DateTime.Today;
             vm.COBA_VL_SALDO_INICIAL = 0;
@@ -617,6 +620,11 @@ namespace SystemBRPresentation.Controllers
             return RedirectToAction("EditarConta", new { id = SessionMocks.idVolta });
         }
 
+        public ActionResult VoltarAnexoBanco()
+        {
+            return RedirectToAction("Editar", new { id = SessionMocks.idBanco });
+        }
+
         [HttpGet]
         public ActionResult MontarTelaMatriz()
         {
@@ -644,10 +652,13 @@ namespace SystemBRPresentation.Controllers
                 SessionMocks.Matriz = objMatriz;
             }
             ViewBag.Title = "Matriz";
+            ViewBag.TipoPessoa = new SelectList(matrizApp.GetAllTipoPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+            SessionMocks.idVolta = objMatriz.MATR_CD_ID;
 
             // Abre view
             MatrizViewModel vm = Mapper.Map<MATRIZ, MatrizViewModel>(SessionMocks.Matriz);
             objMatrizAntes = SessionMocks.Matriz;
+            ViewBag.TP = vm.TIPE_CD_ID;
             return View(vm);
         }
 
@@ -687,13 +698,13 @@ namespace SystemBRPresentation.Controllers
         public ActionResult IncluirFilial()
         {
             // Prepara listas
+            ViewBag.TipoPessoa = new SelectList(matrizApp.GetAllTipoPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
 
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
             FILIAL item = new FILIAL();
             FilialViewModel vm = Mapper.Map<FILIAL, FilialViewModel>(item);
             vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
-            //vm.ASSI_CD_ID = 2;
             vm.FILI_IN_ATIVO = 1;
             vm.FILI_DT_CADASTRO = DateTime.Today;
             return View(vm);
@@ -703,6 +714,7 @@ namespace SystemBRPresentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IncluirFilial(FilialViewModel vm)
         {
+            ViewBag.TipoPessoa = new SelectList(matrizApp.GetAllTipoPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -718,6 +730,14 @@ namespace SystemBRPresentation.Controllers
                         ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0016", CultureInfo.CurrentCulture);
                         return View(vm);
                     }
+
+                    // Carrega logo e processa alteracao
+                    item.FILI_AQ_LOGOTIPO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = filialApp.ValidateEdit(item, item, usuarioLogado);
+
+                    // Cria pastas
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Filial/" + item.FILI_CD_ID.ToString() + "/Logo/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
 
                     // Sucesso
                     objMatriz = new MATRIZ();
@@ -740,11 +760,13 @@ namespace SystemBRPresentation.Controllers
         public ActionResult EditarFilial(Int32 id)
         {
             // Prepara listas
-            
+            ViewBag.TipoPessoa = new SelectList(matrizApp.GetAllTipoPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
+
             // Prepara view
             FILIAL item = filialApp.GetItemById(id);
             objFilialAntes = item;
             FilialViewModel vm = Mapper.Map<FILIAL, FilialViewModel>(item);
+            SessionMocks.idVolta = id;
             return View(vm); 
         }
 
@@ -752,6 +774,7 @@ namespace SystemBRPresentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditarFilial(FilialViewModel vm)
         {
+            ViewBag.TipoPessoa = new SelectList(matrizApp.GetAllTipoPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -1388,6 +1411,54 @@ namespace SystemBRPresentation.Controllers
                 ViewBag.Message = ex.Message;
                 return View(objeto);
             }
+        }
+
+        [HttpPost]
+        public ActionResult UploadLogoMatriz(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            MATRIZ item = matrizApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Matriz/" + item.MATR_CD_ID.ToString() + "/Logo/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            item.MATR_AQ_LOGOTIPO = "~" + caminho + fileName;
+            objMatrizAntes = item;
+            Int32 volta = matrizApp.ValidateEdit(item, objMatrizAntes, usu);
+            return RedirectToAction("MontarTelaMatriz");
+        }
+
+        [HttpPost]
+        public ActionResult UploadLogoFilial(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            FILIAL item = filialApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Filial/" + item.FILI_CD_ID.ToString() + "/Logo/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            item.FILI_AQ_LOGOTIPO = "~" + caminho + fileName;
+            objFilialAntes = item;
+            Int32 volta = filialApp.ValidateEdit(item, objFilialAntes, usu);
+            return RedirectToAction("EditarFilial", new { id = SessionMocks.idVolta });
         }
     }
 }

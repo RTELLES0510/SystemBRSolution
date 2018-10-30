@@ -45,6 +45,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ACBr.Net.Consulta, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.Consulta.1.0.1.0\lib\net40\ACBr.Net.Consulta.dll</HintPath>
+    </Reference>
+    <Reference Include="ACBr.Net.Core, Version=1.2.3.0, Culture=neutral, PublicKeyToken=d3bb9130f8b775a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.Core.1.2.3\lib\net452\ACBr.Net.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ACBr.Net.DFe.Core, Version=1.2.3.1, Culture=neutral, PublicKeyToken=d3bb9130f8b775a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.DFe.Core.1.2.3.1\lib\net452\ACBr.Net.DFe.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ACBr.Net.Integrador, Version=1.0.2.1, Culture=neutral, PublicKeyToken=d3bb9130f8b775a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.Integrador.1.0.2.1\lib\net452\ACBr.Net.Integrador.dll</HintPath>
+    </Reference>
+    <Reference Include="ACBr.Net.Sat, Version=1.2.1.1, Culture=neutral, PublicKeyToken=d3bb9130f8b775a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\ACBr.Net.Sat.1.2.1.1\lib\net452\ACBr.Net.Sat.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
@@ -74,9 +89,25 @@
       <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.5.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -567,8 +598,13 @@
     <Content Include="Imagens\2\Clientes\7\Fotos\a1.jpg" />
     <Content Include="Imagens\2\Equipamento\1\Anexos\IMG-20180108-WA0015.jpg" />
     <Content Include="Imagens\2\Equipamento\1\Fotos\19510399_1932133873700401_942801202603797565_n.jpg" />
+    <Content Include="Imagens\2\Filial\10\Logo\1.jpg" />
+    <Content Include="Imagens\2\Filial\11\Logo\1.jpg" />
+    <Content Include="Imagens\2\Filial\5\Logo\1.jpg" />
+    <Content Include="Imagens\2\Filial\7\Logo\1.jpg" />
     <Content Include="Imagens\2\Fornecedores\1\Anexos\19510399_1932133873700401_942801202603797565_n.jpg" />
     <Content Include="Imagens\2\Fornecedores\1\Fotos\a7.jpg" />
+    <Content Include="Imagens\2\Matriz\1\Logo\1.jpg" />
     <Content Include="Imagens\2\Patrimonio\1\Anexos\FB_IMG_1535866542751.jpg" />
     <Content Include="Imagens\2\Patrimonio\1\Fotos\20180922_125233.jpg" />
     <Content Include="Imagens\2\Produtos\3\Anexos\IMG-20180108-WA0018.jpg" />
@@ -2041,7 +2077,6 @@
     <Content Include="Views\Banco\IncluirFilial.cshtml" />
     <Content Include="Views\Banco\EditarFilial.cshtml" />
     <Content Include="Views\Banco\ExcluirFilial.cshtml" />
-    <Content Include="Views\Banco\ReativarFilial.cshtml" />
     <Content Include="Views\Cadastros\Index.cshtml" />
     <Content Include="Views\Cadastros\MontarTelaCliente.cshtml" />
     <Content Include="Views\Cadastros\IncluirClienteold.cshtml" />
@@ -2139,6 +2174,7 @@
     <Content Include="Views\GestaoComercial\VerRetornoAprovacaoContrato.cshtml" />
     <Content Include="Views\Banco\EditarContato.cshtml" />
     <Content Include="Views\Banco\IncluirContato.cshtml" />
+    <Content Include="Views\Banco\ReativarFilial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2233,7 +2269,9 @@
       <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
   </Target>
+  <Import Project="..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

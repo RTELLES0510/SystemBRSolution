@@ -71,6 +71,8 @@ namespace EntitiesServices.Model
         public string MATR_NM_WEBSITE { get; set; }
         public string MATR_NR_CELULAR { get; set; }
         public string MATR_AQ_LOGOTIPO { get; set; }
+        public string MATR_NR_RG { get; set; }
+        public string MATR_NR_CPF { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AGENDA> AGENDA { get; set; }

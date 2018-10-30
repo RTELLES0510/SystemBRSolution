@@ -83,20 +83,20 @@ namespace ApplicationServices.Services
         {
             try
             {
-                // Monta Log
-                LOG log = new LOG
-                {
-                    LOG_DT_DATA = DateTime.Now,
-                    USUA_CD_ID = usuario.USUA_CD_ID,
-                    ASSI_CD_ID = SessionMocks.IdAssinante,
-                    LOG_NM_OPERACAO = "EditFILI",
-                    LOG_IN_ATIVO = 1,
-                    LOG_TX_REGISTRO = Serialization.SerializeJSON<FILIAL>(item),
-                    LOG_TX_REGISTRO_ANTES = Serialization.SerializeJSON<FILIAL>(itemAntes)
-                };
+                //// Monta Log
+                //LOG log = new LOG
+                //{
+                //    LOG_DT_DATA = DateTime.Now,
+                //    USUA_CD_ID = usuario.USUA_CD_ID,
+                //    ASSI_CD_ID = SessionMocks.IdAssinante,
+                //    LOG_NM_OPERACAO = "EditFILI",
+                //    LOG_IN_ATIVO = 1,
+                //    LOG_TX_REGISTRO = Serialization.SerializeJSON<FILIAL>(item),
+                //    LOG_TX_REGISTRO_ANTES = Serialization.SerializeJSON<FILIAL>(itemAntes)
+                //};
 
                 // Persiste
-                return _baseService.Edit(item, log);
+                return _baseService.Edit(item);
             }
             catch (Exception ex)
             {

@@ -18,5 +18,6 @@ namespace ModelServices.Interfaces.EntitiesServices
         MATRIZ GetItemById(Int32 id);
         List<MATRIZ> GetAllItens();
         List<MATRIZ> GetAllItensAdm();
+        List<TIPO_PESSOA> GetAllTipoPessoa();
     }
 }

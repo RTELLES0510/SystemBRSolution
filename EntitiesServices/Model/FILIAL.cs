@@ -69,6 +69,8 @@ namespace EntitiesServices.Model
         public string FILI_NM_WEBSITE { get; set; }
         public string FILI_NR_CELULAR { get; set; }
         public string FILI_AQ_LOGOTIPO { get; set; }
+        public string FILI_NR_CPF { get; set; }
+        public string FILI_NR_RG { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AGENDA> AGENDA { get; set; }

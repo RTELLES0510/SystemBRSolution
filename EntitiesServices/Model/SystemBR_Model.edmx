@@ -279,7 +279,7 @@
           </Key>
           <Property Name="CRTR_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ASSI_CD_ID" Type="int" Nullable="false" />
-          <Property Name="CRTR_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CRTR_NM_NOME" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="COLABORADOR">
           <Key>
@@ -738,6 +738,8 @@
           <Property Name="FILI_NM_WEBSITE" Type="varchar" MaxLength="100" />
           <Property Name="FILI_NR_CELULAR" Type="varchar" MaxLength="50" />
           <Property Name="FILI_AQ_LOGOTIPO" Type="varchar" MaxLength="250" />
+          <Property Name="FILI_NR_CPF" Type="varchar" MaxLength="20" />
+          <Property Name="FILI_NR_RG" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FORMA_PAGAMENTO">
           <Key>
@@ -1000,6 +1002,8 @@
           <Property Name="MATR_NM_WEBSITE" Type="varchar" MaxLength="100" />
           <Property Name="MATR_NR_CELULAR" Type="varchar" MaxLength="50" />
           <Property Name="MATR_AQ_LOGOTIPO" Type="varchar" MaxLength="200" />
+          <Property Name="MATR_NR_RG" Type="varchar" MaxLength="50" />
+          <Property Name="MATR_NR_CPF" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA">
           <Key>
@@ -6489,6 +6493,8 @@
           <Property Name="FILI_AQ_LOGOTIPO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CODIGO_REGIME_TRIBUTARIO" Relationship="SystemBRDatabaseModel.FK_FILIAL_CODIGO_REGIME_TRIBUTARIO" FromRole="FILIAL" ToRole="CODIGO_REGIME_TRIBUTARIO" />
           <NavigationProperty Name="TIPO_PESSOA" Relationship="SystemBRDatabaseModel.FK_FILIAL_TIPO_PESSOA" FromRole="FILIAL" ToRole="TIPO_PESSOA" />
+          <Property Name="FILI_NR_CPF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FILI_NR_RG" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="FORMA_PAGAMENTO">
           <Key>
@@ -6834,6 +6840,8 @@
           <Property Name="MATR_AQ_LOGOTIPO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CODIGO_REGIME_TRIBUTARIO" Relationship="SystemBRDatabaseModel.FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO" FromRole="MATRIZ" ToRole="CODIGO_REGIME_TRIBUTARIO" />
           <NavigationProperty Name="TIPO_PESSOA" Relationship="SystemBRDatabaseModel.FK_MATRIZ_TIPO_PESSOA" FromRole="MATRIZ" ToRole="TIPO_PESSOA" />
+          <Property Name="MATR_NR_RG" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATR_NR_CPF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MOVIMENTO_ESTOQUE_MATERIA_PRIMA">
           <Key>
@@ -11560,7 +11568,7 @@
           </Key>
           <Property Name="CRTR_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ASSI_CD_ID" Type="Int32" Nullable="false" />
-          <Property Name="CRTR_NM_NOME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CRTR_NM_NOME" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="FILIAL" Relationship="SystemBRDatabaseModel.FK_FILIAL_CODIGO_REGIME_TRIBUTARIO" FromRole="CODIGO_REGIME_TRIBUTARIO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_MATRIZ_CODIGO_REGIME_TRIBUTARIO" FromRole="CODIGO_REGIME_TRIBUTARIO" ToRole="MATRIZ" />
         </EntityType>
@@ -12364,6 +12372,8 @@
           <EntitySetMapping Name="FILIAL">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.FILIAL">
               <MappingFragment StoreEntitySet="FILIAL">
+                <ScalarProperty Name="FILI_NR_RG" ColumnName="FILI_NR_RG" />
+                <ScalarProperty Name="FILI_NR_CPF" ColumnName="FILI_NR_CPF" />
                 <ScalarProperty Name="FILI_AQ_LOGOTIPO" ColumnName="FILI_AQ_LOGOTIPO" />
                 <ScalarProperty Name="FILI_NR_CELULAR" ColumnName="FILI_NR_CELULAR" />
                 <ScalarProperty Name="FILI_NM_WEBSITE" ColumnName="FILI_NM_WEBSITE" />
@@ -12644,6 +12654,8 @@
           <EntitySetMapping Name="MATRIZ">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.MATRIZ">
               <MappingFragment StoreEntitySet="MATRIZ">
+                <ScalarProperty Name="MATR_NR_CPF" ColumnName="MATR_NR_CPF" />
+                <ScalarProperty Name="MATR_NR_RG" ColumnName="MATR_NR_RG" />
                 <ScalarProperty Name="MATR_AQ_LOGOTIPO" ColumnName="MATR_AQ_LOGOTIPO" />
                 <ScalarProperty Name="MATR_NR_CELULAR" ColumnName="MATR_NR_CELULAR" />
                 <ScalarProperty Name="MATR_NM_WEBSITE" ColumnName="MATR_NM_WEBSITE" />

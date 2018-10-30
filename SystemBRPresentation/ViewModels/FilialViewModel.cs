@@ -58,6 +58,10 @@ namespace SystemBRPresentation.ViewModels
         public string FILI_NR_CELULAR { get; set; }
         [StringLength(250, ErrorMessage = "O LOGOTIPO deve conter no máximo 250.")]
         public string FILI_AQ_LOGOTIPO { get; set; }
+        [StringLength(20, ErrorMessage = "O CEP deve conter no máximo 20.")]
+        public string FILI_NR_CPF { get; set; }
+        [StringLength(50, ErrorMessage = "O RG deve conter no máximo 50.")]
+        public string FILI_NR_RG { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AGENDA> AGENDA { get; set; }

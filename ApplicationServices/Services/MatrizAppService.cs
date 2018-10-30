@@ -27,6 +27,12 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public List<TIPO_PESSOA> GetAllTipoPessoa()
+        {
+            List<TIPO_PESSOA> lista = _baseService.GetAllTipoPessoa();
+            return lista;
+        }
+
         public List<MATRIZ> GetAllItensAdm()
         {
             List<MATRIZ> lista = _baseService.GetAllItensAdm();
@@ -73,19 +79,19 @@ namespace ApplicationServices.Services
             try
             {
                 // Monta Log
-                LOG log = new LOG
-                {
-                    LOG_DT_DATA = DateTime.Now,
-                    USUA_CD_ID = usuario.USUA_CD_ID,
-                    ASSI_CD_ID = SessionMocks.IdAssinante,
-                    LOG_NM_OPERACAO = "EditMATR",
-                    LOG_IN_ATIVO = 1,
-                    LOG_TX_REGISTRO = Serialization.SerializeJSON<MATRIZ>(item),
-                    LOG_TX_REGISTRO_ANTES = Serialization.SerializeJSON<MATRIZ>(itemAntes)
-                };
+                //LOG log = new LOG
+                //{
+                //    LOG_DT_DATA = DateTime.Now,
+                //    USUA_CD_ID = usuario.USUA_CD_ID,
+                //    ASSI_CD_ID = SessionMocks.IdAssinante,
+                //    LOG_NM_OPERACAO = "EditMATR",
+                //    LOG_IN_ATIVO = 1,
+                //    LOG_TX_REGISTRO = Serialization.SerializeJSON<MATRIZ>(item),
+                //    LOG_TX_REGISTRO_ANTES = Serialization.SerializeJSON<MATRIZ>(itemAntes)
+                //};
 
                 // Persiste
-                return _baseService.Edit(item, log);
+                return _baseService.Edit(item);
             }
             catch (Exception ex)
             {

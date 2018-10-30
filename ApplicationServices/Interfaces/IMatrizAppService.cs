@@ -14,5 +14,6 @@ namespace ApplicationServices.Interfaces
         List<MATRIZ> GetAllItens();
         List<MATRIZ> GetAllItensAdm();
         MATRIZ GetItemById(Int32 id);
+        List<TIPO_PESSOA> GetAllTipoPessoa();
     }
 }

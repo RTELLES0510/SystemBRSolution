@@ -20,13 +20,14 @@ namespace ModelServices.EntitiesServices
     {
         private readonly IMatrizRepository _baseRepository;
         private readonly ILogRepository _logRepository;
+        private readonly ITipoPessoaRepository _pesRepository;
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public MatrizService(IMatrizRepository baseRepository, ILogRepository logRepository) : base(baseRepository)
+        public MatrizService(IMatrizRepository baseRepository, ILogRepository logRepository, ITipoPessoaRepository pesRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
-
+            _pesRepository = pesRepository;
         }
 
         public MATRIZ GetItemById(Int32 id)
@@ -38,6 +39,11 @@ namespace ModelServices.EntitiesServices
         public List<MATRIZ> GetAllItens()
         {
             return _baseRepository.GetAllItens();
+        }
+
+        public List<TIPO_PESSOA> GetAllTipoPessoa()
+        {
+            return _pesRepository.GetAllItens();
         }
 
         public List<MATRIZ> GetAllItensAdm()

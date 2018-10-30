@@ -20,6 +20,7 @@ namespace EntitiesServices.Work_Classes
         public static String voltaLogin { get; set; }
         public static String origem { get; set; }
         public static Int32 idVolta { get; set; }
+        public static Int32 idBanco { get; set; }
         public static String arquivo { get; set; }
         public static COLABORADOR Colaborador { get; set; }
         public static CONFIGURACAO Configuracao { get; set; }
@@ -75,5 +76,6 @@ namespace EntitiesServices.Work_Classes
         public static CONTRATO filtroContrato { get; set; }
         public static Int32 voltaContrato { get; set; }
         public static CONTRATO contrato { get; set; }
+        public static Int32 voltaConta { get; set; }
     }
 }
