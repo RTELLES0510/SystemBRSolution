@@ -4000,5 +4000,15 @@ namespace SystemBRPresentation.Controllers
                 return View(vm);
             }
         }
+
+        [HttpGet]
+        public ActionResult SlideShow()
+        {
+            // Prepara view
+            PRODUTO item = prodApp.GetItemById(SessionMocks.idVolta);
+            objetoProdAntes = item;
+            ProdutoViewModel vm = Mapper.Map<PRODUTO, ProdutoViewModel>(item);
+            return View(vm);
+        }
     }
 }

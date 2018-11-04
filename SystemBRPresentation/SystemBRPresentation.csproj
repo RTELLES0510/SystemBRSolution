@@ -2175,6 +2175,7 @@
     <Content Include="Views\Banco\EditarContato.cshtml" />
     <Content Include="Views\Banco\IncluirContato.cshtml" />
     <Content Include="Views\Banco\ReativarFilial.cshtml" />
+    <Content Include="Views\Cadastros\SlideShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
