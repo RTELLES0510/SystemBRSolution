@@ -929,6 +929,7 @@ namespace SystemBRPresentation.Controllers
             // Prepara listas
             ViewBag.Tipos = new SelectList(fornApp.GetAllTipos(), "CAFO_CD_ID", "CAFO_NM_NOME");
             ViewBag.Filiais = new SelectList(fornApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(fornApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
 
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
@@ -948,6 +949,7 @@ namespace SystemBRPresentation.Controllers
         {
             ViewBag.Tipos = new SelectList(fornApp.GetAllTipos(), "CAFO_CD_ID", "CAFO_NM_NOME");
             ViewBag.Filiais = new SelectList(fornApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(fornApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -1001,6 +1003,7 @@ namespace SystemBRPresentation.Controllers
             // Prepara view
             ViewBag.Tipos = new SelectList(fornApp.GetAllTipos(), "CAFO_CD_ID", "CAFO_NM_NOME");
             ViewBag.Filiais = new SelectList(fornApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(fornApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             FORNECEDOR item = fornApp.GetItemById(id);
             objetoFornAntes = item;
             SessionMocks.fornecedor = item;
@@ -1015,6 +1018,7 @@ namespace SystemBRPresentation.Controllers
         {
             ViewBag.Tipos = new SelectList(fornApp.GetAllTipos(), "CAFO_CD_ID", "CAFO_NM_NOME");
             ViewBag.Filiais = new SelectList(fornApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
+            ViewBag.TiposPessoa = new SelectList(fornApp.GetAllTiposPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -4009,6 +4013,113 @@ namespace SystemBRPresentation.Controllers
             objetoProdAntes = item;
             ProdutoViewModel vm = Mapper.Map<PRODUTO, ProdutoViewModel>(item);
             return View(vm);
+        }
+
+        [HttpGet]
+        public ActionResult SlideShowFornecedor()
+        {
+            // Prepara view
+            FORNECEDOR item = fornApp.GetItemById(SessionMocks.idVolta);
+            objetoFornAntes = item;
+            FornecedorViewModel vm = Mapper.Map<FORNECEDOR, FornecedorViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpGet]
+        public ActionResult EditarContatoFornecedor(Int32 id)
+        {
+            // Prepara view
+            FORNECEDOR_CONTATO item = fornApp.GetContatoById(id);
+            objetoAntes = SessionMocks.cliente;
+            FornecedorContatoViewModel vm = Mapper.Map<FORNECEDOR_CONTATO, FornecedorContatoViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarContatoFornecedor(FornecedorContatoViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    FORNECEDOR_CONTATO item = Mapper.Map<FornecedorContatoViewModel, FORNECEDOR_CONTATO>(vm);
+                    Int32 volta = fornApp.ValidateEditContato(item);
+
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoFornecedor");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ExcluirContatoFornecedor(Int32 id)
+        {
+            FORNECEDOR_CONTATO item = fornApp.GetContatoById(id);
+            objetoFornAntes = SessionMocks.fornecedor;
+            item.FOCO_IN_ATIVO = 0;
+            Int32 volta = fornApp.ValidateEditContato(item);
+            return RedirectToAction("VoltarAnexoFornecedor");
+        }
+
+        [HttpGet]
+        public ActionResult ReativarContatoFornecedor(Int32 id)
+        {
+            FORNECEDOR_CONTATO item = fornApp.GetContatoById(id);
+            objetoFornAntes = SessionMocks.fornecedor;
+            item.FOCO_IN_ATIVO = 1;
+            Int32 volta = fornApp.ValidateEditContato(item);
+            return RedirectToAction("VoltarAnexoFornecedor");
+        }
+
+        [HttpGet]
+        public ActionResult IncluirContatoFornecedor()
+        {
+            // Prepara view
+            USUARIO usuario = SessionMocks.UserCredentials;
+            FORNECEDOR_CONTATO item = new FORNECEDOR_CONTATO();
+            FornecedorContatoViewModel vm = Mapper.Map<FORNECEDOR_CONTATO, FornecedorContatoViewModel>(item);
+            vm.FORN_CD_ID = SessionMocks.idVolta;
+            vm.FOCO_IN_ATIVO = 1;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IncluirContatoFornecedor(FornecedorContatoViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Executa a operação
+                    FORNECEDOR_CONTATO item = Mapper.Map<FornecedorContatoViewModel, FORNECEDOR_CONTATO>(vm);
+                    USUARIO usuarioLogado = SessionMocks.UserCredentials;
+                    Int32 volta = fornApp.ValidateCreateContato(item);
+                    // Verifica retorno
+                    return RedirectToAction("VoltarAnexoFornecedor");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
+                }
+            }
+            else
+            {
+                return View(vm);
+            }
         }
     }
 }

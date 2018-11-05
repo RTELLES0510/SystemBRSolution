@@ -24,5 +24,9 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<FILIAL> GetAllFilial();
         FORNECEDOR_ANEXO GetAnexoById(Int32 id);
         List<FORNECEDOR> ExecuteFilter(Int32? catId, String nome, String cpf, String cnpj, String email, String cidade, String uf, String rede);
+        List<TIPO_PESSOA> GetAllTiposPessoa();
+        FORNECEDOR_CONTATO GetContatoById(Int32 id);
+        Int32 EditContato(FORNECEDOR_CONTATO item);
+        Int32 CreateContato(FORNECEDOR_CONTATO item);
     }
 }

@@ -23,5 +23,9 @@ namespace ApplicationServices.Interfaces
         List<FILIAL> GetAllFilial();
         FORNECEDOR_ANEXO GetAnexoById(Int32 id);
         Int32 ExecuteFilter(Int32? catId, String nome, String cpf, String cnpj, String email, String cidade, String uf, String rede, out List<FORNECEDOR> objeto);
+        List<TIPO_PESSOA> GetAllTiposPessoa();
+        FORNECEDOR_CONTATO GetContatoById(Int32 id);
+        Int32 ValidateEditContato(FORNECEDOR_CONTATO item);
+        Int32 ValidateCreateContato(FORNECEDOR_CONTATO item);
     }
 }

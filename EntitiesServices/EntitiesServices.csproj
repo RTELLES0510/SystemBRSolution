@@ -130,6 +130,7 @@
     <Compile Include="Interfaces\ExternalServices\IECT_Services.cs" />
     <Compile Include="Interfaces\Repositories\ICargoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoriaNotificacaoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IFornecedorContatoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContaBancariaContatoRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificacaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContratoSolicitacaoAprovacaoRepository.cs" />
@@ -374,6 +375,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\FORNECEDOR_ANEXO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FORNECEDOR_CONTATO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\FUNCIONALIDADE.cs">

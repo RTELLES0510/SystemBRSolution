@@ -18,6 +18,7 @@ namespace SystemBRPresentation.ViewModels
         public Nullable<int> FILI_CD_ID { get; set; }
         [Required(ErrorMessage = "Campo CATEGORIA obrigatorio")]
         public Nullable<int> CAFO_CD_ID { get; set; }
+        public Nullable<int> TIPE_CD_ID { get; set; }
         [Required(ErrorMessage = "Campo NOME obrigatorio")]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "O NOME deve conter no minimo 1 caracteres e no máximo 50.")]
         public string FORN_NM_NOME { get; set; }
@@ -51,19 +52,27 @@ namespace SystemBRPresentation.ViewModels
         public System.DateTime FORN_DT_CADASTRO { get; set; }
         public int FORN_IN_ATIVO { get; set; }
         public string FORN_AQ_FOTO { get; set; }
+        public string FORN_TX_OBSERVACOES { get; set; }
 
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_FORNECEDOR CATEGORIA_FORNECEDOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_PAGAR> CONTA_PAGAR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EQUIPAMENTO_MANUTENCAO> EQUIPAMENTO_MANUTENCAO { get; set; }
         public virtual FILIAL FILIAL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FORNECEDOR_ANEXO> FORNECEDOR_ANEXO { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ITEM_PEDIDO_COMPRA_COTACAO> ITEM_PEDIDO_COMPRA_COTACAO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PEDIDO_COMPRA> PEDIDO_COMPRA { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FORNECEDOR_ANEXO> FORNECEDOR_ANEXO { get; set; }
+        public virtual ICollection<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FORNECEDOR_CONTATO> FORNECEDOR_CONTATO { get; set; }
+        public virtual TIPO_PESSOA TIPO_PESSOA { get; set; }
 
     }
 }

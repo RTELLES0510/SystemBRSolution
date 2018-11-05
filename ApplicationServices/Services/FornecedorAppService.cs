@@ -298,5 +298,44 @@ namespace ApplicationServices.Services
                 throw;
             }
         }
+
+        public List<TIPO_PESSOA> GetAllTiposPessoa()
+        {
+            List<TIPO_PESSOA> lista = _baseService.GetAllTiposPessoa();
+            return lista;
+        }
+
+        public FORNECEDOR_CONTATO GetContatoById(Int32 id)
+        {
+            FORNECEDOR_CONTATO lista = _baseService.GetContatoById(id);
+            return lista;
+        }
+
+        public Int32 ValidateEditContato(FORNECEDOR_CONTATO item)
+        {
+            try
+            {
+                // Persiste
+                return _baseService.EditContato(item);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public Int32 ValidateCreateContato(FORNECEDOR_CONTATO item)
+        {
+            try
+            {
+                // Persiste
+                Int32 volta = _baseService.CreateContato(item);
+                return volta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

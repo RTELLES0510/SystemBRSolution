@@ -180,6 +180,7 @@ namespace Presentation.Start
             kernel.Bind<INotificacaoRepository>().To<NotificacaoRepository>();
             kernel.Bind<IContratoSolicitacaoAprovacaoRepository>().To<ContratoSolicitacaoAprovacaoRepository>();
             kernel.Bind<IContaBancariaContatoRepository>().To<ContaBancariaContatoRepository>();
+            kernel.Bind<IFornecedorContatoRepository>().To<FornecedorContatoRepository>();
         }
     }
 }

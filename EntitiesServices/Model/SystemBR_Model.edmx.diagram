@@ -360,6 +360,9 @@
         <AssociationConnector Association="SystemBRDatabaseModel.FK_BANCO_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_ASSINANTE" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_CONTA_BANCARIA_CONTATO_CONTA_BANCARIA" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.FORNECEDOR_CONTATO" Width="1.5" PointX="18" PointY="164.25" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_CONTATO_FORNECEDOR" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_TIPO_PESSOA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

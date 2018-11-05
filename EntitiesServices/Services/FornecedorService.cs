@@ -23,15 +23,19 @@ namespace ModelServices.EntitiesServices
         private readonly ICategoriaFornecedorRepository _tipoRepository;
         private readonly IFornecedorAnexoRepository _anexoRepository;
         private readonly IFilialRepository _filialRepository;
+        private readonly ITipoPessoaRepository _pesRepository;
+        private readonly IFornecedorContatoRepository _contRepository;
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public FornecedorService(IFornecedorRepository baseRepository, ILogRepository logRepository, ICategoriaFornecedorRepository tipoRepository, IFornecedorAnexoRepository anexoRepository, IFilialRepository filialRepository) : base(baseRepository)
+        public FornecedorService(IFornecedorRepository baseRepository, ILogRepository logRepository, ICategoriaFornecedorRepository tipoRepository, IFornecedorAnexoRepository anexoRepository, IFilialRepository filialRepository, ITipoPessoaRepository pesRepository, IFornecedorContatoRepository contRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
             _tipoRepository = tipoRepository;
             _anexoRepository = anexoRepository;
             _filialRepository = filialRepository;
+            _pesRepository = pesRepository;
+            _contRepository = contRepository;
         }
 
         public FORNECEDOR CheckExist(FORNECEDOR conta)
@@ -170,6 +174,54 @@ namespace ModelServices.EntitiesServices
                 {
                     _logRepository.Add(log);
                     _baseRepository.Remove(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public List<TIPO_PESSOA> GetAllTiposPessoa()
+        {
+            return _pesRepository.GetAllItens();
+        }
+
+        public FORNECEDOR_CONTATO GetContatoById(Int32 id)
+        {
+            return _contRepository.GetItemById(id);
+        }
+
+        public Int32 EditContato(FORNECEDOR_CONTATO item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    FORNECEDOR_CONTATO obj = _contRepository.GetById(item.FOCO_CD_ID);
+                    _contRepository.Detach(obj);
+                    _contRepository.Update(item);
+                    transaction.Commit();
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+        }
+
+        public Int32 CreateContato(FORNECEDOR_CONTATO item)
+        {
+            using (DbContextTransaction transaction = Db.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    _contRepository.Add(item);
                     transaction.Commit();
                     return 0;
                 }

@@ -242,6 +242,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BancoViewModel.cs" />
     <Compile Include="ViewModels\CargoViewModel.cs" />
+    <Compile Include="ViewModels\FornecedorContatoViewModel.cs" />
     <Compile Include="ViewModels\ContaBancariaContatoViewModel.cs" />
     <Compile Include="ViewModels\ClienteContatoViewModel.cs" />
     <Compile Include="ViewModels\ClienteReferenciaViewModel.cs" />
@@ -2176,6 +2177,9 @@
     <Content Include="Views\Banco\IncluirContato.cshtml" />
     <Content Include="Views\Banco\ReativarFilial.cshtml" />
     <Content Include="Views\Cadastros\SlideShow.cshtml" />
+    <Content Include="Views\Cadastros\EditarContatoFornecedor.cshtml" />
+    <Content Include="Views\Cadastros\IncluirContatoFornecedor.cshtml" />
+    <Content Include="Views\Cadastros\SlideShowFornecedor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2255,7 +2259,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57902</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57902/</IISUrl>
+          <IISUrl>http://localhost:8080/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

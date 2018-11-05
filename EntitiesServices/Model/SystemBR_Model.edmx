@@ -758,14 +758,15 @@
           <Property Name="MATR_CD_ID" Type="int" />
           <Property Name="FILI_CD_ID" Type="int" />
           <Property Name="CAFO_CD_ID" Type="int" />
+          <Property Name="TIPE_CD_ID" Type="int" />
           <Property Name="FORN_NM_NOME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FORN_NM_RAZAO" Type="varchar" MaxLength="100" />
           <Property Name="FORN_NR_CPF" Type="varchar" MaxLength="15" />
-          <Property Name="FORN_NR_CNPJ" Type="varchar" MaxLength="15" />
+          <Property Name="FORN_NR_CNPJ" Type="varchar" MaxLength="20" />
           <Property Name="FORN_NM_EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FORN_NM_TELEFONES" Type="varchar" MaxLength="250" />
           <Property Name="FORN_NM_REDES_SOCIAIS" Type="varchar" MaxLength="250" />
-          <Property Name="FORN_NM_ENDERECO" Type="varchar" MaxLength="100" />
+          <Property Name="FORN_NM_ENDERECO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FORN_NM_BAIRRO" Type="varchar" MaxLength="50" />
           <Property Name="FORN_NM_CIDADE" Type="varchar" MaxLength="50" />
           <Property Name="FORN_SG_UF" Type="varchar" MaxLength="2" />
@@ -773,6 +774,7 @@
           <Property Name="FORN_DT_CADASTRO" Type="date" Nullable="false" />
           <Property Name="FORN_IN_ATIVO" Type="int" Nullable="false" />
           <Property Name="FORN_AQ_FOTO" Type="varchar" MaxLength="50" />
+          <Property Name="FORN_TX_OBSERVACOES" Type="text" />
         </EntityType>
         <EntityType Name="FORNECEDOR_ANEXO">
           <Key>
@@ -785,6 +787,18 @@
           <Property Name="FOAN_IN_TIPO" Type="int" Nullable="false" />
           <Property Name="FOAN_AQ_ARQUVO" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="FOAN_IN_ATIVO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FORNECEDOR_CONTATO">
+          <Key>
+            <PropertyRef Name="FOCO_CD_ID" />
+          </Key>
+          <Property Name="FOCO_CD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FORN_CD_ID" Type="int" Nullable="false" />
+          <Property Name="FOCO_NM_NOME" Type="varchar" MaxLength="50" />
+          <Property Name="FOCO_NM_CARGO" Type="varchar" MaxLength="50" />
+          <Property Name="FOCO_NM_EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="FOCO_NR_TELEFONES" Type="varchar" MaxLength="50" />
+          <Property Name="FOCO_IN_ATIVO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FUNCIONALIDADE">
           <Key>
@@ -2930,6 +2944,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FORNECEDOR_CONTATO_FORNECEDOR">
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="1" />
+          <End Role="FORNECEDOR_CONTATO" Type="Self.FORNECEDOR_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Principal>
+            <Dependent Role="FORNECEDOR_CONTATO">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FORNECEDOR_FILIAL">
           <End Role="FILIAL" Type="Self.FILIAL" Multiplicity="0..1" />
           <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="*" />
@@ -2951,6 +2977,18 @@
             </Principal>
             <Dependent Role="FORNECEDOR">
               <PropertyRef Name="MATR_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FORNECEDOR_TIPO_PESSOA">
+          <End Role="TIPO_PESSOA" Type="Self.TIPO_PESSOA" Multiplicity="0..1" />
+          <End Role="FORNECEDOR" Type="Self.FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PESSOA">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Principal>
+            <Dependent Role="FORNECEDOR">
+              <PropertyRef Name="TIPE_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4604,6 +4642,7 @@
           <EntitySet Name="FORMA_PAGAMENTO" EntityType="Self.FORMA_PAGAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORNECEDOR" EntityType="Self.FORNECEDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORNECEDOR_ANEXO" EntityType="Self.FORNECEDOR_ANEXO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FORNECEDOR_CONTATO" EntityType="Self.FORNECEDOR_CONTATO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FUNCIONALIDADE" EntityType="Self.FUNCIONALIDADE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INVENTARIO" EntityType="Self.INVENTARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INVENTARIO_ITEM" EntityType="Self.INVENTARIO_ITEM" Schema="dbo" store:Type="Tables" />
@@ -5062,12 +5101,20 @@
             <End Role="CATEGORIA_FORNECEDOR" EntitySet="CATEGORIA_FORNECEDOR" />
             <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
           </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_CONTATO_FORNECEDOR" Association="Self.FK_FORNECEDOR_CONTATO_FORNECEDOR">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="FORNECEDOR_CONTATO" EntitySet="FORNECEDOR_CONTATO" />
+          </AssociationSet>
           <AssociationSet Name="FK_FORNECEDOR_FILIAL" Association="Self.FK_FORNECEDOR_FILIAL">
             <End Role="FILIAL" EntitySet="FILIAL" />
             <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
           </AssociationSet>
           <AssociationSet Name="FK_FORNECEDOR_MATRIZ" Association="Self.FK_FORNECEDOR_MATRIZ">
             <End Role="MATRIZ" EntitySet="MATRIZ" />
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_TIPO_PESSOA" Association="Self.FK_FORNECEDOR_TIPO_PESSOA">
+            <End Role="TIPO_PESSOA" EntitySet="TIPO_PESSOA" />
             <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
           </AssociationSet>
           <AssociationSet Name="FK_INVENTARIO_CATEGORIA_MATERIA" Association="Self.FK_INVENTARIO_CATEGORIA_MATERIA">
@@ -6518,11 +6565,11 @@
           <Property Name="FORN_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FORN_NM_RAZAO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FORN_NR_CPF" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="FORN_NR_CNPJ" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FORN_NR_CNPJ" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FORN_NM_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FORN_NM_TELEFONES" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="FORN_NM_REDES_SOCIAIS" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="FORN_NM_ENDERECO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FORN_NM_ENDERECO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FORN_NM_BAIRRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FORN_NM_CIDADE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FORN_SG_UF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
@@ -6540,6 +6587,10 @@
           <NavigationProperty Name="ITEM_PEDIDO_COMPRA_COTACAO" Relationship="Self.FK_ITEM_PEDIDO_COMPRA_COTACAO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="ITEM_PEDIDO_COMPRA_COTACAO" />
           <NavigationProperty Name="PEDIDO_COMPRA" Relationship="Self.FK_PEDIDO_COMPRA_FORNECEDOR" FromRole="FORNECEDOR" ToRole="PEDIDO_COMPRA" />
           <NavigationProperty Name="PRODUTO_FORNECEDOR" Relationship="Self.FK_PRODUTO_FORNECEDOR_FORNECEDOR" FromRole="FORNECEDOR" ToRole="PRODUTO_FORNECEDOR" />
+          <Property Name="TIPE_CD_ID" Type="Int32" />
+          <NavigationProperty Name="FORNECEDOR_CONTATO" Relationship="SystemBRDatabaseModel.FK_FORNECEDOR_CONTATO_FORNECEDOR" FromRole="FORNECEDOR" ToRole="FORNECEDOR_CONTATO" />
+          <NavigationProperty Name="TIPO_PESSOA" Relationship="SystemBRDatabaseModel.FK_FORNECEDOR_TIPO_PESSOA" FromRole="FORNECEDOR" ToRole="TIPO_PESSOA" />
+          <Property Name="FORN_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="FORNECEDOR_ANEXO">
           <Key>
@@ -7616,6 +7667,7 @@
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_TIPO_PESSOA" FromRole="TIPO_PESSOA" ToRole="CLIENTE" />
           <NavigationProperty Name="FILIAL" Relationship="SystemBRDatabaseModel.FK_FILIAL_TIPO_PESSOA" FromRole="TIPO_PESSOA" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="SystemBRDatabaseModel.FK_MATRIZ_TIPO_PESSOA" FromRole="TIPO_PESSOA" ToRole="MATRIZ" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="SystemBRDatabaseModel.FK_FORNECEDOR_TIPO_PESSOA" FromRole="TIPO_PESSOA" ToRole="FORNECEDOR" />
         </EntityType>
         <EntityType Name="TIPO_SALARIAL">
           <Key>
@@ -11413,6 +11465,15 @@
             <End Role="CONTA_BANCARIA" EntitySet="CONTA_BANCARIA" />
             <End Role="CONTA_BANCARIA_CONTATO" EntitySet="CONTA_BANCARIA_CONTATO" />
           </AssociationSet>
+          <EntitySet Name="FORNECEDOR_CONTATO" EntityType="SystemBRDatabaseModel.FORNECEDOR_CONTATO" />
+          <AssociationSet Name="FK_FORNECEDOR_CONTATO_FORNECEDOR" Association="SystemBRDatabaseModel.FK_FORNECEDOR_CONTATO_FORNECEDOR">
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+            <End Role="FORNECEDOR_CONTATO" EntitySet="FORNECEDOR_CONTATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FORNECEDOR_TIPO_PESSOA" Association="SystemBRDatabaseModel.FK_FORNECEDOR_TIPO_PESSOA">
+            <End Role="TIPO_PESSOA" EntitySet="TIPO_PESSOA" />
+            <End Role="FORNECEDOR" EntitySet="FORNECEDOR" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="STATUS_CONTRATO">
           <Key>
@@ -11666,6 +11727,43 @@
             </Principal>
             <Dependent Role="CONTA_BANCARIA_CONTATO">
               <PropertyRef Name="COBA_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FORNECEDOR_CONTATO">
+          <Key>
+            <PropertyRef Name="FOCO_CD_ID" />
+          </Key>
+          <Property Name="FOCO_CD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FORN_CD_ID" Type="Int32" Nullable="false" />
+          <Property Name="FOCO_NM_NOME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOCO_NM_CARGO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOCO_NM_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FOCO_NR_TELEFONES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOCO_IN_ATIVO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FORNECEDOR" Relationship="SystemBRDatabaseModel.FK_FORNECEDOR_CONTATO_FORNECEDOR" FromRole="FORNECEDOR_CONTATO" ToRole="FORNECEDOR" />
+        </EntityType>
+        <Association Name="FK_FORNECEDOR_CONTATO_FORNECEDOR">
+          <End Type="SystemBRDatabaseModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="1" />
+          <End Type="SystemBRDatabaseModel.FORNECEDOR_CONTATO" Role="FORNECEDOR_CONTATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORNECEDOR">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Principal>
+            <Dependent Role="FORNECEDOR_CONTATO">
+              <PropertyRef Name="FORN_CD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FORNECEDOR_TIPO_PESSOA">
+          <End Type="SystemBRDatabaseModel.TIPO_PESSOA" Role="TIPO_PESSOA" Multiplicity="0..1" />
+          <End Type="SystemBRDatabaseModel.FORNECEDOR" Role="FORNECEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PESSOA">
+              <PropertyRef Name="TIPE_CD_ID" />
+            </Principal>
+            <Dependent Role="FORNECEDOR">
+              <PropertyRef Name="TIPE_CD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -12413,6 +12511,8 @@
           <EntitySetMapping Name="FORNECEDOR">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.FORNECEDOR">
               <MappingFragment StoreEntitySet="FORNECEDOR">
+                <ScalarProperty Name="FORN_TX_OBSERVACOES" ColumnName="FORN_TX_OBSERVACOES" />
+                <ScalarProperty Name="TIPE_CD_ID" ColumnName="TIPE_CD_ID" />
                 <ScalarProperty Name="FORN_CD_ID" ColumnName="FORN_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />
@@ -13556,6 +13656,19 @@
                 <ScalarProperty Name="CBCT_NM_NOME" ColumnName="CBCT_NM_NOME" />
                 <ScalarProperty Name="COBA_CD_ID" ColumnName="COBA_CD_ID" />
                 <ScalarProperty Name="CBCT_CD_ID" ColumnName="CBCT_CD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORNECEDOR_CONTATO">
+            <EntityTypeMapping TypeName="SystemBRDatabaseModel.FORNECEDOR_CONTATO">
+              <MappingFragment StoreEntitySet="FORNECEDOR_CONTATO">
+                <ScalarProperty Name="FOCO_IN_ATIVO" ColumnName="FOCO_IN_ATIVO" />
+                <ScalarProperty Name="FOCO_NR_TELEFONES" ColumnName="FOCO_NR_TELEFONES" />
+                <ScalarProperty Name="FOCO_NM_EMAIL" ColumnName="FOCO_NM_EMAIL" />
+                <ScalarProperty Name="FOCO_NM_CARGO" ColumnName="FOCO_NM_CARGO" />
+                <ScalarProperty Name="FOCO_NM_NOME" ColumnName="FOCO_NM_NOME" />
+                <ScalarProperty Name="FORN_CD_ID" ColumnName="FORN_CD_ID" />
+                <ScalarProperty Name="FOCO_CD_ID" ColumnName="FOCO_CD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

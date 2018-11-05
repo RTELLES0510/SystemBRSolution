@@ -23,6 +23,7 @@ namespace EntitiesServices.Model
             this.ITEM_PEDIDO_COMPRA_COTACAO = new HashSet<ITEM_PEDIDO_COMPRA_COTACAO>();
             this.PEDIDO_COMPRA = new HashSet<PEDIDO_COMPRA>();
             this.PRODUTO_FORNECEDOR = new HashSet<PRODUTO_FORNECEDOR>();
+            this.FORNECEDOR_CONTATO = new HashSet<FORNECEDOR_CONTATO>();
         }
     
         public int FORN_CD_ID { get; set; }
@@ -45,6 +46,8 @@ namespace EntitiesServices.Model
         public System.DateTime FORN_DT_CADASTRO { get; set; }
         public int FORN_IN_ATIVO { get; set; }
         public string FORN_AQ_FOTO { get; set; }
+        public Nullable<int> TIPE_CD_ID { get; set; }
+        public string FORN_TX_OBSERVACOES { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_FORNECEDOR CATEGORIA_FORNECEDOR { get; set; }
@@ -62,5 +65,8 @@ namespace EntitiesServices.Model
         public virtual ICollection<PEDIDO_COMPRA> PEDIDO_COMPRA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUTO_FORNECEDOR> PRODUTO_FORNECEDOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FORNECEDOR_CONTATO> FORNECEDOR_CONTATO { get; set; }
+        public virtual TIPO_PESSOA TIPO_PESSOA { get; set; }
     }
 }
