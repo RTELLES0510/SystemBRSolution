@@ -2180,6 +2180,7 @@
     <Content Include="Views\Cadastros\EditarContatoFornecedor.cshtml" />
     <Content Include="Views\Cadastros\IncluirContatoFornecedor.cshtml" />
     <Content Include="Views\Cadastros\SlideShowFornecedor.cshtml" />
+    <Content Include="Views\Cadastros\SlideShowCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

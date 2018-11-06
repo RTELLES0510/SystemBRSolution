@@ -158,22 +158,22 @@
                                                     @Html.HiddenFor(m => m.CLIE_VL_LIMITE_CREDITO)
                                                     @Html.HiddenFor(m => m.COLA_CD_ID)
                                                     Categoria*
-                                                    @Html.DropDownListFor(m => m.CACL_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.DropDownListFor(m => m.CACL_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" , autofocus = true })                            
                                                     @Html.ValidationMessageFor(m => m.CACL_CD_ID, "",new { @style="color:red" })
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     Filial
-                                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control", autofocus = true  })                            
                                                     @Html.ValidationMessageFor(m => m.FILI_CD_ID, "",new { @style="color:red" })
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     Tipo de Contribuinte*
-                                                    @Html.DropDownListFor(m => m.TICO_CD_ID, (SelectList)ViewBag.TiposContribuinte, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.DropDownListFor(m => m.TICO_CD_ID, (SelectList)ViewBag.TiposContribuinte, "Selecionar", new { @class = "form-control" , autofocus = true })                            
                                                     @Html.ValidationMessageFor(m => m.TICO_CD_ID, "",new { @style="color:red" })
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     Tipo de Pessoa*
-                                                    @Html.DropDownListFor(m => m.TIPE_CD_ID, (SelectList)ViewBag.TiposPessoa, "Selecionar", new { @class = "form-control" })                            
+                                                    @Html.DropDownListFor(m => m.TIPE_CD_ID, (SelectList)ViewBag.TiposPessoa, "Selecionar", new { @class = "form-control" , autofocus = true , @id="pessoa" })                            
                                                     @Html.ValidationMessageFor(m => m.TIPE_CD_ID, "",new { @style="color:red" })
                                                 </div>
                                             </div>
@@ -189,12 +189,14 @@
                                                     @Html.ValidationMessageFor(m => m.CLIE_NM_RAZAO, "",new { @style="color:red" })
                                                 </div>
                                             </div>
-                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;" id="PF">                
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     CPF
                                                     @Html.TextBoxFor(m => m.CLIE_NR_CPF, new { @class = "form-control", @id = "cpf", autofocus = true })
                                                     @Html.ValidationMessageFor(m => m.CLIE_NR_CPF, "",new { @style="color:red" })
                                                 </div>
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;" id="PJ">                
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     CNPJ
                                                     @Html.TextBoxFor(m => m.CLIE_NR_CNPJ, new { @class = "form-control", @id = "cnpj", autofocus = true })
@@ -211,28 +213,6 @@
                                                     @Html.ValidationMessageFor(m => m.CLIE_NR_INSCRICAO_MUNICIPAL, "",new { @style="color:red" })
                                                 </div>
                                             </div>
-                                            @*<div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
-                                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    Telefone
-                                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONES, new { @class = "form-control", autofocus = true, placeholder = "(99) 9999-9999 R: 99" })
-                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONES, "",new { @style="color:red" })
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    Celular
-                                                    @Html.TextBoxFor(m => m.CLIE_NR_CELULAR, new { @class = "form-control", autofocus = true, placeholder = "(99) 9999-9999 R: 99" })
-                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_CELULAR, "",new { @style="color:red" })
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    Telefone Adicional
-                                                    @Html.TextBoxFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, new { @class = "form-control", autofocus = true, placeholder = "(99) 9999-9999 R: 99" })
-                                                    @Html.ValidationMessageFor(m => m.CLIE_NR_TELEFONE_ADICIONAL, "",new { @style="color:red" })
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    E-Mail
-                                                    @Html.TextBoxFor(m => m.CLIE_NM_EMAIL, new { @class = "form-control", autofocus = true })
-                                                    @Html.ValidationMessageFor(m => m.CLIE_NM_EMAIL, "",new { @style="color:red" })
-                                                </div>
-                                            </div>*@
                                         </div>
                                         <div class="form-group">
                                             @Html.ButtonActionSubmit(text: "Confirma edição de Cliente")
@@ -247,14 +227,14 @@
                                     <div class="row">
                                         <div class="col-lg-10 col-md-10 col-xs-12">   
                                             <div class="form-group">
-                                                <h4>Fotografia do Cliente</h4>
+                                                <h4>Logotipo do Cliente</h4>
                                                 @using (Html.BeginForm("UploadFotoCliente", "Cadastros", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container3" }))
                                                 {
                                                     <br />
                                                     <input type="file" accept=".jpg, .png, .jpeg, .gif|images/*" name="file" id="file" class="btn btn-sm btn-warning"/>
                                                     <br />
                                                     <div class="form-group">
-                                                        <input type="submit" value="Incluir Fotografia do Cliente" class="btn btn-sm btn-success" />
+                                                        <input type="submit" value="Incluir Logotipo do Cliente" class="btn btn-sm btn-success" />
                                                     </div>
                                                 }
                                             </div>
@@ -325,6 +305,7 @@
                                                         <br />
                                                         <div class="form-group">
                                                             <input type="submit" value="Incluir Anexo do Cliente" class="btn btn-sm btn-success" />
+                                                            @Html.ButtonLinkIndex(text: "Ver Imagens em Sequencia", action: "SlideShowCliente", controller: "Cadastros")
                                                         </div>
                                                     </div>
                                                 }
@@ -1217,6 +1198,36 @@
                 fillColor: "#ffffff"
             });
 
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //Chama o evento após selecionar um valor
+            $('#pessoa').on('change', function() {
+                //Verifica se o valor é igual a 1 e mostra a divCnpj
+              if ( this.value == '2')
+              {
+                    $("#PF").hide();
+                    $("#PJ").show();
+              }
+                //Se o tempo for mé igual a 2 mostra a divCpf
+              else if( this.value == '1')
+              {
+                  $("#PJ").hide();
+                  $("#PF").show();
+              }
+              else if( this.value == '3')
+              {
+                    $("#PF").hide();
+                    $("#PJ").show();
+              }
+
+                //Se não for nem 1 nem 2 esconde as duas
+                else{
+                     $("#PJ").hide();
+                     $("#PF").hide();
+                }
+            });
         });
     </script>
 

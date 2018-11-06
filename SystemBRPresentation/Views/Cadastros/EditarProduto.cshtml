@@ -184,11 +184,6 @@
                                                     @Html.ValidationMessageFor(m => m.SCPR_CD_ID, "",new { @style="color:red" })
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    Filial
-                                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control", autofocus = true })                            
-                                                    @Html.ValidationMessageFor(m => m.FILI_CD_ID, "",new { @style="color:red" })
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-12">
                                                     Tipo de Produto*
                                                     @Html.DropDownListFor(m => m.PROD_IN_TIPO_PRODUTO, (SelectList)ViewBag.TiposProduto, "Selecionar", new { @class = "form-control", autofocus = true })                            
                                                     @Html.ValidationMessageFor(m => m.PROD_IN_TIPO_PRODUTO, "",new { @style="color:red" })

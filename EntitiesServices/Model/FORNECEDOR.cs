@@ -48,6 +48,7 @@ namespace EntitiesServices.Model
         public string FORN_AQ_FOTO { get; set; }
         public Nullable<int> TIPE_CD_ID { get; set; }
         public string FORN_TX_OBSERVACOES { get; set; }
+        public string FORN_NR_INSCRICAO_ESTADUAL { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_FORNECEDOR CATEGORIA_FORNECEDOR { get; set; }

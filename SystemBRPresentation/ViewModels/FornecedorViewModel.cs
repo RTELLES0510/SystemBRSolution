@@ -53,6 +53,8 @@ namespace SystemBRPresentation.ViewModels
         public int FORN_IN_ATIVO { get; set; }
         public string FORN_AQ_FOTO { get; set; }
         public string FORN_TX_OBSERVACOES { get; set; }
+        [StringLength(50, ErrorMessage = "A INSCRIÇÃO ESTADUAL deve conter no máximo 50.")]
+        public string FORN_NR_INSCRICAO_ESTADUAL { get; set; }
 
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_FORNECEDOR CATEGORIA_FORNECEDOR { get; set; }

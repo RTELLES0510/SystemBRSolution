@@ -97,15 +97,10 @@
                                             </div>
                                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    @Html.HiddenFor(m => m.ASSINANTE)
                                                     @Html.HiddenFor(m => m.ASSI_CD_ID)
-                                                    @Html.HiddenFor(m => m.CONTA_PAGAR)
-                                                    @Html.HiddenFor(m => m.EQUIPAMENTO_MANUTENCAO)
                                                     @Html.HiddenFor(m => m.MATR_CD_ID)
                                                     @Html.HiddenFor(m => m.FILI_CD_ID)
-
-                                                    @Html.HiddenFor(m => m.FORNECEDOR_ANEXO)
-                                                    @Html.HiddenFor(m => m.FORNECEDOR_CONTATO)
+                                                    @Html.HiddenFor(m => m.FORN_NM_EMAIL)
                                                     @Html.HiddenFor(m => m.FORN_AQ_FOTO)
                                                     @Html.HiddenFor(m => m.FORN_CD_ID)
                                                     @Html.HiddenFor(m => m.FORN_DT_CADASTRO)
@@ -119,21 +114,13 @@
                                                     @Html.HiddenFor(m => m.FORN_NR_CEP)
                                                     @Html.HiddenFor(m => m.FORN_SG_UF)
                                                     @Html.HiddenFor(m => m.FORN_TX_OBSERVACOES)
-                                                    @Html.HiddenFor(m => m.ITEM_PEDIDO_COMPRA_COTACAO)
-                                                    @Html.HiddenFor(m => m.PEDIDO_COMPRA)
-                                                    @Html.HiddenFor(m => m.PRODUTO_FORNECEDOR)
                                                     Categoria*
                                                     @Html.DropDownListFor(m => m.CAFO_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control", autofocus = true })                            
                                                     @Html.ValidationMessageFor(m => m.CAFO_CD_ID, "",new { @style="color:red" })
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
-                                                    Filial
-                                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control", autofocus = true })                            
-                                                    @Html.ValidationMessageFor(m => m.FILI_CD_ID, "",new { @style="color:red" })
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-xs-12">
                                                     Tipo de Pessoa*
-                                                    @Html.DropDownListFor(m => m.TIPE_CD_ID, (SelectList)ViewBag.TiposPessoa, "Selecionar", new { @class = "form-control", autofocus = true })                            
+                                                    @Html.DropDownListFor(m => m.TIPE_CD_ID, (SelectList)ViewBag.TiposPessoa, "Selecionar", new { @class = "form-control", autofocus = true, @id="pessoa" })                            
                                                     @Html.ValidationMessageFor(m => m.TIPE_CD_ID, "",new { @style="color:red" })
                                                 </div>
                                             </div>
@@ -149,16 +136,23 @@
                                                     @Html.ValidationMessageFor(m => m.FORN_NM_RAZAO, "",new { @style="color:red" })
                                                 </div>
                                             </div>
-                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"   id="PF">                
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     CPF
                                                     @Html.TextBoxFor(m => m.FORN_NR_CPF, new { @class = "form-control", @id = "cpf", autofocus = true })
                                                     @Html.ValidationMessageFor(m => m.FORN_NR_CPF, "",new { @style="color:red" })
                                                 </div>
+                                            </div>
+                                            <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"   id="PJ">                
                                                 <div class="col-lg-3 col-md-3 col-xs-12">
                                                     CNPJ
                                                     @Html.TextBoxFor(m => m.FORN_NR_CNPJ, new { @class = "form-control", @id = "cnpj", autofocus = true })
                                                     @Html.ValidationMessageFor(m => m.FORN_NR_CPF, "",new { @style="color:red" })
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-xs-12">
+                                                    Inscrição Estadual
+                                                    @Html.TextBoxFor(m => m.FORN_NR_INSCRICAO_ESTADUAL, new { @class = "form-control", autofocus = true })
+                                                    @Html.ValidationMessageFor(m => m.FORN_NR_INSCRICAO_ESTADUAL, "",new { @style="color:red" })
                                                 </div>
                                             </div>
                                         </div>
@@ -279,17 +273,11 @@
                                         <div class="row">
                                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">                
                                                 <div class="col-lg-3 col-md-3 col-xs-12">                                
-                                                    @Html.HiddenFor(m => m.ASSINANTE)
                                                     @Html.HiddenFor(m => m.ASSI_CD_ID)
                                                     @Html.HiddenFor(m => m.CAFO_CD_ID)
-                                                    @Html.HiddenFor(m => m.CATEGORIA_FORNECEDOR)
                                                     @Html.HiddenFor(m => m.CONTA_PAGAR)
-                                                    @Html.HiddenFor(m => m.EQUIPAMENTO_MANUTENCAO)
-
-                                                    @Html.HiddenFor(m => m.FILIAL)
+                                                    @Html.HiddenFor(m => m.FORN_NR_INSCRICAO_ESTADUAL)
                                                     @Html.HiddenFor(m => m.FILI_CD_ID)
-                                                    @Html.HiddenFor(m => m.FORNECEDOR_ANEXO)
-                                                    @Html.HiddenFor(m => m.FORNECEDOR_CONTATO)
                                                     @Html.HiddenFor(m => m.FORN_AQ_FOTO)
                                                     @Html.HiddenFor(m => m.FORN_CD_ID)
                                                     @Html.HiddenFor(m => m.FORN_DT_CADASTRO)
@@ -303,13 +291,8 @@
                                                     @Html.HiddenFor(m => m.FORN_NR_CNPJ)
                                                     @Html.HiddenFor(m => m.FORN_NR_CPF)
                                                     @Html.HiddenFor(m => m.FORN_TX_OBSERVACOES)
-                                                    @Html.HiddenFor(m => m.ITEM_PEDIDO_COMPRA_COTACAO)
-                                                    @Html.HiddenFor(m => m.MATRIZ)
                                                     @Html.HiddenFor(m => m.MATR_CD_ID)
-                                                    @Html.HiddenFor(m => m.PEDIDO_COMPRA)
-                                                    @Html.HiddenFor(m => m.PRODUTO_FORNECEDOR)
                                                     @Html.HiddenFor(m => m.TIPE_CD_ID)
-                                                    @Html.HiddenFor(m => m.TIPO_PESSOA)
                                                     <h4>Endereço Principal</h4>
                                                     <br />
                                                     CEP
@@ -369,16 +352,11 @@
                                         <div class="row">
                                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
                                                 <div class="col-lg-4 col-md-4 col-xs-12">
-                                                    @Html.HiddenFor(m => m.ASSINANTE)
                                                     @Html.HiddenFor(m => m.ASSI_CD_ID)
                                                     @Html.HiddenFor(m => m.CAFO_CD_ID)
-                                                    @Html.HiddenFor(m => m.CATEGORIA_FORNECEDOR)
                                                     @Html.HiddenFor(m => m.CONTA_PAGAR)
-                                                    @Html.HiddenFor(m => m.EQUIPAMENTO_MANUTENCAO)
-
-                                                    @Html.HiddenFor(m => m.FILIAL)
+                                                    @Html.HiddenFor(m => m.FORN_NR_INSCRICAO_ESTADUAL)
                                                     @Html.HiddenFor(m => m.FILI_CD_ID)
-                                                    @Html.HiddenFor(m => m.FORNECEDOR_ANEXO)
                                                     @Html.HiddenFor(m => m.FORN_AQ_FOTO)
                                                     @Html.HiddenFor(m => m.FORN_CD_ID)
                                                     @Html.HiddenFor(m => m.FORN_DT_CADASTRO)
@@ -394,13 +372,8 @@
                                                     @Html.HiddenFor(m => m.FORN_NR_CPF)
                                                     @Html.HiddenFor(m => m.FORN_SG_UF)
                                                     @Html.HiddenFor(m => m.FORN_TX_OBSERVACOES)
-                                                    @Html.HiddenFor(m => m.ITEM_PEDIDO_COMPRA_COTACAO)
-                                                    @Html.HiddenFor(m => m.MATRIZ)
                                                     @Html.HiddenFor(m => m.MATR_CD_ID)
-                                                    @Html.HiddenFor(m => m.PEDIDO_COMPRA)
-                                                    @Html.HiddenFor(m => m.PRODUTO_FORNECEDOR)
                                                     @Html.HiddenFor(m => m.TIPE_CD_ID)
-                                                    @Html.HiddenFor(m => m.TIPO_PESSOA)
                                                     E-Mail*
                                                     @Html.TextBoxFor(m => m.FORN_NM_EMAIL, new { @class = "form-control", autofocus = true })
                                                     @Html.ValidationMessageFor(m => m.FORN_NM_EMAIL, "", new { @style = "color:red" })
@@ -499,16 +472,9 @@
                                         <div class="row">
                                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;"> 
                                                 <div class="col-lg-12 col-md-12 col-xs-12">
-                                                    @Html.HiddenFor(m => m.ASSINANTE)
                                                     @Html.HiddenFor(m => m.ASSI_CD_ID)
                                                     @Html.HiddenFor(m => m.CAFO_CD_ID)
-                                                    @Html.HiddenFor(m => m.CATEGORIA_FORNECEDOR)
-                                                    @Html.HiddenFor(m => m.CONTA_PAGAR)
-                                                    @Html.HiddenFor(m => m.EQUIPAMENTO_MANUTENCAO)
-                                                    @Html.HiddenFor(m => m.FILIAL)
                                                     @Html.HiddenFor(m => m.FILI_CD_ID)
-                                                    @Html.HiddenFor(m => m.FORNECEDOR_ANEXO)
-                                                    @Html.HiddenFor(m => m.FORNECEDOR_CONTATO)
                                                     @Html.HiddenFor(m => m.FORN_AQ_FOTO)
                                                     @Html.HiddenFor(m => m.FORN_CD_ID)
                                                     @Html.HiddenFor(m => m.FORN_DT_CADASTRO)
@@ -526,13 +492,9 @@
                                                     @Html.HiddenFor(m => m.FORN_NR_CNPJ)
                                                     @Html.HiddenFor(m => m.FORN_NR_CPF)
                                                     @Html.HiddenFor(m => m.FORN_SG_UF)
-                                                    @Html.HiddenFor(m => m.ITEM_PEDIDO_COMPRA_COTACAO)
-                                                    @Html.HiddenFor(m => m.MATRIZ)
                                                     @Html.HiddenFor(m => m.MATR_CD_ID)
-                                                    @Html.HiddenFor(m => m.PEDIDO_COMPRA)
-                                                    @Html.HiddenFor(m => m.PRODUTO_FORNECEDOR)
                                                     @Html.HiddenFor(m => m.TIPE_CD_ID)
-                                                    @Html.HiddenFor(m => m.TIPO_PESSOA)
+                                                    @Html.HiddenFor(m => m.FORN_NR_INSCRICAO_ESTADUAL)
                                                     Observações
                                                     @Html.TextAreaFor(m => m.FORN_TX_OBSERVACOES, new { @class = "form-control", style = "width: 1040px; height: 400px;", autofocus = true})
                                                     @Html.ValidationMessageFor(m => m.FORN_TX_OBSERVACOES, "",new { @style="color:red" })
@@ -689,6 +651,37 @@
 
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //Chama o evento após selecionar um valor
+            $('#pessoa').on('change', function() {
+                //Verifica se o valor é igual a 1 e mostra a divCnpj
+              if ( this.value == '2')
+              {
+                    $("#PF").hide();
+                    $("#PJ").show();
+              }
+                //Se o tempo for mé igual a 2 mostra a divCpf
+              else if( this.value == '1')
+              {
+                  $("#PJ").hide();
+                  $("#PF").show();
+              }
+              else if( this.value == '3')
+              {
+                    $("#PF").hide();
+                    $("#PJ").show();
+              }
+
+                //Se não for nem 1 nem 2 esconde as duas
+                else{
+                     $("#PJ").hide();
+                     $("#PF").hide();
+                }
+            });
+        });
+    </script>
+
 
 
     @if (ViewBag.Message != null)

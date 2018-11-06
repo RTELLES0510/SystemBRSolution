@@ -482,6 +482,13 @@ namespace SystemBRPresentation.Controllers
             CLIENTE item = baseApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoCliente");
+            }
+
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -524,6 +531,11 @@ namespace SystemBRPresentation.Controllers
             CLIENTE item = baseApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoCliente");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Clientes/" + item.CLIE_CD_ID.ToString() + "/Fotos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
 
@@ -1190,6 +1202,11 @@ namespace SystemBRPresentation.Controllers
             FORNECEDOR item = fornApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoFornecedor");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Fornecedores/" + item.FORN_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -1231,6 +1248,11 @@ namespace SystemBRPresentation.Controllers
             FORNECEDOR item = fornApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoFornecedor");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Fornecedores/" + item.FORN_CD_ID.ToString() + "/Fotos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -1745,6 +1767,11 @@ namespace SystemBRPresentation.Controllers
             PRODUTO item = prodApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoProduto");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Produtos/" + item.PROD_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -1786,6 +1813,11 @@ namespace SystemBRPresentation.Controllers
             PRODUTO item = prodApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoProduto");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Produtos/" + item.PROD_CD_ID.ToString() + "/Fotos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -2192,6 +2224,11 @@ namespace SystemBRPresentation.Controllers
             MATERIA_PRIMA item = matApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoMateria");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Materias/" + item.MAPR_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -2602,6 +2639,11 @@ namespace SystemBRPresentation.Controllers
             SERVICO item = servApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoServico");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Servicos/" + item.SERV_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -2998,6 +3040,11 @@ namespace SystemBRPresentation.Controllers
             TRANSPORTADORA item = tranApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoTransportadora");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Transportadoras/" + item.TRAN_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -3354,6 +3401,11 @@ namespace SystemBRPresentation.Controllers
             PATRIMONIO item = patrApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoPatrimonio");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Patrimonio/" + item.PATR_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -3395,6 +3447,11 @@ namespace SystemBRPresentation.Controllers
             PATRIMONIO item = patrApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoPatrimonio");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Patrimonio/" + item.PATR_CD_ID.ToString() + "/Fotos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -3741,6 +3798,11 @@ namespace SystemBRPresentation.Controllers
             EQUIPAMENTO item = equiApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoEquipamento");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Equipamento/" + item.EQUI_CD_ID.ToString() + "/Anexos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -3782,6 +3844,11 @@ namespace SystemBRPresentation.Controllers
             EQUIPAMENTO item = equiApp.GetById(SessionMocks.idVolta);
             USUARIO usu = SessionMocks.UserCredentials;
             var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoEquipamento");
+            }
             String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Equipamento/" + item.EQUI_CD_ID.ToString() + "/Fotos/";
             String path = Path.Combine(Server.MapPath(caminho), fileName);
             file.SaveAs(path);
@@ -4022,6 +4089,17 @@ namespace SystemBRPresentation.Controllers
             FORNECEDOR item = fornApp.GetItemById(SessionMocks.idVolta);
             objetoFornAntes = item;
             FornecedorViewModel vm = Mapper.Map<FORNECEDOR, FornecedorViewModel>(item);
+            return View(vm);
+        }
+
+
+        [HttpGet]
+        public ActionResult SlideShowCliente()
+        {
+            // Prepara view
+            CLIENTE item = baseApp.GetItemById(SessionMocks.idVolta);
+            objetoAntes = item;
+            ClienteViewModel vm = Mapper.Map<CLIENTE, ClienteViewModel>(item);
             return View(vm);
         }
 

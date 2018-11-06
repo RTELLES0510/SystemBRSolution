@@ -237,4 +237,7 @@
   <data name="M0040" xml:space="preserve">
     <value>Contrato cancelado</value>
   </data>
+  <data name="M0041" xml:space="preserve">
+    <value>O nome do arquivo anexado não pode ser maior qie 100 caracteres</value>
+  </data>
 </root>

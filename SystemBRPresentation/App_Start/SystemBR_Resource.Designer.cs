@@ -419,5 +419,14 @@ namespace SystemBRPresentation.App_Start {
                 return ResourceManager.GetString("M0040", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O nome do arquivo anexado não pode ser maior qie 100 caracteres.
+        /// </summary>
+        internal static string M0041 {
+            get {
+                return ResourceManager.GetString("M0041", resourceCulture);
+            }
+        }
     }
 }
