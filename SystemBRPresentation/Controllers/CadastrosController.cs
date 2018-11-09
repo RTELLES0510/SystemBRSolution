@@ -4092,7 +4092,16 @@ namespace SystemBRPresentation.Controllers
             return View(vm);
         }
 
-
+        [HttpGet]
+        public ActionResult SlideShowEquipamento()
+        {
+            // Prepara view
+            EQUIPAMENTO item = equiApp.GetItemById(SessionMocks.idVolta);
+            objetoEquiAntes = item;
+            EquipamentoViewModel vm = Mapper.Map<EQUIPAMENTO, EquipamentoViewModel>(item);
+            return View(vm);
+        }
+        
         [HttpGet]
         public ActionResult SlideShowCliente()
         {

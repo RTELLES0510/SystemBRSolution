@@ -40,6 +40,7 @@ namespace EntitiesServices.Model
         public string EQUI_AQ_FOTO { get; set; }
         public Nullable<System.DateTime> EQUI_DT_MANUTENCAO { get; set; }
         public Nullable<int> EQUI_IN_AVISA_MANUTENCAO { get; set; }
+        public string EQUI_TX_OBSERVACOES { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_EQUIPAMENTO CATEGORIA_EQUIPAMENTO { get; set; }

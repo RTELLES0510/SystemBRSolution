@@ -623,6 +623,7 @@
           <Property Name="EQUI_AQ_FOTO" Type="varchar" MaxLength="150" />
           <Property Name="EQUI_DT_MANUTENCAO" Type="date" />
           <Property Name="EQUI_IN_AVISA_MANUTENCAO" Type="int" />
+          <Property Name="EQUI_TX_OBSERVACOES" Type="text" />
         </EntityType>
         <EntityType Name="EQUIPAMENTO_ANEXO">
           <Key>
@@ -6383,6 +6384,7 @@
           <NavigationProperty Name="EQUIPAMENTO_MANUTENCAO" Relationship="Self.FK_EQUIPAMENTO_MANUTENCAO_EQUIPAMENTO" FromRole="EQUIPAMENTO" ToRole="EQUIPAMENTO_MANUTENCAO" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_EQUIPAMENTO_MATRIZ" FromRole="EQUIPAMENTO" ToRole="MATRIZ" />
           <NavigationProperty Name="PERIODICIDADE" Relationship="Self.FK_EQUIPAMENTO_PERIODICIDADE" FromRole="EQUIPAMENTO" ToRole="PERIODICIDADE" />
+          <Property Name="EQUI_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="EQUIPAMENTO_ANEXO">
           <Key>
@@ -12353,6 +12355,7 @@
           <EntitySetMapping Name="EQUIPAMENTO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.EQUIPAMENTO">
               <MappingFragment StoreEntitySet="EQUIPAMENTO">
+                <ScalarProperty Name="EQUI_TX_OBSERVACOES" ColumnName="EQUI_TX_OBSERVACOES" />
                 <ScalarProperty Name="EQUI_CD_ID" ColumnName="EQUI_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />

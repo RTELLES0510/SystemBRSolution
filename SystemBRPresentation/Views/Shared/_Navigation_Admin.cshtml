@@ -15,14 +15,16 @@
                                 @*<strong class="font-bold">@ViewBag.Nome</strong>*@
                                 <strong class="font-bold">Clayton Sant'Anna</strong>
                             @*</span> <span class="text-muted text-xs block">@ViewBag.Cargo<b class="caret"></b></span>*@
-                            </span> <span class="text-muted text-xs block">CEO<b class="caret"></b></span>
+                            </span> 
+                            <br />
+                            <span class="text-muted text-xs block">Controle de Acesso<b class="caret"></b></span>
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         @*<li><a href="@Url.Action("Login", "ControleAcesso")">Login</a></li>
                         <li><a href="@Url.Action("Logout", "ControleAcesso")">Logout</a></li>
                         <li><a href="@Url.Action("AlterarSenha", "ControleAcesso")">Alterar Senha</a></li>*@
-                        <li class="divider"></li>
+                        @*<li class="divider"></li>*@
                         @if (SessionMocks.Assinante == null)
 	                    {
                             <li><a href="@Url.Action("Login", "ControleAcesso")">Login</a></li>

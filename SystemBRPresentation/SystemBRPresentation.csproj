@@ -606,6 +606,10 @@
     <Content Include="Imagens\2\Fornecedores\1\Anexos\19510399_1932133873700401_942801202603797565_n.jpg" />
     <Content Include="Imagens\2\Fornecedores\1\Fotos\a7.jpg" />
     <Content Include="Imagens\2\Matriz\1\Logo\1.jpg" />
+    <Content Include="Imagens\2\Matriz\1\Logo\5.jpg" />
+    <Content Include="Imagens\2\Matriz\1\Logo\5.png" />
+    <Content Include="Imagens\2\Matriz\1\Logo\IMG-20180108-WA0009 %281%29.jpg" />
+    <Content Include="Imagens\2\Matriz\1\Logo\IMG-20180108-WA0009.jpg" />
     <Content Include="Imagens\2\Patrimonio\1\Anexos\FB_IMG_1535866542751.jpg" />
     <Content Include="Imagens\2\Patrimonio\1\Fotos\20180922_125233.jpg" />
     <Content Include="Imagens\2\Produtos\3\Anexos\IMG-20180108-WA0018.jpg" />
@@ -2181,6 +2185,7 @@
     <Content Include="Views\Cadastros\IncluirContatoFornecedor.cshtml" />
     <Content Include="Views\Cadastros\SlideShowFornecedor.cshtml" />
     <Content Include="Views\Cadastros\SlideShowCliente.cshtml" />
+    <Content Include="Views\Cadastros\SlideShowEquipamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

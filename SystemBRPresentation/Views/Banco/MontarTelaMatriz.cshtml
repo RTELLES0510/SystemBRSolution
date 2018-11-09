@@ -225,6 +225,10 @@
                         <div id="tab-2" class="tab-pane">
                             <div class="panel-body">
                                 <div class="row">
+                                    @Html.HiddenFor(m => m.MATR_CD_ID)
+                                    @Html.HiddenFor(m => m.MATR_IN_ATIVO)
+                                    @Html.HiddenFor(m => m.MATR_DT_CADASTRO)
+                                    @Html.HiddenFor(m => m.ASSI_CD_ID)
                                     <div class="col-lg-10 col-md-10 col-xs-12 ibox float-e-margins">
                                         @using (Html.BeginForm("UploadLogoMatriz", "Banco", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data", @id="pwd-container4" }))
                                         {

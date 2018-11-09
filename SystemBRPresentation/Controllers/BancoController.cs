@@ -653,7 +653,7 @@ namespace SystemBRPresentation.Controllers
             }
             ViewBag.Title = "Matriz";
             ViewBag.TipoPessoa = new SelectList(matrizApp.GetAllTipoPessoa(), "TIPE_CD_ID", "TIPE_NM_NOME");
-            SessionMocks.idVolta = objMatriz.MATR_CD_ID;
+            SessionMocks.idVolta = SessionMocks.Matriz.MATR_CD_ID;
 
             // Abre view
             MatrizViewModel vm = Mapper.Map<MATRIZ, MatrizViewModel>(SessionMocks.Matriz);
@@ -1434,6 +1434,7 @@ namespace SystemBRPresentation.Controllers
             item.MATR_AQ_LOGOTIPO = "~" + caminho + fileName;
             objMatrizAntes = item;
             Int32 volta = matrizApp.ValidateEdit(item, objMatrizAntes, usu);
+            SessionMocks.Matriz = null;
             return RedirectToAction("MontarTelaMatriz");
         }
 
@@ -1458,6 +1459,7 @@ namespace SystemBRPresentation.Controllers
             item.FILI_AQ_LOGOTIPO = "~" + caminho + fileName;
             objFilialAntes = item;
             Int32 volta = filialApp.ValidateEdit(item, objFilialAntes, usu);
+            SessionMocks.Matriz = null;
             return RedirectToAction("EditarFilial", new { id = SessionMocks.idVolta });
         }
     }

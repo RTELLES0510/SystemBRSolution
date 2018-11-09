@@ -45,7 +45,7 @@ namespace SystemBRPresentation.ViewModels
         [DataType(DataType.Date, ErrorMessage = "Deve ser uma data válida")]
         public Nullable<System.DateTime> EQUI_DT_MANUTENCAO { get; set; }
         public Nullable<int> EQUI_IN_AVISA_MANUTENCAO { get; set; }
-
+        public string EQUI_TX_OBSERVACOES { get; set; }
 
         [Required(ErrorMessage = "Campo VALOR obrigatorio")]
         [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
