@@ -55,6 +55,10 @@ namespace EntitiesServices.Model
             this.NOTIFICACAO = new HashSet<NOTIFICACAO>();
             this.BANCO = new HashSet<BANCO>();
             this.CONTA_BANCARIA = new HashSet<CONTA_BANCARIA>();
+            this.MOVIMENTO_ESTOQUE_MATERIA_PRIMA = new HashSet<MOVIMENTO_ESTOQUE_MATERIA_PRIMA>();
+            this.NOTICIA = new HashSet<NOTICIA>();
+            this.SUBCATEGORIA_MATERIA = new HashSet<SUBCATEGORIA_MATERIA>();
+            this.TIPO_TAG = new HashSet<TIPO_TAG>();
         }
     
         public int ASSI_CD_ID { get; set; }
@@ -144,5 +148,13 @@ namespace EntitiesServices.Model
         public virtual ICollection<BANCO> BANCO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONTA_BANCARIA> CONTA_BANCARIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVIMENTO_ESTOQUE_MATERIA_PRIMA> MOVIMENTO_ESTOQUE_MATERIA_PRIMA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTICIA> NOTICIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SUBCATEGORIA_MATERIA> SUBCATEGORIA_MATERIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TIPO_TAG> TIPO_TAG { get; set; }
     }
 }

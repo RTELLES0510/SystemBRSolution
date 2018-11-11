@@ -51,5 +51,29 @@ namespace CrossCutting
             String valorFormatado = number.ToString("#,0.00", new CultureInfo("pt-BR"));
             return valorFormatado;
         }
+
+        public static String LongDateFormatter(DateTime data)
+        {
+            String frase = string.Empty;
+            if (data.Day == DateTime.Now.Day)
+            {
+                frase += "Hoje ";
+            }
+            else if (data.Day == DateTime.Today.AddDays(-1).Day)
+            {
+                frase += "Ontem ";
+            }
+            frase += data.ToLongTimeString() + " " + data.ToShortDateString();
+
+            return frase;
+        }
+
+        public static String DiffTimeFormatter(DateTime data)
+        {
+            TimeSpan diff = DateTime.Now - data;
+            String output = string.Format("{0}d {1}h {2}m atras", diff.Days, diff.Hours, diff.Minutes);
+            return output;
+        }
+
     }
 }

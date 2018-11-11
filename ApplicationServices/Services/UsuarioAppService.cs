@@ -500,5 +500,20 @@ namespace ApplicationServices.Services
             List<PERFIL> lista = _usuarioService.GetAllPerfis();
             return lista;
         }
+
+        public List<NOTIFICACAO> GetAllItensUser(Int32 id)
+        {
+            return _usuarioService.GetAllItensUser(id);
+        }
+
+        public List<NOTIFICACAO> GetNotificacaoNovas(Int32 id)
+        {
+            return _usuarioService.GetNotificacaoNovas(id);
+        }
+
+        public List<NOTICIA> GetAllNoticias()
+        {
+            return _usuarioService.GetAllNoticias();
+        }
     }
 }

@@ -30,8 +30,12 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult CarregarAdmin()
         {
-            //ViewBag.Oportunidades = baseApp.GetAllConsulta().Count;
-            return View();
+            USUARIO usu = SessionMocks.UserCredentials;
+            UsuarioViewModel vm = Mapper.Map<USUARIO, UsuarioViewModel>(usu);
+            ViewBag.NovasNotificacoes = baseApp.GetNotificacaoNovas(usu.USUA_CD_ID).Count;
+            ViewBag.Noticias = baseApp.GetAllNoticias();
+            ViewBag.NoticiasNumero = baseApp.GetAllNoticias().Count;
+            return View(vm);
         }
     }
 }

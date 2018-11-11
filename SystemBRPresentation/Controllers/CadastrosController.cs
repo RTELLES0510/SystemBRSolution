@@ -90,7 +90,12 @@ namespace SystemBRPresentation.Controllers
             SessionMocks.listaProduto = null;
             SessionMocks.listaMateria = null;
             SessionMocks.filtroMateria = null;
-            return RedirectToAction("CarregarAdmin", "BaseAdmin");
+
+            if (SessionMocks.UserCredentials.PERFIL.PERF_SG_SIGLA == "ADM")
+            {
+                return RedirectToAction("CarregarAdmin", "BaseAdmin");
+            }
+            return RedirectToAction("Index", "Cadastros");
         }
 
         [HttpGet]

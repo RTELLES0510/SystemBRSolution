@@ -12,25 +12,21 @@ namespace EntitiesServices.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class CATEGORIA_MATERIA
+    public partial class TIPO_TAG
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CATEGORIA_MATERIA()
+        public TIPO_TAG()
         {
-            this.INVENTARIO = new HashSet<INVENTARIO>();
-            this.MATERIA_PRIMA = new HashSet<MATERIA_PRIMA>();
-            this.SUBCATEGORIA_MATERIA = new HashSet<SUBCATEGORIA_MATERIA>();
+            this.NOTICIA_TAG = new HashSet<NOTICIA_TAG>();
         }
     
-        public int CAMA_CD_ID { get; set; }
+        public int TITA_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
-        public string CAMA_NM_NOME { get; set; }
+        public string TITA_NM_NOME { get; set; }
+        public Nullable<int> TITA_IN_TIPO { get; set; }
     
+        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<INVENTARIO> INVENTARIO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MATERIA_PRIMA> MATERIA_PRIMA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SUBCATEGORIA_MATERIA> SUBCATEGORIA_MATERIA { get; set; }
+        public virtual ICollection<NOTICIA_TAG> NOTICIA_TAG { get; set; }
     }
 }

@@ -132,6 +132,7 @@
     <Compile Include="Interfaces\Repositories\ICategoriaNotificacaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IFornecedorContatoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContaBancariaContatoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\INoticiaRepository.cs" />
     <Compile Include="Interfaces\Repositories\INotificacaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContratoSolicitacaoAprovacaoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IStatusContratoRepository.cs" />
@@ -422,6 +423,9 @@
     <Compile Include="Model\MATERIA_PRIMA_ANEXO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\MATERIA_PRIMA_FORNECEDOR.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\MATRIZ.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
@@ -437,7 +441,22 @@
     <Compile Include="Model\NOMENCLATURA_BRAS_SERVICOS.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\NOTICIA.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NOTICIA_AVALIACAO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NOTICIA_COMENTARIO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NOTICIA_TAG.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\NOTIFICACAO.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NOTIFICACAO_ANEXO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\OPORTUNIDADE_NEGOCIO.cs">
@@ -530,6 +549,9 @@
     <Compile Include="Model\STATUS_CONTRATO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\SUBCATEGORIA_MATERIA.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\SUBCATEGORIA_PRODUTO.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
@@ -582,6 +604,9 @@
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TIPO_SALARIAL.cs">
+      <DependentUpon>SystemBR_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TIPO_TAG.cs">
       <DependentUpon>SystemBR_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\TRANSPORTADORA.cs">

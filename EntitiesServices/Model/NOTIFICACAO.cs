@@ -14,6 +14,12 @@ namespace EntitiesServices.Model
     
     public partial class NOTIFICACAO
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NOTIFICACAO()
+        {
+            this.NOTIFICACAO_ANEXO = new HashSet<NOTIFICACAO_ANEXO>();
+        }
+    
         public int NOTI_CD_ID { get; set; }
         public int ASSI_CD_ID { get; set; }
         public Nullable<int> USUA_CD_ID { get; set; }
@@ -23,9 +29,16 @@ namespace EntitiesServices.Model
         public Nullable<int> NOTI_IN_ENVIADA { get; set; }
         public Nullable<int> NOTI_IN_STATUS { get; set; }
         public string NOTI_IN_TEXTO { get; set; }
+        public string NOTI_NM_TITULO { get; set; }
+        public Nullable<int> NOTI_IN_VISTA { get; set; }
+        public Nullable<System.DateTime> NOTI_DT_VALIDADE { get; set; }
+        public Nullable<int> NOTI_IN_NIVEL { get; set; }
+        public Nullable<System.DateTime> NOTI_DT_EMISSAO { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_NOTIFICACAO CATEGORIA_NOTIFICACAO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTIFICACAO_ANEXO> NOTIFICACAO_ANEXO { get; set; }
     }
 }

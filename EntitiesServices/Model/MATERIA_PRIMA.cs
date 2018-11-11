@@ -22,6 +22,7 @@ namespace EntitiesServices.Model
             this.ITEM_PEDIDO_COMPRA = new HashSet<ITEM_PEDIDO_COMPRA>();
             this.MATERIA_PRIMA_ANEXO = new HashSet<MATERIA_PRIMA_ANEXO>();
             this.MOVIMENTO_ESTOQUE_MATERIA_PRIMA = new HashSet<MOVIMENTO_ESTOQUE_MATERIA_PRIMA>();
+            this.MATERIA_PRIMA_FORNECEDOR = new HashSet<MATERIA_PRIMA_FORNECEDOR>();
         }
     
         public int MAPR_CD_ID { get; set; }
@@ -39,6 +40,15 @@ namespace EntitiesServices.Model
         public int MAPR_IN_AVISA_MINIMO { get; set; }
         public System.DateTime MAPR_DT_CADASTRO { get; set; }
         public int MAPR_IN_ATIVO { get; set; }
+        public Nullable<int> SCMA_CD_ID { get; set; }
+        public string MAPR_CD_CODIGO { get; set; }
+        public Nullable<System.DateTime> MAPR_DT_VALIDADE { get; set; }
+        public Nullable<int> MAPR_QN_ESTOQUE_INICIAL { get; set; }
+        public Nullable<int> MAPR_QN_ESTOQUE_MAXIMO { get; set; }
+        public Nullable<int> MAPR_QN_ESTOQUE_MINIMO { get; set; }
+        public Nullable<int> MAPR_QN_RESERVA_ESTOQUE { get; set; }
+        public Nullable<int> MAPR_PERDA_PROCESSAMENTO { get; set; }
+        public string MAPR_AQ_FOTO { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_MATERIA CATEGORIA_MATERIA { get; set; }
@@ -55,5 +65,8 @@ namespace EntitiesServices.Model
         public virtual UNIDADE UNIDADE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVIMENTO_ESTOQUE_MATERIA_PRIMA> MOVIMENTO_ESTOQUE_MATERIA_PRIMA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MATERIA_PRIMA_FORNECEDOR> MATERIA_PRIMA_FORNECEDOR { get; set; }
+        public virtual SUBCATEGORIA_MATERIA SUBCATEGORIA_MATERIA { get; set; }
     }
 }

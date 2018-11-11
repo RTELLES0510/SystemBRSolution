@@ -12,5 +12,7 @@ namespace ModelServices.Interfaces.Repositories
         NOTIFICACAO GetItemById(Int32 id);
         List<NOTIFICACAO> GetAllItens();
         List<NOTIFICACAO> GetAllItensAdm();
+        List<NOTIFICACAO> GetAllItensUser(Int32 id);
+        List<NOTIFICACAO> GetNotificacaoNovas(Int32 id);
     }
 }

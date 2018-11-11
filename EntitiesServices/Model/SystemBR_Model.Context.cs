@@ -149,5 +149,13 @@ namespace EntitiesServices.Model
         public virtual DbSet<CODIGO_REGIME_TRIBUTARIO> CODIGO_REGIME_TRIBUTARIO { get; set; }
         public virtual DbSet<CONTA_BANCARIA_CONTATO> CONTA_BANCARIA_CONTATO { get; set; }
         public virtual DbSet<FORNECEDOR_CONTATO> FORNECEDOR_CONTATO { get; set; }
+        public virtual DbSet<MATERIA_PRIMA_FORNECEDOR> MATERIA_PRIMA_FORNECEDOR { get; set; }
+        public virtual DbSet<NOTICIA> NOTICIA { get; set; }
+        public virtual DbSet<NOTICIA_AVALIACAO> NOTICIA_AVALIACAO { get; set; }
+        public virtual DbSet<NOTICIA_COMENTARIO> NOTICIA_COMENTARIO { get; set; }
+        public virtual DbSet<NOTICIA_TAG> NOTICIA_TAG { get; set; }
+        public virtual DbSet<NOTIFICACAO_ANEXO> NOTIFICACAO_ANEXO { get; set; }
+        public virtual DbSet<SUBCATEGORIA_MATERIA> SUBCATEGORIA_MATERIA { get; set; }
+        public virtual DbSet<TIPO_TAG> TIPO_TAG { get; set; }
     }
 }

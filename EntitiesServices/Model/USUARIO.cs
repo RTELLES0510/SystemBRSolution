@@ -19,6 +19,9 @@ namespace EntitiesServices.Model
         {
             this.LOG = new HashSet<LOG>();
             this.NOTIFICACAO = new HashSet<NOTIFICACAO>();
+            this.MOVIMENTO_ESTOQUE_MATERIA_PRIMA = new HashSet<MOVIMENTO_ESTOQUE_MATERIA_PRIMA>();
+            this.NOTICIA_AVALIACAO = new HashSet<NOTICIA_AVALIACAO>();
+            this.NOTICIA_COMENTARIO = new HashSet<NOTICIA_COMENTARIO>();
         }
     
         public int USUA_CD_ID { get; set; }
@@ -42,6 +45,7 @@ namespace EntitiesServices.Model
         public System.DateTime USUA_DT_CADASTRO { get; set; }
         public int USUA_IN_ATIVO { get; set; }
         public string USUA_AQ_FOTO { get; set; }
+        public string USUA_TX_OBSERVACOES { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual COLABORADOR COLABORADOR { get; set; }
@@ -50,5 +54,11 @@ namespace EntitiesServices.Model
         public virtual PERFIL PERFIL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NOTIFICACAO> NOTIFICACAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVIMENTO_ESTOQUE_MATERIA_PRIMA> MOVIMENTO_ESTOQUE_MATERIA_PRIMA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTICIA_AVALIACAO> NOTICIA_AVALIACAO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NOTICIA_COMENTARIO> NOTICIA_COMENTARIO { get; set; }
     }
 }

@@ -363,6 +363,30 @@
         <EntityTypeShape EntityType="SystemBRDatabaseModel.FORNECEDOR_CONTATO" Width="1.5" PointX="18" PointY="164.25" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_CONTATO_FORNECEDOR" />
         <AssociationConnector Association="SystemBRDatabaseModel.FK_FORNECEDOR_TIPO_PESSOA" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.MATERIA_PRIMA_FORNECEDOR" Width="1.5" PointX="28" PointY="156" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.NOTICIA" Width="1.5" PointX="5.25" PointY="141.25" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.NOTICIA_AVALIACAO" Width="1.5" PointX="40" PointY="137.125" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.NOTICIA_COMENTARIO" Width="1.5" PointX="41" PointY="130" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.NOTICIA_TAG" Width="1.5" PointX="7.5" PointY="141.75" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.NOTIFICACAO_ANEXO" Width="1.5" PointX="36.25" PointY="124.375" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.SUBCATEGORIA_MATERIA" Width="1.5" PointX="10.75" PointY="127.875" />
+        <EntityTypeShape EntityType="SystemBRDatabaseModel.TIPO_TAG" Width="1.5" PointX="5.25" PointY="138.375" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTICIA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SUBCATEGORIA_MATERIA_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_TIPO_TAG_ASSINANTE" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_SUBCATEGORIA_MATERIA_CATEGORIA_MATERIA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_FORNECEDOR_FORNECEDOR" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_FORNECEDOR_MATERIA_PRIMA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MATERIA_PRIMA_SUBCATEGORIA_MATERIA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_MOVIMENTO_ESTOQUE_MATERIA_PRIMA_USUARIO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTICIA_AVALIACAO_NOTICIA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTICIA_COMENTARIO_NOTICIA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTICIA_TAG_NOTICIA" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTICIA_AVALIACAO_USUARIO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTICIA_COMENTARIO_USUARIO" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTICIA_TAG_TIPO_TAG" />
+        <AssociationConnector Association="SystemBRDatabaseModel.FK_NOTIFICACAO_ANEXO_NOTIFICACAO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

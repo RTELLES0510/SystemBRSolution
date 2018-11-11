@@ -27,5 +27,8 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<USUARIO> GetAllItens();
         List<USUARIO> ExecuteFilter(Int32? perfilId, String nome, String cpf, String email);
         TEMPLATE GetTemplate(String code);
+        List<NOTIFICACAO> GetAllItensUser(Int32 id);
+        List<NOTIFICACAO> GetNotificacaoNovas(Int32 id);
+        List<NOTICIA> GetAllNoticias();
     }
 }

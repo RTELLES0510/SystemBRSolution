@@ -23,15 +23,19 @@ namespace ModelServices.EntitiesServices
         private readonly ITemplateRepository _tempRepository;
         private readonly ILogRepository _logRepository;
         private readonly IConfiguracaoRepository _configuracaoRepository;
+        private readonly INotificacaoRepository _notRepository;
+        private readonly INoticiaRepository _ntcRepository;
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, ILogRepository logRepository, IConfiguracaoRepository configuracaoRepository, IPerfilRepository perfRepository, ITemplateRepository tempRepository) : base(usuarioRepository)
+        public UsuarioService(IUsuarioRepository usuarioRepository, ILogRepository logRepository, IConfiguracaoRepository configuracaoRepository, IPerfilRepository perfRepository, ITemplateRepository tempRepository, INotificacaoRepository notRepository, INoticiaRepository ntcRepository) : base(usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
             _logRepository = logRepository;
             _configuracaoRepository = configuracaoRepository;
             _perfRepository = perfRepository;
             _tempRepository = tempRepository;
+            _notRepository = notRepository;
+            _ntcRepository = ntcRepository;
         }
 
         public USUARIO RetriveUserByEmail(String email)
@@ -185,5 +189,21 @@ namespace ModelServices.EntitiesServices
             List<PERFIL> lista = _perfRepository.GetAll().ToList();
             return lista;
         }
+
+        public List<NOTIFICACAO> GetAllItensUser(Int32 id)
+        {
+            return _notRepository.GetAllItensUser(id);
+        }
+
+        public List<NOTIFICACAO> GetNotificacaoNovas(Int32 id)
+        {
+            return _notRepository.GetNotificacaoNovas(id);
+        }
+
+        public List<NOTICIA> GetAllNoticias()
+        {
+            return _ntcRepository.GetAllItens();
+        }
+
     }
 }

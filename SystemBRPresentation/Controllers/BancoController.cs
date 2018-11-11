@@ -107,7 +107,11 @@ namespace SystemBRPresentation.Controllers
 
         public ActionResult Voltar()
         {
-            return RedirectToAction("CarregarCadastroBasico", "BaseCadastroBasico");
+            if (SessionMocks.UserCredentials.PERFIL.PERF_SG_SIGLA == "ADM")
+            {
+                return RedirectToAction("CarregarAdmin", "BaseAdmin");
+            }
+            return RedirectToAction("Index", "Banco");
         }
 
         public ActionResult RetirarFiltro()

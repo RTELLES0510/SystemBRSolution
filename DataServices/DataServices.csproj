@@ -127,6 +127,7 @@
     <Compile Include="Repositories\CategoriaNotificacaoRepository.cs" />
     <Compile Include="Repositories\FornecedorContatoRepository.cs" />
     <Compile Include="Repositories\ContaBancariaContatoRepository.cs" />
+    <Compile Include="Repositories\NoticiaRepository.cs" />
     <Compile Include="Repositories\NotificacaoRepository.cs" />
     <Compile Include="Repositories\ContratoSolicitacaoAprovacaoRepository.cs" />
     <Compile Include="Repositories\StatusContratoRepository.cs" />
