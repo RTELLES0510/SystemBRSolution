@@ -51,12 +51,12 @@
                                     @Html.HiddenFor(m => m.PATR_IN_ATIVO)
                                     @Html.HiddenFor(m => m.MATR_CD_ID)
                                     Categoria*
-                                    @Html.DropDownListFor(m => m.CAPA_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control" })                            
+                                    @Html.DropDownListFor(m => m.CAPA_CD_ID, (SelectList)ViewBag.Tipos, "Selecionar", new { @class = "form-control", autofocus = true })                            
                                     @Html.ValidationMessageFor(m => m.CAPA_CD_ID, "",new { @style="color:red" })
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-xs-12">
                                     Filial
-                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" })                            
+                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" , autofocus = true})                            
                                     @Html.ValidationMessageFor(m => m.FILI_CD_ID, "",new { @style="color:red" })
                                 </div>
                             </div>

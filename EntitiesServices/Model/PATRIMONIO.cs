@@ -36,6 +36,7 @@ namespace EntitiesServices.Model
         public int PATR_IN_ATIVO { get; set; }
         public System.DateTime PATR_DT_CADASTRO { get; set; }
         public string PATR_AQ_FOTO { get; set; }
+        public string PATR_TX_OBSERVACOES { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_PATRIMONIO CATEGORIA_PATRIMONIO { get; set; }

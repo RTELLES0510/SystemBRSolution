@@ -21,6 +21,8 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<PATRIMONIO> GetAllItens();
         List<PATRIMONIO> GetAllItensAdm();
         List<CATEGORIA_PATRIMONIO> GetAllTipos();
+        List<PATRIMONIO> CalcularDepreciados();
+        List<PATRIMONIO> CalcularBaixados();
         List<FILIAL> GetAllFilial();
         PATRIMONIO_ANEXO GetAnexoById(Int32 id);
         List<PATRIMONIO> ExecuteFilter(Int32? catId, String nome, String numero, Int32? filiId);

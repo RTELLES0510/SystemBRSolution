@@ -13,6 +13,8 @@ namespace ModelServices.Interfaces.Repositories
         PATRIMONIO GetByNumero(String numero);
         PATRIMONIO GetItemById(Int32 id);
         List<PATRIMONIO> GetAllItens();
+        List<PATRIMONIO> CalcularDepreciados();
+        List<PATRIMONIO> CalcularBaixados();
         List<PATRIMONIO> GetAllItensAdm();
         List<PATRIMONIO> ExecuteFilter(Int32? catId, String nome, String numero, Int32? filiId);
     }

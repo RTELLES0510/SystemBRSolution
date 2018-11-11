@@ -41,6 +41,9 @@ namespace SystemBRPresentation.ViewModels
         public int PATR_IN_ATIVO { get; set; }
         public System.DateTime PATR_DT_CADASTRO { get; set; }
         public string PATR_AQ_FOTO { get; set; }
+        public string PATR_TX_OBSERVACOES { get; set; }
+
+
         [Required(ErrorMessage = "Campo VALOR obrigatorio")]
         [RegularExpression(@"^[0-9]+([,][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<decimal> Valor

@@ -58,6 +58,16 @@ namespace ModelServices.EntitiesServices
             return _baseRepository.GetAllItens();
         }
 
+        public List<PATRIMONIO> CalcularDepreciados()
+        {
+            return _baseRepository.CalcularDepreciados();
+        }
+
+        public List<PATRIMONIO> CalcularBaixados()
+        {
+            return _baseRepository.CalcularBaixados();
+        }
+
         public List<PATRIMONIO> GetAllItensAdm()
         {
             return _baseRepository.GetAllItensAdm();

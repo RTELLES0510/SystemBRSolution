@@ -1142,6 +1142,7 @@
           <Property Name="PATR_IN_ATIVO" Type="int" Nullable="false" />
           <Property Name="PATR_DT_CADASTRO" Type="date" Nullable="false" />
           <Property Name="PATR_AQ_FOTO" Type="varchar" MaxLength="150" />
+          <Property Name="PATR_TX_OBSERVACOES" Type="text" />
         </EntityType>
         <EntityType Name="PATRIMONIO_ANEXO">
           <Key>
@@ -7026,6 +7027,7 @@
           <NavigationProperty Name="FILIAL" Relationship="Self.FK_PATRIMONIO_FILIAL" FromRole="PATRIMONIO" ToRole="FILIAL" />
           <NavigationProperty Name="MATRIZ" Relationship="Self.FK_PATRIMONIO_MATRIZ" FromRole="PATRIMONIO" ToRole="MATRIZ" />
           <NavigationProperty Name="PATRIMONIO_ANEXO" Relationship="Self.FK_PATRIMONIO_ANEXO_PATRIMONIO" FromRole="PATRIMONIO" ToRole="PATRIMONIO_ANEXO" />
+          <Property Name="PATR_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PATRIMONIO_ANEXO">
           <Key>
@@ -12885,6 +12887,7 @@
           <EntitySetMapping Name="PATRIMONIO">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.PATRIMONIO">
               <MappingFragment StoreEntitySet="PATRIMONIO">
+                <ScalarProperty Name="PATR_TX_OBSERVACOES" ColumnName="PATR_TX_OBSERVACOES" />
                 <ScalarProperty Name="PATR_CD_ID" ColumnName="PATR_CD_ID" />
                 <ScalarProperty Name="ASSI_CD_ID" ColumnName="ASSI_CD_ID" />
                 <ScalarProperty Name="MATR_CD_ID" ColumnName="MATR_CD_ID" />

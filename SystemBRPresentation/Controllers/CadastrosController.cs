@@ -3111,7 +3111,9 @@ namespace SystemBRPresentation.Controllers
 
             // Indicadores
             ViewBag.Patrimonios = patrApp.GetAllItens().Count;
-            
+            ViewBag.Depreciados = patrApp.CalcularDepreciados().Count;
+            ViewBag.Baixados = patrApp.CalcularBaixados().Count;
+
             // Abre view
             objetoPatr = new PATRIMONIO();
             SessionMocks.voltaPatrimonio = 1;
@@ -4101,7 +4103,16 @@ namespace SystemBRPresentation.Controllers
             EquipamentoViewModel vm = Mapper.Map<EQUIPAMENTO, EquipamentoViewModel>(item);
             return View(vm);
         }
-        
+
+        public ActionResult SlideShowPatrimonio()
+        {
+            // Prepara view
+            PATRIMONIO item = patrApp.GetItemById(SessionMocks.idVolta);
+            objetoPatrAntes = item;
+            PatrimonioViewModel vm = Mapper.Map<PATRIMONIO, PatrimonioViewModel>(item);
+            return View(vm);
+        }
+
         [HttpGet]
         public ActionResult SlideShowCliente()
         {

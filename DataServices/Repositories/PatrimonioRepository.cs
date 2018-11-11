@@ -53,6 +53,30 @@ namespace DataServices.Repositories
             return query.ToList();
         }
 
+        public List<PATRIMONIO> CalcularDepreciados()
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<PATRIMONIO> query = Db.PATRIMONIO.Where(p => p.PATR_IN_ATIVO == 1);
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => DbFunctions.AddDays(p.PATR_DT_COMPRA.Value, p.PATR_NR_VIDA_UTIL.Value) < DateTime.Today);
+            query = query.Include(p => p.ASSINANTE);
+            query = query.Include(p => p.MATRIZ);
+            query = query.Include(p => p.FILIAL);
+            return query.ToList();
+        }
+
+        public List<PATRIMONIO> CalcularBaixados()
+        {
+            Int32? idAss = SessionMocks.IdAssinante;
+            IQueryable<PATRIMONIO> query = Db.PATRIMONIO.Where(p => p.PATR_IN_ATIVO == 1);
+            query = query.Where(p => p.ASSI_CD_ID == idAss);
+            query = query.Where(p => p.PATR_DT_BAIXA != null);
+            query = query.Include(p => p.ASSINANTE);
+            query = query.Include(p => p.MATRIZ);
+            query = query.Include(p => p.FILIAL);
+            return query.ToList();
+        }
+
         public List<PATRIMONIO> GetAllItensAdm()
         {
             Int32? idAss = SessionMocks.IdAssinante;

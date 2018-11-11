@@ -27,6 +27,18 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public List<PATRIMONIO> CalcularDepreciados()
+        {
+            List<PATRIMONIO> lista = _baseService.CalcularDepreciados();
+            return lista;
+        }
+
+        public List<PATRIMONIO> CalcularBaixados()
+        {
+            List<PATRIMONIO> lista = _baseService.CalcularBaixados();
+            return lista;
+        }
+
         public List<PATRIMONIO> GetAllItensAdm()
         {
             List<PATRIMONIO> lista = _baseService.GetAllItensAdm();

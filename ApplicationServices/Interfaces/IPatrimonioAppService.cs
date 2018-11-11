@@ -21,6 +21,8 @@ namespace ApplicationServices.Interfaces
         PATRIMONIO CheckExist(PATRIMONIO conta);
         List<CATEGORIA_PATRIMONIO> GetAllTipos();
         List<FILIAL> GetAllFilial();
+        List<PATRIMONIO> CalcularDepreciados();
+        List<PATRIMONIO> CalcularBaixados();
         PATRIMONIO_ANEXO GetAnexoById(Int32 id);
         Int32 ExecuteFilter(Int32? catId, String nome, String nuemro, Int32? filiId, out List<PATRIMONIO> objeto);
         Int32 CalcularDiasDepreciacao(PATRIMONIO item);
