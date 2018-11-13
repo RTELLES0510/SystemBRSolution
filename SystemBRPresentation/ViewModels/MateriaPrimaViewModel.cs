@@ -29,7 +29,7 @@ namespace SystemBRPresentation.ViewModels
         [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public int MAPR_QN_QUANTIDADE_M { get; set; }
         [Required(ErrorMessage = "Campo QUANTIDADE INICIAL obrigatorio")]
-        //[RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public int MAPR_QN_QUANTIDADE_INICIAL { get; set; }
         [Required(ErrorMessage = "Campo QUANTIDADE ESTOQUE obrigatorio")]
         [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
@@ -40,6 +40,23 @@ namespace SystemBRPresentation.ViewModels
         public int MAPR_IN_AVISA_MINIMO { get; set; }
         public System.DateTime MAPR_DT_CADASTRO { get; set; }
         public int MAPR_IN_ATIVO { get; set; }
+        public Nullable<int> SCMA_CD_ID { get; set; }
+        [Required(ErrorMessage = "Campo CÓDIGO obrigatorio")]
+        public string MAPR_CD_CODIGO { get; set; }
+        public Nullable<System.DateTime> MAPR_DT_VALIDADE { get; set; }
+        [Required(ErrorMessage = "Campo ESTOQUE INICIAL obrigatorio")]
+        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        public Nullable<int> MAPR_QN_ESTOQUE_INICIAL { get; set; }
+        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        public Nullable<int> MAPR_QN_ESTOQUE_MAXIMO { get; set; }
+        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        public Nullable<int> MAPR_QN_ESTOQUE_MINIMO { get; set; }
+        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        public Nullable<int> MAPR_QN_RESERVA_ESTOQUE { get; set; }
+        [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
+        public Nullable<int> MAPR_PERDA_PROCESSAMENTO { get; set; }
+        public string MAPR_AQ_FOTO { get; set; }
+
         public bool AvisaMinima
         {
             get
@@ -56,19 +73,23 @@ namespace SystemBRPresentation.ViewModels
             }
         }
 
+        public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_MATERIA CATEGORIA_MATERIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FICHA_TECNICA_DETALHE> FICHA_TECNICA_DETALHE { get; set; }
         public virtual FILIAL FILIAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<INVENTARIO_ITEM> INVENTARIO_ITEM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ITEM_PEDIDO_COMPRA> ITEM_PEDIDO_COMPRA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MATERIA_PRIMA_ANEXO> MATERIA_PRIMA_ANEXO { get; set; }
         public virtual MATRIZ MATRIZ { get; set; }
         public virtual UNIDADE UNIDADE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVIMENTO_ESTOQUE_MATERIA_PRIMA> MOVIMENTO_ESTOQUE_MATERIA_PRIMA { get; set; }
-        public virtual ASSINANTE ASSINANTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MATERIA_PRIMA_ANEXO> MATERIA_PRIMA_ANEXO { get; set; }
-
+        public virtual ICollection<MATERIA_PRIMA_FORNECEDOR> MATERIA_PRIMA_FORNECEDOR { get; set; }
+        public virtual SUBCATEGORIA_MATERIA SUBCATEGORIA_MATERIA { get; set; }
     }
 }
