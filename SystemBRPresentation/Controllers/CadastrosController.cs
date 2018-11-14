@@ -4130,6 +4130,16 @@ namespace SystemBRPresentation.Controllers
         }
 
         [HttpGet]
+        public ActionResult SlideShowMateria()
+        {
+            // Prepara view
+            MATERIA_PRIMA item = matApp.GetItemById(SessionMocks.idVolta);
+            objetoMatAntes = item;
+            MateriaPrimaViewModel vm = Mapper.Map<MATERIA_PRIMA, MateriaPrimaViewModel>(item);
+            return View(vm);
+        }
+
+        [HttpGet]
         public ActionResult SlideShowFornecedor()
         {
             // Prepara view

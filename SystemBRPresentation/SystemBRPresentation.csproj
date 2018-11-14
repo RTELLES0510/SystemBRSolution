@@ -606,6 +606,12 @@
     <Content Include="Imagens\2\Filial\7\Logo\1.jpg" />
     <Content Include="Imagens\2\Fornecedores\1\Anexos\19510399_1932133873700401_942801202603797565_n.jpg" />
     <Content Include="Imagens\2\Fornecedores\1\Fotos\a7.jpg" />
+    <Content Include="Imagens\2\Materia\1\Fotos\p5.jpg" />
+    <Content Include="Imagens\2\Materia\2\Fotos\p5.jpg" />
+    <Content Include="Imagens\2\Materia\3\Fotos\p5.jpg" />
+    <Content Include="Imagens\2\Materia\4\Fotos\p5.jpg" />
+    <Content Include="Imagens\2\Materia\5\Fotos\p5.jpg" />
+    <Content Include="Imagens\2\Materia\6\Fotos\p5.jpg" />
     <Content Include="Imagens\2\Matriz\1\Logo\1.jpg" />
     <Content Include="Imagens\2\Matriz\1\Logo\5.jpg" />
     <Content Include="Imagens\2\Matriz\1\Logo\5.png" />
@@ -2191,6 +2197,7 @@
     <Content Include="Views\Cadastros\SlideShowEquipamento.cshtml" />
     <Content Include="Views\Cadastros\SlideShowPatrimonio.cshtml" />
     <Content Include="Views\Cadastros\IncluirMateria - Cópia .cshtml" />
+    <Content Include="Views\Cadastros\SlideShowMateria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2205,9 +2212,11 @@
     <Folder Include="Imagens\2\Fornecedores\3\Anexos\" />
     <Folder Include="Imagens\2\Fornecedores\3\Fotos\" />
     <Folder Include="Imagens\2\Materia\1\Anexos\" />
-    <Folder Include="Imagens\2\Materia\1\Fotos\" />
     <Folder Include="Imagens\2\Materia\2\Anexos\" />
-    <Folder Include="Imagens\2\Materia\2\Fotos\" />
+    <Folder Include="Imagens\2\Materia\3\Anexos\" />
+    <Folder Include="Imagens\2\Materia\4\Anexos\" />
+    <Folder Include="Imagens\2\Materia\5\Anexos\" />
+    <Folder Include="Imagens\2\Materia\6\Anexos\" />
     <Folder Include="Imagens\2\Patrimonio\2\Anexos\" />
     <Folder Include="Imagens\2\Patrimonio\2\Fotos\" />
     <Folder Include="Imagens\2\Patrimonio\3\Anexos\" />

@@ -50,6 +50,7 @@ namespace EntitiesServices.Model
         public Nullable<int> MAPR_PERDA_PROCESSAMENTO { get; set; }
         public string MAPR_AQ_FOTO { get; set; }
         public string MAPR_TX_OBSERVACOES { get; set; }
+        public Nullable<int> MAPR_NR_FATOR_CONVERSAO { get; set; }
     
         public virtual ASSINANTE ASSINANTE { get; set; }
         public virtual CATEGORIA_MATERIA CATEGORIA_MATERIA { get; set; }

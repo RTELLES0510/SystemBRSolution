@@ -182,6 +182,7 @@ namespace Presentation.Start
             kernel.Bind<IContaBancariaContatoRepository>().To<ContaBancariaContatoRepository>();
             kernel.Bind<IFornecedorContatoRepository>().To<FornecedorContatoRepository>();
             kernel.Bind<INoticiaRepository>().To<NoticiaRepository>();
+            kernel.Bind<ISubcategoriaMateriaRepository>().To<SubcategoriaMateriaRepository>();
         }
     }
 }
