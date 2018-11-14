@@ -25,10 +25,11 @@ namespace ModelServices.EntitiesServices
         private readonly IFilialRepository _filialRepository;
         private readonly IUnidadeRepository _unidRepository;
         private readonly IMovimentoEstoqueMateriaRepository _movRepository;
+        private readonly ISubcategoriaMateriaRepository _subRepository;
 
         protected SystemBRDatabaseEntities Db = new SystemBRDatabaseEntities();
 
-        public MateriaPrimaService(IMateriaPrimaRepository baseRepository, ILogRepository logRepository, ICategoriaMateriaPrimaRepository tipoRepository, IMateriaPrimaAnexoRepository anexoRepository, IFilialRepository filialRepository, IUnidadeRepository unidRepository, IMovimentoEstoqueMateriaRepository movRepository) : base(baseRepository)
+        public MateriaPrimaService(IMateriaPrimaRepository baseRepository, ILogRepository logRepository, ICategoriaMateriaPrimaRepository tipoRepository, IMateriaPrimaAnexoRepository anexoRepository, IFilialRepository filialRepository, IUnidadeRepository unidRepository, IMovimentoEstoqueMateriaRepository movRepository, ISubcategoriaMateriaRepository subRepository) : base(baseRepository)
         {
             _baseRepository = baseRepository;
             _logRepository = logRepository;
@@ -37,6 +38,7 @@ namespace ModelServices.EntitiesServices
             _filialRepository = filialRepository;
             _unidRepository = unidRepository;
             _movRepository = movRepository;
+            _subRepository = subRepository;
         }
 
         public MATERIA_PRIMA CheckExist(MATERIA_PRIMA conta)
@@ -72,6 +74,11 @@ namespace ModelServices.EntitiesServices
             return _tipoRepository.GetAllItens();
         }
 
+        public List<SUBCATEGORIA_MATERIA> GetAllTiposSub()
+        {
+            return _subRepository.GetAllItens();
+        }
+
         public List<UNIDADE> GetAllUnidades()
         {
             return _unidRepository.GetAllItens();
@@ -87,9 +94,9 @@ namespace ModelServices.EntitiesServices
             return _anexoRepository.GetItemById(id);
         }
 
-        public List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId)
+        public List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, String codigo)
         {
-            return _baseRepository.ExecuteFilter(catId, nome, descricao, filiId);
+            return _baseRepository.ExecuteFilter(catId, nome, descricao, codigo);
 
         }
 

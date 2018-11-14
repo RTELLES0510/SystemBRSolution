@@ -24,6 +24,7 @@ namespace ModelServices.Interfaces.EntitiesServices
         List<UNIDADE> GetAllUnidades();
         List<FILIAL> GetAllFilial();
         MATERIA_PRIMA_ANEXO GetAnexoById(Int32 id);
-        List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId);
+        List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, String codigo);
+        List<SUBCATEGORIA_MATERIA> GetAllTiposSub();
     }
 }

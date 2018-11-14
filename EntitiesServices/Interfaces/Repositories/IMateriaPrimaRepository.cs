@@ -14,6 +14,6 @@ namespace ModelServices.Interfaces.Repositories
         MATERIA_PRIMA GetItemById(Int32 id);
         List<MATERIA_PRIMA> GetAllItens();
         List<MATERIA_PRIMA> GetAllItensAdm();
-        List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId);
+        List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, String codigo);
     }
 }

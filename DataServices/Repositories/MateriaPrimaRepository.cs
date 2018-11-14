@@ -64,12 +64,12 @@ namespace DataServices.Repositories
             return query.ToList();
         }
 
-        public List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId)
+        public List<MATERIA_PRIMA> ExecuteFilter(Int32? catId, String nome, String descricao, String codigo)
         {
             Int32? idAss = SessionMocks.IdAssinante;
             List<MATERIA_PRIMA> lista = new List<MATERIA_PRIMA>();
             IQueryable<MATERIA_PRIMA> query = Db.MATERIA_PRIMA;
-            if (catId != null)
+            if (catId != 0)
             {
                 query = query.Where(p => p.CATEGORIA_MATERIA.CAMA_CD_ID == catId);
             }
@@ -81,9 +81,9 @@ namespace DataServices.Repositories
             {
                 query = query.Where(p => p.MAPR_DS_DESCRICAO.Contains(descricao));
             }
-            if (filiId != null)
+            if (!String.IsNullOrEmpty(codigo))
             {
-                query = query.Where(p => p.FILIAL.FILI_CD_ID == filiId);
+                query = query.Where(p => p.MAPR_CD_CODIGO == codigo);
             }
 
             if (query != null)

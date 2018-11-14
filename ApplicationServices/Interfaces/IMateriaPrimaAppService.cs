@@ -23,6 +23,7 @@ namespace ApplicationServices.Interfaces
         List<UNIDADE> GetAllUnidades();
         List<FILIAL> GetAllFilial();
         MATERIA_PRIMA_ANEXO GetAnexoById(Int32 id);
-        Int32 ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId, out List<MATERIA_PRIMA> objeto);
+        Int32 ExecuteFilter(Int32? catId, String nome, String descricao, String codigo, out List<MATERIA_PRIMA> objeto);
+        List<SUBCATEGORIA_MATERIA> GetAllTiposSub();
     }
 }

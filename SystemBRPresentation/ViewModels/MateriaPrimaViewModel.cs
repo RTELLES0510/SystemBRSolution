@@ -56,6 +56,7 @@ namespace SystemBRPresentation.ViewModels
         [RegularExpression(@"^[0-9]+([,.][0-9]+)?$", ErrorMessage = "Deve ser um valor numérico positivo")]
         public Nullable<int> MAPR_PERDA_PROCESSAMENTO { get; set; }
         public string MAPR_AQ_FOTO { get; set; }
+        public string MAPR_TX_OBSERVACOES { get; set; }
 
         public bool AvisaMinima
         {

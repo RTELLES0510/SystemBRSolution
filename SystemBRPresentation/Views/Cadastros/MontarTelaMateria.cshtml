@@ -23,7 +23,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-primary pull-right">Hoje</span>
-                    <h5>Matéria-Prima</h5>
+                    <h5>Insumos</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">@ViewBag.Materias</h1>
@@ -78,8 +78,8 @@
                                     @Html.TextBoxFor(m => m.MAPR_DS_DESCRICAO, new { @class = "form-control", autofocus = true })
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-12">
-                                    Filial
-                                    @Html.DropDownListFor(m => m.FILI_CD_ID, (SelectList)ViewBag.Filiais, "Selecionar", new { @class = "form-control" })                            
+                                    Código
+                                    @Html.TextBoxFor(m => m.MAPR_CD_CODIGO, new { @class = "form-control", autofocus = true })
                                 </div>
                             </div>
                             <div class="form-group" style=" margin-left: -15px; margin-right: -15px;">
@@ -130,6 +130,7 @@
                                     <thead>
                                         <tr>
                                             <th>Categoria</th>   
+                                            <th>Código</th>   
                                             <th>Nome</th>   
                                             <th>Unidade</th>
                                             <th>Quant.Mínima</th>
@@ -142,6 +143,7 @@
                                         {
                                             <tr>
                                                 <td>@cond.CATEGORIA_MATERIA.CAMA_NM_NOME</td>
+                                                <td>@cond.MAPR_CD_CODIGO</td>
                                                 <td>@cond.MAPR_NM_NOME</td>
                                                 <td>@cond.UNIDADE.UNID_NM_NOME</td>
                                                 <td>@cond.MAPR_QN_QUANTIDADE_M</td>

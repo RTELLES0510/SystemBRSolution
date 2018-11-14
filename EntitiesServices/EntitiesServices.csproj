@@ -143,6 +143,7 @@
     <Compile Include="Interfaces\Repositories\IContratoAnexoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICentroCustoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPlanoContaRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISubcategoriaMateriaRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITamanhoRepository.cs" />
     <Compile Include="Interfaces\Repositories\ISubcategoriaProdutoRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProdutoGradeRepository.cs" />

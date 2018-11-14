@@ -1884,6 +1884,7 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
             ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Sub = new SelectList(matApp.GetAllTiposSub(), "SCMA_CD_ID", "SCMA_NM_NOME");
 
             // Indicadores
             ViewBag.Materias = matApp.GetAllItens().Count;
@@ -1929,7 +1930,7 @@ namespace SystemBRPresentation.Controllers
                 // Executa a operação
                 List<MATERIA_PRIMA> listaObj = new List<MATERIA_PRIMA>();
                 SessionMocks.filtroMateria = item;
-                Int32 volta = matApp.ExecuteFilter(item.CAMA_CD_ID, item.MAPR_NM_NOME, item.MAPR_DS_DESCRICAO, item.FILI_CD_ID, out listaObj);
+                Int32 volta = matApp.ExecuteFilter(item.CAMA_CD_ID, item.MAPR_NM_NOME, item.MAPR_DS_DESCRICAO, item.MAPR_CD_CODIGO, out listaObj);
 
                 // Verifica retorno
                 if (volta == 1)
@@ -1971,6 +1972,7 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
             ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Sub = new SelectList(matApp.GetAllTiposSub(), "SCMA_CD_ID", "SCMA_NM_NOME");
 
             // Prepara view
             USUARIO usuario = SessionMocks.UserCredentials;
@@ -1980,7 +1982,6 @@ namespace SystemBRPresentation.Controllers
             vm.MAPR_DT_CADASTRO = DateTime.Today;
             vm.MAPR_IN_ATIVO = 1;
             vm.MATR_CD_ID = SessionMocks.Matriz.MATR_CD_ID;
-            vm.FILI_CD_ID = usuario.COLABORADOR.FILI_CD_ID;
             return View(vm);
         }
 
@@ -1991,6 +1992,7 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
             ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Sub = new SelectList(matApp.GetAllTiposSub(), "SCMA_CD_ID", "SCMA_NM_NOME");
             if (ModelState.IsValid)
             {
                 try
@@ -2007,8 +2009,14 @@ namespace SystemBRPresentation.Controllers
                         return View(vm);
                     }
 
+                    // Carrega foto e processa alteracao
+                    item.MAPR_AQ_FOTO = "~/Imagens/Base/FotoBase.jpg";
+                    volta = matApp.ValidateEdit(item, item, usuarioLogado);
+
                     // Cria pastas
-                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Materia/" + item.MAPR_CD_ID.ToString() + "/Anexos/";
+                    String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Materia/" + item.MAPR_CD_ID.ToString() + "/Fotos/";
+                    Directory.CreateDirectory(Server.MapPath(caminho));
+                    caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Materia/" + item.MAPR_CD_ID.ToString() + "/Anexos/";
                     Directory.CreateDirectory(Server.MapPath(caminho));
                     
                     // Sucesso
@@ -2039,6 +2047,7 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
             ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Sub = new SelectList(matApp.GetAllTiposSub(), "SCMA_CD_ID", "SCMA_NM_NOME");
             MATERIA_PRIMA item = matApp.GetItemById(id);
             objetoMatAntes = item;
             SessionMocks.materiaPrima = item;
@@ -2054,10 +2063,11 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Tipos = new SelectList(matApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
             ViewBag.Filiais = new SelectList(matApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(matApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
-            //if (ModelState.IsValid)
-            //{
+            ViewBag.Sub = new SelectList(matApp.GetAllTiposSub(), "SCMA_CD_ID", "SCMA_NM_NOME");
+            if (ModelState.IsValid)
+            {
                 try
-                {
+            {
                     // Executa a operação
                     USUARIO usuarioLogado = SessionMocks.UserCredentials;
                     MATERIA_PRIMA item = Mapper.Map<MateriaPrimaViewModel, MATERIA_PRIMA>(vm);
@@ -2079,11 +2089,11 @@ namespace SystemBRPresentation.Controllers
                     ViewBag.Message = ex.Message;
                     return View(vm);
                 }
-            //}
-            //else
-            //{
-            //    return View(vm);
-            //}
+            }
+            else
+            {
+                return View(vm);
+            }
         }
 
         [HttpGet]
@@ -2171,6 +2181,7 @@ namespace SystemBRPresentation.Controllers
             ViewBag.Tipos = new SelectList(prodApp.GetAllTipos(), "CAMA_CD_ID", "CAMA_NM_NOME");
             ViewBag.Filiais = new SelectList(prodApp.GetAllFilial(), "FILI_CD_ID", "FILI_NM_NOME");
             ViewBag.Unidades = new SelectList(prodApp.GetAllUnidades(), "UNID_CD_ID", "UNID_NM_NOME");
+            ViewBag.Sub = new SelectList(matApp.GetAllTiposSub(), "SCMA_CD_ID", "SCMA_NM_NOME");
 
             // Indicadores
             ViewBag.Materias = matApp.GetAllItens().Count;
@@ -2261,6 +2272,35 @@ namespace SystemBRPresentation.Controllers
             foto.MAPR_D_ID = item.MAPR_CD_ID;
 
             item.MATERIA_PRIMA_ANEXO.Add(foto);
+            objetoMatAntes = item;
+            Int32 volta = matApp.ValidateEdit(item, objetoMatAntes);
+            return RedirectToAction("VoltarAnexoMateria");
+        }
+
+        [HttpPost]
+        public ActionResult UploadFotoMateria(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return Content("Nenhum arquivo selecionado");
+
+            MATERIA_PRIMA item = matApp.GetById(SessionMocks.idVolta);
+            USUARIO usu = SessionMocks.UserCredentials;
+            var fileName = Path.GetFileName(file.FileName);
+            if (fileName.Length > 100)
+            {
+                ViewBag.Message = SystemBR_Resource.ResourceManager.GetString("M0041", CultureInfo.CurrentCulture);
+                return RedirectToAction("VoltarAnexoMateria");
+            }
+            String caminho = "/Imagens/" + SessionMocks.IdAssinante.Value.ToString() + "/Materia/" + item.MAPR_CD_ID.ToString() + "/Fotos/";
+            String path = Path.Combine(Server.MapPath(caminho), fileName);
+            file.SaveAs(path);
+
+            //Recupera tipo de arquivo
+            extensao = Path.GetExtension(fileName);
+            String a = extensao;
+
+            // Gravar registro
+            item.MAPR_AQ_FOTO = "~" + caminho + fileName;
             objetoMatAntes = item;
             Int32 volta = matApp.ValidateEdit(item, objetoMatAntes);
             return RedirectToAction("VoltarAnexoMateria");

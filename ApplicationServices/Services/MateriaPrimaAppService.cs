@@ -59,6 +59,12 @@ namespace ApplicationServices.Services
             return lista;
         }
 
+        public List<SUBCATEGORIA_MATERIA> GetAllTiposSub()
+        {
+            List<SUBCATEGORIA_MATERIA> lista = _baseService.GetAllTiposSub();
+            return lista;
+        }
+
         public List<UNIDADE> GetAllUnidades()
         {
             List<UNIDADE> lista = _baseService.GetAllUnidades();
@@ -77,7 +83,7 @@ namespace ApplicationServices.Services
             return lista;
         }
 
-        public Int32 ExecuteFilter(Int32? catId, String nome, String descricao, Int32? filiId, out List<MATERIA_PRIMA> objeto)
+        public Int32 ExecuteFilter(Int32? catId, String nome, String descricao, String codigo, out List<MATERIA_PRIMA> objeto)
         {
             try
             {
@@ -85,7 +91,7 @@ namespace ApplicationServices.Services
                 Int32 volta = 0;
 
                 // Processa filtro
-                objeto = _baseService.ExecuteFilter(catId, nome, descricao, filiId);
+                objeto = _baseService.ExecuteFilter(catId, nome, descricao, codigo);
                 if (objeto.Count == 0)
                 {
                     volta = 1;
@@ -126,7 +132,7 @@ namespace ApplicationServices.Services
                     LOG_TX_REGISTRO = Serialization.SerializeJSON<MATERIA_PRIMA>(item)
                 };
 
-                // Persiste produto
+                // Persiste insumo
                 Int32 volta = _baseService.Create(item, log, movto);
 
                 // Monta movimento estoque

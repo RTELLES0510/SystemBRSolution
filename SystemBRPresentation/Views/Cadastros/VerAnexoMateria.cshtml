@@ -5,13 +5,29 @@
 }
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="page-title"> 
-        <h3 class="title">Matérias-Primas</h3> 
+        <h3 class="title">Insumos</h3> 
+        <br />
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("CarregarAdmin", "BaseAdmin")">Dashboard</a>
+            </li>
+            <li>
+                <a href="@Url.Action("MontarTelaMateria", "Cadastros")">Insumos</a>
+            </li>
+            <li>
+                <a href="@Url.Action("EditarMateria", "Cadastros")">Insumos - Edição</a>
+            </li>
+            <li class="active">
+                <strong>Insumos - Ver Anexo</strong>
+            </li>
+        </ol>
+        <br />
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-xs-12 ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Matéria-Prima - Ver Anexo</h5>
+                    <h5>Insumos - Ver Anexo</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

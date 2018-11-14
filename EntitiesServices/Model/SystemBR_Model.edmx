@@ -986,6 +986,7 @@
           <Property Name="MAPR_QN_RESERVA_ESTOQUE" Type="int" />
           <Property Name="MAPR_PERDA_PROCESSAMENTO" Type="int" />
           <Property Name="MAPR_AQ_FOTO" Type="varchar" MaxLength="250" />
+          <Property Name="MAPR_TX_OBSERVACOES" Type="text" />
         </EntityType>
         <EntityType Name="MATERIA_PRIMA_ANEXO">
           <Key>
@@ -7206,6 +7207,7 @@
           <Property Name="MAPR_AQ_FOTO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MATERIA_PRIMA_FORNECEDOR" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_FORNECEDOR_MATERIA_PRIMA" FromRole="MATERIA_PRIMA" ToRole="MATERIA_PRIMA_FORNECEDOR" />
           <NavigationProperty Name="SUBCATEGORIA_MATERIA" Relationship="SystemBRDatabaseModel.FK_MATERIA_PRIMA_SUBCATEGORIA_MATERIA" FromRole="MATERIA_PRIMA" ToRole="SUBCATEGORIA_MATERIA" />
+          <Property Name="MAPR_TX_OBSERVACOES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MATERIA_PRIMA_ANEXO">
           <Key>
@@ -13492,6 +13494,7 @@
           <EntitySetMapping Name="MATERIA_PRIMA">
             <EntityTypeMapping TypeName="SystemBRDatabaseModel.MATERIA_PRIMA">
               <MappingFragment StoreEntitySet="MATERIA_PRIMA">
+                <ScalarProperty Name="MAPR_TX_OBSERVACOES" ColumnName="MAPR_TX_OBSERVACOES" />
                 <ScalarProperty Name="MAPR_AQ_FOTO" ColumnName="MAPR_AQ_FOTO" />
                 <ScalarProperty Name="MAPR_PERDA_PROCESSAMENTO" ColumnName="MAPR_PERDA_PROCESSAMENTO" />
                 <ScalarProperty Name="MAPR_QN_RESERVA_ESTOQUE" ColumnName="MAPR_QN_RESERVA_ESTOQUE" />
